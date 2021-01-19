@@ -32,5 +32,6 @@ module.exports = {
 		// production 환경에서는 on 으로 되어있어야 함.
 		'no-console': 'off',
 		'arrow-parens': ['error', 'always'],
+		'prettier/prettier': 'off',
 	},
 };
