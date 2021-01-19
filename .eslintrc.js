@@ -27,11 +27,8 @@ module.exports = {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
-		'import/prefer-default-export': 'off',
-		'no-mixed-spaces-and-tabs': 'off',
-		'no-use-before-define': 'off',
 		'@typescript-eslint/no-use-before-define': ['error'],
-		'linebreak-style': 0,
+		'no-use-before-define': 'off',
 		// production 환경에서는 on 으로 되어있어야 함.
 		'no-console': 'off',
 		'arrow-parens': ['error', 'always'],
