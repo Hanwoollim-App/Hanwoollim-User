@@ -32,6 +32,9 @@ module.exports = {
 		// production 환경에서는 on 으로 되어있어야 함.
 		'no-console': 'off',
 		'arrow-parens': ['error', 'always'],
+		// prettier과 충돌되는 부분
 		'prettier/prettier': 'off',
+		// only in window enviornment
+		'linebreak-style': ["error", "windows"],
 	},
 };
