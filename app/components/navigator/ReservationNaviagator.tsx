@@ -8,20 +8,20 @@ const ReservationStack = createStackNavigator();
 function ReservationNaviagator() {
 	return (
 		<ReservationStack.Navigator>
-            <ReservationStack.Screen
-                name="ReservingTimeTable"
-                component={ReservationTimeTable}
-                options={{
-                    headerShown: false,
-                }}
-            />
-            <ReservationStack.Screen
-                name="ReservingProcess"
-                component={ReservingProcess}
-                options={{
-                    headerShown: false,
-                }}
-            />
+			<ReservationStack.Screen
+				name="ReservingTimeTable"
+				component={ReservationTimeTable}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<ReservationStack.Screen
+				name="ReservingProcess"
+				component={ReservingProcess}
+				options={{
+					headerShown: false,
+				}}
+			/>
 		</ReservationStack.Navigator>
 	);
 }
