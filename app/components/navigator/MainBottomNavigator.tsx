@@ -14,7 +14,7 @@ function MainBottomNavigator() {
 			initialRouteName="Home"
 			backBehavior="none"
 			screenOptions={({route}) => ({
-				tabBarIcon: bottomTabIconOption(route),
+				tabBarIcon: () => bottomTabIconOption(route),
 			})}
 		>
 			<bottomTab.Screen
