@@ -2,9 +2,9 @@ import React from "react";
 import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
 import Home from "../screens/Home";
 import FlashMob from "../screens/FlashMob";
-import Reservation from "../navigator/ReservationNaviagator";
 import Board from "../screens/Board";
 import bottomTabIconOption from "../../utils/NavigationUtil";
+import ReservationNaviagator from "./ReservationNaviagator";
 
 const bottomTab = createMaterialBottomTabNavigator();
 
@@ -16,6 +16,9 @@ function MainBottomNavigator() {
 			screenOptions={({route}) => ({
 				tabBarIcon: () => bottomTabIconOption(route),
 			})}
+			tabBarOptions= {{
+				showLabel: false,
+			}}
 		>
 			<bottomTab.Screen
 				name="Home"
@@ -27,7 +30,7 @@ function MainBottomNavigator() {
 			/>
 			<bottomTab.Screen
 				name="Reservation"
-				component={Reservation}
+				component={ReservationNaviagator}
 			/>
 			<bottomTab.Screen
 				name="Board"
