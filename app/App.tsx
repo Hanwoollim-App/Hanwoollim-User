@@ -1,11 +1,11 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
-import MainBottomNavigator from "./components/navigator/MainBottomNavigator";
+import ReservationNaviagator from "./components/navigator/ReservationNaviagator";
 
 function App() {
 	return (
 		<NavigationContainer>
-			<MainBottomNavigator/>
+			<ReservationNaviagator/>
 		</NavigationContainer>
 	);
 }

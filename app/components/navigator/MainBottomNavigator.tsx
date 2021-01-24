@@ -4,7 +4,7 @@ import Home from "../screens/Home";
 import FlashMob from "../screens/FlashMob";
 import Board from "../screens/Board";
 import bottomTabIconOption from "../../utils/NavigationUtil";
-import ReservationNaviagator from "./ReservationNaviagator";
+import ReservationTimeTable from "../screens/Reservation/ReservationTimeTable";
 
 const bottomTab = createMaterialBottomTabNavigator();
 
@@ -27,8 +27,8 @@ function MainBottomNavigator() {
 				component={FlashMob}
 			/>
 			<bottomTab.Screen
-				name="Reservation"
-				component={ReservationNaviagator}
+				name="ReservingTimeTable"
+				component={ReservationTimeTable}
 			/>
 			<bottomTab.Screen
 				name="Board"
