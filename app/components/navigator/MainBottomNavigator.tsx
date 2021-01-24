@@ -12,7 +12,7 @@ function MainBottomNavigator() {
 	return (
 		<bottomTab.Navigator
 			initialRouteName="Home"
-			backBehavior="none"
+			backBehavior="history"
 			screenOptions={({route}) => ({
 				tabBarIcon: () => bottomTabIconOption(route),
 			})}
