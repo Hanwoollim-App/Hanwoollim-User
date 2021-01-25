@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, BackHandler} from "react-native";
-import {useAndroidBackHandler} from 'react-navigation-backhandler';
+import {useAndroidBackHandler} from "react-navigation-backhandler";
 
 function Home() {
 	useAndroidBackHandler(() => {
