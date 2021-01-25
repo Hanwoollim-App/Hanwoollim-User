@@ -1,19 +1,12 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {View, Text, BackHandler} from "react-native";
+import {useAndroidBackHandler} from 'react-navigation-backhandler';
 
 function Home() {
-	useEffect(() => {
-		const backAction = () => {
-			BackHandler.exitApp();
-		};
-
-		const backHandler = BackHandler.addEventListener(
-			"hardwareBackPress",
-			backAction,
-		);
-
-		return () => backHandler.remove();
-	}, []);
+	useAndroidBackHandler(() => {
+		BackHandler.exitApp();
+		return true;
+	});
 
 	return (
 		<View>
