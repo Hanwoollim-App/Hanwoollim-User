@@ -9,7 +9,7 @@ function ReservationNaviagator() {
 	return (
 		<ReservationStack.Navigator
 			initialRouteName="MainBottomNavigator"
-		>
+		>	
 			<ReservationStack.Screen
 				name="MainBottomNavigator"
 				component={MainBottomNavigator}

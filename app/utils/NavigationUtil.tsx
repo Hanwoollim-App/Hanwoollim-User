@@ -12,7 +12,7 @@ const bottomTabIconOption = (route) => {
 		case "FlashMob":
 			iconName = faBolt;
 			break;
-		case "Reservation":
+		case "ReservingTimeTable":
 			iconName = faPlusCircle;
 			break;
 		case "Board":
