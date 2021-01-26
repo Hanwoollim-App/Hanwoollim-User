@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, Button, TextInput, StyleSheet} from "react-native";
+import {View, Text, Button, TextInput, StyleSheet, Modal} from "react-native";
 
 const styles = StyleSheet.create({
 	inputSection: {
@@ -12,9 +12,15 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	inputField: {
-        flex: 4,
-        borderColor: "gray",
-        borderWidth: 1,
+		flex: 4,
+		borderColor: "gray",
+		borderWidth: 1,
+	},
+	modalView: {
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "white",
+		borderRadius: 20,
 	},
 });
 
@@ -22,15 +28,50 @@ function SignUp({navigation}) {
 	const [name, setName] : [string, Function] = useState("");
 	const [major, setMajor] : [string, Function] = useState("");
 	const [studentID, setStudentID] : [string, Function] = useState("");
-    const signUpBtnClickListenr = () => {
-        console.log(name);
-        console.log(major);
-        console.log(studentID);
-    };
+	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
+	const [modalText, setModalText]: [string, Function] = useState("");
+	const signUpBtnClickListenr = () => {
+		// 빠짐없이 기입했는지 check.
+		if (name === "" || major === "" || studentID === "") {
+			setModalVisible(true);
+			setModalText(`빠짐없이 채워주세요!`);
+			return;
+		}
+		// studentID 10자리인지 check
+		if (studentID.length !== 10) {
+			setModalVisible(true);
+			setModalText(`학번은 10자리입니다!`);
+			return;
+		}
+
+		// studentID 앞의 4자리 check
+		const curDate = new Date();
+		const curYear = curDate.getFullYear();
+		const inputYear = parseInt(studentID.slice(4), 10);
+
+		if (inputYear > curYear) {
+			setModalVisible(true);
+			setModalText(`학번이 이상해요!`);
+			return;
+		}
+		console.log("success!");
+	};
 
 	return (
 		<View>
-			<Text>{"한울림 어플리케이션에 온 것을 환영합니다!"}</Text>
+			<Modal
+				animationType="slide"
+				visible={modalVisible}
+			>
+				<View style={styles.modalView}>
+					<Text>{modalText}</Text>
+					<Button
+						title={`다시 입력하기`}
+						onPress={() => setModalVisible(false)}
+					/>
+				</View>
+			</Modal>
+			<Text>{"로그인 화면!"}</Text>
 			<Button
 				title="메인 화면 가기"
 				onPress={() => navigation.navigate("ReservationNavigator")}
@@ -58,12 +99,14 @@ function SignUp({navigation}) {
 					onChangeText={(newStudentID) => setStudentID(newStudentID)}
 					value={studentID}/>
 			</View>
-            <Button
-                title="회원가입하기!"
-                onPress={signUpBtnClickListenr}
-            />
+			<Button
+				title="회원가입하기!"
+				onPress={signUpBtnClickListenr}
+			/>
+
 		</View>
 	);
 }
+
 
 export default SignUp;
