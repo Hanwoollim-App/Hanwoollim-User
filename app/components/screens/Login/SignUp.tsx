@@ -24,12 +24,14 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignUp({navigation}) {
+function SignUp({navigation, route}) {
 	const [name, setName] : [string, Function] = useState("");
 	const [major, setMajor] : [string, Function] = useState("");
 	const [studentID, setStudentID] : [string, Function] = useState("");
 	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
 	const [modalText, setModalText]: [string, Function] = useState("");
+	const {profile} = route.params;
+
 	const signUpBtnClickListenr = () => {
 		// 빠짐없이 기입했는지 check.
 		if (name === "" || major === "" || studentID === "") {
@@ -47,14 +49,34 @@ function SignUp({navigation}) {
 		// studentID 앞의 4자리 check
 		const curDate = new Date();
 		const curYear = curDate.getFullYear();
-		const inputYear = parseInt(studentID.slice(4), 10);
+		const inputYear = parseInt(studentID.slice(0, 4), 10);
 
 		if (inputYear > curYear) {
+			console.log(inputYear,curYear);
 			setModalVisible(true);
 			setModalText(`학번이 이상해요!`);
 			return;
 		}
-		console.log("success!");
+
+		const data = {
+			name,
+			major,
+			studentID,
+			kakaoID: profile.id,
+			postion: 0,
+		};
+
+		console.log(data);
+
+		// const endpoint = "localhost:3000";
+
+		// fetch(endpoint, {
+		// 	method: "GET",
+		// 	mode: "no-cors",
+		// 	body: JSON.stringify(data),
+		// })
+		// 	.then((res) => res.json())
+		//   	.then((resJson) => console.log(resJson));
 	};
 
 	return (

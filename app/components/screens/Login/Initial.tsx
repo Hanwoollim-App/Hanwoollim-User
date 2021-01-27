@@ -47,7 +47,9 @@ function Initial({navigation}) {
 			<Text>{"한울림 어플리케이션에 온 것을 환영합니다!"}</Text>
 			<Button
 				title="회원 가입 창 가기"
-				onPress={() => navigation.navigate("SignUp")}
+				onPress={() => navigation.navigate("SignUp",{
+					profile,
+				})}
 			/>
 			<Button
 				title="카카오 로그인하기"
