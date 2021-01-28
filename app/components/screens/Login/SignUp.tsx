@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {View, Text, Button, StyleSheet, Modal} from "react-native";
+import CustomBtn from "./CustomBtn";
 import SignUpForm from "./SignUpForm";
 
 const styles = StyleSheet.create({
@@ -8,6 +9,36 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "white",
 		borderRadius: 20,
+	},
+	alertText: {
+		width: 316,
+		height: 50,
+		fontSize: 13,
+		letterSpacing: 0,
+		lineHeight: 17,
+		textAlign: "center",
+		color: "#777777",
+		marginLeft: "auto",
+		marginRight: "auto",
+		marginTop: 154,
+	},
+	singUpBtn: {
+		width: 290,
+		height: 53,
+		borderRadius: 21,
+		backgroundColor: "#00203f",
+		marginTop: 36,
+		marginLeft: 43,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	singUpTitle: {
+		width: 96,
+		height: 20,
+		lineHeight: 22,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#ffffff",
 	},
 });
 
@@ -19,7 +50,7 @@ function SignUp({navigation, route}) {
 	const [modalText, setModalText]: [string, Function] = useState("");
 	const {profile} = route.params;
 
-	const signUpBtnClickListenr = () => {
+	const signUpBtnClickListener = () => {
 		// 빠짐없이 기입했는지 check.
 		if (name === "" || major === "" || studentID === "") {
 			setModalVisible(true);
@@ -99,9 +130,16 @@ function SignUp({navigation, route}) {
 				onChangeListener={(value: string) => setStudentID(value)}
 				defalutValue={studentID}
 			/>
-			<Button
-				title="회원가입하기!"
-				onPress={signUpBtnClickListenr}
+			<Text style={styles.alertText}>
+				{`허위 사실 기재 및 한울림 부원이 아닌 것으로 \n
+				확인 될 시 관리자에 의해 활동이 제한 될 수 있습니다.
+				`}
+			</Text>
+			<CustomBtn
+				title={`계정 생성하기`}
+				onClickListener={signUpBtnClickListener}
+				titleStyle={styles.singUpTitle}
+				btnStyle={styles.singUpBtn}
 			/>
 
 		</View>
