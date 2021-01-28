@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
 		height: 133.9,
 		backgroundColor: "#00203f",
 	},
-	headerTitle: {
+	headerText: {
 		width: 94,
 		height: 27,
 		marginLeft: 30,
 		marginTop: 49,
-		fontSize: 20,
-		fontWeight: "normal",
+		fontSize: 18,
+		fontFamily: "KoreanYNSJG3",
 		fontStyle: "normal",
 		lineHeight: 27,
 		letterSpacing: 0,
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 	welcomText: {
 		width: 252,
 		height: "100%",
+		fontFamily: "KoreanYNSJG3",
 		textAlign: "center",
 		color: "#00203f",
 	},
@@ -50,8 +51,9 @@ const styles = StyleSheet.create({
 	},
 	alertText: {
 		width: 316,
-		height: 50,
-		fontSize: 13,
+		height: 34,
+		fontFamily: "MalgunGothic",
+		fontSize: 12,
 		letterSpacing: 0,
 		lineHeight: 17,
 		textAlign: "center",
@@ -72,9 +74,10 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	singUpTitle: {
+	singUpText: {
 		width: 96,
 		height: 20,
+		fontFamily: "KoreanYNSJG4",
 		lineHeight: 22,
 		letterSpacing: 0,
 		textAlign: "center",
@@ -152,7 +155,7 @@ function SignUp({navigation, route}) {
 				</View>
 			</Modal>
 			<View style={styles.headerView}>
-				<Text style={styles.headerTitle}>{`환영합니다`}</Text>
+				<Text style={styles.headerText}>{`환영합니다`}</Text>
 			</View>
 			<View style={styles.welcomeView}>
 				<Text style={styles.welcomText}>{`한울림의 식구가 되신 것을 환영합니다!\n당신이 누구인지 알려줄래요?`}</Text>
@@ -182,12 +185,10 @@ function SignUp({navigation, route}) {
 				<CustomBtn
 					title={`계정 생성하기`}
 					onClickListener={signUpBtnClickListener}
-					titleStyle={styles.singUpTitle}
+					titleStyle={styles.singUpText}
 					btnStyle={styles.singUpBtn}
 				/>
 			</View>
-
-
 		</View>
 	);
 }

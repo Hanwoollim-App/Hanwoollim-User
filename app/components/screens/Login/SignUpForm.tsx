@@ -16,13 +16,14 @@ const styles = StyleSheet.create({
 	inputTitle: {
 		width: 27,
 		height: 18,
-		fontSize: 14,
-		letterSpacing: 0,
-		textAlign: "left",
 		marginTop: "auto",
 		marginBottom: "auto",
 		marginLeft: 42,
 		marginRight: 31,
+		fontFamily: "KoreanYNSJG3",
+		fontSize: 14,
+		letterSpacing: 0,
+		textAlign: "left",
 	},
 	inputField: {
 		width: 233,
