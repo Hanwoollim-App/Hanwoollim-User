@@ -10,6 +10,44 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		borderRadius: 20,
 	},
+	headerView: {
+		width: "100%",
+		height: 133.9,
+		backgroundColor: "#00203f",
+	},
+	headerTitle: {
+		width: 94,
+		height: 27,
+		marginLeft: 30,
+		marginTop: 49,
+		fontSize: 20,
+		fontWeight: "normal",
+		fontStyle: "normal",
+		lineHeight: 27,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#ffffff",
+	},
+	welcomeView: {
+		width: "100%",
+		height: 35,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 51.2,
+	},
+	welcomText: {
+		width: 252,
+		height: "100%",
+		textAlign: "center",
+		color: "#00203f",
+	},
+	alertTextView: {
+		width: "100%",
+		height: 34,
+		marginTop: 154,
+		justifyContent: "center",
+		alignItems: "center",
+	},
 	alertText: {
 		width: 316,
 		height: 50,
@@ -18,17 +56,19 @@ const styles = StyleSheet.create({
 		lineHeight: 17,
 		textAlign: "center",
 		color: "#777777",
-		marginLeft: "auto",
-		marginRight: "auto",
-		marginTop: 154,
+	},
+	singupView: {
+		width: "100%",
+		height: 53,
+		marginTop: 36,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	singUpBtn: {
 		width: 290,
-		height: 53,
+		height: "100%",
 		borderRadius: 21,
 		backgroundColor: "#00203f",
-		marginTop: 36,
-		marginLeft: 43,
 		justifyContent: "center",
 		alignItems: "center",
 	},
@@ -94,6 +134,7 @@ function SignUp({navigation, route}) {
 		// })
 		// 	.then((res) => res.json())
 		//   	.then((resJson) => console.log(resJson));
+		navigation.navigate("ReservationNavigator")
 	};
 
 	return (
@@ -110,11 +151,12 @@ function SignUp({navigation, route}) {
 					/>
 				</View>
 			</Modal>
-			<Text>{"로그인 화면!"}</Text>
-			<Button
-				title="메인 화면 가기"
-				onPress={() => navigation.navigate("ReservationNavigator")}
-			/>
+			<View style={styles.headerView}>
+				<Text style={styles.headerTitle}>{`환영합니다`}</Text>
+			</View>
+			<View style={styles.welcomeView}>
+				<Text style={styles.welcomText}>{`한울림의 식구가 되신 것을 환영합니다!\n당신이 누구인지 알려줄래요?`}</Text>
+			</View>
 			<SignUpForm
 				title={`이름`}
 				onChangeListener={(value : string) => setName(value)}
@@ -130,17 +172,21 @@ function SignUp({navigation, route}) {
 				onChangeListener={(value: string) => setStudentID(value)}
 				defalutValue={studentID}
 			/>
-			<Text style={styles.alertText}>
-				{`허위 사실 기재 및 한울림 부원이 아닌 것으로 \n
-				확인 될 시 관리자에 의해 활동이 제한 될 수 있습니다.
-				`}
-			</Text>
-			<CustomBtn
-				title={`계정 생성하기`}
-				onClickListener={signUpBtnClickListener}
-				titleStyle={styles.singUpTitle}
-				btnStyle={styles.singUpBtn}
-			/>
+			<View style={styles.alertTextView}>
+				<Text style={styles.alertText}>
+					{`허위 사실 기재 및 한울림 부원이 아닌 것으로\n확인 될 시 관리자에 의해 활동이 제한 될 수 있습니다.
+					`}
+				</Text>
+			</View>
+			<View style={styles.singupView}>
+				<CustomBtn
+					title={`계정 생성하기`}
+					onClickListener={signUpBtnClickListener}
+					titleStyle={styles.singUpTitle}
+					btnStyle={styles.singUpBtn}
+				/>
+			</View>
+
 
 		</View>
 	);
