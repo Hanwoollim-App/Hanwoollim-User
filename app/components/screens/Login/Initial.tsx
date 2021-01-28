@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import {View, Text, Button, StyleSheet} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
+
 
 const styles = StyleSheet.create({
 	rootView: {
@@ -50,12 +51,21 @@ const styles = StyleSheet.create({
 		height: "100%",
 		borderRadius: 25,
 		backgroundColor: "#adefd1",
+		flexDirection: "row",
 	},
 	loginImage: {
 
 	},
 	loginText: {
-
+		width: 133,
+		height: 15,
+		fontFamily: "KoreanYNSJG4",
+		fontSize: 15,
+		fontWeight: "normal",
+		fontStyle: "normal",
+		lineHeight: 20,
+		letterSpacing: 0,
+		color: "#3c1e1e",
 	},
 });
 
@@ -95,7 +105,7 @@ function Initial({navigation}) {
 			</View>
 			<View style={styles.titleUnderScore}/>
 			<View style={styles.loginView}>
-				<Button
+				<TouchableOpacity
 					style={styles.loginBtn}
 					title="카카오톡으로 로그인"
 					onPress={async () => {
@@ -106,7 +116,10 @@ function Initial({navigation}) {
 							profile,
 						});
 					}}
-				/>
+				>
+					<Image style={styles.loginImage}/>
+					<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);

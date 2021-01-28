@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 	},
 	inputField: {
 		width: 233,
-		height: 33,
+		height: 40,
 		borderColor: "#707070",
 		borderWidth: 1,
 	},
