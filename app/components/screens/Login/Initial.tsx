@@ -18,19 +18,17 @@ function Initial({navigation}) {
 	const [token, setToken] = useState(TOKEN_EMPTY);
 	const [profile, setProfile] = useState(PROFILE_EMPTY);
 
-	const kakaoLogin = async () => {
-		return KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
-			.then((result) => {
-				setToken(result.accessToken);
-			})
-			.catch((err) => {
-				if (err.code === "E_CANCELLED_OPERATION") {
-					console.log(`Login Cancelled:${err.message}`);
-				} else {
-					console.log(`Login Failed:${err.code} ${err.message}`);
-				}
-			});
-	};
+	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
+		.then((result) => {
+			setToken(result.accessToken);
+		})
+		.catch((err) => {
+			if (err.code === "E_CANCELLED_OPERATION") {
+				console.log(`Login Cancelled:${err.message}`);
+			} else {
+				console.log(`Login Failed:${err.code} ${err.message}`);
+			}
+		});
 	const getProfile = () => {
 		KakaoLogins.getProfile()
 			.then((result) => {
@@ -47,7 +45,7 @@ function Initial({navigation}) {
 			<Text>{"한울림 어플리케이션에 온 것을 환영합니다!"}</Text>
 			<Button
 				title="회원 가입 창 가기"
-				onPress={() => navigation.navigate("SignUp",{
+				onPress={() => navigation.navigate("SignUp", {
 					profile,
 				})}
 			/>

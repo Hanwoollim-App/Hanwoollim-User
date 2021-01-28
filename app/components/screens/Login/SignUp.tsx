@@ -1,21 +1,8 @@
 import React, {useState} from "react";
-import {View, Text, Button, TextInput, StyleSheet, Modal} from "react-native";
+import {View, Text, Button, StyleSheet, Modal} from "react-native";
+import SignUpForm from "./SignUpForm";
 
 const styles = StyleSheet.create({
-	inputSection: {
-		marginTop: 20,
-		width: "80%",
-		height: 60,
-		flexDirection: "row",
-	},
-	inputTitle: {
-		flex: 1,
-	},
-	inputField: {
-		flex: 4,
-		borderColor: "gray",
-		borderWidth: 1,
-	},
 	modalView: {
 		justifyContent: "center",
 		alignItems: "center",
@@ -52,7 +39,6 @@ function SignUp({navigation, route}) {
 		const inputYear = parseInt(studentID.slice(0, 4), 10);
 
 		if (inputYear > curYear) {
-			console.log(inputYear,curYear);
 			setModalVisible(true);
 			setModalText(`학번이 이상해요!`);
 			return;
@@ -98,29 +84,21 @@ function SignUp({navigation, route}) {
 				title="메인 화면 가기"
 				onPress={() => navigation.navigate("ReservationNavigator")}
 			/>
-			<View style={styles.inputSection}>
-				<Text style={styles.inputTitle}>{`이름`}</Text>
-				<TextInput
-					style={styles.inputField}
-					onChangeText={(newName) => setName(newName)}
-					value={name}
-				/>
-			</View>
-			<View style={styles.inputSection}>
-				<Text style={styles.inputTitle}>{`학과`}</Text>
-				<TextInput
-					style={styles.inputField}
-					onChangeText={(newMajor) => setMajor(newMajor)}
-					value={major}
-				/>
-			</View>
-			<View style={styles.inputSection}>
-				<Text style={styles.inputTitle}>{`학번`}</Text>
-				<TextInput
-					style={styles.inputField}
-					onChangeText={(newStudentID) => setStudentID(newStudentID)}
-					value={studentID}/>
-			</View>
+			<SignUpForm
+				title={`이름`}
+				onChangeListener={(value : string) => setName(value)}
+				defalutValue={name}
+			/>
+			<SignUpForm
+				title={`학과`}
+				onChangeListener={(value: string) => setMajor(value)}
+				defalutValue={major}
+			/>
+			<SignUpForm
+				title={`학번`}
+				onChangeListener={(value: string) => setStudentID(value)}
+				defalutValue={studentID}
+			/>
 			<Button
 				title="회원가입하기!"
 				onPress={signUpBtnClickListenr}
