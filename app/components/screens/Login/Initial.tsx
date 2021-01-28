@@ -52,9 +52,12 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		backgroundColor: "#adefd1",
 		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	loginImage: {
-
+		width: 44,
+		height: 44,
 	},
 	loginText: {
 		width: 133,
@@ -93,7 +96,7 @@ function Initial({navigation}) {
 			if (err.code === "E_CANCELLED_OPERATION") {
 				console.log(`Login Cancelled:${err.message}`);
 				return false;
-			} 
+			}
 			console.log(`Login Failed:${err.code} ${err.message}`);
 			return false;
 		});
@@ -117,7 +120,10 @@ function Initial({navigation}) {
 						});
 					}}
 				>
-					<Image style={styles.loginImage}/>
+					<Image
+						style={styles.loginImage}
+						source={require("../../../assets/images/kakaoLogo.png")}
+					/>
 					<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
 				</TouchableOpacity>
 			</View>
