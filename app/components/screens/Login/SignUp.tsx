@@ -137,7 +137,7 @@ function SignUp({navigation, route}) {
 		// })
 		// 	.then((res) => res.json())
 		//   	.then((resJson) => console.log(resJson));
-		navigation.navigate("ReservationNavigator")
+		navigation.navigate("ReservationNavigator");
 	};
 
 	return (

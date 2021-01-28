@@ -38,6 +38,8 @@
 		28732F9BC1DC49908CFB69B1 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 959A6E4E3A864465B850F3C5 /* Octicons.ttf */; };
 		2008013BCB5247A4AB9D4691 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F89A677D0F754927B5858F9C /* SimpleLineIcons.ttf */; };
 		0970F4BDD247468382E49159 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D97CDDCE06ED470D825952ED /* Zocial.ttf */; };
+		69EA986815594078BFC65330 /* YiSunShinDotumL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38AA14AA1B43430985501045 /* YiSunShinDotumL.ttf */; };
+		50762DBA60E745228EF7AD05 /* YiSunShinDotumM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BDD13BF549D4195ADA26A20 /* YiSunShinDotumM.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		959A6E4E3A864465B850F3C5 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		F89A677D0F754927B5858F9C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D97CDDCE06ED470D825952ED /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		38AA14AA1B43430985501045 /* YiSunShinDotumL.ttf */ = {isa = PBXFileReference; name = "YiSunShinDotumL.ttf"; path = "../app/assets/fonts/YiSunShinDotumL.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8BDD13BF549D4195ADA26A20 /* YiSunShinDotumM.ttf */ = {isa = PBXFileReference; name = "YiSunShinDotumM.ttf"; path = "../app/assets/fonts/YiSunShinDotumM.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +231,8 @@
 				959A6E4E3A864465B850F3C5 /* Octicons.ttf */,
 				F89A677D0F754927B5858F9C /* SimpleLineIcons.ttf */,
 				D97CDDCE06ED470D825952ED /* Zocial.ttf */,
+				38AA14AA1B43430985501045 /* YiSunShinDotumL.ttf */,
+				8BDD13BF549D4195ADA26A20 /* YiSunShinDotumM.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -392,6 +398,8 @@
 				28732F9BC1DC49908CFB69B1 /* Octicons.ttf in Resources */,
 				2008013BCB5247A4AB9D4691 /* SimpleLineIcons.ttf in Resources */,
 				0970F4BDD247468382E49159 /* Zocial.ttf in Resources */,
+				69EA986815594078BFC65330 /* YiSunShinDotumL.ttf in Resources */,
+				50762DBA60E745228EF7AD05 /* YiSunShinDotumM.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

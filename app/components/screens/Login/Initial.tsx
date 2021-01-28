@@ -29,38 +29,18 @@ function Initial({navigation}) {
 				console.log(`Login Failed:${err.code} ${err.message}`);
 			}
 		});
-	const getProfile = () => {
-		KakaoLogins.getProfile()
-			.then((result) => {
-				setProfile(result);
-				console.log(`Get Profile Finished:${JSON.stringify(result)}`);
-			})
-			.catch((err) => {
-				console.log(`Get Profile Failed:${err.code} ${err.message}`);
-			});
-	};
 
 	return (
 		<View>
-			<Text>{"한울림 어플리케이션에 온 것을 환영합니다!"}</Text>
+			<Text>{`Hanwoollim`}</Text>
+			<View/>
 			<Button
-				title="회원 가입 창 가기"
-				onPress={() => navigation.navigate("SignUp", {
-					profile,
-				})}
-			/>
-			<Button
-				title="카카오 로그인하기"
+				title="카카오톡으로 로그인"
 				onPress={async () => {
 					await kakaoLogin();
-					getProfile();
-				}
-				}
-			/>
-			<Button
-				title="카카오 정보확인하기"
-				onPress={() => {
-					console.log(profile);
+					navigation.navigate("SignUp", {
+						profile,
+					});
 				}}
 			/>
 		</View>
