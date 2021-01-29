@@ -1,13 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
+import color from "./../../../utils/design/Color";
+import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
 
 
 const styles = StyleSheet.create({
 	rootView: {
 		width: "100%",
 		height: "100%",
-		backgroundColor: "#00203f",
+		backgroundColor: color.mainColor,
 	},
 	titleView: {
 		width: "100%",
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
 		width: 212,
 		height: "100%",
 		borderRadius: 25,
-		backgroundColor: "#adefd1",
+		backgroundColor: color.subColor,
 		flexDirection: "row",
 		justifyContent: "center",
 		alignItems: "center",
@@ -61,9 +63,9 @@ const styles = StyleSheet.create({
 	},
 	loginText: {
 		width: 133,
-		height: 15,
+		height: 20,
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 15,
+		fontSize: 14,
 		fontWeight: "normal",
 		fontStyle: "normal",
 		lineHeight: 20,
@@ -72,21 +74,15 @@ const styles = StyleSheet.create({
 	},
 });
 
-if (!KakaoLogins) {
-	console.error("Module is Not Linked");
-}
-
-const TOKEN_EMPTY = "token has not fetched";
-const PROFILE_EMPTY = {
-	id: "profile has not fetched",
-	email: "profile has not fetched",
-	profile_image_url: "",
-};
-
 function Initial({navigation}) {
 	const [token, setToken] = useState(TOKEN_EMPTY);
 	const [profile, setProfile] = useState(PROFILE_EMPTY);
 
+	useEffect(() => {
+		if (!KakaoLogins) {
+			console.error("Module is Not Linked");
+		}
+	}, []);
 	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
 		.then((result) => {
 			setToken(result.accessToken);
