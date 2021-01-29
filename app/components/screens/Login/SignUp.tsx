@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {View, Text, Button, StyleSheet, Modal} from "react-native";
+import color from "../../../utils/design/Color";
+import { SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE } from "../../../utils/Login/SingUpScreenUtils";
 import CustomBtn from "./CustomBtn";
 import SignUpForm from "./SignUpForm";
 
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
 	headerView: {
 		width: "100%",
 		height: 133.9,
-		backgroundColor: "#00203f",
+		backgroundColor: color.mainColor,
 	},
 	headerText: {
 		width: 94,
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
 		height: "100%",
 		fontFamily: "KoreanYNSJG3",
 		textAlign: "center",
-		color: "#00203f",
+		color: color.mainColor,
 	},
 	alertTextView: {
 		width: "100%",
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
 		width: 290,
 		height: "100%",
 		borderRadius: 21,
-		backgroundColor: "#00203f",
+		backgroundColor: color.mainColor,
 		justifyContent: "center",
 		alignItems: "center",
 	},
@@ -97,13 +99,13 @@ function SignUp({navigation, route}) {
 		// 빠짐없이 기입했는지 check.
 		if (name === "" || major === "" || studentID === "") {
 			setModalVisible(true);
-			setModalText(`빠짐없이 채워주세요!`);
+			setModalText(SIGN_UP_ERROR_MESSAGE.INPUT_EMPTY);
 			return;
 		}
 		// studentID 10자리인지 check
 		if (studentID.length !== 10) {
 			setModalVisible(true);
-			setModalText(`학번은 10자리입니다!`);
+			setModalText(SIGN_UP_ERROR_MESSAGE.STUDENT_ID_NOT_10_LENGTH);
 			return;
 		}
 
@@ -114,7 +116,7 @@ function SignUp({navigation, route}) {
 
 		if (inputYear > curYear) {
 			setModalVisible(true);
-			setModalText(`학번이 이상해요!`);
+			setModalText(SIGN_UP_ERROR_MESSAGE.STUDENT_ID_INVALID);
 			return;
 		}
 
@@ -155,35 +157,34 @@ function SignUp({navigation, route}) {
 				</View>
 			</Modal>
 			<View style={styles.headerView}>
-				<Text style={styles.headerText}>{`환영합니다`}</Text>
+				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
 			</View>
 			<View style={styles.welcomeView}>
-				<Text style={styles.welcomText}>{`한울림의 식구가 되신 것을 환영합니다!\n당신이 누구인지 알려줄래요?`}</Text>
+				<Text style={styles.welcomText}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
 			</View>
 			<SignUpForm
-				title={`이름`}
+				title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
 				onChangeListener={(value : string) => setName(value)}
 				defalutValue={name}
 			/>
 			<SignUpForm
-				title={`학과`}
+				title={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
 				onChangeListener={(value: string) => setMajor(value)}
 				defalutValue={major}
 			/>
 			<SignUpForm
-				title={`학번`}
+				title={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
 				onChangeListener={(value: string) => setStudentID(value)}
 				defalutValue={studentID}
 			/>
 			<View style={styles.alertTextView}>
 				<Text style={styles.alertText}>
-					{`허위 사실 기재 및 한울림 부원이 아닌 것으로\n확인 될 시 관리자에 의해 활동이 제한 될 수 있습니다.
-					`}
+					{SIGN_UP_COMPONENT_TEXT.alert}
 				</Text>
 			</View>
 			<View style={styles.singupView}>
 				<CustomBtn
-					title={`계정 생성하기`}
+					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
 					onClickListener={signUpBtnClickListener}
 					titleStyle={styles.singUpText}
 					btnStyle={styles.singUpBtn}
