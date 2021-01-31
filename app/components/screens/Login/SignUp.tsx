@@ -1,26 +1,89 @@
 import React, {useState} from "react";
-import {View, Text, Button, TextInput, StyleSheet, Modal} from "react-native";
+import {View, Text, Button, StyleSheet, Modal} from "react-native";
+import color from "../../../utils/design/Color";
+import { SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE } from "../../../utils/Login/SingUpScreenUtils";
+import CustomBtn from "./CustomBtn";
+import SignUpForm from "./SignUpForm";
 
 const styles = StyleSheet.create({
-	inputSection: {
-		marginTop: 20,
-		width: "80%",
-		height: 60,
-		flexDirection: "row",
-	},
-	inputTitle: {
-		flex: 1,
-	},
-	inputField: {
-		flex: 4,
-		borderColor: "gray",
-		borderWidth: 1,
-	},
 	modalView: {
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "white",
 		borderRadius: 20,
+	},
+	headerView: {
+		width: "100%",
+		height: 133.9,
+		backgroundColor: color.mainColor,
+	},
+	headerText: {
+		width: 94,
+		height: 27,
+		marginLeft: 30,
+		marginTop: 49,
+		fontSize: 18,
+		fontFamily: "KoreanYNSJG3",
+		fontStyle: "normal",
+		lineHeight: 27,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#ffffff",
+	},
+	welcomeView: {
+		width: "100%",
+		height: 35,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 51.2,
+	},
+	welcomText: {
+		width: 252,
+		height: "100%",
+		fontFamily: "KoreanYNSJG3",
+		textAlign: "center",
+		color: color.mainColor,
+	},
+	alertTextView: {
+		width: "100%",
+		height: 34,
+		marginTop: 154,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	alertText: {
+		width: 316,
+		height: 34,
+		fontFamily: "MalgunGothic",
+		fontSize: 12,
+		letterSpacing: 0,
+		lineHeight: 17,
+		textAlign: "center",
+		color: "#777777",
+	},
+	singupView: {
+		width: "100%",
+		height: 53,
+		marginTop: 36,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	singUpBtn: {
+		width: 290,
+		height: "100%",
+		borderRadius: 21,
+		backgroundColor: color.mainColor,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	singUpText: {
+		width: 96,
+		height: 20,
+		fontFamily: "KoreanYNSJG4",
+		lineHeight: 22,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#ffffff",
 	},
 });
 
@@ -32,17 +95,17 @@ function SignUp({navigation, route}) {
 	const [modalText, setModalText]: [string, Function] = useState("");
 	const {profile} = route.params;
 
-	const signUpBtnClickListenr = () => {
+	const signUpBtnClickListener = () => {
 		// 빠짐없이 기입했는지 check.
 		if (name === "" || major === "" || studentID === "") {
 			setModalVisible(true);
-			setModalText(`빠짐없이 채워주세요!`);
+			setModalText(SIGN_UP_ERROR_MESSAGE.INPUT_EMPTY);
 			return;
 		}
 		// studentID 10자리인지 check
 		if (studentID.length !== 10) {
 			setModalVisible(true);
-			setModalText(`학번은 10자리입니다!`);
+			setModalText(SIGN_UP_ERROR_MESSAGE.STUDENT_ID_NOT_10_LENGTH);
 			return;
 		}
 
@@ -52,9 +115,8 @@ function SignUp({navigation, route}) {
 		const inputYear = parseInt(studentID.slice(0, 4), 10);
 
 		if (inputYear > curYear) {
-			console.log(inputYear,curYear);
 			setModalVisible(true);
-			setModalText(`학번이 이상해요!`);
+			setModalText(SIGN_UP_ERROR_MESSAGE.STUDENT_ID_INVALID);
 			return;
 		}
 
@@ -77,6 +139,7 @@ function SignUp({navigation, route}) {
 		// })
 		// 	.then((res) => res.json())
 		//   	.then((resJson) => console.log(resJson));
+		navigation.navigate("ReservationNavigator");
 	};
 
 	return (
@@ -93,39 +156,40 @@ function SignUp({navigation, route}) {
 					/>
 				</View>
 			</Modal>
-			<Text>{"로그인 화면!"}</Text>
-			<Button
-				title="메인 화면 가기"
-				onPress={() => navigation.navigate("ReservationNavigator")}
+			<View style={styles.headerView}>
+				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
+			</View>
+			<View style={styles.welcomeView}>
+				<Text style={styles.welcomText}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
+			</View>
+			<SignUpForm
+				title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+				onChangeListener={(value : string) => setName(value)}
+				defalutValue={name}
 			/>
-			<View style={styles.inputSection}>
-				<Text style={styles.inputTitle}>{`이름`}</Text>
-				<TextInput
-					style={styles.inputField}
-					onChangeText={(newName) => setName(newName)}
-					value={name}
+			<SignUpForm
+				title={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
+				onChangeListener={(value: string) => setMajor(value)}
+				defalutValue={major}
+			/>
+			<SignUpForm
+				title={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+				onChangeListener={(value: string) => setStudentID(value)}
+				defalutValue={studentID}
+			/>
+			<View style={styles.alertTextView}>
+				<Text style={styles.alertText}>
+					{SIGN_UP_COMPONENT_TEXT.alert}
+				</Text>
+			</View>
+			<View style={styles.singupView}>
+				<CustomBtn
+					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
+					onClickListener={signUpBtnClickListener}
+					titleStyle={styles.singUpText}
+					btnStyle={styles.singUpBtn}
 				/>
 			</View>
-			<View style={styles.inputSection}>
-				<Text style={styles.inputTitle}>{`학과`}</Text>
-				<TextInput
-					style={styles.inputField}
-					onChangeText={(newMajor) => setMajor(newMajor)}
-					value={major}
-				/>
-			</View>
-			<View style={styles.inputSection}>
-				<Text style={styles.inputTitle}>{`학번`}</Text>
-				<TextInput
-					style={styles.inputField}
-					onChangeText={(newStudentID) => setStudentID(newStudentID)}
-					value={studentID}/>
-			</View>
-			<Button
-				title="회원가입하기!"
-				onPress={signUpBtnClickListenr}
-			/>
-
 		</View>
 	);
 }
