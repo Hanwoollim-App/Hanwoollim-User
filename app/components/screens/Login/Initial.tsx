@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useEffect, useContext} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
-import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
+import {TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
 import {LoginContext} from "./../../../App";
 
 
@@ -77,44 +77,57 @@ const styles = StyleSheet.create({
 
 
 function Initial({navigation}) {
-	const [token, setToken] = useState(TOKEN_EMPTY);
-	const [profile, setProfile] = useState(PROFILE_EMPTY);
 	const login = useContext(LoginContext);
 
 	useEffect(() => {
-		console.log(login);
 		if (!KakaoLogins) {
 			console.error("Module is Not Linked");
 		}
-	}, [login]);
-	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
-		.then((result) => {
-			setToken(result.accessToken);
-			return true;
-		})
-		.catch((err) => {
-			if (err.code === "E_CANCELLED_OPERATION") {
-				console.log(`Login Cancelled:${err.message}`);
+	});
+
+	const [token, setToken] = login.token;
+	const [profile, setProfile] = login.profile;
+	const kakaoLogin = async () => {
+		return KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
+			.then((result) => {
+				setToken(result.accessToken);
+				return true;
+			})
+			.catch((err) => {
+				if (err.code === "E_CANCELLED_OPERATION") {
+					console.log(`Login Cancelled:${err.message}`);
+					return false;
+				}
+				console.log(`Login Failed:${err.code} ${err.message}`);
 				return false;
-			}
-			console.log(`Login Failed:${err.code} ${err.message}`);
-			return false;
-		});
+			});
+	};
+	const getProfile = async () => {
+		return KakaoLogins.getProfile()
+			.then((result) => {
+				setProfile(result);
+			})
+			.catch((err) => {
+				console.log(`Get Profile Failed:${err.code} ${err.message}`);
+			});
+	};
 
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.titleView}>
 				<Text style={styles.titleText}>{`Hanwoollim`}</Text>
 			</View>
-			<View style={styles.titleUnderScore}/>
+			<View style={styles.titleUnderScore} />
 			<View style={styles.loginView}>
 				<TouchableOpacity
 					style={styles.loginBtn}
 					title="카카오톡으로 로그인"
 					onPress={async () => {
-						if (!await kakaoLogin()) {
+						if (!await kakaoLogin() || token === TOKEN_EMPTY) {
 							return;
 						}
+						await getProfile();
+						console.log(profile);
 						navigation.navigate("SignUp", {
 							profile,
 						});
