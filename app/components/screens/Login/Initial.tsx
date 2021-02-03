@@ -127,10 +127,7 @@ function Initial({navigation}) {
 							return;
 						}
 						await getProfile();
-						console.log(profile);
-						navigation.navigate("SignUp", {
-							profile,
-						});
+						navigation.navigate("SignUp");
 					}}
 				>
 					<Image
