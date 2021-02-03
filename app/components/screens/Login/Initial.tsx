@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
 import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
+import {LoginContext} from "./../../../App";
 
 
 const styles = StyleSheet.create({
@@ -74,15 +75,18 @@ const styles = StyleSheet.create({
 	},
 });
 
+
 function Initial({navigation}) {
 	const [token, setToken] = useState(TOKEN_EMPTY);
 	const [profile, setProfile] = useState(PROFILE_EMPTY);
+	const login = useContext(LoginContext);
 
 	useEffect(() => {
+		console.log(login);
 		if (!KakaoLogins) {
 			console.error("Module is Not Linked");
 		}
-	}, []);
+	}, [login]);
 	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
 		.then((result) => {
 			setToken(result.accessToken);
