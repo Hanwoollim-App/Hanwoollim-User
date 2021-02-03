@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
 import {TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
-import {LoginContext} from "./../../../App";
+import LoginContext from "./../../../context/LoginContext";
 
 
 const styles = StyleSheet.create({
@@ -87,30 +87,26 @@ function Initial({navigation}) {
 
 	const [token, setToken] = login.token;
 	const [profile, setProfile] = login.profile;
-	const kakaoLogin = async () => {
-		return KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
-			.then((result) => {
-				setToken(result.accessToken);
-				return true;
-			})
-			.catch((err) => {
-				if (err.code === "E_CANCELLED_OPERATION") {
-					console.log(`Login Cancelled:${err.message}`);
-					return false;
-				}
-				console.log(`Login Failed:${err.code} ${err.message}`);
+	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
+		.then((result) => {
+			setToken(result.accessToken);
+			return true;
+		})
+		.catch((err) => {
+			if (err.code === "E_CANCELLED_OPERATION") {
+				console.log(`Login Cancelled:${err.message}`);
 				return false;
-			});
-	};
-	const getProfile = async () => {
-		return KakaoLogins.getProfile()
-			.then((result) => {
-				setProfile(result);
-			})
-			.catch((err) => {
-				console.log(`Get Profile Failed:${err.code} ${err.message}`);
-			});
-	};
+			}
+			console.log(`Login Failed:${err.code} ${err.message}`);
+			return false;
+		});
+	const getProfile = async () => KakaoLogins.getProfile()
+		.then((result) => {
+			setProfile(result);
+		})
+		.catch((err) => {
+			console.log(`Get Profile Failed:${err.code} ${err.message}`);
+		});
 
 	return (
 		<View style={styles.rootView}>

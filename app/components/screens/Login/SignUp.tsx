@@ -1,10 +1,10 @@
 import React, {useState, useContext} from "react";
 import {View, Text, Button, StyleSheet, Modal} from "react-native";
-import { LoginContext } from "../../../App";
 import color from "../../../utils/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/Login/SingUpScreenUtils";
 import CustomBtn from "./CustomBtn";
 import SignUpForm from "./SignUpForm";
+import LoginContext from "./../../../context/LoginContext";
 
 const styles = StyleSheet.create({
 	modalView: {
