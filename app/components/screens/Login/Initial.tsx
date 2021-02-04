@@ -3,37 +3,42 @@ import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
 import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
-
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const styles = StyleSheet.create({
 	rootView: {
+		flex: 1,
 		width: "100%",
 		height: "100%",
 		backgroundColor: color.mainColor,
 	},
+	titleContainer: {
+		flex: 6.9,
+		alignItems: "center",
+	},
 	titleView: {
 		width: "100%",
-		height: 51,
-		marginTop: 228,
+		height: "11%",
+		marginTop : "48.6%",
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	titleText: {
-		width: 261,
+		flex: 1,
+		width: "100%",
 		height: "100%",
 		fontFamily: "YiSunShinDotumL",
-		fontSize: 50,
+		fontSize: RFValue(47),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 51,
 		letterSpacing: 0,
-		textAlign: "left",
+		textAlign: "center",
 		color: "#ffffff",
 	},
 	titleUnderScore: {
-		width: 261,
-		height: 3,
-		marginTop: 11,
+		width: "70%",
+		height: "0.6%",
+		marginTop: "2%",
 		marginLeft: "auto",
 		marginRight: "auto",
 		backgroundColor: "#adefd1",
@@ -42,33 +47,41 @@ const styles = StyleSheet.create({
 		borderColor: "#707070",
 	},
 	loginView: {
+		flex: 3.1,
 		width: "100%",
-		height: 52,
-		marginTop: 269,
-		justifyContent: "center",
+		height: "26%",
+		marginTop: 0,
+		justifyContent: "flex-start",
 		alignItems: "center",
 	},
 	loginBtn: {
-		width: 212,
-		height: "100%",
-		borderRadius: 25,
+		width: '56.5%',
+		height: "26%",
+		borderRadius: 60,
 		backgroundColor: color.subColor,
 		flexDirection: "row",
+		justifyContent: "flex-start",
+		alignItems: "center",
+	},
+	loginImageBox: {
+		width: "22%",
+		justifyContent: "center",
+		alignItems: "flex-end",
+	},
+	loginImage: {
+		width: "70%",
+		height:"70%",
+	},
+	loginTextBox: {
+		width: '70.2%',
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	loginImage: {
-		width: 44,
-		height: 44,
-	},
 	loginText: {
-		width: 133,
-		height: 20,
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 14,
+		fontSize: RFValue(15),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 20,
 		letterSpacing: 0,
 		color: "#3c1e1e",
 	},
@@ -99,29 +112,35 @@ function Initial({navigation}) {
 
 	return (
 		<View style={styles.rootView}>
-			<View style={styles.titleView}>
-				<Text style={styles.titleText}>{`Hanwoollim`}</Text>
+			<View style={styles.titleContainer}>
+				<View style={styles.titleView}>
+					<Text style={styles.titleText}>{`Hanwoollim`}</Text>
+				</View>
+				<View style={styles.titleUnderScore}/>
 			</View>
-			<View style={styles.titleUnderScore}/>
 			<View style={styles.loginView}>
-				<TouchableOpacity
-					style={styles.loginBtn}
-					title="카카오톡으로 로그인"
-					onPress={async () => {
-						if (!await kakaoLogin()) {
-							return;
-						}
-						navigation.navigate("SignUp", {
-							profile,
-						});
-					}}
-				>
-					<Image
-						style={styles.loginImage}
-						source={require("../../../assets/images/kakaoLogo.png")}
-					/>
-					<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
-				</TouchableOpacity>
+					<TouchableOpacity
+						title="카카오톡으로 로그인"
+						style={styles.loginBtn}
+						onPress={async () => {
+							if (!await kakaoLogin()) {
+								return;
+							}
+							navigation.navigate("SignUp", {
+								profile,
+							});
+						}}
+					>
+						<View style={styles.loginImageBox}>
+							<Image
+								style={styles.loginImage}
+								source={require("../../../assets/images/kakaoLogo.png")}
+							/>
+						</View>
+						<View style={styles.loginTextBox}>
+							<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
+						</View>
+					</TouchableOpacity>
 			</View>
 		</View>
 	);

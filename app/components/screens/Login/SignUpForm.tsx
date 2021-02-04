@@ -1,5 +1,6 @@
 import React from "react";
 import {View, StyleSheet, Text, TextInput} from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 
 interface signUpFormProps {
@@ -10,24 +11,25 @@ interface signUpFormProps {
 const styles = StyleSheet.create({
 	inputSection: {
 		flexDirection: "row",
-		height: 33,
-		marginTop: 58,
+		height: "6%",
+		marginTop: "12%",
+		alignItems: 'center',
 	},
 	inputTitle: {
-		width: 27,
-		height: 18,
 		marginTop: "auto",
 		marginBottom: "auto",
-		marginLeft: 42,
-		marginRight: 31,
+		marginLeft: "11%",
+		marginRight: "8%",
 		fontFamily: "KoreanYNSJG3",
-		fontSize: 14,
+		fontSize: RFValue(14),
 		letterSpacing: 0,
 		textAlign: "left",
+		justifyContent: 'center',
+
 	},
 	inputField: {
-		width: 233,
-		height: 40,
+		width: "62%",
+		height: "125%",
 		borderColor: "#707070",
 		borderWidth: 1,
 	},
