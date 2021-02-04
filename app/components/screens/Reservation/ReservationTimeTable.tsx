@@ -1,14 +1,18 @@
 import React from "react";
-import {View, Text, Button} from "react-native";
+import {View, Text} from "react-native";
+import ReservationTimeTableHeader from "./ReservationTimeTableHeader";
 
 function ReservationTimeTable({navigation}) {
+	const reserveBtnListener = () => {
+		navigation.navigate("ReservingProcess");
+	};
+
 	return (
 		<View>
-			<Text>{"예약 화면입니다."}</Text>
-			<Button
-				title="실제 예약하는 화면가기"
-				onPress={() => navigation.navigate("ReservingProcess")}
+			<ReservationTimeTableHeader
+				btnListener={reserveBtnListener}
 			/>
+			<Text>{"예약 화면입니다."}</Text>
 		</View>
 	);
 }
