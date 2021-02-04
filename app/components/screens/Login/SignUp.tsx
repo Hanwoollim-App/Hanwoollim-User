@@ -5,6 +5,7 @@ import color from "../../../utils/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/Login/SingUpScreenUtils";
 import CustomBtn from "./CustomBtn";
 import SignUpForm from "./SignUpForm";
+import LoginContext from "./../../../context/LoginContext";
 
 
 const styles = StyleSheet.create({
@@ -88,13 +89,14 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignUp({navigation, route}) {
+function SignUp({navigation}) {
 	const [name, setName] : [string, Function] = useState("");
 	const [major, setMajor] : [string, Function] = useState("");
 	const [studentID, setStudentID] : [string, Function] = useState("");
 	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
 	const [modalText, setModalText]: [string, Function] = useState("");
-	const {profile} = route.params;
+	const login = useContext(LoginContext);
+	const [profile] = login.profile;
 
 	const signUpBtnClickListener = () => {
 		// 빠짐없이 기입했는지 check.

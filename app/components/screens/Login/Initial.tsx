@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useContext} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "./../../../utils/design/Color";
-import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
+import LoginContext from "./../../../context/LoginContext";
+import LOGIN_BUTTON_TEXT from "../../../utils/Login/InitialScreenUtils";
 
 const styles = StyleSheet.create({
 	rootView: {
@@ -87,15 +88,18 @@ const styles = StyleSheet.create({
 	},
 });
 
+
 function Initial({navigation}) {
-	const [token, setToken] = useState(TOKEN_EMPTY);
-	const [profile, setProfile] = useState(PROFILE_EMPTY);
+	const login = useContext(LoginContext);
 
 	useEffect(() => {
 		if (!KakaoLogins) {
 			console.error("Module is Not Linked");
 		}
-	}, []);
+	});
+
+	const [token, setToken] = login.token;
+	const [profile, setProfile] = login.profile;
 	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
 		.then((result) => {
 			setToken(result.accessToken);
@@ -104,11 +108,23 @@ function Initial({navigation}) {
 		.catch((err) => {
 			if (err.code === "E_CANCELLED_OPERATION") {
 				console.log(`Login Cancelled:${err.message}`);
-				return false;
 			}
 			console.log(`Login Failed:${err.code} ${err.message}`);
 			return false;
 		});
+	const getProfile = async () => KakaoLogins.getProfile()
+		.then((result) => {
+			setProfile(result);
+		})
+		.catch((err) => {
+			console.log(`Get Profile Failed:${err.code} ${err.message}`);
+		});
+
+	const loginBtnListener = async () => {
+		if (!await kakaoLogin()) return;
+		await getProfile();
+		navigation.navigate("SignUp");
+	}
 
 	return (
 		<View style={styles.rootView}>
@@ -118,28 +134,17 @@ function Initial({navigation}) {
 				</View>
 				<View style={styles.titleUnderScore}/>
 			</View>
+			<View style={styles.titleUnderScore} />
 			<View style={styles.loginView}>
 				<TouchableOpacity
-					title="카카오톡으로 로그인"
 					style={styles.loginBtn}
-					onPress={async () => {
-						if (!await kakaoLogin()) {
-							return;
-						}
-						navigation.navigate("SignUp", {
-							profile,
-						});
-					}}
+					onPress={loginBtnListener}
 				>
-					<View style={styles.loginImageBox}>
-						<Image
-							style={styles.loginImage}
-							source={require("../../../assets/images/kakaoLogo.png")}
-						/>
-					</View>
-					<View style={styles.loginTextBox}>
-						<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
-					</View>
+					<Image
+						style={styles.loginImage}
+						source={require("../../../assets/images/kakaoLogo.png")}
+					/>
+					<Text style={styles.loginText}>{`${LOGIN_BUTTON_TEXT}`}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
