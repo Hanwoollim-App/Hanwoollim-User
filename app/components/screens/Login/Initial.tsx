@@ -2,8 +2,8 @@ import React, {useEffect, useContext} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
-import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
 import LoginContext from "./../../../context/LoginContext";
+import LOGIN_BUTTON_TEXT from "../../../utils/Login/InitialScreenUtils";
 
 
 const styles = StyleSheet.create({
@@ -128,7 +128,7 @@ function Initial({navigation}) {
 						style={styles.loginImage}
 						source={require("../../../assets/images/kakaoLogo.png")}
 					/>
-					<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
+					<Text style={styles.loginText}>{`${LOGIN_BUTTON_TEXT}`}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
