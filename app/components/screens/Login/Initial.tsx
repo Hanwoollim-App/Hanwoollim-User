@@ -2,7 +2,7 @@ import React, {useEffect, useContext} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
-import {TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
+import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
 import LoginContext from "./../../../context/LoginContext";
 
 
@@ -95,7 +95,6 @@ function Initial({navigation}) {
 		.catch((err) => {
 			if (err.code === "E_CANCELLED_OPERATION") {
 				console.log(`Login Cancelled:${err.message}`);
-				return false;
 			}
 			console.log(`Login Failed:${err.code} ${err.message}`);
 			return false;
@@ -108,6 +107,12 @@ function Initial({navigation}) {
 			console.log(`Get Profile Failed:${err.code} ${err.message}`);
 		});
 
+	const loginBtnListener = async () => {
+		if (!await kakaoLogin()) return;
+		await getProfile();
+		navigation.navigate("SignUp");
+	}
+
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.titleView}>
@@ -117,14 +122,7 @@ function Initial({navigation}) {
 			<View style={styles.loginView}>
 				<TouchableOpacity
 					style={styles.loginBtn}
-					title="카카오톡으로 로그인"
-					onPress={async () => {
-						if (!await kakaoLogin() || token === TOKEN_EMPTY) {
-							return;
-						}
-						await getProfile();
-						navigation.navigate("SignUp");
-					}}
+					onPress={loginBtnListener}
 				>
 					<Image
 						style={styles.loginImage}
