@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
+import {RFValue} from "react-native-responsive-fontsize";
 import color from "./../../../utils/design/Color";
 import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/InitialScreenUtils";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const styles = StyleSheet.create({
 	rootView: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 	titleView: {
 		width: "100%",
 		height: "11%",
-		marginTop : "48.6%",
+		marginTop: "48.6%",
 		justifyContent: "center",
 		alignItems: "center",
 	},
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	loginBtn: {
-		width: '56.5%',
+		width: "56.5%",
 		height: "26%",
 		borderRadius: 60,
 		backgroundColor: color.subColor,
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
 	},
 	loginImage: {
 		width: "70%",
-		height:"70%",
+		height: "70%",
 	},
 	loginTextBox: {
-		width: '70.2%',
+		width: "70.2%",
 		justifyContent: "center",
 		alignItems: "center",
 	},
@@ -119,28 +119,28 @@ function Initial({navigation}) {
 				<View style={styles.titleUnderScore}/>
 			</View>
 			<View style={styles.loginView}>
-					<TouchableOpacity
-						title="카카오톡으로 로그인"
-						style={styles.loginBtn}
-						onPress={async () => {
-							if (!await kakaoLogin()) {
-								return;
-							}
-							navigation.navigate("SignUp", {
-								profile,
-							});
-						}}
-					>
-						<View style={styles.loginImageBox}>
-							<Image
-								style={styles.loginImage}
-								source={require("../../../assets/images/kakaoLogo.png")}
-							/>
-						</View>
-						<View style={styles.loginTextBox}>
-							<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
-						</View>
-					</TouchableOpacity>
+				<TouchableOpacity
+					title="카카오톡으로 로그인"
+					style={styles.loginBtn}
+					onPress={async () => {
+						if (!await kakaoLogin()) {
+							return;
+						}
+						navigation.navigate("SignUp", {
+							profile,
+						});
+					}}
+				>
+					<View style={styles.loginImageBox}>
+						<Image
+							style={styles.loginImage}
+							source={require("../../../assets/images/kakaoLogo.png")}
+						/>
+					</View>
+					<View style={styles.loginTextBox}>
+						<Text style={styles.loginText}>{`카카오톡으로 로그인`}</Text>
+					</View>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);

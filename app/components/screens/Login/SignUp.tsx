@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/design/Color";
-import { SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE } from "../../../utils/Login/SingUpScreenUtils";
+import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/Login/SingUpScreenUtils";
 import CustomBtn from "./CustomBtn";
 import SignUpForm from "./SignUpForm";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 	headerView: {
 		width: "100%",
 		height: "16.5%",
-		justifyContent: 'center',
+		justifyContent: "center",
 		backgroundColor: color.mainColor,
 	},
 	headerText: {
