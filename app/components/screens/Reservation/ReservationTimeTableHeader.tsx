@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {TouchableOpacity, View, Text, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center", // header 안에 있는 Component들은 수직 정렬되어 있음
 	},
-	picker:{
+	picker: {
 		width: 138,
 		height: 26,
 		marginLeft: 28,
@@ -74,8 +74,6 @@ const styles = StyleSheet.create({
 
 
 function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) {
-
-
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.picker}>

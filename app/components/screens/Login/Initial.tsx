@@ -4,7 +4,7 @@ import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
 import LoginContext from "./../../../context/LoginContext";
 import LOGIN_BUTTON_TEXT from "../../../utils/Login/InitialScreenUtils";
-import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/LoginUtils";
+import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/LoginUtils";
 
 
 const styles = StyleSheet.create({
@@ -76,10 +76,6 @@ const styles = StyleSheet.create({
 	},
 });
 
-interface loginInterface {
-	token: Array<string | Function | any>,
-	profile: Array<string | Function | any>,
-}
 function Initial({navigation}) {
 	const login : loginInterface = useContext(LoginContext);
 	const [token, setToken] = login.token;
