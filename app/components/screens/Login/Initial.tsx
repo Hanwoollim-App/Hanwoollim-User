@@ -4,6 +4,7 @@ import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "./../../../utils/design/Color";
 import LoginContext from "./../../../context/LoginContext";
 import LOGIN_BUTTON_TEXT from "../../../utils/Login/InitialScreenUtils";
+import {PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/LoginUtils";
 
 
 const styles = StyleSheet.create({
@@ -75,18 +76,25 @@ const styles = StyleSheet.create({
 	},
 });
 
-
+interface loginInterface {
+	token: Array<string | Function | any>,
+	profile: Array<string | Function | any>,
+}
 function Initial({navigation}) {
-	const login = useContext(LoginContext);
+	const login : loginInterface = useContext(LoginContext);
+	const [token, setToken] = login.token;
+	const [profile, setProfile] = login.profile;
 
 	useEffect(() => {
 		if (!KakaoLogins) {
 			console.error("Module is Not Linked");
 		}
-	});
+	}, []);
+	useEffect(() => {
+		if (token === TOKEN_EMPTY || profile === PROFILE_EMPTY) return;
+		navigation.navigate("SignUp");
+	}, [token, profile]);
 
-	const [token, setToken] = login.token;
-	const [profile, setProfile] = login.profile;
 	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
 		.then((result) => {
 			setToken(result.accessToken);
@@ -110,8 +118,7 @@ function Initial({navigation}) {
 	const loginBtnListener = async () => {
 		if (!await kakaoLogin()) return;
 		await getProfile();
-		navigation.navigate("SignUp");
-	}
+	};
 
 	return (
 		<View style={styles.rootView}>
