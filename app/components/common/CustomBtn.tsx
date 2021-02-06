@@ -18,4 +18,4 @@ function CustomBtn({title, onClickListener, titleStyle, btnStyle} : CustomBtnPro
 	);
 }
 
-export default CustomBtn;
+export default React.memo(CustomBtn);

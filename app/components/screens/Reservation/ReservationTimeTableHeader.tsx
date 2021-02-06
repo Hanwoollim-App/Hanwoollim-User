@@ -1,6 +1,7 @@
 import React from "react";
 import {TouchableOpacity, View, Text, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import CustomBtn from "../../common/CustomBtn";
 
 // 라이브러리
 const pickerSelectStyles = StyleSheet.create({
@@ -86,12 +87,12 @@ function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) 
 				/>
 			</View>
 			<View style={styles.reserveBtnView}>
-				<TouchableOpacity
-					style={styles.reserveBtn}
-					onPress={btnListener}
-				>
-					<Text style={styles.reserveBtnText}>{`예약하기`}</Text>
-				</TouchableOpacity>
+				<CustomBtn
+					title={`예약하기`}
+					onClickListener={btnListener}
+					titleStyle={styles.reserveBtnText}
+					btnStyle={styles.reserveBtn}
+				/>
 			</View>
 		</View>
 	);
