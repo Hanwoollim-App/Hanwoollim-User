@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/design/Color";
