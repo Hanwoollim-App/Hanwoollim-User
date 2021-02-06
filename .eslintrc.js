@@ -5,8 +5,6 @@ module.exports = {
 		es6: true,
 	},
 	extends: [
-		'plugin:react/recommended',
-		'@react-native-community',
 		'naver',
 	],
 	globals: {
@@ -22,7 +20,7 @@ module.exports = {
 		ecmaVersion: 2018,
 		sourceType: 'module',
 	},
-	plugins: ['react', '@typescript-eslint'],
+	plugins: ['react', 'react-native', '@typescript-eslint'],
 	rules: {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',

@@ -3,9 +3,10 @@ import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/Login/SingUpScreenUtils";
-import CustomBtn from "./CustomBtn";
+import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "./../../../context/LoginContext";
+import {loginInterface} from "../../../utils/Login/LoginUtils";
 
 
 const styles = StyleSheet.create({
@@ -95,7 +96,7 @@ function SignUp({navigation}) {
 	const [studentID, setStudentID] : [string, Function] = useState("");
 	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
 	const [modalText, setModalText]: [string, Function] = useState("");
-	const login = useContext(LoginContext);
+	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
 	const signUpBtnClickListener = () => {
