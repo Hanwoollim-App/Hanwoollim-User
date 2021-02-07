@@ -65,19 +65,10 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		alignItems: "center",
 	},
-	loginImageBox: {
-		width: "22%",
-		justifyContent: "center",
-		alignItems: "flex-end",
-	},
 	loginImage: {
-		width: "70%",
-		height: "70%",
-	},
-	loginTextBox: {
-		width: "70.2%",
-		justifyContent: "center",
-		alignItems: "center",
+		width: "20.7%",
+		height: "84.6%",
+		marginLeft: "6%",
 	},
 	loginText: {
 		fontFamily: "KoreanYNSJG4",
@@ -137,7 +128,6 @@ function Initial({navigation}) {
 				</View>
 				<View style={styles.titleUnderScore}/>
 			</View>
-			<View style={styles.titleUnderScore} />
 			<View style={styles.loginView}>
 				<TouchableOpacity
 					style={styles.loginBtn}
