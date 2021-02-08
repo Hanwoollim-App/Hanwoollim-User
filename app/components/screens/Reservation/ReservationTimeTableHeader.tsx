@@ -98,4 +98,4 @@ function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) 
 	);
 }
 
-export default ReservationTimeTableHeader;
+export default React.memo(ReservationTimeTableHeader);

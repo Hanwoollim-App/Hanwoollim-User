@@ -4,7 +4,7 @@ import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
 import LoginContext from "../../../utils/context/LoginContext";
-import LOGIN_BUTTON_TEXT from "../../../utils/constant/login/InitialScreenUtils";
+import {LOGIN_BUTTON_TEXT, LOGIN_TITLE_TEXT} from "../../../utils/constant/login/LoginScreenUtils";
 import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/constant/login/LoginUtils";
 
 const styles = StyleSheet.create({
@@ -124,7 +124,7 @@ function Login({navigation}) {
 		<View style={styles.rootView}>
 			<View style={styles.titleContainer}>
 				<View style={styles.titleView}>
-					<Text style={styles.titleText}>{`Hanwoollim`}</Text>
+					<Text style={styles.titleText}>{`${LOGIN_TITLE_TEXT}`}</Text>
 				</View>
 				<View style={styles.titleUnderScore}/>
 			</View>

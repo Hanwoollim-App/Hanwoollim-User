@@ -1,4 +1,5 @@
 import React, {useState, useContext} from "react";
+import {useNavigation} from "@react-navigation/native";
 import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
@@ -7,7 +8,6 @@ import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
-import { useNavigation } from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({

@@ -48,4 +48,4 @@ function SignUpForm({title, onChangeListener, defalutValue} : signUpFormProps) {
 	);
 }
 
-export default SignUpForm;
+export default React.memo(SignUpForm);
