@@ -1,6 +1,6 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-import ReservingProcess from "../screens/Reservation/ReservingProcess";
+import ReservingProcess from "../screens/reservation/ReservingProcess";
 import MainBottomNavigator from "./MainBottomNavigator";
 
 const ReservationStack = createStackNavigator();

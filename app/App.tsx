@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import LoginNavigator from "./components/navigator/LoginNavigator";
-import {PROFILE_EMPTY, TOKEN_EMPTY} from "./utils/Login/LoginUtils";
-import LoginContext from "./context/LoginContext";
+import {PROFILE_EMPTY, TOKEN_EMPTY} from "./utils/constant/login/LoginUtils";
+import LoginContext from "./utils/context/LoginContext";
 
 
 function App() {

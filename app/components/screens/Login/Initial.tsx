@@ -2,10 +2,10 @@ import React, {useEffect, useContext} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import {RFValue} from "react-native-responsive-fontsize";
-import color from "./../../../utils/design/Color";
-import LoginContext from "./../../../context/LoginContext";
-import LOGIN_BUTTON_TEXT from "../../../utils/Login/InitialScreenUtils";
-import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/Login/LoginUtils";
+import color from "../../../utils/constant/common/design/Color";
+import LoginContext from "../../../utils/context/LoginContext";
+import LOGIN_BUTTON_TEXT from "../../../utils/constant/login/InitialScreenUtils";
+import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/constant/login/LoginUtils";
 
 const styles = StyleSheet.create({
 	rootView: {

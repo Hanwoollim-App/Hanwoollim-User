@@ -1,12 +1,12 @@
 import React, {useState, useContext} from "react";
 import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
-import color from "../../../utils/design/Color";
-import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/Login/SingUpScreenUtils";
+import color from "../../../utils/constant/common/design/Color";
+import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
 import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
-import LoginContext from "./../../../context/LoginContext";
-import {loginInterface} from "../../../utils/Login/LoginUtils";
+import LoginContext from "../../../utils/context/LoginContext";
+import {loginInterface} from "../../../utils/constant/login/LoginUtils";
 
 
 const styles = StyleSheet.create({
