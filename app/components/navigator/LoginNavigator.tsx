@@ -1,6 +1,6 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-import Initial from "../screens/login/Initial";
+import Login from "../screens/login/Login";
 import SignUp from "../screens/login/SignUp";
 
 const LoginStack = createStackNavigator();
@@ -9,8 +9,8 @@ function LoginNavigator() {
 	return (
 		<LoginStack.Navigator>
 			<LoginStack.Screen
-				name="Initial"
-				component={Initial}
+				name="Login"
+				component={Login}
 				options={{
 					headerShown: false,
 				}}

@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function Initial({navigation}) {
+function Login({navigation}) {
 	const login : loginInterface = useContext(LoginContext);
 	const [token, setToken] = login.token;
 	const [profile, setProfile] = login.profile;
@@ -144,4 +144,4 @@ function Initial({navigation}) {
 	);
 }
 
-export default Initial;
+export default Login;
