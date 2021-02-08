@@ -1,5 +1,5 @@
 import React from "react";
-import {TouchableOpacity, View, Text, StyleSheet} from "react-native";
+import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import CustomBtn from "../../common/CustomBtn";
 

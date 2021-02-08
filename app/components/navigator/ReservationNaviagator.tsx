@@ -1,18 +1,18 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import ReservingProcess from "../screens/reservation/ReservingProcess";
-import MainBottomNavigator from "./MainBottomNavigator";
+import ReservationTimeTable from "../screens/reservation/ReservationTimeTable";
 
 const ReservationStack = createStackNavigator();
 
 function ReservationNaviagator() {
 	return (
 		<ReservationStack.Navigator
-			initialRouteName="MainBottomNavigator"
+			initialRouteName="ReservationTimeTable"
 		>
 			<ReservationStack.Screen
-				name="MainBottomNavigator"
-				component={MainBottomNavigator}
+				name="ReservationTimeTable"
+				component={ReservationTimeTable}
 				options={{
 					headerShown: false,
 				}}

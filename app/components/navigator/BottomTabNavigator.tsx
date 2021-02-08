@@ -4,11 +4,11 @@ import Home from "../screens/home/Home";
 import FlashMob from "../screens/flashMob/FlashMob";
 import Board from "../screens/board/Board";
 import bottomTabIconOption from "../../utils/constant/naviagation/NavigationUtil";
-import ReservationTimeTable from "../screens/reservation/ReservationTimeTable";
+import ReservationNaviagator from "./ReservationNaviagator";
 
 const bottomTab = createMaterialBottomTabNavigator();
 
-function MainBottomNavigator() {
+function BottomTabNavigator() {
 	return (
 		<bottomTab.Navigator
 			initialRouteName="Home"
@@ -28,7 +28,7 @@ function MainBottomNavigator() {
 			/>
 			<bottomTab.Screen
 				name="ReservingTimeTable"
-				component={ReservationTimeTable}
+				component={ReservationNaviagator}
 			/>
 			<bottomTab.Screen
 				name="Board"
@@ -38,4 +38,4 @@ function MainBottomNavigator() {
 	);
 }
 
-export default MainBottomNavigator;
+export default BottomTabNavigator;

@@ -1,6 +1,5 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-import ReservationNaviagator from "./ReservationNaviagator";
 import Initial from "../screens/login/Initial";
 import SignUp from "../screens/login/SignUp";
 
@@ -19,13 +18,6 @@ function LoginNavigator() {
 			<LoginStack.Screen
 				name="SignUp"
 				component={SignUp}
-				options={{
-					headerShown: false,
-				}}
-			/>
-			<LoginStack.Screen
-				name="ReservationNavigator"
-				component={ReservationNaviagator}
 				options={{
 					headerShown: false,
 				}}

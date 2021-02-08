@@ -7,6 +7,7 @@ import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
+import { useNavigation } from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignUp({navigation}) {
+function SignUp() {
+	const navigation = useNavigation();
 	const [name, setName] : [string, Function] = useState("");
 	const [major, setMajor] : [string, Function] = useState("");
 	const [studentID, setStudentID] : [string, Function] = useState("");
@@ -143,7 +145,9 @@ function SignUp({navigation}) {
 		// })
 		// 	.then((res) => res.json())
 		//   	.then((resJson) => console.log(resJson));
-		navigation.navigate("ReservationNavigator");
+		navigation.navigate("BottomTabNavigator", {
+			screen: "Home",
+		});
 	};
 
 	return (
