@@ -2,6 +2,7 @@ export const SIGN_UP_ERROR_MESSAGE : {[key:string] : string} = {
 	INPUT_EMPTY: "빠짐없이 채워주세요!",
 	STUDENT_ID_NOT_10_LENGTH: "학번은 10자리입니다!",
 	STUDENT_ID_INVALID: "학번이 이상해요!",
+	TRY_AGAIN_BTN: "다시 입력하기",
 };
 export const SIGN_UP_COMPONENT_TEXT: {[key:string] : any} = {
 	title: "환영합니다",
