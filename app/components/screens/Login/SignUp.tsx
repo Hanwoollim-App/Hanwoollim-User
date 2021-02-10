@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
@@ -8,17 +8,44 @@ import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
-
+import Modals from "../../common/Modals";
 
 const styles = StyleSheet.create({
 	rootView: {
 		flex: 1,
 	},
 	modalView: {
+		justifyContent: "space-between",
+		alignItems: "center",
+		width: "66%",
+		height: "20%",
+		marginTop: "80%",
+		marginLeft: "17%",
+		backgroundColor: "white",
+		elevation: 5,
+	},
+	modalTitleStyle: {
+		marginTop: "15%",
+		fontFamily: "KoreanYNSJG3",
+		fontSize: RFValue(15),
+		fontStyle: "normal",
+		textAlign: "center",
+		color: "#000000",
+	},
+	modalBtnTitleStyle: {
+		fontFamily: "KoreanYNSJG3",
+		fontSize: RFValue(15),
+		fontStyle: "normal",
+		textAlign: "center",
+		color: "#ffffff",
+	},
+	modalBtnStyle: {
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: "white",
-		borderRadius: 20,
+		width: "100%",
+		height: "27.5%",
+		backgroundColor: color.mainColor,
+
 	},
 	headerView: {
 		width: "100%",
@@ -152,18 +179,18 @@ function SignUp() {
 
 	return (
 		<View style={styles.rootView}>
-			<Modal
-				animationType="slide"
-				visible={modalVisible}
-			>
-				<View style={styles.modalView}>
-					<Text>{modalText}</Text>
-					<Button
-						title={`다시 입력하기`}
-						onPress={() => setModalVisible(false)}
-					/>
-				</View>
-			</Modal>
+			<Modals
+				mdVisible={modalVisible}
+				modalStyle={styles.modalView}
+				titleStyle={styles.modalTitleStyle}
+				title={modalText}
+				ModalButton={<CustomBtn
+					title={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
+					onClickListener={() => setModalVisible(false)}
+					titleStyle={styles.modalBtnTitleStyle}
+					btnStyle={styles.modalBtnStyle}
+				/>}
+			/>
 			<View style={styles.headerView}>
 				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
 			</View>
