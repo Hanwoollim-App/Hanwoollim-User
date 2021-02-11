@@ -80,23 +80,55 @@ const styles = StyleSheet.create({
 
 interface ModalsProps {
     mdVisible: boolean,
-    modalStyle: Object,
-    titleStyle: Object,
     title: string,
-    ModalButton: Function,
+    subtitle: string,
+    firstButton: Function,
+    secondButton: Function,
+    firstBtnTitle: string,
+    secondBtnTitle: string,
 }
 
-function Modals({mdVisible, modalStyle, titleStyle, title, ModalButton} : ModalsProps) {
+function Modals({mdVisible, title, subtitle, firstButton, secondButton,
+	firstBtnTitle, secondBtnTitle} : ModalsProps) {
 	return (
 		<Modal
 			animationType="slide"
 			visible={mdVisible}
+			transparent={true}
 		>
-			<View style={modalStyle}>
-				<Text style={titleStyle}>
-					{title}
-				</Text>
-				{ModalButton}
+			<View style={styles.modalView}>
+				<View style={styles.contentContainer}>
+					<Text style={styles.titleStyle}>
+						{title}
+					</Text>
+					<Text style={styles.subtitleStyle}>
+						{subtitle}
+					</Text>
+				</View>
+				{firstButton && secondButton ?
+					<View style={styles.btnContainer}>
+						<CustomBtn
+							title={firstBtnTitle}
+							onClickListener={firstButton}
+							titleStyle={styles.firstBtnTitleStyle}
+							btnStyle={styles.firstBtnStyle}
+						/>
+						<CustomBtn
+							title={secondBtnTitle}
+							onClickListener={secondButton}
+							titleStyle={styles.secondBtnTitleStyle}
+							btnStyle={styles.secondBtnStyle}
+						/>
+					</View>				:
+					<View style={styles.btnContainer}>
+						<CustomBtn
+							title={firstBtnTitle}
+							onClickListener={firstButton}
+							titleStyle={styles.firstBtnTitleStyle}
+							btnStyle={styles.firstBtnStyle}
+						/>
+					</View>
+				}
 			</View>
 		</Modal>
 	);

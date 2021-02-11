@@ -149,15 +149,9 @@ function SignUp() {
 		<View style={styles.rootView}>
 			<Modals
 				mdVisible={modalVisible}
-				modalStyle={styles.modalView}
-				titleStyle={styles.modalTitleStyle}
 				title={modalText}
-				ModalButton={<CustomBtn
-					title={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
-					onClickListener={() => setModalVisible(false)}
-					titleStyle={styles.modalBtnTitleStyle}
-					btnStyle={styles.modalBtnStyle}
-				/>}
+				firstButton={() => setModalVisible(false)}
+				firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
 			/>
 			<View style={styles.headerView}>
 				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
