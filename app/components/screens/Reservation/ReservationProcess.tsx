@@ -127,7 +127,7 @@ for (let i = 0; i < 24; i++) {
 	timeItems.push({label: `${i}시`, value: `${i + 1}`});
 }
 
-function ReservingProcess({route}) {
+function ReservationProcess({route}) {
 	const navigation = useNavigation();
 	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 	const onUnitChangeListener = (value) => {
@@ -222,4 +222,4 @@ function ReservingProcess({route}) {
 	);
 }
 
-export default ReservingProcess;
+export default ReservationProcess;

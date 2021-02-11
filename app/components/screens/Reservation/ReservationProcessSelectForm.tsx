@@ -10,7 +10,7 @@ interface pickerPropsInterface {
 	onValueChange: Function,
 }
 
-interface SelectFormPropsInterface{
+interface selectFormPropsInterface{
 	title : string,
 	pickerProps: pickerPropsInterface,
 }
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function ReservationProcessSelectForm({title, pickerProps} : SelectFormPropsInterface) {
+function ReservationProcessSelectForm({title, pickerProps} : selectFormPropsInterface) {
 	return (
 		<View style={styles.rootView}>
 			<Text style={styles.title}>

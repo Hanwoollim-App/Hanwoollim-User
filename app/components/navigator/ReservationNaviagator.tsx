@@ -1,7 +1,7 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-import ReservingProcess from "../screens/reservation/ReservingProcess";
 import ReservationTimeTable from "../screens/reservation/ReservationTimeTable";
+import ReservationProcess from "./../screens/reservation/ReservationProcess";
 
 const ReservationStack = createStackNavigator();
 
@@ -18,8 +18,8 @@ function ReservationNaviagator() {
 				}}
 			/>
 			<ReservationStack.Screen
-				name="ReservingProcess"
-				component={ReservingProcess}
+				name="ReservationProcess"
+				component={ReservationProcess}
 				options={{
 					headerShown: false,
 				}}
