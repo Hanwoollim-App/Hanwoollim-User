@@ -1,10 +1,20 @@
-import React from "react";
-import {View, Text} from "react-native";
+import React, {useEffect} from "react";
+import {View} from "react-native";
+import ReservationProcessHeader from "./ReservationProcessHeader";
 
-function ReservingProcess() {
+
+function ReservingProcess({route}) {
+	const {currentWeek} : any = route.params; // ts 형식으로 바꿀 필요 있음
+
+	useEffect(() => {
+		console.log(currentWeek);
+	}, [currentWeek]);
+
 	return (
 		<View>
-			<Text>{"실제 예약을 진행하는 화면입니다."}</Text>
+			<ReservationProcessHeader
+				currentWeek={currentWeek}
+			/>
 		</View>
 	);
 }

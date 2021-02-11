@@ -20,6 +20,9 @@ function ReservationNaviagator() {
 			<ReservationStack.Screen
 				name="ReservingProcess"
 				component={ReservingProcess}
+				options={{
+					headerShown: false,
+				}}
 			/>
 		</ReservationStack.Navigator>
 	);

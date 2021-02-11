@@ -10,7 +10,9 @@ interface pickerValueInteface {
 function ReservationTimeTable({navigation}) {
 	const [pickerValue, setPickerValue] : [pickerValueInteface, Function] = useState({label: "2021. 02. 1주차  ▽", value: "1"});
 	const reserveBtnListener = () => {
-		navigation.navigate("ReservingProcess");
+		navigation.navigate("ReservingProcess", {
+			currentWeek: pickerValue.label,
+		});
 	};
 
 	return (
