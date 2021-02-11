@@ -5,11 +5,13 @@ import CustomBtn from "../../common/CustomBtn";
 import color from "./../../../utils/constant/common/design/Color";
 
 const styles = StyleSheet.create({
-	totalView: {
+	rootView: {
 		width: "100%",
 		height: 57,
 		flexDirection: "row",
 		alignItems: "center",
+		borderBottomColor: "black",
+		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
 	},
 	backBtn: {
 		width: "27%",
@@ -47,7 +49,7 @@ function ReservationProcessHeader({currentWeek} : {currentWeek: string}) {
 	};
 
 	return (
-		<View style={styles.totalView}>
+		<View style={styles.rootView}>
 			<CustomBtn
 				title={`ᐸ  홈으로 돌아가기`}
 				titleStyle={styles.backBtnTitle}

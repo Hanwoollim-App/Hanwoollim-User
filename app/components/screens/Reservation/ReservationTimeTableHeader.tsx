@@ -8,24 +8,10 @@ const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		width: 138,
 		height: 26,
-		backgroundColor: "#ffffff",
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "#00203f",
-		textAlign: "center",
-		fontFamily: "KoreanYNSJG3",
-		fontSize: 12,
 	},
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
-		backgroundColor: "#ffffff",
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "#00203f",
-		textAlign: "center",
-		fontFamily: "KoreanYNSJG3",
-		fontSize: 12,
 	},
 });
 
