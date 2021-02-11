@@ -14,39 +14,6 @@ const styles = StyleSheet.create({
 	rootView: {
 		flex: 1,
 	},
-	modalView: {
-		justifyContent: "space-between",
-		alignItems: "center",
-		width: "66%",
-		height: "20%",
-		marginTop: "80%",
-		marginLeft: "17%",
-		backgroundColor: "white",
-		elevation: 5,
-	},
-	modalTitleStyle: {
-		marginTop: "15%",
-		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(15),
-		fontStyle: "normal",
-		textAlign: "center",
-		color: "#000000",
-	},
-	modalBtnTitleStyle: {
-		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(15),
-		fontStyle: "normal",
-		textAlign: "center",
-		color: "#ffffff",
-	},
-	modalBtnStyle: {
-		justifyContent: "center",
-		alignItems: "center",
-		width: "100%",
-		height: "27.5%",
-		backgroundColor: color.mainColor,
-
-	},
 	headerView: {
 		justifyContent: "center",
 		width: "100%",
