@@ -1,7 +1,7 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-import ReservationTimeTable from "../screens/reservation/ReservationTimeTable";
-import ReservationProcess from "./../screens/reservation/ReservationProcess";
+import ReservationTimeTable from "../screens/reservation/timeTable/ReservationTimeTable";
+import ReservationProcess from "../screens/reservation/process/ReservationProcess";
 
 const ReservationStack = createStackNavigator();
 

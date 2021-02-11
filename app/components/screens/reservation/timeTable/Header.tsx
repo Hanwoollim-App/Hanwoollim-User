@@ -1,7 +1,7 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import CustomBtn from "../../common/CustomBtn";
+import CustomBtn from "../../../common/CustomBtn";
 
 // 라이브러리
 const pickerSelectStyles = StyleSheet.create({
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 });
 
 
-function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) {
+function Header({btnListener, pickerValue, setPickerValue}) {
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.picker}>
@@ -84,4 +84,4 @@ function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) 
 	);
 }
 
-export default React.memo(ReservationTimeTableHeader);
+export default React.memo(Header);

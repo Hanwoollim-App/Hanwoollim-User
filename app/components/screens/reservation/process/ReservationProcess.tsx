@@ -2,10 +2,10 @@ import React from "react";
 import {View, StyleSheet, Text} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
-import CustomBtn from "../../common/CustomBtn";
-import ReservationProcessHeader from "./ReservationProcessHeader";
-import ReservationProcessSelectForm from "./ReservationProcessSelectForm";
-import color from "../../../utils/constant/common/design/Color";
+import CustomBtn from "../../../common/CustomBtn";
+import Header from "./Header";
+import SelectForm from "./SelectForm";
+import color from "../../../../utils/constant/common/design/Color";
 
 const pickerStyle = StyleSheet.create({
 	inputIOS: {
@@ -150,7 +150,7 @@ function ReservationProcess({route}) {
 
 	return (
 		<View style={styles.rootView}>
-			<ReservationProcessHeader
+			<Header
 				currentWeek={currentWeek}
 			/>
 			<View style={styles.dayPicker}>
@@ -166,7 +166,7 @@ function ReservationProcess({route}) {
 				<Text> {`시간들이 들어갈 공간`}</Text>
 			</View>
 			<View style={styles.reservationDefaultInfo}>
-				<ReservationProcessSelectForm
+				<SelectForm
 					title={`예약 단위`}
 					pickerProps={{
 						placeholder: {},
@@ -176,7 +176,7 @@ function ReservationProcess({route}) {
 						onValueChange: onUnitChangeListener,
 					}}
 				/>
-				<ReservationProcessSelectForm
+				<SelectForm
 					title={`예약 시간`}
 					pickerProps={{
 						placeholder: {},
@@ -192,7 +192,7 @@ function ReservationProcess({route}) {
 			</View>
 			<View style={styles.reservationSectionInfo}>
 				<View>
-					<ReservationProcessSelectForm
+					<SelectForm
 						title={`세션 1`}
 						pickerProps={{
 							placeholder: {},

@@ -1,8 +1,8 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import CustomBtn from "../../common/CustomBtn";
-import color from "./../../../utils/constant/common/design/Color";
+import CustomBtn from "../../../common/CustomBtn";
+import color from "../../../../utils/constant/common/design/Color";
 
 const styles = StyleSheet.create({
 	rootView: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function ReservationProcessHeader({currentWeek} : {currentWeek: string}) {
+function Header({currentWeek} : {currentWeek: string}) {
 	const navigation = useNavigation();
 	const backBtnClickListener = () => {
 		navigation.goBack();
@@ -65,4 +65,4 @@ function ReservationProcessHeader({currentWeek} : {currentWeek: string}) {
 	);
 }
 
-export default ReservationProcessHeader;
+export default Header;

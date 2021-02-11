@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function ReservationProcessSelectForm({title, pickerProps} : selectFormPropsInterface) {
+function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 	return (
 		<View style={styles.rootView}>
 			<Text style={styles.title}>
@@ -61,4 +61,4 @@ function ReservationProcessSelectForm({title, pickerProps} : selectFormPropsInte
 	);
 }
 
-export default ReservationProcessSelectForm;
+export default SelectForm;
