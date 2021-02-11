@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
@@ -8,53 +8,48 @@ import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
-
+import Modals from "../../common/Modals";
 
 const styles = StyleSheet.create({
 	rootView: {
 		flex: 1,
 	},
-	modalView: {
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "white",
-		borderRadius: 20,
-	},
 	headerView: {
+		justifyContent: "center",
 		width: "100%",
 		height: "16.5%",
-		justifyContent: "center",
 		backgroundColor: color.mainColor,
 	},
 	headerText: {
 		marginLeft: "8%",
-		fontSize: RFValue(18),
 		fontFamily: "KoreanYNSJG3",
+		fontSize: RFValue(18),
 		fontStyle: "normal",
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#ffffff",
 	},
 	welcomeView: {
-		width: "100%",
-		height: "7%",
 		justifyContent: "center",
 		alignItems: "center",
+		width: "100%",
+		height: "7%",
 		marginTop: "12%",
 	},
 	welcomText: {
 		width: "100%",
 		height: "100%",
-		fontSize: RFValue(12),
 		fontFamily: "KoreanYNSJG3",
+		fontSize: RFValue(12),
+		letterSpacing: 1,
 		textAlign: "center",
 		color: color.mainColor,
 	},
 	alertTextView: {
-		width: "100%",
-		height: "7%",
 		marginTop: "23%",
 		justifyContent: "center",
+		width: "100%",
+		height: "7%",
 		alignItems: "center",
 	},
 	alertText: {
@@ -67,23 +62,23 @@ const styles = StyleSheet.create({
 		color: "#777777",
 	},
 	singupView: {
+		justifyContent: "center",
+		alignItems: "center",
 		width: "100%",
 		height: "8%",
 		marginTop: "4%",
-		justifyContent: "center",
-		alignItems: "center",
 	},
 	singUpBtn: {
+		justifyContent: "center",
+		alignItems: "center",
 		width: "77%",
 		height: "100%",
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
-		justifyContent: "center",
-		alignItems: "center",
 	},
 	singUpText: {
-		fontSize: RFValue(14),
 		fontFamily: "KoreanYNSJG4",
+		fontSize: RFValue(14),
 		lineHeight: 22,
 		letterSpacing: 0,
 		textAlign: "center",
@@ -152,18 +147,12 @@ function SignUp() {
 
 	return (
 		<View style={styles.rootView}>
-			<Modal
-				animationType="slide"
-				visible={modalVisible}
-			>
-				<View style={styles.modalView}>
-					<Text>{modalText}</Text>
-					<Button
-						title={`다시 입력하기`}
-						onPress={() => setModalVisible(false)}
-					/>
-				</View>
-			</Modal>
+			<Modals
+				mdVisible={modalVisible}
+				title={modalText}
+				firstButton={() => setModalVisible(false)}
+				firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
+			/>
 			<View style={styles.headerView}>
 				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
 			</View>
