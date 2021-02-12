@@ -1,6 +1,7 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import CustomBtn from "../../../common/CustomBtn";
 
 // 라이브러리
@@ -60,16 +61,18 @@ const styles = StyleSheet.create({
 });
 
 
-function Header({btnListener, pickerValue, setPickerValue}) {
+function Header({btnListener, pickerValue, pickerValueChangeListener}) {
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.picker}>
 				<RNPickerSelect
 					style={pickerSelectStyles}
-					onValueChange={(value) => setPickerValue(value)}
+					onValueChange={(value) => {
+						pickerValueChangeListener(weekItem[value - 1]);
+					}}
 					placeholder={{}}
 					value={pickerValue.value}
-					items={[{label: "2021. 02. 1주차  ▽", value: "1"}, {label: "2021. 02. 2주차  ▽", value: "2"}]}
+					items={weekItem}
 				/>
 			</View>
 			<View style={styles.reserveBtnView}>
