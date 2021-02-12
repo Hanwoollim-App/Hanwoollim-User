@@ -3,6 +3,7 @@ import {StyleSheet, View, Text} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import CustomBtn from "../../../common/CustomBtn";
 import color from "../../../../utils/constant/common/design/Color";
+import btnTitle from "../../../../utils/constant/reservation/process/HeaderUtil";
 
 const styles = StyleSheet.create({
 	rootView: {
@@ -51,7 +52,7 @@ function Header({currentWeek} : {currentWeek: string}) {
 	return (
 		<View style={styles.rootView}>
 			<CustomBtn
-				title={`ᐸ  홈으로 돌아가기`}
+				title={btnTitle}
 				titleStyle={styles.backBtnTitle}
 				btnStyle={styles.backBtn}
 				onClickListener={backBtnClickListener}

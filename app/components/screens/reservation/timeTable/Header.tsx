@@ -1,17 +1,28 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import CustomBtn from "../../../common/CustomBtn";
 
 // 라이브러리
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
-		width: 138,
-		height: 26,
+		fontFamily: "KoreanYNSJG3",
+		fontSize: 10,
+		lineHeight: 16,
+		letterSpacing: 0,
+		textAlign: "left",
+		color: "#000000",
 	},
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
+		fontSize: 12,
+		fontFamily: "KoreanYNSJG3",
+		lineHeight: 12,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#000000",
 	},
 });
 
@@ -25,12 +36,13 @@ const styles = StyleSheet.create({
 	},
 	picker: {
 		width: 138,
-		height: 26,
+		height: 35,
 		marginLeft: 28,
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
 		borderWidth: 1,
 		borderColor: "#00203f",
+		justifyContent: "center",
 	},
 	reserveBtnView: {
 		marginLeft: 100,
@@ -60,16 +72,19 @@ const styles = StyleSheet.create({
 });
 
 
-function Header({btnListener, pickerValue, setPickerValue}) {
+function Header({btnListener, pickerValue, pickerValueChangeListener}) {
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.picker}>
 				<RNPickerSelect
 					style={pickerSelectStyles}
-					onValueChange={(value) => setPickerValue(value)}
+					useNativeAndroidPickerStyle={false}
+					onValueChange={(value) => {
+						pickerValueChangeListener(weekItem[value - 1]);
+					}}
 					placeholder={{}}
 					value={pickerValue.value}
-					items={[{label: "2021. 02. 1주차  ▽", value: "1"}, {label: "2021. 02. 2주차  ▽", value: "2"}]}
+					items={weekItem}
 				/>
 			</View>
 			<View style={styles.reserveBtnView}>

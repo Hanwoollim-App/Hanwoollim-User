@@ -6,6 +6,7 @@ import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
 import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
+import {dayItems, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 
 const pickerStyle = StyleSheet.create({
 	inputIOS: {
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
 		marginLeft: 25,
 		marginTop: 29,
 		borderWidth: 1,
-		borderColor: "#00203f",
+		borderColor: color.mainColor,
 	},
 	content: {
 		alignItems: "center",
@@ -116,14 +117,6 @@ const styles = StyleSheet.create({
 	},
 });
 
-const dayItems = [{label: "월요일", value: "1"}, {label: "화요일", value: "2"}, {label: "수요일", value: "3"}, {label: "목요일", value: "4"}, {label: "금요일", value: "5"}, {label: "토요일", value: "6"}, {label: "일요일", value: "7"}];
-const unitItems = [{label: "개인", value: "1"}, {label: "팀", value: "2"}];
-const sectionItems = [{label: "드럼", value: "1"}, {label: "기타", value: "2"}, {label: "베이스", value: "3"}, {label: "건반", value: "4"}, {label: "보컬", value: "5"}];
-const timeItems = [];
-
-for (let i = 0; i < 24; i++) {
-	timeItems.push({label: `${i}시~${i + 1}시`, value: `${i}`});
-}
 
 function ReservationProcess({route}) {
 	const navigation = useNavigation();
@@ -166,27 +159,27 @@ function ReservationProcess({route}) {
 				</View>
 				<View style={styles.reservationDefaultInfo}>
 					<SelectForm
-						title={`예약 단위`}
+						title={PROCESS_TEXT.UNIT}
 						pickerProps={{
 							placeholder: {},
-							style: pickerStyle,
+							pickerStyle,
 							items: unitItems,
 							value: unitItems[0],
 							onValueChange: onUnitChangeListener,
 						}}
 					/>
 					<SelectForm
-						title={`예약 시간`}
+						title={PROCESS_TEXT.TIME}
 						pickerProps={{
 							placeholder: {},
-							style: pickerStyle,
+							pickerStyle,
 							items: timeItems,
 							value: timeItems[0],
 							onValueChange: onTimeChangeListener,
 						}}
 					/>
 					<Text style={styles.alertText}>
-						{`하루에 개인당 최대 한시간만 예약이 가능합니다`}
+						{PROCESS_TEXT.ALERT}
 					</Text>
 				</View>
 				<View style={styles.reservationSectionInfo}>
@@ -195,7 +188,7 @@ function ReservationProcess({route}) {
 							title={`세션 1`}
 							pickerProps={{
 								placeholder: {},
-								style: pickerStyle,
+								pickerStyle,
 								items: sectionItems,
 								value: sectionItems[0],
 								onValueChange: onSectionChangeListener,
@@ -203,7 +196,7 @@ function ReservationProcess({route}) {
 						/>
 					</View>
 					<CustomBtn
-						title={`세션 추가하기 (최대 2개)`}
+						title={PROCESS_TEXT.SECTION_ADD}
 						onClickListener={onSectionAddBtnClickListener}
 						btnStyle={styles.addBtn}
 						titleStyle={styles.addBtnText}
@@ -211,7 +204,7 @@ function ReservationProcess({route}) {
 				</View>
 				<View style={styles.submitView}>
 					<CustomBtn
-						title={`예약 확정하기`}
+						title={PROCESS_TEXT.SUBMIT}
 						onClickListener={onsumbitBtnClickListener}
 						titleStyle={styles.sumbitViewText}
 						btnStyle={styles.submitViewBtn}

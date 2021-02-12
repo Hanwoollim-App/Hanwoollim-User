@@ -4,7 +4,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 interface pickerPropsInterface {
 	placeholder: Object,
-	style: Object,
+	pickerStyle: Object,
 	items: Array<any>,
 	value: any,
 	onValueChange: Function,
@@ -50,7 +50,7 @@ function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 			<View style={styles.pickerView}>
 				<RNPickerSelect
 					placeholder={pickerProps.placeholder}
-					style={pickerProps.style}
+					style={pickerProps.pickerStyle}
 					items={pickerProps.items}
 					value={pickerProps.value}
 					onValueChange={(value) => {
