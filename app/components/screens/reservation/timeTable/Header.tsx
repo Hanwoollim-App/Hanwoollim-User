@@ -1,31 +1,17 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import CustomBtn from "../../common/CustomBtn";
+import CustomBtn from "../../../common/CustomBtn";
 
 // 라이브러리
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		width: 138,
 		height: 26,
-		backgroundColor: "#ffffff",
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "#00203f",
-		textAlign: "center",
-		fontFamily: "KoreanYNSJG3",
-		fontSize: 12,
 	},
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
-		backgroundColor: "#ffffff",
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "#00203f",
-		textAlign: "center",
-		fontFamily: "KoreanYNSJG3",
-		fontSize: 12,
 	},
 });
 
@@ -74,7 +60,7 @@ const styles = StyleSheet.create({
 });
 
 
-function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) {
+function Header({btnListener, pickerValue, setPickerValue}) {
 	return (
 		<View style={styles.rootView}>
 			<View style={styles.picker}>
@@ -98,4 +84,4 @@ function ReservationTimeTableHeader({btnListener, pickerValue, setPickerValue}) 
 	);
 }
 
-export default React.memo(ReservationTimeTableHeader);
+export default React.memo(Header);
