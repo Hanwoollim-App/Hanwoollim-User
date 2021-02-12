@@ -34,5 +34,7 @@ module.exports = {
 		'prettier/prettier': 'off',
 		// only in window enviornment
 		'linebreak-style': ["error", "windows"],
+		// array element들은 프로그래머의 개성에 따라 customazing 할 수 있도록 꺼 놓음
+		'array-element-newline': 'off',
 	},
 };
