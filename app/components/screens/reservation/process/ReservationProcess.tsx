@@ -31,10 +31,12 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#00203f",
 	},
+	content: {
+		alignItems: "center",
+	},
 	timeBox: {
 		width: 327,
 		height: 41,
-		marginLeft: 24,
 		marginTop: 17,
 		borderRadius: 12,
 		borderStyle: "solid",
@@ -62,13 +64,10 @@ const styles = StyleSheet.create({
 		borderColor: "#bdbdbd",
 	},
 	alertText: {
-		width: 164,
-		height: 8,
 		marginTop: 8,
+		marginLeft: 140,
 		fontFamily: "KoreanYNSJG2",
 		fontSize: 8,
-		fontWeight: "normal",
-		fontStyle: "normal",
 		lineHeight: 11,
 		letterSpacing: 0,
 		textAlign: "left",
@@ -76,8 +75,9 @@ const styles = StyleSheet.create({
 	},
 	addBtn: {
 		width: 130,
-		height: 12,
+		height: 20,
 		marginTop: 23,
+		marginLeft: 174,
 	},
 	addBtnText: {
 		width: "100%",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 	submitView: {
 		width: 290,
 		height: 42,
-		marginTop: 265,
+		marginTop: 220,
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
 	},
@@ -105,8 +105,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	sumbitViewText: {
-		width: 78,
-		height: 13,
 		fontFamily: "KoreanYNSJG4",
 		fontSize: 13,
 		fontWeight: "normal",
@@ -124,7 +122,7 @@ const sectionItems = [{label: "드럼", value: "1"}, {label: "기타", value: "2
 const timeItems = [];
 
 for (let i = 0; i < 24; i++) {
-	timeItems.push({label: `${i}시`, value: `${i + 1}`});
+	timeItems.push({label: `${i}시~${i + 1}시`, value: `${i}`});
 }
 
 function ReservationProcess({route}) {
@@ -162,61 +160,63 @@ function ReservationProcess({route}) {
 					onValueChange={(value) => console.log(value)}
 				/>
 			</View>
-			<View style={styles.timeBox}>
-				<Text> {`시간들이 들어갈 공간`}</Text>
-			</View>
-			<View style={styles.reservationDefaultInfo}>
-				<SelectForm
-					title={`예약 단위`}
-					pickerProps={{
-						placeholder: {},
-						style: pickerStyle,
-						items: unitItems,
-						value: unitItems[0],
-						onValueChange: onUnitChangeListener,
-					}}
-				/>
-				<SelectForm
-					title={`예약 시간`}
-					pickerProps={{
-						placeholder: {},
-						style: pickerStyle,
-						items: timeItems,
-						value: timeItems[0],
-						onValueChange: onTimeChangeListener,
-					}}
-				/>
-				<Text style={styles.alertText}>
-					{`하루에 개인당 최대 한시간만 예약이 가능합니다`}
-				</Text>
-			</View>
-			<View style={styles.reservationSectionInfo}>
-				<View>
+			<View style={styles.content}>
+				<View style={styles.timeBox}>
+					<Text> {`시간들이 들어갈 공간`}</Text>
+				</View>
+				<View style={styles.reservationDefaultInfo}>
 					<SelectForm
-						title={`세션 1`}
+						title={`예약 단위`}
 						pickerProps={{
 							placeholder: {},
 							style: pickerStyle,
-							items: sectionItems,
-							value: sectionItems[0],
-							onValueChange: onSectionChangeListener,
+							items: unitItems,
+							value: unitItems[0],
+							onValueChange: onUnitChangeListener,
 						}}
 					/>
+					<SelectForm
+						title={`예약 시간`}
+						pickerProps={{
+							placeholder: {},
+							style: pickerStyle,
+							items: timeItems,
+							value: timeItems[0],
+							onValueChange: onTimeChangeListener,
+						}}
+					/>
+					<Text style={styles.alertText}>
+						{`하루에 개인당 최대 한시간만 예약이 가능합니다`}
+					</Text>
 				</View>
-				<CustomBtn
-					title={`세션 추가하기 (최대 2개)`}
-					onClickListener={onSectionAddBtnClickListener}
-					btnStyle={styles.addBtn}
-					titleStyle={styles.addBtnText}
-				/>
-			</View>
-			<View style={styles.submitView}>
-				<CustomBtn
-					title={`예약 확정하기`}
-					onClickListener={onsumbitBtnClickListener}
-					titleStyle={styles.sumbitViewText}
-					btnStyle={styles.submitViewBtn}
-				/>
+				<View style={styles.reservationSectionInfo}>
+					<View>
+						<SelectForm
+							title={`세션 1`}
+							pickerProps={{
+								placeholder: {},
+								style: pickerStyle,
+								items: sectionItems,
+								value: sectionItems[0],
+								onValueChange: onSectionChangeListener,
+							}}
+						/>
+					</View>
+					<CustomBtn
+						title={`세션 추가하기 (최대 2개)`}
+						onClickListener={onSectionAddBtnClickListener}
+						btnStyle={styles.addBtn}
+						titleStyle={styles.addBtnText}
+					/>
+				</View>
+				<View style={styles.submitView}>
+					<CustomBtn
+						title={`예약 확정하기`}
+						onClickListener={onsumbitBtnClickListener}
+						titleStyle={styles.sumbitViewText}
+						btnStyle={styles.submitViewBtn}
+					/>
+				</View>
 			</View>
 		</View>
 	);

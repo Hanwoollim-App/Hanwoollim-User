@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
 		marginTop: 32,
 	},
 	title: {
-		width: 53,
-		height: "50%",
 		marginLeft: 40,
 		fontFamily: "KoreanYNSJG4",
 		fontSize: 13,
@@ -35,8 +33,11 @@ const styles = StyleSheet.create({
 	},
 	pickerView: {
 		width: 113,
-		height: "100%",
+		height: 26,
 		marginLeft: 96,
+		borderStyle: "solid",
+		borderWidth: 1,
+		borderColor: "#00203f",
 	},
 });
 
