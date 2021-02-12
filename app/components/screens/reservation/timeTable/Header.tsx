@@ -7,12 +7,22 @@ import CustomBtn from "../../../common/CustomBtn";
 // 라이브러리
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
-		width: 138,
-		height: 26,
+		fontFamily: "KoreanYNSJG3",
+		fontSize: 10,
+		lineHeight: 16,
+		letterSpacing: 0,
+		textAlign: "left",
+		color: "#000000",
 	},
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
+		fontSize: 12,
+		fontFamily: "KoreanYNSJG3",
+		lineHeight: 12,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#000000",
 	},
 });
 
@@ -26,12 +36,13 @@ const styles = StyleSheet.create({
 	},
 	picker: {
 		width: 138,
-		height: 26,
+		height: 35,
 		marginLeft: 28,
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
 		borderWidth: 1,
 		borderColor: "#00203f",
+		justifyContent: "center",
 	},
 	reserveBtnView: {
 		marginLeft: 100,
@@ -67,6 +78,7 @@ function Header({btnListener, pickerValue, pickerValueChangeListener}) {
 			<View style={styles.picker}>
 				<RNPickerSelect
 					style={pickerSelectStyles}
+					useNativeAndroidPickerStyle={false}
 					onValueChange={(value) => {
 						pickerValueChangeListener(weekItem[value - 1]);
 					}}
