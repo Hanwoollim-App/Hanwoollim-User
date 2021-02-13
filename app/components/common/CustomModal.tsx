@@ -88,7 +88,7 @@ interface ModalsProps {
     secondBtnTitle?: string,
 }
 
-function Modals({mdVisible, title, subtitle = null, firstButton, secondButton = null,
+function CustomModal({mdVisible, title, subtitle = null, firstButton, secondButton = null,
 	firstBtnTitle, secondBtnTitle = null} : ModalsProps) {
 	return (
 		<Modal
@@ -126,4 +126,4 @@ function Modals({mdVisible, title, subtitle = null, firstButton, secondButton = 
 	);
 }
 
-export default React.memo(Modals);
+export default React.memo(CustomModal);

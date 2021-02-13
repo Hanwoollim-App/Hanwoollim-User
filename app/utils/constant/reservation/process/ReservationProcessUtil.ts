@@ -35,4 +35,10 @@ export const PROCESS_TEXT = {
 	ALERT: "하루에 개인당 최대 한시간만 예약이 가능합니다",
 	SECTION_ADD: "세션 추가하기 (최대 2개)",
 	SUBMIT: "예약 확정하기",
+	SECTION: "세션",
+};
+
+export const MODAL_TEXT = {
+	TITLE: "예약이 완료되었습니다",
+	BTN_TITLE: "확인",
 };

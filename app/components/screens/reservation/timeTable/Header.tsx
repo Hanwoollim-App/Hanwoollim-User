@@ -4,7 +4,7 @@ import RNPickerSelect from "react-native-picker-select";
 import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import CustomBtn from "../../../common/CustomBtn";
 
-// 라이브러리
+// 라이브러리용 StyleSheet
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		fontFamily: "KoreanYNSJG3",
@@ -27,13 +27,6 @@ const pickerSelectStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-	rootView: {
-		width: "100%",
-		height: 57,
-		backgroundColor: "#ffffff",
-		flexDirection: "row",
-		alignItems: "center", // header 안에 있는 Component들은 수직 정렬되어 있음
-	},
 	picker: {
 		width: 138,
 		height: 35,
@@ -44,12 +37,12 @@ const styles = StyleSheet.create({
 		borderColor: "#00203f",
 		justifyContent: "center",
 	},
-	reserveBtnView: {
+	reserve: {
 		marginLeft: 100,
 		width: 95,
 		height: 28,
 	},
-	reserveBtn: {
+	reserve__btn: {
 		width: "100%",
 		height: "100%",
 		borderRadius: 20,
@@ -57,7 +50,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	reserveBtnText: {
+	reserve__text: {
 		width: 46,
 		height: 16,
 		fontFamily: "KoreanYNSJG3",
@@ -74,7 +67,7 @@ const styles = StyleSheet.create({
 
 function Header({btnListener, pickerValue, pickerValueChangeListener}) {
 	return (
-		<View style={styles.rootView}>
+		<>
 			<View style={styles.picker}>
 				<RNPickerSelect
 					style={pickerSelectStyles}
@@ -87,15 +80,15 @@ function Header({btnListener, pickerValue, pickerValueChangeListener}) {
 					items={weekItem}
 				/>
 			</View>
-			<View style={styles.reserveBtnView}>
+			<View style={styles.reserve}>
 				<CustomBtn
 					title={`예약하기`}
 					onClickListener={btnListener}
-					titleStyle={styles.reserveBtnText}
-					btnStyle={styles.reserveBtn}
+					btnStyle={styles.reserve__btn}
+					titleStyle={styles.reserve__text}
 				/>
 			</View>
-		</View>
+		</>
 	);
 }
 

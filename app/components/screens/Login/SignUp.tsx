@@ -8,7 +8,7 @@ import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
-import Modals from "../../common/Modals";
+import CustomModal from "../../common/CustomModal";
 
 const styles = StyleSheet.create({
 	rootView: {
@@ -147,7 +147,7 @@ function SignUp() {
 
 	return (
 		<View style={styles.rootView}>
-			<Modals
+			<CustomModal
 				mdVisible={modalVisible}
 				title={modalText}
 				firstButton={() => setModalVisible(false)}
