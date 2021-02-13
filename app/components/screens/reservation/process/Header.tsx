@@ -6,20 +6,12 @@ import color from "../../../../utils/constant/common/design/Color";
 import btnTitle from "../../../../utils/constant/reservation/process/HeaderUtil";
 
 const styles = StyleSheet.create({
-	rootView: {
-		width: "100%",
-		height: 57,
-		flexDirection: "row",
-		alignItems: "center",
-		borderBottomColor: "black",
-		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
-	},
-	backBtn: {
+	haeder__back__btn: {
 		width: "27%",
 		height: "26%",
 		marginLeft: 16,
 	},
-	backBtnTitle: {
+	header__back__text: {
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG3",
@@ -28,12 +20,12 @@ const styles = StyleSheet.create({
 		letterSpacing: 0,
 		color: color.mainColor,
 	},
-	headerTitleView: {
+	header__title: {
 		width: "33%",
 		height: "33%",
 		marginLeft: 111,
 	},
-	headerTitleText: {
+	header__title__text: {
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
@@ -50,19 +42,19 @@ function Header({currentWeek} : {currentWeek: string}) {
 	};
 
 	return (
-		<View style={styles.rootView}>
+		<>
 			<CustomBtn
 				title={btnTitle}
-				titleStyle={styles.backBtnTitle}
-				btnStyle={styles.backBtn}
+				btnStyle={styles.haeder__back__btn}
+				titleStyle={styles.header__back__text}
 				onClickListener={backBtnClickListener}
 			/>
-			<View style={styles.headerTitleView}>
-				<Text style={styles.headerTitleText}>
+			<View style={styles.header__title}>
+				<Text style={styles.header__title__text}>
 					{`${currentWeek}`}
 				</Text>
 			</View>
-		</View>
+		</>
 	);
 }
 

@@ -16,11 +16,7 @@ interface selectFormPropsInterface{
 }
 
 const styles = StyleSheet.create({
-	rootView: {
-		flexDirection: "row",
-		marginTop: 32,
-	},
-	title: {
+	form__title: {
 		marginLeft: 40,
 		fontFamily: "KoreanYNSJG4",
 		fontSize: 13,
@@ -31,7 +27,7 @@ const styles = StyleSheet.create({
 		textAlign: "left",
 		color: "#363636",
 	},
-	pickerView: {
+	form__picker: {
 		width: 113,
 		height: 26,
 		marginLeft: 96,
@@ -43,11 +39,11 @@ const styles = StyleSheet.create({
 
 function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 	return (
-		<View style={styles.rootView}>
-			<Text style={styles.title}>
+		<>
+			<Text style={styles.form__title}>
 				{`${title}`}
 			</Text>
-			<View style={styles.pickerView}>
+			<View style={styles.form__picker}>
 				<RNPickerSelect
 					placeholder={pickerProps.placeholder}
 					style={pickerProps.pickerStyle}
@@ -58,7 +54,7 @@ function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 					}}
 				/>
 			</View>
-		</View>
+		</>
 	);
 }
 

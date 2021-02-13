@@ -22,8 +22,20 @@ const pickerStyle = StyleSheet.create({
 
 
 const styles = StyleSheet.create({
-	rootView: {
+	root: {
 		flex: 1,
+	},
+	headerContainer: {
+		flex: 1,
+		width: "100%",
+		flexDirection: "row",
+		alignItems: "center",
+		borderBottomColor: "black",
+		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
+	},
+	bodyContainer: {
+		flex: 13.2,
+		width: "100%",
 	},
 	dayPicker: {
 		width: 113,
@@ -33,7 +45,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: color.mainColor,
 	},
-	content: {
+	contentContainer: {
 		alignItems: "center",
 	},
 	timeBox: {
@@ -45,7 +57,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#bdbdbd",
 	},
-	reservationDefaultInfo: {
+	defaultInfo: {
 		width: 327,
 		height: 151,
 		marginTop: 15,
@@ -55,7 +67,11 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#bdbdbd",
 	},
-	reservationSectionInfo: {
+	defaultInfo__form: {
+		flexDirection: "row",
+		marginTop: 32,
+	},
+	sectionInfo: {
 		width: 327,
 		height: 118,
 		marginTop: 13,
@@ -64,6 +80,10 @@ const styles = StyleSheet.create({
 		borderStyle: "solid",
 		borderWidth: 1,
 		borderColor: "#bdbdbd",
+	},
+	sectionInfo__form: {
+		flexDirection: "row",
+		marginTop: 32,
 	},
 	alertText: {
 		marginTop: 8,
@@ -93,20 +113,20 @@ const styles = StyleSheet.create({
 		textAlign: "left",
 		color: color.mainColor,
 	},
-	submitView: {
+	submit: {
 		width: 290,
 		height: 42,
 		marginTop: 220,
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
 	},
-	submitViewBtn: {
+	submit__btn: {
 		width: "100%",
 		height: "100%",
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	sumbitViewText: {
+	sumbit__text: {
 		fontFamily: "KoreanYNSJG4",
 		fontSize: 13,
 		fontWeight: "normal",
@@ -148,7 +168,7 @@ function ReservationProcess({route}) {
 
 
 	return (
-		<View style={styles.rootView}>
+		<View style={styles.root}>
 			<CustomModal
 				mdVisible={modalVisible}
 				title={MODAL_TEXT.TITLE}
@@ -160,78 +180,89 @@ function ReservationProcess({route}) {
 				}}
 				firstBtnTitle={MODAL_TEXT.BTN_TITLE}
 			/>
-			<Header
-				currentWeek={currentWeek}
-			/>
-			<View style={styles.dayPicker}>
-				<RNPickerSelect
-					placeholder={{}}
-					style={pickerStyle}
-					items={dayItems}
-					value={dayItems[0]}
-					onValueChange={(value) => console.log(value)}
+			<View style={styles.headerContainer}>
+				<Header
+					currentWeek={currentWeek}
 				/>
 			</View>
-			<View style={styles.content}>
-				<View style={styles.timeBox}>
-					<Text> {`시간들이 들어갈 공간`}</Text>
-				</View>
-				<View style={styles.reservationDefaultInfo}>
-					<SelectForm
-						title={PROCESS_TEXT.UNIT}
-						pickerProps={{
-							placeholder: {},
-							pickerStyle,
-							items: unitItems,
-							value: unitItems[0],
-							onValueChange: onUnitChangeListener,
-						}}
-					/>
-					<SelectForm
-						title={PROCESS_TEXT.TIME}
-						pickerProps={{
-							placeholder: {},
-							pickerStyle,
-							items: timeItems,
-							value: timeItems[0],
-							onValueChange: onTimeChangeListener,
-						}}
-					/>
-					<Text style={styles.alertText}>
-						{PROCESS_TEXT.ALERT}
-					</Text>
-				</View>
-				<View style={styles.reservationSectionInfo}>
-					{
-						sectionInfoCount.map((value) => (
-							<View key={value}>
-								<SelectForm
-									title={`${PROCESS_TEXT.SECTION} ${value}`}
-									pickerProps={{
-										placeholder: {},
-										pickerStyle,
-										items: sectionItems,
-										value: sectionItems[0],
-										onValueChange: onSectionChangeListener,
-									}}
-								/>
-							</View>
-						))
-					}
-					<CustomBtn
-						title={PROCESS_TEXT.SECTION_ADD}
-						onClickListener={onSectionAddBtnClickListener}
-						btnStyle={styles.addBtn}
-						titleStyle={styles.addBtnText}
+			<View style={styles.bodyContainer}>
+				<View style={styles.dayPicker}>
+					<RNPickerSelect
+						placeholder={{}}
+						style={pickerStyle}
+						items={dayItems}
+						value={dayItems[0]}
+						onValueChange={(value) => console.log(value)}
 					/>
 				</View>
-				<View style={styles.submitView}>
-					<CustomBtn
-						title={PROCESS_TEXT.SUBMIT}
-						onClickListener={onsumbitBtnClickListener}
-						titleStyle={styles.sumbitViewText}
-						btnStyle={styles.submitViewBtn}
-					/>
+				<View style={styles.contentContainer}>
+					<View style={styles.timeBox}>
+						<Text> {`시간들이 들어갈 공간`}</Text>
+					</View>
+					<View style={styles.defaultInfo}>
+						<View style={styles.defaultInfo__form}>
+							<SelectForm
+								title={PROCESS_TEXT.UNIT}
+								pickerProps={{
+									placeholder: {},
+									pickerStyle,
+									items: unitItems,
+									value: unitItems[0],
+									onValueChange: onUnitChangeListener,
+								}}
+							/>
+						</View>
+						<View style={styles.defaultInfo__form}>
+							<SelectForm
+								title={PROCESS_TEXT.TIME}
+								pickerProps={{
+									placeholder: {},
+									pickerStyle,
+									items: timeItems,
+									value: timeItems[0],
+									onValueChange: onTimeChangeListener,
+								}}
+							/>
+						</View>
+						<Text style={styles.alertText}>
+							{PROCESS_TEXT.ALERT}
+						</Text>
+					</View>
+					<View style={styles.sectionInfo}>
+						{
+							sectionInfoCount.map((value) => (
+								<View
+									key={value}
+									style={styles.sectionInfo__form}
+								>
+									<SelectForm
+										title={`${PROCESS_TEXT.SECTION} ${value}`}
+										pickerProps={{
+											placeholder: {},
+											pickerStyle,
+											items: sectionItems,
+											value: sectionItems[0],
+											onValueChange: onSectionChangeListener,
+										}}
+									/>
+								</View>
+							))
+						}
+						<CustomBtn
+							title={PROCESS_TEXT.SECTION_ADD}
+							onClickListener={onSectionAddBtnClickListener}
+							btnStyle={styles.addBtn}
+							titleStyle={styles.addBtnText}
+						/>
+					</View>
+					<View style={styles.submit}>
+						<CustomBtn
+							title={PROCESS_TEXT.SUBMIT}
+							btnStyle={styles.submit__btn}
+							titleStyle={styles.sumbit__text}
+							onClickListener={onsumbitBtnClickListener}
+						/>
+					</View>
 				</View>
 			</View>
 		</View>
