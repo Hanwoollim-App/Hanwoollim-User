@@ -36,3 +36,8 @@ export const PROCESS_TEXT = {
 	SECTION_ADD: "세션 추가하기 (최대 2개)",
 	SUBMIT: "예약 확정하기",
 };
+
+export const MODAL_TEXT = {
+	TITLE: "예약이 완료되었습니다",
+	BTN_TITLE: "확인",
+};

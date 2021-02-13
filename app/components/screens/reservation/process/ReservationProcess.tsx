@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {View, StyleSheet, Text} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
@@ -6,7 +6,8 @@ import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
 import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
-import {dayItems, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
+import {dayItems, MODAL_TEXT, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
+import CustomModal from "../../../common/CustomModal";
 
 const pickerStyle = StyleSheet.create({
 	inputIOS: {
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
 
 
 function ReservationProcess({route}) {
+	const [modalVisible, setModalVisible] = useState(false);
 	const navigation = useNavigation();
 	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 	const onUnitChangeListener = (value) => {
@@ -134,13 +136,22 @@ function ReservationProcess({route}) {
 		console.log("추가!");
 	};
 	const onsumbitBtnClickListener = () => {
-		navigation.navigate("BottomTabNavigator", {
-			screen: "Home",
-		});
+		setModalVisible(true);
 	};
+
 
 	return (
 		<View style={styles.rootView}>
+			<CustomModal
+				mdVisible={modalVisible}
+				title={MODAL_TEXT.TITLE}
+				firstButton={() => {
+					navigation.navigate("BottomTabNavigator", {
+						screen: "Home",
+					});
+				}}
+				firstBtnTitle={MODAL_TEXT.BTN_TITLE}
+			/>
 			<Header
 				currentWeek={currentWeek}
 			/>
