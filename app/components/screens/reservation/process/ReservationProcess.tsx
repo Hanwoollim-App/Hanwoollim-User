@@ -9,17 +9,27 @@ import color from "../../../../utils/constant/common/design/Color";
 import {dayItems, MODAL_TEXT, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 import CustomModal from "../../../common/CustomModal";
 
-const pickerStyle = StyleSheet.create({
+const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
-		width: "100%",
-		height: "100%",
+		fontFamily: "KoreanYNSJG3",
+		fontSize: 10,
+		lineHeight: 16,
+		letterSpacing: 0,
+		textAlign: "left",
+		color: "#000000",
 	},
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
+		paddingVertical: 2, // 이 변수가 있어야 텍스트가 박스 안쪽으로 들어옴
+		fontSize: 12,
+		fontFamily: "KoreanYNSJG3",
+		lineHeight: 12,
+		letterSpacing: 0,
+		textAlign: "center",
+		color: "#000000",
 	},
 });
-
 
 const styles = StyleSheet.create({
 	root: {
@@ -85,7 +95,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		marginTop: 32,
 	},
-	alertText: {
+	sectionInfo__alert__text: {
 		marginTop: 8,
 		marginLeft: 140,
 		fontFamily: "KoreanYNSJG2",
@@ -95,13 +105,13 @@ const styles = StyleSheet.create({
 		textAlign: "left",
 		color: "#363636",
 	},
-	addBtn: {
+	sectionInfo__addBtn: {
 		width: 130,
 		height: 20,
 		marginTop: 23,
 		marginLeft: 174,
 	},
-	addBtnText: {
+	sectionInfo__addBtn__Text: {
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
@@ -189,7 +199,7 @@ function ReservationProcess({route}) {
 				<View style={styles.dayPicker}>
 					<RNPickerSelect
 						placeholder={{}}
-						style={pickerStyle}
+						style={pickerSelectStyles}
 						items={dayItems}
 						value={dayItems[0]}
 						onValueChange={(value) => console.log(value)}
@@ -205,7 +215,7 @@ function ReservationProcess({route}) {
 								title={PROCESS_TEXT.UNIT}
 								pickerProps={{
 									placeholder: {},
-									pickerStyle,
+									pickerSelectStyles,
 									items: unitItems,
 									value: unitItems[0],
 									onValueChange: onUnitChangeListener,
@@ -217,14 +227,14 @@ function ReservationProcess({route}) {
 								title={PROCESS_TEXT.TIME}
 								pickerProps={{
 									placeholder: {},
-									pickerStyle,
+									pickerSelectStyles,
 									items: timeItems,
 									value: timeItems[0],
 									onValueChange: onTimeChangeListener,
 								}}
 							/>
 						</View>
-						<Text style={styles.alertText}>
+						<Text style={styles.sectionInfo__alert__text}>
 							{PROCESS_TEXT.ALERT}
 						</Text>
 					</View>
@@ -239,7 +249,7 @@ function ReservationProcess({route}) {
 										title={`${PROCESS_TEXT.SECTION} ${value}`}
 										pickerProps={{
 											placeholder: {},
-											pickerStyle,
+											pickerSelectStyles,
 											items: sectionItems,
 											value: sectionItems[0],
 											onValueChange: onSectionChangeListener,
@@ -251,8 +261,8 @@ function ReservationProcess({route}) {
 						<CustomBtn
 							title={PROCESS_TEXT.SECTION_ADD}
 							onClickListener={onSectionAddBtnClickListener}
-							btnStyle={styles.addBtn}
-							titleStyle={styles.addBtnText}
+							btnStyle={styles.sectionInfo__addBtn}
+							titleStyle={styles.sectionInfo__addBtn__Text}
 						/>
 					</View>
 					<View style={styles.submit}>

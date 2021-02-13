@@ -1,11 +1,11 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
-import RNPickerSelect from "react-native-picker-select";
+import RNPickerSelect, {Item} from "react-native-picker-select";
 
 interface pickerPropsInterface {
 	placeholder: Object,
-	pickerStyle: Object,
-	items: Array<any>,
+	items: Array<Item>,
+	pickerSelectStyles: Object,
 	value: any,
 	onValueChange: Function,
 }
@@ -46,7 +46,8 @@ function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 			<View style={styles.form__picker}>
 				<RNPickerSelect
 					placeholder={pickerProps.placeholder}
-					style={pickerProps.pickerStyle}
+					useNativeAndroidPickerStyle={false}
+					style={pickerProps.pickerSelectStyles}
 					items={pickerProps.items}
 					value={pickerProps.value}
 					onValueChange={(value) => {
@@ -58,4 +59,4 @@ function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 	);
 }
 
-export default SelectForm;
+export default React.memo(SelectForm);
