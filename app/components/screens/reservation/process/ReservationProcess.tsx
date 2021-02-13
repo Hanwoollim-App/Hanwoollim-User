@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
 
 
 function ReservationProcess({route}) {
-	const [modalVisible, setModalVisible] = useState(false);
+	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
+	const [sectionInfoCount, setSectionInfoCount] : [number[], Function] = useState([1]);
 	const navigation = useNavigation();
 	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 	const onUnitChangeListener = (value) => {
@@ -133,7 +134,13 @@ function ReservationProcess({route}) {
 		console.log(value);
 	};
 	const onSectionAddBtnClickListener = () => {
-		console.log("추가!");
+		const newItem : number = sectionInfoCount.length + 1;
+
+		if (newItem === 3) return;
+		setSectionInfoCount([
+			...sectionInfoCount,
+			newItem,
+		]);
 	};
 	const onsumbitBtnClickListener = () => {
 		setModalVisible(true);
@@ -146,6 +153,7 @@ function ReservationProcess({route}) {
 				mdVisible={modalVisible}
 				title={MODAL_TEXT.TITLE}
 				firstButton={() => {
+					setModalVisible(false);
 					navigation.navigate("BottomTabNavigator", {
 						screen: "Home",
 					});
@@ -194,18 +202,22 @@ function ReservationProcess({route}) {
 					</Text>
 				</View>
 				<View style={styles.reservationSectionInfo}>
-					<View>
-						<SelectForm
-							title={`세션 1`}
-							pickerProps={{
-								placeholder: {},
-								pickerStyle,
-								items: sectionItems,
-								value: sectionItems[0],
-								onValueChange: onSectionChangeListener,
-							}}
-						/>
-					</View>
+					{
+						sectionInfoCount.map((value) => (
+							<View key={value}>
+								<SelectForm
+									title={`${PROCESS_TEXT.SECTION} ${value}`}
+									pickerProps={{
+										placeholder: {},
+										pickerStyle,
+										items: sectionItems,
+										value: sectionItems[0],
+										onValueChange: onSectionChangeListener,
+									}}
+								/>
+							</View>
+						))
+					}
 					<CustomBtn
 						title={PROCESS_TEXT.SECTION_ADD}
 						onClickListener={onSectionAddBtnClickListener}
