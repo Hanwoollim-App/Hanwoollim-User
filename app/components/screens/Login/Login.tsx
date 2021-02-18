@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from "react";
-import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet, Image, Dimensions} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
@@ -7,28 +7,21 @@ import LoginContext from "../../../utils/context/LoginContext";
 import {LOGIN_BUTTON_TEXT, LOGIN_TITLE_TEXT} from "../../../utils/constant/login/LoginScreenUtils";
 import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/constant/login/LoginUtils";
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
-	rootView: {
+	root: {
 		flex: 1,
-		width: "100%",
-		height: "100%",
 		backgroundColor: color.mainColor,
 	},
-	titleContainer: {
-		flex: 6.9,
+	title: {
+		width: windowWidth * 1,
+		height: windowHeight * 0.692,
 		alignItems: "center",
 	},
-	titleView: {
-		width: "100%",
-		height: "11%",
-		marginTop: "48.6%",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	titleText: {
-		flex: 1,
-		width: "100%",
-		height: "100%",
+	title__text: {
+		marginTop: windowHeight * 0.280,
 		fontFamily: "YiSunShinDotumL",
 		fontSize: RFValue(47),
 		fontWeight: "normal",
@@ -37,42 +30,40 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: "#ffffff",
 	},
-	titleUnderScore: {
-		width: "70%",
-		height: "0.6%",
-		marginTop: "2%",
+	title__underScore: {
+		width: windowWidth * 0.696,
+		height: windowHeight * 0.003,
+		marginTop: windowHeight * 0.013,
 		marginLeft: "auto",
 		marginRight: "auto",
 		backgroundColor: "#adefd1",
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: 0.5,
 		borderColor: "#707070",
 	},
-	loginView: {
-		flex: 3.1,
-		width: "100%",
-		height: "26%",
-		marginTop: 0,
+	login: {
+		width: windowWidth * 1,
+		height: windowHeight * 0.318,
 		justifyContent: "flex-start",
 		alignItems: "center",
 	},
-	loginBtn: {
-		width: "56.5%",
-		height: "26%",
+	login__btn: {
+		width: windowWidth * 0.565,
+		height: windowHeight * 0.064,
 		borderRadius: 60,
 		backgroundColor: color.subColor,
 		flexDirection: "row",
-		justifyContent: "flex-start",
 		alignItems: "center",
 	},
-	loginImage: {
-		width: "20.7%",
-		height: "84.6%",
-		marginLeft: "6%",
+	login__btn__img: {
+		width: windowWidth * 0.117,
+		height: windowHeight * 0.054,
+		marginLeft: windowWidth * 0.037,
 	},
-	loginText: {
+	login__btn__text: {
+		marginRight: windowWidth * 0.056,
 		fontFamily: "KoreanYNSJG4",
-		fontSize: RFValue(15),
+		fontSize: RFValue(14),
 		fontWeight: "normal",
 		fontStyle: "normal",
 		letterSpacing: 0,
@@ -115,29 +106,26 @@ function Login({navigation}) {
 			console.log(`Get Profile Failed:${err.code} ${err.message}`);
 		});
 
-	const loginBtnListener = async () => {
+	const loginBtnClickListener = async () => {
 		if (!await kakaoLogin()) return;
 		await getProfile();
 	};
 
 	return (
-		<View style={styles.rootView}>
-			<View style={styles.titleContainer}>
-				<View style={styles.titleView}>
-					<Text style={styles.titleText}>{`${LOGIN_TITLE_TEXT}`}</Text>
-				</View>
-				<View style={styles.titleUnderScore}/>
+		<View style={styles.root}>
+			<View style={styles.title}>
+				<Text style={styles.title__text}>{`${LOGIN_TITLE_TEXT}`}</Text>
+				<View style={styles.title__underScore}/>
 			</View>
-			<View style={styles.loginView}>
+			<View style={styles.login}>
 				<TouchableOpacity
-					style={styles.loginBtn}
-					onPress={loginBtnListener}
+					style={styles.login__btn}
+					onPress={loginBtnClickListener}
 				>
-					<Image
-						style={styles.loginImage}
+					<Image style={styles.login__btn__img}
 						source={require("../../../assets/images/kakaoLogo.png")}
 					/>
-					<Text style={styles.loginText}>{`${LOGIN_BUTTON_TEXT}`}</Text>
+					<Text style={styles.login__btn__text}>{`${LOGIN_BUTTON_TEXT}`}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>

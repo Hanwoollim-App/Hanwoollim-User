@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import {View, Text, StyleSheet, ScrollView, Dimensions} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
@@ -10,18 +10,22 @@ import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
 import CustomModal from "../../common/CustomModal";
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
-	rootView: {
+	root: {
 		flex: 1,
 	},
-	headerView: {
+	headerContainer: {
+		height: windowHeight * 0.164,
 		justifyContent: "center",
-		width: "100%",
-		height: "16.5%",
 		backgroundColor: color.mainColor,
 	},
-	headerText: {
-		marginLeft: "8%",
+	header: {
+		marginLeft: windowWidth * 0.112,
+	},
+	header__text: {
 		fontFamily: "KoreanYNSJG3",
 		fontSize: RFValue(18),
 		fontStyle: "normal",
@@ -29,57 +33,59 @@ const styles = StyleSheet.create({
 		textAlign: "left",
 		color: "#ffffff",
 	},
-	welcomeView: {
-		justifyContent: "center",
-		alignItems: "center",
-		width: "100%",
-		height: "7%",
-		marginTop: "12%",
+	bodyContainer: {
+		height: windowHeight * 0.836,
+		backgroundColor: "#ffffff",
 	},
-	welcomText: {
-		width: "100%",
-		height: "100%",
+	welcome: {
+		height: windowHeight * 0.107,
+		justifyContent: "flex-end",
+		alignItems: "center",
+	},
+	welcome__text: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(12),
+		fontSize: RFValue(13),
 		letterSpacing: 1,
 		textAlign: "center",
 		color: color.mainColor,
 	},
-	alertTextView: {
-		marginTop: "23%",
-		justifyContent: "center",
-		width: "100%",
-		height: "7%",
+	inputContainer: {
+		height: windowHeight * 0.330,
+	},
+	input: {
+		height: windowHeight * 0.041,
+		marginTop: windowHeight * 0.071,
+		flexDirection: "row",
 		alignItems: "center",
 	},
-	alertText: {
-		width: "100%",
-		height: "100%",
+	alert: {
+		height: windowHeight * 0.231,
+		justifyContent: "flex-end",
+		alignItems: "center",
+	},
+	alert__text: {
 		fontFamily: "MalgunGothic",
 		fontSize: RFValue(12),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#777777",
 	},
-	singupView: {
+	signUp: {
+		height: windowHeight * 0.166,
 		justifyContent: "center",
 		alignItems: "center",
-		width: "100%",
-		height: "8%",
-		marginTop: "4%",
 	},
-	singUpBtn: {
+	signUp__btn: {
+		width: windowWidth * 0.773,
+		height: windowHeight * 0.065,
 		justifyContent: "center",
 		alignItems: "center",
-		width: "77%",
-		height: "100%",
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
 	},
-	singUpText: {
+	signUp__title: {
 		fontFamily: "KoreanYNSJG4",
 		fontSize: RFValue(14),
-		lineHeight: 22,
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",
@@ -146,47 +152,59 @@ function SignUp() {
 	};
 
 	return (
-		<View style={styles.rootView}>
+		<View style={styles.root}>
 			<CustomModal
 				mdVisible={modalVisible}
 				title={modalText}
 				firstButton={() => setModalVisible(false)}
 				firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
 			/>
-			<View style={styles.headerView}>
-				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
+			<View style={styles.headerContainer}>
+				<View style={styles.header}>
+					<Text style={styles.header__text}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
+				</View>
 			</View>
 			<ScrollView>
-				<View style={styles.welcomeView}>
-					<Text style={styles.welcomText}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
-				</View>
-				<SignUpForm
-					title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-					onChangeListener={(value : string) => setName(value)}
-					defalutValue={name}
-				/>
-				<SignUpForm
-					title={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
-					onChangeListener={(value: string) => setMajor(value)}
-					defalutValue={major}
-				/>
-				<SignUpForm
-					title={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-					onChangeListener={(value: string) => setStudentID(value)}
-					defalutValue={studentID}
-				/>
-				<View style={styles.alertTextView}>
-					<Text style={styles.alertText}>
-						{SIGN_UP_COMPONENT_TEXT.alert}
-					</Text>
-				</View>
-				<View style={styles.singupView}>
-					<CustomBtn
-						title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
-						onClickListener={signUpBtnClickListener}
-						titleStyle={styles.singUpText}
-						btnStyle={styles.singUpBtn}
-					/>
+				<View style={styles.bodyContainer}>
+					<View style={styles.welcome}>
+						<Text style={styles.welcome__text}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<View style={styles.input}>
+							<SignUpForm
+								title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+								inputChangeListener={(value : string) => setName(value)}
+								defalutValue={name}
+							/>
+						</View>
+						<View style={styles.input}>
+							<SignUpForm
+								title={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
+								inputChangeListener={(value: string) => setMajor(value)}
+								defalutValue={major}
+							/>
+						</View>
+						<View style={styles.input}>
+							<SignUpForm
+								title={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+								inputChangeListener={(value: string) => setStudentID(value)}
+								defalutValue={studentID}
+							/>
+						</View>
+					</View>
+					<View style={styles.alert}>
+						<Text style={styles.alert__text}>
+							{SIGN_UP_COMPONENT_TEXT.alert}
+						</Text>
+					</View>
+					<View style={styles.signUp}>
+						<CustomBtn
+							title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
+							onClickListener={signUpBtnClickListener}
+							titleStyle={styles.signUp__title}
+							btnStyle={styles.signUp__btn}
+						/>
+					</View>
 				</View>
 			</ScrollView>
 		</View>
