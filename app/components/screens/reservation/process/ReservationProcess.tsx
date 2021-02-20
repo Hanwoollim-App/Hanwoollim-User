@@ -168,7 +168,7 @@ function ReservationProcess({route}) {
 	const onSectionAddBtnClickListener = () => {
 		const newItem: number = sectionInfoCount.length + 1;
 
-		if (newItem === 3) return;
+		if (newItem === 4) return;
 		setSectionInfoCount([
 			...sectionInfoCount,
 			newItem,
@@ -260,12 +260,17 @@ function ReservationProcess({route}) {
 								</View>
 							))
 						}
-						<CustomBtn
-							title={PROCESS_TEXT.SECTION_ADD}
-							onClickListener={onSectionAddBtnClickListener}
-							btnStyle={styles.sectionInfo__addBtn}
-							titleStyle={styles.sectionInfo__addBtn__Text}
-						/>
+						{
+							sectionInfoCount.length !== 3 && (
+								<CustomBtn
+									title={PROCESS_TEXT.SECTION_ADD}
+									onClickListener={onSectionAddBtnClickListener}
+									btnStyle={styles.sectionInfo__addBtn}
+									titleStyle={styles.sectionInfo__addBtn__Text}
+								/>
+							)
+						}
+
 					</View>
 					<View style={styles.submit}>
 						<CustomBtn
