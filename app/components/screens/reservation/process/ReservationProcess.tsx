@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import {View, StyleSheet, Text} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
+import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
 import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
 import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
 import {dayItems, MODAL_TEXT, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 import CustomModal from "../../../common/CustomModal";
+import {heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
@@ -36,22 +38,22 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	headerContainer: {
-		flex: 1,
 		width: "100%",
+		height: responsiveHeight(heightPercentage(57)),
 		flexDirection: "row",
 		alignItems: "center",
 		borderBottomColor: "black",
 		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
 	},
 	bodyContainer: {
-		width: "87.2%",
-		flex: 12,
-		marginHorizontal: 25,
-		marginTop: 29,
+		width: responsiveWidth(widthPercentage(327)),
+		height: responsiveHeight(heightPercentage(760)),
+		marginHorizontal: responsiveWidth(widthPercentage(25)),
+		marginTop: responsiveHeight(heightPercentage(29)),
 	},
 	dayPicker: {
-		width: 113,
-		height: 26,
+		width: responsiveWidth(widthPercentage(113)),
+		height: responsiveHeight(heightPercentage(26)),
 		borderWidth: 1,
 		borderColor: color.mainColor,
 	},
@@ -60,8 +62,8 @@ const styles = StyleSheet.create({
 	},
 	timeBox: {
 		width: "100%",
-		height: 41,
-		marginTop: 17,
+		height: responsiveHeight(heightPercentage(41)),
+		marginTop: responsiveHeight(heightPercentage(17)),
 		borderRadius: 12,
 		borderStyle: "solid",
 		borderWidth: 1,
@@ -69,8 +71,8 @@ const styles = StyleSheet.create({
 	},
 	defaultInfo: {
 		width: "100%",
-		paddingBottom: 40,
-		marginTop: 15,
+		marginTop: responsiveHeight(heightPercentage(15)),
+		paddingBottom: responsiveHeight(heightPercentage(26)),
 		borderRadius: 11,
 		backgroundColor: "white",
 		borderStyle: "solid",
@@ -79,12 +81,12 @@ const styles = StyleSheet.create({
 	},
 	defaultInfo__form: {
 		flexDirection: "row",
-		marginTop: 39,
+		marginTop: responsiveHeight(heightPercentage(39)),
 	},
 	sectionInfo: {
 		width: "100%",
-		marginTop: 13,
-		paddingBottom: 25,
+		marginTop: responsiveHeight(heightPercentage(13)),
+		paddingBottom: responsiveHeight(heightPercentage(25)),
 		borderRadius: 11,
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
@@ -93,11 +95,11 @@ const styles = StyleSheet.create({
 	},
 	sectionInfo__form: {
 		flexDirection: "row",
-		marginTop: 32,
+		marginTop: responsiveHeight(heightPercentage(32)),
 	},
 	sectionInfo__alert__text: {
-		marginTop: 8,
-		marginLeft: 140,
+		marginTop: responsiveHeight(heightPercentage(8)),
+		marginLeft: responsiveWidth(widthPercentage(140)),
 		fontFamily: "KoreanYNSJG2",
 		fontSize: 8,
 		lineHeight: 11,
@@ -106,10 +108,10 @@ const styles = StyleSheet.create({
 		color: "#363636",
 	},
 	sectionInfo__addBtn: {
-		width: 130,
-		height: 20,
-		marginTop: 23,
-		marginLeft: 174,
+		width: responsiveWidth(widthPercentage(130)),
+		height: responsiveHeight(heightPercentage(30)),
+		marginTop: responsiveHeight(heightPercentage(23)),
+		marginLeft: responsiveWidth(widthPercentage(174)),
 	},
 	sectionInfo__addBtn__Text: {
 		width: "100%",
@@ -124,9 +126,9 @@ const styles = StyleSheet.create({
 		color: color.mainColor,
 	},
 	submit: {
-		width: 290,
-		height: 42,
-		marginTop: 220,
+		width: responsiveWidth(widthPercentage(290)),
+		height: responsiveHeight(heightPercentage(42)),
+		marginTop: responsiveHeight(heightPercentage(170)),
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
 	},
@@ -150,8 +152,8 @@ const styles = StyleSheet.create({
 
 
 function ReservationProcess({route}) {
-	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
-	const [sectionInfoCount, setSectionInfoCount] : [number[], Function] = useState([1]);
+	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
+	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] = useState([1]);
 	const navigation = useNavigation();
 	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 	const onUnitChangeListener = (value) => {
@@ -164,7 +166,7 @@ function ReservationProcess({route}) {
 		console.log(value);
 	};
 	const onSectionAddBtnClickListener = () => {
-		const newItem : number = sectionInfoCount.length + 1;
+		const newItem: number = sectionInfoCount.length + 1;
 
 		if (newItem === 3) return;
 		setSectionInfoCount([

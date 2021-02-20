@@ -1,6 +1,8 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import RNPickerSelect, {Item} from "react-native-picker-select";
+import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
+import { heightPercentage, widthPercentage } from './../../../../utils/constant/common/design/Responsive';
 
 interface pickerPropsInterface {
 	placeholder: Object,
@@ -17,7 +19,7 @@ interface selectFormPropsInterface{
 
 const styles = StyleSheet.create({
 	form__title: {
-		marginLeft: 40,
+		marginLeft: responsiveWidth(widthPercentage(40)),
 		fontFamily: "KoreanYNSJG4",
 		fontSize: 13,
 		fontWeight: "normal",
@@ -28,9 +30,9 @@ const styles = StyleSheet.create({
 		color: "#363636",
 	},
 	form__picker: {
-		width: 113,
-		height: 26,
-		marginLeft: 96,
+		width: responsiveWidth(widthPercentage(113)),
+		height: responsiveHeight(heightPercentage(26)),
+		marginLeft: responsiveWidth(widthPercentage(96)),
 		borderStyle: "solid",
 		borderWidth: 1,
 		borderColor: "#00203f",
