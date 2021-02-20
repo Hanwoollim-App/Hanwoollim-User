@@ -1,7 +1,5 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
-import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
-import {RFPercentage} from "react-native-responsive-fontsize";
 import {useNavigation} from "@react-navigation/native";
 import CustomBtn from "../../../common/CustomBtn";
 import color from "../../../../utils/constant/common/design/Color";
@@ -10,30 +8,30 @@ import {fontPercentage, heightPercentage, widthPercentage} from "../../../../uti
 
 const styles = StyleSheet.create({
 	haeder__back__btn: {
-		width: responsiveWidth(widthPercentage(101)),
-		height: responsiveHeight(heightPercentage(26)),
-		marginLeft: responsiveWidth(widthPercentage(16)),
+		width: widthPercentage(101),
+		height: heightPercentage(26),
+		marginLeft: widthPercentage(16),
 	},
 	header__back__text: {
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFPercentage(fontPercentage(12)),
-		lineHeight: RFPercentage(fontPercentage(16)),
+		fontSize: fontPercentage(12),
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		color: color.mainColor,
 	},
 	header__title: {
-		width: responsiveWidth(widthPercentage(124)),
-		height: responsiveHeight(heightPercentage(33)),
+		width: widthPercentage(124),
+		height: heightPercentage(33),
 		marginLeft: 111,
 	},
 	header__title__text: {
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
-		fontSize: RFPercentage(fontPercentage(14)),
-		lineHeight: RFPercentage(fontPercentage(19)),
+		fontSize: fontPercentage(14),
+		lineHeight: fontPercentage(19),
 		letterSpacing: 0,
 	},
 });

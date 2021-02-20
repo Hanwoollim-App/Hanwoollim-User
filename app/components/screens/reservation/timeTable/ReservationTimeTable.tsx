@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import {Item} from "react-native-picker-select";
-import {responsiveHeight} from "react-native-responsive-dimensions";
 import {heightPercentage} from "../../../../utils/constant/common/design/Responsive";
 import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import Header from "./Header";
@@ -12,7 +11,7 @@ const styles = StyleSheet.create({
 	},
 	headerContainer: {
 		width: "100%",
-		height: responsiveHeight(heightPercentage(57)),
+		height: heightPercentage(57),
 		backgroundColor: "white",
 		flexDirection: "row",
 		alignItems: "center",

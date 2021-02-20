@@ -1,8 +1,6 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import {RFPercentage} from "react-native-responsive-fontsize";
-import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
 import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import CustomBtn from "../../../common/CustomBtn";
 import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
@@ -11,8 +9,8 @@ import {fontPercentage, heightPercentage, widthPercentage} from "../../../../uti
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFPercentage(fontPercentage(10)),
-		lineHeight: RFPercentage(fontPercentage(16)),
+		fontSize: fontPercentage(10),
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#000000",
@@ -21,9 +19,9 @@ const pickerSelectStyles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		paddingVertical: 3,
-		fontSize: RFPercentage(fontPercentage(12)),
+		fontSize: fontPercentage(12),
 		fontFamily: "KoreanYNSJG3",
-		lineHeight: RFPercentage(fontPercentage(12)),
+		lineHeight: fontPercentage(12),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#000000",
@@ -32,36 +30,36 @@ const pickerSelectStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
 	picker: {
-		width: responsiveWidth(widthPercentage(138)),
-		height: responsiveHeight(heightPercentage(35)),
-		marginLeft: responsiveWidth(widthPercentage(28)),
+		width: widthPercentage(138),
+		height: heightPercentage(35),
+		marginLeft: widthPercentage(28),
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
-		borderWidth: RFPercentage(fontPercentage(1)),
+		borderWidth: fontPercentage(1),
 		borderColor: "#00203f",
 		justifyContent: "center",
 	},
 	reserve: {
-		marginLeft: responsiveWidth(widthPercentage(100)),
-		width: responsiveWidth(widthPercentage(95)),
-		height: responsiveHeight(heightPercentage(28)),
+		marginLeft: widthPercentage(100),
+		width: widthPercentage(95),
+		height: heightPercentage(28),
 	},
 	reserve__btn: {
 		width: "100%",
 		height: "100%",
-		borderRadius: RFPercentage(fontPercentage(20)),
+		borderRadius: fontPercentage(20),
 		backgroundColor: "#00203f",
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	reserve__text: {
-		width: responsiveWidth(widthPercentage(35)),
-		height: responsiveHeight(heightPercentage(16)),
+		width: widthPercentage(35),
+		height: heightPercentage(16),
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFPercentage(fontPercentage(9)),
+		fontSize: fontPercentage(9),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: RFPercentage(fontPercentage(16)),
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",
