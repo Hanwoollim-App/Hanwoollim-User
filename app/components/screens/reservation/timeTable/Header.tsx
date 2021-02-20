@@ -19,6 +19,7 @@ const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
+		paddingVertical: 3,
 		fontSize: 12,
 		fontFamily: "KoreanYNSJG3",
 		lineHeight: 12,
