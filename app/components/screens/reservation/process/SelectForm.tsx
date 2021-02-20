@@ -2,7 +2,8 @@ import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import RNPickerSelect, {Item} from "react-native-picker-select";
 import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
-import {heightPercentage, widthPercentage} from "./../../../../utils/constant/common/design/Responsive";
+import {RFPercentage} from "react-native-responsive-fontsize";
+import {fontPercentage, heightPercentage, widthPercentage} from "./../../../../utils/constant/common/design/Responsive";
 
 interface pickerPropsInterface {
 	placeholder: Object,
@@ -24,10 +25,10 @@ const styles = StyleSheet.create({
 	},
 	form__title__text: {
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 13,
+		fontSize: RFPercentage(fontPercentage(13)),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 18,
+		lineHeight: RFPercentage(fontPercentage(18)),
 		letterSpacing: 0,
 		color: "#363636",
 		textAlign: "left",

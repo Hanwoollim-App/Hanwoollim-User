@@ -3,19 +3,20 @@ import {View, StyleSheet, Text} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
 import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
 import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
 import {dayItems, MODAL_TEXT, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 import CustomModal from "../../../common/CustomModal";
-import {heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: 10,
-		lineHeight: 16,
+		fontSize: RFPercentage(10),
+		lineHeight: RFPercentage(16),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#000000",
@@ -24,9 +25,9 @@ const pickerSelectStyles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		paddingVertical: 2, // 이 변수가 있어야 텍스트가 박스 안쪽으로 들어옴
-		fontSize: 12,
+		fontSize: RFPercentage(fontPercentage(12)),
 		fontFamily: "KoreanYNSJG3",
-		lineHeight: 12,
+		lineHeight: RFPercentage(fontPercentage(12)),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#000000",
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
 	dayPicker: {
 		width: responsiveWidth(widthPercentage(113)),
 		height: responsiveHeight(heightPercentage(26)),
-		borderWidth: 1,
+		borderWidth: RFPercentage(fontPercentage(1)),
 		borderColor: color.mainColor,
 	},
 	contentContainer: {
@@ -64,19 +65,19 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: responsiveHeight(heightPercentage(41)),
 		marginTop: responsiveHeight(heightPercentage(17)),
-		borderRadius: 12,
+		borderRadius: RFPercentage(fontPercentage(12)),
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: RFPercentage(fontPercentage(1)),
 		borderColor: "#bdbdbd",
 	},
 	defaultInfo: {
 		width: "100%",
 		marginTop: responsiveHeight(heightPercentage(15)),
 		paddingBottom: responsiveHeight(heightPercentage(26)),
-		borderRadius: 11,
+		borderRadius: RFPercentage(fontPercentage(11)),
 		backgroundColor: "white",
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: RFPercentage(fontPercentage(1)),
 		borderColor: "#bdbdbd",
 	},
 	defaultInfo__form: {
@@ -87,10 +88,10 @@ const styles = StyleSheet.create({
 		width: "100%",
 		marginTop: responsiveHeight(heightPercentage(13)),
 		paddingBottom: responsiveHeight(heightPercentage(25)),
-		borderRadius: 11,
+		borderRadius: RFPercentage(fontPercentage(11)),
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: RFPercentage(fontPercentage(1)),
 		borderColor: "#bdbdbd",
 	},
 	sectionInfo__form: {
@@ -101,8 +102,8 @@ const styles = StyleSheet.create({
 		marginTop: responsiveHeight(heightPercentage(8)),
 		marginLeft: responsiveWidth(widthPercentage(140)),
 		fontFamily: "KoreanYNSJG2",
-		fontSize: 8,
-		lineHeight: 11,
+		fontSize: RFPercentage(fontPercentage(8)),
+		lineHeight: RFPercentage(fontPercentage(11)),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#363636",
@@ -117,10 +118,10 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 12,
+		fontSize: RFPercentage(fontPercentage(12)),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 16,
+		lineHeight: RFPercentage(fontPercentage(16)),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: color.mainColor,
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
 		width: responsiveWidth(widthPercentage(290)),
 		height: responsiveHeight(heightPercentage(42)),
 		marginTop: responsiveHeight(heightPercentage(170)),
-		borderRadius: 21,
+		borderRadius: RFPercentage(fontPercentage(21)),
 		backgroundColor: color.mainColor,
 	},
 	submit__btn: {
@@ -140,10 +141,10 @@ const styles = StyleSheet.create({
 	},
 	sumbit__text: {
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 13,
+		fontSize: RFPercentage(fontPercentage(13)),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 18,
+		lineHeight: RFPercentage(fontPercentage(18)),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",

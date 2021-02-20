@@ -1,11 +1,12 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
-import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
+import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
+import {RFPercentage} from "react-native-responsive-fontsize";
 import {useNavigation} from "@react-navigation/native";
 import CustomBtn from "../../../common/CustomBtn";
 import color from "../../../../utils/constant/common/design/Color";
 import btnTitle from "../../../../utils/constant/reservation/process/HeaderUtil";
-import { heightPercentage, widthPercentage } from "../../../../utils/constant/common/design/Responsive";
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	haeder__back__btn: {
@@ -17,8 +18,8 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG3",
-		fontSize: 12,
-		lineHeight: 16,
+		fontSize: RFPercentage(fontPercentage(12)),
+		lineHeight: RFPercentage(fontPercentage(16)),
 		letterSpacing: 0,
 		color: color.mainColor,
 	},
@@ -31,8 +32,8 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 14,
-		lineHeight: 19,
+		fontSize: RFPercentage(fontPercentage(14)),
+		lineHeight: RFPercentage(fontPercentage(19)),
 		letterSpacing: 0,
 	},
 });
