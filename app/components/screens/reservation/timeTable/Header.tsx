@@ -1,8 +1,10 @@
 import React from "react";
 import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
 import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import CustomBtn from "../../../common/CustomBtn";
+import {heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 
 // 라이브러리용 StyleSheet
 const pickerSelectStyles = StyleSheet.create({
@@ -28,9 +30,9 @@ const pickerSelectStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
 	picker: {
-		width: 138,
-		height: 35,
-		marginLeft: 28,
+		width: responsiveWidth(widthPercentage(138)),
+		height: responsiveHeight(heightPercentage(35)),
+		marginLeft: responsiveWidth(widthPercentage(28)),
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
 		borderWidth: 1,
@@ -39,8 +41,8 @@ const styles = StyleSheet.create({
 	},
 	reserve: {
 		marginLeft: 100,
-		width: 95,
-		height: 28,
+		width: responsiveWidth(widthPercentage(95)),
+		height: responsiveHeight(heightPercentage(28)),
 	},
 	reserve__btn: {
 		width: "100%",
@@ -51,8 +53,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	reserve__text: {
-		width: 46,
-		height: 16,
+		width: responsiveWidth(widthPercentage(26)),
+		height: responsiveHeight(heightPercentage(16)),
 		fontFamily: "KoreanYNSJG3",
 		fontSize: 10,
 		fontWeight: "normal",
