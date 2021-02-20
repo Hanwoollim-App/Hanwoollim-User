@@ -1,47 +1,36 @@
 import {Item} from "react-native-picker-select";
 
-const getWeekNumber = (date : Date) => {
-	// 요일별로 월요일을 계산
-	let latestMondayDate;
+const getPreviousMonday : (curDate: Date) => Date = (curDate) => {
+	const prevMonday = new Date();
 
-	switch (date.getDay()) {
-		case 0: // 일요일
-			latestMondayDate = date.getDate() - 6;
-			break;
-		case 1: // 월요일
-			latestMondayDate = date.getDate();
-			break;
-		case 2: // 화요일
-			latestMondayDate = date.getDate() - 1;
-			break;
-		case 3: // 수요일
-			latestMondayDate = date.getDate() - 2;
-			break;
-		case 4: // 목요일
-			latestMondayDate = date.getDate() - 3;
-			break;
-		case 5: // 금요일
-			latestMondayDate = date.getDate() - 4;
-			break;
-		default: // 토요일
-			latestMondayDate = date.getDate() - 5;
-			break;
+	if (curDate.getDay() !== 0) {
+		prevMonday.setDate(curDate.getDate() - (curDate.getDay() - 1));
 	}
+	return prevMonday;
+};
 
-	if (latestMondayDate < 0) return 1;
-	const currentWeekNumber = latestMondayDate % 7 + 1;
+const getNextSunday : (curDate: Date) => Date = (curDate) => {
+	const nextSunday = new Date();
 
-	return currentWeekNumber;
+	if (curDate.getDate() !== 6) {
+		nextSunday.setDate(curDate.getDate() + (7 - curDate.getDay()));
+	}
+	return nextSunday;
 };
 
 const weekItem : Array<Item> = [];
 
 for (let i : number = 1; i <= 2; i++) {
-	const date = new Date();
+	const curDate = new Date();
+
+	curDate.setDate(curDate.getDate() + (i - 1) * 7);
+	const prevMonday : Date = getPreviousMonday(curDate);
+	const nextSunday : Date = getNextSunday(curDate);
+	const content : string = `${prevMonday.getMonth() + 1}.${prevMonday.getDate()}~${nextSunday.getMonth() + 1}.${nextSunday.getDate()}`;
 
 	weekItem.push({
-		"label": `${date.getFullYear()}.${date.getMonth() + 1}.${getWeekNumber(date) + (i - 1)}주차`,
-		"value": `${i}`,
+		"label": content,
+		"value": content,
 	});
 }
 
