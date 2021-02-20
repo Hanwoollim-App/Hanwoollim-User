@@ -3,13 +3,14 @@ import {View, StyleSheet} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import weekItem from "../../../../utils/constant/reservation/timeTable/ReservationTimeTableUtil";
 import CustomBtn from "../../../common/CustomBtn";
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 
 // 라이브러리용 StyleSheet
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: 10,
-		lineHeight: 16,
+		fontSize: fontPercentage(10),
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#000000",
@@ -17,9 +18,10 @@ const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {
 		width: "100%",
 		height: "100%",
-		fontSize: 12,
+		paddingVertical: 3,
+		fontSize: fontPercentage(12),
 		fontFamily: "KoreanYNSJG3",
-		lineHeight: 12,
+		lineHeight: fontPercentage(12),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#000000",
@@ -28,36 +30,36 @@ const pickerSelectStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
 	picker: {
-		width: 138,
-		height: 35,
-		marginLeft: 28,
+		width: widthPercentage(138),
+		height: heightPercentage(35),
+		marginLeft: widthPercentage(28),
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: fontPercentage(1),
 		borderColor: "#00203f",
 		justifyContent: "center",
 	},
 	reserve: {
-		marginLeft: 100,
-		width: 95,
-		height: 28,
+		marginLeft: widthPercentage(100),
+		width: widthPercentage(95),
+		height: heightPercentage(28),
 	},
 	reserve__btn: {
 		width: "100%",
 		height: "100%",
-		borderRadius: 20,
+		borderRadius: fontPercentage(20),
 		backgroundColor: "#00203f",
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	reserve__text: {
-		width: 46,
-		height: 16,
+		width: widthPercentage(40),
+		height: heightPercentage(16),
 		fontFamily: "KoreanYNSJG3",
-		fontSize: 10,
+		fontSize: fontPercentage(10),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 16,
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",

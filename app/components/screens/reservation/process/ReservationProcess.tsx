@@ -8,12 +8,13 @@ import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
 import {dayItems, MODAL_TEXT, PROCESS_TEXT, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 import CustomModal from "../../../common/CustomModal";
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: 10,
-		lineHeight: 16,
+		fontSize: fontPercentage(10),
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#000000",
@@ -22,9 +23,9 @@ const pickerSelectStyles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		paddingVertical: 2, // 이 변수가 있어야 텍스트가 박스 안쪽으로 들어옴
-		fontSize: 12,
+		fontSize: fontPercentage(12),
 		fontFamily: "KoreanYNSJG3",
-		lineHeight: 12,
+		lineHeight: fontPercentage(12),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#000000",
@@ -36,98 +37,99 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	headerContainer: {
-		flex: 1,
 		width: "100%",
+		height: heightPercentage(57),
 		flexDirection: "row",
 		alignItems: "center",
 		borderBottomColor: "black",
 		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
 	},
 	bodyContainer: {
-		flex: 13.2,
-		width: "100%",
+		width: widthPercentage(327),
+		height: heightPercentage(760),
+		marginHorizontal: widthPercentage(25),
+		marginTop: heightPercentage(29),
 	},
 	dayPicker: {
-		width: 113,
-		height: 26,
-		marginLeft: 25,
-		marginTop: 29,
-		borderWidth: 1,
+		width: widthPercentage(113),
+		height: heightPercentage(26),
+		borderWidth: fontPercentage(1),
 		borderColor: color.mainColor,
 	},
 	contentContainer: {
 		alignItems: "center",
 	},
 	timeBox: {
-		width: 327,
-		height: 41,
-		marginTop: 17,
-		borderRadius: 12,
+		width: "100%",
+		height: heightPercentage(41),
+		marginTop: heightPercentage(17),
+		borderRadius: fontPercentage(12),
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: fontPercentage(1),
 		borderColor: "#bdbdbd",
 	},
 	defaultInfo: {
-		width: 327,
-		height: 151,
-		marginTop: 15,
-		borderRadius: 11,
-		backgroundColor: "#ffffff",
+		width: "100%",
+		marginTop: heightPercentage(15),
+		paddingBottom: heightPercentage(26),
+		borderRadius: fontPercentage(11),
+		backgroundColor: "white",
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: fontPercentage(1),
 		borderColor: "#bdbdbd",
 	},
 	defaultInfo__form: {
 		flexDirection: "row",
-		marginTop: 32,
+		marginTop: heightPercentage(39),
 	},
 	sectionInfo: {
-		width: 327,
-		height: 118,
-		marginTop: 13,
-		borderRadius: 11,
+		width: "100%",
+		marginTop: heightPercentage(13),
+		paddingBottom: heightPercentage(25),
+		borderRadius: fontPercentage(11),
 		backgroundColor: "#ffffff",
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: fontPercentage(1),
 		borderColor: "#bdbdbd",
 	},
 	sectionInfo__form: {
 		flexDirection: "row",
-		marginTop: 32,
+		marginTop: heightPercentage(32),
 	},
 	sectionInfo__alert__text: {
-		marginTop: 8,
-		marginLeft: 140,
+		marginTop: heightPercentage(8),
+		marginLeft: widthPercentage(140),
 		fontFamily: "KoreanYNSJG2",
-		fontSize: 8,
-		lineHeight: 11,
+		fontSize: fontPercentage(8),
+		lineHeight: fontPercentage(11),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#363636",
 	},
 	sectionInfo__addBtn: {
-		width: 130,
-		height: 20,
-		marginTop: 23,
-		marginLeft: 174,
+		width: widthPercentage(130),
+		height: heightPercentage(30),
+		marginTop: heightPercentage(23),
+		marginLeft: widthPercentage(174),
 	},
 	sectionInfo__addBtn__Text: {
 		width: "100%",
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 12,
+		fontSize: fontPercentage(12),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 16,
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: color.mainColor,
 	},
 	submit: {
-		width: 290,
-		height: 42,
-		marginTop: 220,
-		borderRadius: 21,
+		position: "absolute",
+		width: widthPercentage(290),
+		height: heightPercentage(42),
+		marginTop: heightPercentage(550),
+		borderRadius: fontPercentage(21),
 		backgroundColor: color.mainColor,
 	},
 	submit__btn: {
@@ -138,10 +140,10 @@ const styles = StyleSheet.create({
 	},
 	sumbit__text: {
 		fontFamily: "KoreanYNSJG4",
-		fontSize: 13,
+		fontSize: fontPercentage(13),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: 18,
+		lineHeight: fontPercentage(18),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",
@@ -150,8 +152,8 @@ const styles = StyleSheet.create({
 
 
 function ReservationProcess({route}) {
-	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
-	const [sectionInfoCount, setSectionInfoCount] : [number[], Function] = useState([1]);
+	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
+	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] = useState([1]);
 	const navigation = useNavigation();
 	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 	const onUnitChangeListener = (value) => {
@@ -164,9 +166,9 @@ function ReservationProcess({route}) {
 		console.log(value);
 	};
 	const onSectionAddBtnClickListener = () => {
-		const newItem : number = sectionInfoCount.length + 1;
+		const newItem: number = sectionInfoCount.length + 1;
 
-		if (newItem === 3) return;
+		if (newItem === 4) return;
 		setSectionInfoCount([
 			...sectionInfoCount,
 			newItem,
@@ -258,12 +260,17 @@ function ReservationProcess({route}) {
 								</View>
 							))
 						}
-						<CustomBtn
-							title={PROCESS_TEXT.SECTION_ADD}
-							onClickListener={onSectionAddBtnClickListener}
-							btnStyle={styles.sectionInfo__addBtn}
-							titleStyle={styles.sectionInfo__addBtn__Text}
-						/>
+						{
+							sectionInfoCount.length !== 3 && (
+								<CustomBtn
+									title={PROCESS_TEXT.SECTION_ADD}
+									onClickListener={onSectionAddBtnClickListener}
+									btnStyle={styles.sectionInfo__addBtn}
+									titleStyle={styles.sectionInfo__addBtn__Text}
+								/>
+							)
+						}
+
 					</View>
 					<View style={styles.submit}>
 						<CustomBtn
