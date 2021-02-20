@@ -1,8 +1,8 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import RNPickerSelect, {Item} from "react-native-picker-select";
-import { responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
-import { heightPercentage, widthPercentage } from './../../../../utils/constant/common/design/Responsive';
+import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
+import {heightPercentage, widthPercentage} from "./../../../../utils/constant/common/design/Responsive";
 
 interface pickerPropsInterface {
 	placeholder: Object,
@@ -19,15 +19,18 @@ interface selectFormPropsInterface{
 
 const styles = StyleSheet.create({
 	form__title: {
+		width: responsiveWidth(widthPercentage(53)),
 		marginLeft: responsiveWidth(widthPercentage(40)),
+	},
+	form__title__text: {
 		fontFamily: "KoreanYNSJG4",
 		fontSize: 13,
 		fontWeight: "normal",
 		fontStyle: "normal",
 		lineHeight: 18,
 		letterSpacing: 0,
-		textAlign: "left",
 		color: "#363636",
+		textAlign: "left",
 	},
 	form__picker: {
 		width: responsiveWidth(widthPercentage(113)),
@@ -42,9 +45,11 @@ const styles = StyleSheet.create({
 function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 	return (
 		<>
-			<Text style={styles.form__title}>
-				{`${title}`}
-			</Text>
+			<View style={styles.form__title}>
+				<Text style={styles.form__title__text}>
+					{`${title}`}
+				</Text>
+			</View>
 			<View style={styles.form__picker}>
 				<RNPickerSelect
 					placeholder={pickerProps.placeholder}
