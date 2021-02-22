@@ -8,9 +8,9 @@ import {fontPercentage, heightPercentage, widthPercentage} from "../../../../uti
 // 라이브러리용 StyleSheet
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
-		fontFamily: "KoreanYNSJG3",
 		fontSize: fontPercentage(10),
-		lineHeight: fontPercentage(16),
+		fontFamily: "KoreanYNSJG3",
+		lineHeight: heightPercentage(16),
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#000000",
@@ -21,7 +21,7 @@ const pickerSelectStyles = StyleSheet.create({
 		paddingVertical: 3,
 		fontSize: fontPercentage(12),
 		fontFamily: "KoreanYNSJG3",
-		lineHeight: fontPercentage(12),
+		lineHeight: heightPercentage(12),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#000000",
@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
 	},
 	reserve__text: {
 		width: widthPercentage(46),
-		height: heightPercentage(12),
+		height: heightPercentage(16),
 		fontFamily: "KoreanYNSJG3",
 		fontSize: fontPercentage(12),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: fontPercentage(16),
+		lineHeight: heightPercentage(16),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",

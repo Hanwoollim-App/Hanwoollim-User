@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
 		fontSize: fontPercentage(13),
 		fontWeight: "normal",
 		fontStyle: "normal",
-		lineHeight: fontPercentage(18),
 		letterSpacing: 0,
 		color: "#363636",
 		textAlign: "left",
