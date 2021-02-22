@@ -1,36 +1,29 @@
 import {Item} from "react-native-picker-select";
 
-const getPreviousMonday : (curDate: Date) => Date = (curDate) => {
-	const prevMonday = new Date();
-
-	if (curDate.getDay() !== 0) {
-		prevMonday.setDate(curDate.getDate() - (curDate.getDay() - 1));
-	}
-	return prevMonday;
-};
-
-const getNextSunday : (curDate: Date) => Date = (curDate) => {
-	const nextSunday = new Date();
-
-	if (curDate.getDate() !== 6) {
-		nextSunday.setDate(curDate.getDate() + (7 - curDate.getDay()));
-	}
-	return nextSunday;
-};
-
 const weekItem : Array<Item> = [];
 
 for (let i : number = 1; i <= 2; i++) {
-	const curDate = new Date();
+	const curDate : Date = new Date();
 
 	curDate.setDate(curDate.getDate() + (i - 1) * 7);
-	const prevMonday : Date = getPreviousMonday(curDate);
-	const nextSunday : Date = getNextSunday(curDate);
+
+	const prevMonday : Date = new Date(curDate);
+	const nextSunday : Date = new Date(curDate);
+
+	if (prevMonday.getDay() !== 1) {
+		prevMonday.setDate(prevMonday.getDate() - (prevMonday.getDay() - 1));
+	}
+	if (nextSunday.getDay() !== 7) {
+		nextSunday.setDate(nextSunday.getDate() + (7 - nextSunday.getDay()));
+	}
 	const content : string = `${prevMonday.getMonth() + 1}.${prevMonday.getDate()}~${nextSunday.getMonth() + 1}.${nextSunday.getDate()}`;
 
 	weekItem.push({
 		"label": content,
-		"value": content,
+		"value": {
+			weekNum: i,
+			monday: prevMonday,
+		},
 	});
 }
 
