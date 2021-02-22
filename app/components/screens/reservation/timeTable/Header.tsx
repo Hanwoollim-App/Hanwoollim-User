@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	reserve__text: {
-		width: widthPercentage(40),
-		height: heightPercentage(16),
+		width: widthPercentage(46),
+		height: heightPercentage(12),
 		fontFamily: "KoreanYNSJG3",
-		fontSize: fontPercentage(10),
+		fontSize: fontPercentage(12),
 		fontWeight: "normal",
 		fontStyle: "normal",
 		lineHeight: fontPercentage(16),
