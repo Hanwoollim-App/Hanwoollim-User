@@ -1,7 +1,6 @@
 import React, {useState, useContext} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {View, Text, StyleSheet, ScrollView, Dimensions} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
 import color from "../../../utils/constant/common/design/Color";
 import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
 import CustomBtn from "../../common/CustomBtn";
@@ -9,75 +8,72 @@ import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
 import CustomModal from "../../common/CustomModal";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 	},
 	headerContainer: {
-		height: windowHeight * 0.164,
+		height: heightPercentage(134),
 		justifyContent: "center",
 		backgroundColor: color.mainColor,
 	},
 	header: {
-		marginLeft: windowWidth * 0.112,
+		marginLeft: widthPercentage(30),
 	},
 	header__text: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(18),
+		fontSize: fontPercentage(20),
 		fontStyle: "normal",
 		letterSpacing: 0,
 		textAlign: "left",
 		color: "#ffffff",
 	},
 	bodyContainer: {
-		height: windowHeight * 0.836,
+		height: heightPercentage(678),
 		backgroundColor: "#ffffff",
 	},
 	welcome: {
-		height: windowHeight * 0.107,
+		height: heightPercentage(87),
 		justifyContent: "flex-end",
 		alignItems: "center",
 	},
 	welcome__text: {
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(13),
+		fontSize: fontPercentage(15),
 		letterSpacing: 1,
 		textAlign: "center",
 		color: color.mainColor,
 	},
 	inputContainer: {
-		height: windowHeight * 0.330,
+		height: heightPercentage(268),
 	},
 	input: {
-		height: windowHeight * 0.041,
-		marginTop: windowHeight * 0.071,
+		height: heightPercentage(33),
+		marginTop: heightPercentage(53),
 		flexDirection: "row",
 		alignItems: "center",
 	},
 	alert: {
-		height: windowHeight * 0.231,
+		height: heightPercentage(188),
 		justifyContent: "flex-end",
 		alignItems: "center",
 	},
 	alert__text: {
 		fontFamily: "MalgunGothic",
-		fontSize: RFValue(12),
-		letterSpacing: 0,
+		fontSize: fontPercentage(13),
 		textAlign: "center",
 		color: "#777777",
 	},
 	signUp: {
-		height: windowHeight * 0.166,
+		height: heightPercentage(135),
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	signUp__btn: {
-		width: windowWidth * 0.773,
-		height: windowHeight * 0.065,
+		width: widthPercentage(290),
+		height: heightPercentage(53),
 		justifyContent: "center",
 		alignItems: "center",
 		borderRadius: 21,
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
 	},
 	signUp__title: {
 		fontFamily: "KoreanYNSJG4",
-		fontSize: RFValue(14),
+		fontSize: fontPercentage(16),
 		letterSpacing: 0,
 		textAlign: "center",
 		color: "#ffffff",

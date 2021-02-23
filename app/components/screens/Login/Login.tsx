@@ -1,14 +1,11 @@
 import React, {useEffect, useContext} from "react";
-import {View, Text, TouchableOpacity, StyleSheet, Image, Dimensions} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
-import {RFValue} from "react-native-responsive-fontsize";
 import color from "../../../utils/constant/common/design/Color";
 import LoginContext from "../../../utils/context/LoginContext";
 import {LOGIN_BUTTON_TEXT, LOGIN_TITLE_TEXT} from "../../../utils/constant/login/LoginScreenUtils";
 import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/constant/login/LoginUtils";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	root: {
@@ -16,14 +13,13 @@ const styles = StyleSheet.create({
 		backgroundColor: color.mainColor,
 	},
 	title: {
-		width: windowWidth * 1,
-		height: windowHeight * 0.692,
+		height: heightPercentage(562),
 		alignItems: "center",
 	},
 	title__text: {
-		marginTop: windowHeight * 0.280,
+		marginTop: heightPercentage(228),
 		fontFamily: "YiSunShinDotumL",
-		fontSize: RFValue(47),
+		fontSize: fontPercentage(50),
 		fontWeight: "normal",
 		fontStyle: "normal",
 		letterSpacing: 0,
@@ -31,9 +27,9 @@ const styles = StyleSheet.create({
 		color: "#ffffff",
 	},
 	title__underScore: {
-		width: windowWidth * 0.696,
-		height: windowHeight * 0.003,
-		marginTop: windowHeight * 0.013,
+		width: widthPercentage(261),
+		height: heightPercentage(3),
+		marginTop: heightPercentage(11),
 		marginLeft: "auto",
 		marginRight: "auto",
 		backgroundColor: "#adefd1",
@@ -42,28 +38,27 @@ const styles = StyleSheet.create({
 		borderColor: "#707070",
 	},
 	login: {
-		width: windowWidth * 1,
-		height: windowHeight * 0.318,
+		height: heightPercentage(250),
 		justifyContent: "flex-start",
 		alignItems: "center",
 	},
 	login__btn: {
-		width: windowWidth * 0.565,
-		height: windowHeight * 0.064,
+		width: widthPercentage(212),
+		height: heightPercentage(52),
 		borderRadius: 60,
 		backgroundColor: color.subColor,
 		flexDirection: "row",
 		alignItems: "center",
 	},
 	login__btn__img: {
-		width: windowWidth * 0.117,
-		height: windowHeight * 0.054,
-		marginLeft: windowWidth * 0.037,
+		width: widthPercentage(44),
+		height: heightPercentage(44),
+		marginLeft: widthPercentage(14),
 	},
 	login__btn__text: {
-		marginRight: windowWidth * 0.056,
+		marginRight: widthPercentage(21),
 		fontFamily: "KoreanYNSJG4",
-		fontSize: RFValue(14),
+		fontSize: fontPercentage(15),
 		fontWeight: "normal",
 		fontStyle: "normal",
 		letterSpacing: 0,

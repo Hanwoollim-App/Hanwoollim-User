@@ -1,9 +1,6 @@
 import React from "react";
-import {StyleSheet, Text, TextInput, Dimensions} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import {StyleSheet, Text, TextInput} from "react-native";
+import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
 
 interface signUpFormProps {
     title: string,
@@ -14,18 +11,18 @@ const styles = StyleSheet.create({
 	input__title: {
 		marginTop: "auto",
 		marginBottom: "auto",
-		marginLeft: windowWidth * 0.112,
-		marginRight: windowWidth * 0.082,
+		marginLeft: widthPercentage(42),
+		marginRight: widthPercentage(31),
 		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(14),
+		fontSize: fontPercentage(14),
 		letterSpacing: 0,
 		textAlign: "left",
 		justifyContent: "center",
 
 	},
 	input__field: {
-		width: windowWidth * 0.621,
-		height: windowHeight * 0.053,
+		width: widthPercentage(233),
+		height: heightPercentage(43),
 		borderColor: "#707070",
 		borderWidth: 1,
 	},
