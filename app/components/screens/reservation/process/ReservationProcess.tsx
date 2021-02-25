@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from "react";
+import React, {MutableRefObject, useCallback, useRef, useState} from "react";
 import {View, StyleSheet, Text} from "react-native";
-import RNPickerSelect from "react-native-picker-select";
+import RNPickerSelect, {PickerSelectProps} from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
 import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
@@ -145,38 +145,47 @@ const styles = StyleSheet.create({
 	},
 });
 
-
 function ReservationProcess({route}) {
 	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
 	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] = useState([1]);
 	const navigation = useNavigation();
-	const [unit, setUnit] : [number, Function] = useState(1);
-	const [session1, setSession1] : [number, Function] = useState(0);
-	const [session2, setSession2] : [number, Function] = useState(0);
-	const [time, setTime] : [Date, Function] = useState(new Date());
-	const onUnitChangeListener = useCallback((value) => {
-		console.log(value);
-	});
-	const onTimeChangeListener = useCallback((value) => {
-		console.log(value);
-	});
-	const onSectionChangeListener = useCallback((value) => {
-		console.log(value);
-	});
+	const [date, setDate] : [Date, Function] = useState(new Date());
+	const unitRef : MutableRefObject<PickerSelectProps> = useRef();
+	const timeRef : MutableRefObject<PickerSelectProps> = useRef();
+	const sectionRef1 : MutableRefObject<PickerSelectProps> = useRef();
+	const sectionRef2 : MutableRefObject<PickerSelectProps> = useRef();
+	const sectionRef3 : MutableRefObject<PickerSelectProps> = useRef();
+	const sectionRefArray : Array<MutableRefObject<PickerSelectProps>> = [
+		sectionRef1,
+		sectionRef2,
+		sectionRef3,
+	];
 	const onSectionAddBtnClickListener = useCallback(() => {
 		const newItem: number = sectionInfoCount.length + 1;
 
 		if (newItem === 4) return;
-		setSectionInfoCount([
-			...sectionInfoCount,
+		setSectionInfoCount((prev : number[]) => [
+			...prev,
 			newItem,
 		]);
-	});
-	const onsumbitBtnClickListener = useCallback(() => {
-		setModalVisible(true);
-	});
-	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
+	}, []);
+	const onDayChangeListener = useCallback((value) => {
+		setDate((prev: Date) => {
+			const ret : Date = {...prev};
 
+			ret.setDate(prev.getDate() - prev.getDay() + value);
+			return ret;
+		});
+	}, []);
+	const onsumbitBtnClickListener = useCallback(() => {
+		console.log(`unitRef : ${unitRef.current.value}`);
+		console.log(`timeRef : ${timeRef.current.value}`);
+		console.log(`sectionRef1 : ${sectionRef1.current.value}`);
+		if (sectionInfoCount.length >= 2) console.log(`sectionRef2 : ${sectionRef2.current.value}`);
+		if (sectionInfoCount.length >= 3) console.log(`sectionRef3 : ${sectionRef3.current.value}`);
+		setModalVisible(true);
+	}, []);
+	const {currentWeek}: any = route.params;
 
 	return (
 		<View style={styles.root}>
@@ -203,7 +212,7 @@ function ReservationProcess({route}) {
 						style={pickerSelectStyles}
 						items={dayItems}
 						value={dayItems[0]}
-						onValueChange={(value) => console.log(value)}
+						onValueChange={(value) => onDayChangeListener(value)}
 					/>
 				</View>
 				<View style={styles.contentContainer}>
@@ -218,8 +227,7 @@ function ReservationProcess({route}) {
 									placeholder: {},
 									pickerSelectStyles,
 									items: unitItems,
-									value: unitItems[0],
-									onValueChange: onUnitChangeListener,
+									ref: unitRef,
 								}}
 							/>
 						</View>
@@ -230,8 +238,7 @@ function ReservationProcess({route}) {
 									placeholder: {},
 									pickerSelectStyles,
 									items: timeItems,
-									value: timeItems[0],
-									onValueChange: onTimeChangeListener,
+									ref: timeRef,
 								}}
 							/>
 						</View>
@@ -241,7 +248,7 @@ function ReservationProcess({route}) {
 					</View>
 					<View style={styles.sectionInfo}>
 						{
-							sectionInfoCount.map((value) => (
+							sectionInfoCount.map((value, index) => (
 								<View
 									key={value}
 									style={styles.sectionInfo__form}
@@ -252,8 +259,7 @@ function ReservationProcess({route}) {
 											placeholder: {},
 											pickerSelectStyles,
 											items: sectionItems,
-											value: sectionItems[0],
-											onValueChange: onSectionChangeListener,
+											ref: sectionRefArray[index],
 										}}
 									/>
 								</View>

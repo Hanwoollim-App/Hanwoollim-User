@@ -7,8 +7,7 @@ interface pickerPropsInterface {
 	placeholder: Object,
 	items: Array<Item>,
 	pickerSelectStyles: Object,
-	value: any,
-	onValueChange: Function,
+	ref: React.Ref<any>,
 }
 
 interface selectFormPropsInterface{
@@ -50,13 +49,13 @@ function SelectForm({title, pickerProps} : selectFormPropsInterface) {
 			</View>
 			<View style={styles.form__picker}>
 				<RNPickerSelect
+					ref={pickerProps.ref}
 					placeholder={pickerProps.placeholder}
 					useNativeAndroidPickerStyle={false}
 					style={pickerProps.pickerSelectStyles}
 					items={pickerProps.items}
-					value={pickerProps.value}
 					onValueChange={(value) => {
-						pickerProps.onValueChange(value);
+						console.log(value);
 					}}
 				/>
 			</View>

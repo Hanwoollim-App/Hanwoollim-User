@@ -17,10 +17,10 @@ export const unitItems : Array<Item> = [
 
 export const sectionItems = [
 	{label: "기타", value: {itemValue: "session", seesionID: 1, num: 4}},
-	{label: "베이스", value: {itemValue: "session", sessionId: 1, num: 1}},
+	{label: "베이스", value: {itemValue: "session", sessionID: 1, num: 1}},
 	{label: "드럼", value: {itemValue: "session", sessionID: 2, num: 4}},
-	{label: "건반", value: {itemValue: "session", sessionId: 2, num: 2}},
-	{label: "보컬", value: {itemValue: "session", sessionId: 2, num: 1}},
+	{label: "건반", value: {itemValue: "session", sessionID: 2, num: 2}},
+	{label: "보컬", value: {itemValue: "session", sessionID: 2, num: 1}},
 ];
 
 export const timeItems : Array<Item> = [];
