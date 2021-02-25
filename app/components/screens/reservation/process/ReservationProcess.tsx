@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {View, StyleSheet, Text} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
@@ -154,17 +154,16 @@ function ReservationProcess({route}) {
 	const [session1, setSession1] : [number, Function] = useState(0);
 	const [session2, setSession2] : [number, Function] = useState(0);
 	const [time, setTime] : [Date, Function] = useState(new Date());
-	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
-	const onUnitChangeListener = (value) => {
+	const onUnitChangeListener = useCallback((value) => {
 		console.log(value);
-	};
-	const onTimeChangeListener = (value) => {
+	});
+	const onTimeChangeListener = useCallback((value) => {
 		console.log(value);
-	};
-	const onSectionChangeListener = (value) => {
+	});
+	const onSectionChangeListener = useCallback((value) => {
 		console.log(value);
-	};
-	const onSectionAddBtnClickListener = () => {
+	});
+	const onSectionAddBtnClickListener = useCallback(() => {
 		const newItem: number = sectionInfoCount.length + 1;
 
 		if (newItem === 4) return;
@@ -172,10 +171,11 @@ function ReservationProcess({route}) {
 			...sectionInfoCount,
 			newItem,
 		]);
-	};
-	const onsumbitBtnClickListener = () => {
+	});
+	const onsumbitBtnClickListener = useCallback(() => {
 		setModalVisible(true);
-	};
+	});
+	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 
 
 	return (
