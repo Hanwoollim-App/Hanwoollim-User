@@ -1,26 +1,26 @@
 import {Item} from "react-native-picker-select";
 
 export const dayItems : Array<Item> = [
-	{label: "월요일", value: "1"},
-	{label: "화요일", value: "2"},
-	{label: "수요일", value: "3"},
-	{label: "목요일", value: "4"},
-	{label: "금요일", value: "5"},
-	{label: "토요일", value: "6"},
-	{label: "일요일", value: "7"},
+	{label: "월요일", value: 1},
+	{label: "화요일", value: 2},
+	{label: "수요일", value: 3},
+	{label: "목요일", value: 4},
+	{label: "금요일", value: 5},
+	{label: "토요일", value: 6},
+	{label: "일요일", value: 7},
 ];
 
 export const unitItems : Array<Item> = [
-	{label: "개인", value: "1"},
-	{label: "팀", value: "2"},
+	{label: "개인", value: 1},
+	{label: "팀", value: 2},
 ];
 
 export const sectionItems = [
-	{label: "드럼", value: "1"},
-	{label: "기타", value: "2"},
-	{label: "베이스", value: "3"},
-	{label: "건반", value: "4"},
-	{label: "보컬", value: "5"},
+	{label: "기타", value: {seesionID: 1, num: 4}},
+	{label: "베이스", value: {sessionId: 1, num: 1}},
+	{label: "드럼", value: {sessionID: 2, num: 4}},
+	{label: "건반", value: {sessionId: 2, num: 2}},
+	{label: "보컬", value: {sessionId: 2, num: 1}},
 ];
 
 export const timeItems : Array<Item> = [];

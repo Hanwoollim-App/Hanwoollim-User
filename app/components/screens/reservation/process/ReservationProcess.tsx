@@ -150,6 +150,10 @@ function ReservationProcess({route}) {
 	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
 	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] = useState([1]);
 	const navigation = useNavigation();
+	const [unit, setUnit] : [number, Function] = useState(1);
+	const [session1, setSession1] : [number, Function] = useState(0);
+	const [session2, setSession2] : [number, Function] = useState(0);
+	const [time, setTime] : [Date, Function] = useState(new Date());
 	const {currentWeek}: any = route.params; // ts 형식으로 바꿀 필요 있음
 	const onUnitChangeListener = (value) => {
 		console.log(value);
