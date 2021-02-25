@@ -13,9 +13,12 @@ function BottomTabNavigator() {
 		<bottomTab.Navigator
 			initialRouteName="Home"
 			backBehavior="history"
+			activeColor = "#00203f"
+			inactiveColor="#a9a9a9"
+			barStyle={{backgroundColor: "#ffffff"}}
 			labeled={false}
 			screenOptions={({route}) => ({
-				tabBarIcon: () => bottomTabIconOption(route),
+				tabBarIcon: ({color}) => bottomTabIconOption(route, color),
 			})}
 		>
 			<bottomTab.Screen

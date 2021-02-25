@@ -1,8 +1,9 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faBolt, faClipboardList, faHome, faPlusCircle, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {fontPercentage} from "../common/design/Responsive";
 
-const bottomTabIconOption = (route) => {
+const bottomTabIconOption = (route, color) => {
 	let iconName: IconDefinition;
 
 	switch (route.name) {
@@ -22,7 +23,7 @@ const bottomTabIconOption = (route) => {
 			iconName = faHome;
 			break;
 	}
-	return <FontAwesomeIcon icon={iconName} size={20} color='#000000'/>;
+	return <FontAwesomeIcon icon={iconName} size={fontPercentage(25)} color={color}/>;
 };
 
 export default bottomTabIconOption;
