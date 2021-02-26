@@ -16,7 +16,8 @@ export const unitItems : Array<Item> = [
 ];
 
 export const sectionItems = [
-	{label: "기타", value: {itemValue: "session", seesionID: 1, num: 4}},
+	{label: "기타1", value: {itemValue: "session", sessionID: 1, num: 4}},
+	{label: "기타2", value: {itemValue: "session", sessionID: 1, num: 2}},
 	{label: "베이스", value: {itemValue: "session", sessionID: 1, num: 1}},
 	{label: "드럼", value: {itemValue: "session", sessionID: 2, num: 4}},
 	{label: "건반", value: {itemValue: "session", sessionID: 2, num: 2}},
@@ -42,6 +43,21 @@ export const PROCESS_TEXT = {
 };
 
 export const MODAL_TEXT = {
-	TITLE: "예약이 완료되었습니다",
+	SUCCESS_TITLE: "예약이 완료되었습니다",
+	NO_TEAM_TITLE: "팀 예약은 안 되요!",
+	FAILED: "무언가 잘못됐어요!",
+	DRUM_NUM_OVER: "드럼은 한명만!",
+	KEYBOARD_NUM_OVER: "건반은 한명만!",
+	BASE_NUM_OVER: "베이스는 한명만!",
+	VOCAL_NUM_OVER: "보컬은 한명만!",
+	GUITAR_NUM_OVER: "기타는 두명만!",
+	NOT_VALID_TWO_GUITAR_SELECT: "기타1 과 기타2로 선택해주세요!",
 	BTN_TITLE: "확인",
 };
+
+export interface reserveDataInterface {
+	session1 : number,
+	session2 : number,
+	Id: number,
+	date: Date,
+}
