@@ -317,12 +317,17 @@ function ReservationProcess({route}) {
 					return;
 			}
 		}
+		const dateData = new Date(date);
 
+		dateData.setHours(time);
+		dateData.setMinutes(0);
+		dateData.setSeconds(0);
+		dateData.setMilliseconds(0);
 		const data : reserveDataInterface = {
 			session1: dataSession1,
 			session2: dataSession2,
 			Id: profile.id,
-			date: new Date(date.setHours(time)),
+			date: dateData,
 		};
 
 		console.log(data);
