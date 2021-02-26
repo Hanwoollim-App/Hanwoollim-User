@@ -150,12 +150,12 @@ function ReservationProcess({route}) {
 	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] = useState([1]);
 	const navigation = useNavigation();
 	const [date, setDate] : [Date, Function] = useState(new Date());
-	const unitRef : MutableRefObject<PickerSelectProps> = useRef();
-	const timeRef : MutableRefObject<PickerSelectProps> = useRef();
-	const sectionRef1 : MutableRefObject<PickerSelectProps> = useRef();
-	const sectionRef2 : MutableRefObject<PickerSelectProps> = useRef();
-	const sectionRef3 : MutableRefObject<PickerSelectProps> = useRef();
-	const sectionRefArray : Array<MutableRefObject<PickerSelectProps>> = [
+	const unitRef : MutableRefObject<any> = useRef();
+	const timeRef : MutableRefObject<any> = useRef();
+	const sectionRef1 : MutableRefObject<any> = useRef();
+	const sectionRef2 : MutableRefObject<any> = useRef();
+	const sectionRef3 : MutableRefObject<any> = useRef();
+	const sectionRefArray : Array<MutableRefObject<any>> = [
 		sectionRef1,
 		sectionRef2,
 		sectionRef3,
@@ -178,11 +178,23 @@ function ReservationProcess({route}) {
 		});
 	}, []);
 	const onsumbitBtnClickListener = useCallback(() => {
-		console.log(`unitRef : ${unitRef.current.value}`);
-		console.log(`timeRef : ${timeRef.current.value}`);
-		console.log(`sectionRef1 : ${sectionRef1.current.value}`);
-		if (sectionInfoCount.length >= 2) console.log(`sectionRef2 : ${sectionRef2.current.value}`);
-		if (sectionInfoCount.length >= 3) console.log(`sectionRef3 : ${sectionRef3.current.value}`);
+		const unit : number = unitRef.current.state.selectedItem.value.num;
+		const time : number = timeRef.current.state.selectedItem.value.num;
+		const sectionValue1 : number = sectionRef1.current.state.selectedItem.value.num;
+		let sectionValue2 : number = 0;
+		let sectionValue3 : number = 0;
+
+		if (sectionInfoCount.length >= 2) {
+			sectionValue2 = sectionRef2.current.state.selectedItem.value.num;
+		}
+		if (sectionInfoCount.length >= 3) {
+			sectionValue3 = sectionRef3.current.state.selectedItem.value.num;
+		}
+		console.log(`unit : ${unit}`);
+		console.log(`time : ${time}`);
+		console.log(`sectionValue1 : ${sectionValue1}`);
+		console.log(`sectionValue2 : ${sectionValue2}`);
+		console.log(`sectionValue3 : ${sectionValue3}`);
 		setModalVisible(true);
 	}, []);
 	const {currentWeek}: any = route.params;
