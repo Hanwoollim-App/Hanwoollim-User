@@ -7,7 +7,7 @@ import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
 import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
-import {dayItems, MODAL_TEXT, PROCESS_TEXT, reserveDataInterface, sectionItems, timeItems, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
+import {dateDataCalcutation, dayItems, MODAL_TEXT, oneSessionSelected, PROCESS_TEXT, reserveDataInterface, sectionItems, threeSessionSelected, timeItems, twoSessionsSelected, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 import CustomModal from "../../../common/CustomModal";
 import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
 import {loginInterface} from "./../../../../utils/constant/login/LoginUtils";
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+
 function ReservationProcess({route}) {
 	const navigation = useNavigation();
 	const login : loginInterface = useContext(LoginContext);
@@ -188,144 +189,51 @@ function ReservationProcess({route}) {
 		});
 	}, []);
 	const onsumbitBtnClickListener = useCallback(() => {
+		// 팀 or 개인
 		const unit : number = unitRef.current.state.selectedItem.value.num;
-		const time : number = timeRef.current.state.selectedItem.value.num;
-		// PickerSelect로 붙어 가져오는 변수
-		const sessionValue1 : any = sectionRef1.current.state.selectedItem.value;
-		let sessionValue2 : any = {num: 0};
-		let sessionValue3 : any = {num: 0};
-		// JSON 파일에 이용되는 변수
-		let dataSession1 : number = 0;
-		let dataSession2 : number = 0;
 
-		if (sectionInfoCount.length >= 2) {
-			sessionValue2 = sectionRef2.current.state.selectedItem.value;
-		}
-		if (sectionInfoCount.length >= 3) {
-			sessionValue3 = sectionRef3.current.state.selectedItem.value;
-		}
-		// 팀 예약 -> 프로토타입에서는 방지
-		if (unit === 2) {
+		if (unit === 2) { // 팀 예약 -> 프로토타입에서는 방지
 			setModalText(MODAL_TEXT.NO_TEAM_TITLE);
 			return;
 		}
-		const {sessionID: ID1, num: num1} = sessionValue1;
 
-		console.log(ID1, num1);
-		if (sessionValue2.num !== 0) {
-			const {sessionID: ID2, num: num2} = sessionValue2;
+		// 시간
+		const time : number = timeRef.current.state.selectedItem.value.num;
+		const dateData = dateDataCalcutation(date, time);
 
-			if (sessionValue3.num !== 0) { // 세션 3개를 선택했을 경우
-				const {sessionID: ID3, num: num3} = sessionValue3;
+		// 세션
+		const sessionValue1 : any = sectionRef1.current.state.selectedItem.value;
+		let sessionValue2 : any = {num: 0};
+		let sessionValue3 : any = {num: 0};
+		let sessionDatas;
 
-
-				switch (ID1) {
-					case 1 :
-						dataSession1 += num1;
-						break;
-					case 2 :
-						dataSession2 += num1;
-						break;
-					default:
-						setModalText(MODAL_TEXT.FAILED);
-						return;
-				}
-				switch (ID2) {
-					case 1 :
-						dataSession1 += num2;
-						break;
-					case 2 :
-						dataSession2 += num2;
-						break;
-					default:
-						setModalText(MODAL_TEXT.FAILED);
-						return;
-				}
-				switch (ID3) {
-					case 1 :
-						dataSession1 += num3;
-						break;
-					case 2 :
-						dataSession2 += num3;
-						break;
-					default:
-						setModalText(MODAL_TEXT.FAILED);
-						return;
-				}
-			} else { // 세션 2개를 선택했을 경우
-				// 중복된 세션
-				if (ID1 === ID2 && num1 === num2) {
-					// 기타가 아닌 경우
-					if (!(ID1 === 1 && num1 === 4) && !(ID1 === 1 && num2 === 2)) {
-						// 베이스
-						if (ID1 === 1 && num1 === 1) {
-							setModalText(MODAL_TEXT.BASE_NUM_OVER);
-							return;
-						}
-						// 드럼
-						if (ID1 === 2 && num1 === 4) {
-							setModalText(MODAL_TEXT.DRUM_NUM_OVER);
-							return;
-						}
-						// 건반
-						if (ID1 === 2 && num1 === 2) {
-							setModalText(MODAL_TEXT.KEYBOARD_NUM_OVER);
-							return;
-						}
-						// 보컬
-						if (ID1 === 2 && num1 === 1) {
-							setModalText(MODAL_TEXT.VOCAL_NUM_OVER);
-							return;
-						}
-					}
-					setModalText(MODAL_TEXT.NOT_VALID_TWO_GUITAR_SELECT);
-					return;
-				}
-				switch (ID1) {
-					case 1 :
-						dataSession1 += num1;
-						break;
-					case 2 :
-						dataSession2 += num1;
-						break;
-					default:
-						setModalText(MODAL_TEXT.FAILED);
-						return;
-				}
-				switch (ID2) {
-					case 1 :
-						dataSession1 += num1;
-						break;
-					case 2 :
-						dataSession2 += num1;
-						break;
-					default:
-						setModalText(MODAL_TEXT.FAILED);
-						return;
-				}
-			}
-		} else { // 세션 1개를 선택했을 경우
-			switch (ID1) {
-				case 1 :
-					dataSession1 += num1;
-					break;
-				case 2 :
-					dataSession2 += num1;
-					break;
-				default:
-					setModalText(MODAL_TEXT.FAILED);
-					return;
-			}
+		if (sectionInfoCount.length >= 2) { // 세션 2개 선택
+			sessionValue2 = sectionRef2.current.state.selectedItem.value;
 		}
-		const dateData = new Date(date);
+		if (sectionInfoCount.length >= 3) { // 세션 3개 선택
+			sessionValue3 = sectionRef3.current.state.selectedItem.value;
+		}
 
-		dateData.setHours(time);
-		dateData.setMinutes(0);
-		dateData.setSeconds(0);
-		dateData.setMilliseconds(0);
+		if (sessionValue2.num !== 0) {
+			if (sessionValue3.num !== 0) { // 세션 3개 선택
+				sessionDatas = threeSessionSelected(sessionValue1, sessionValue2, sessionValue3);
+			} else { // 세션 2개를 선택
+				sessionDatas = twoSessionsSelected(sessionValue1, sessionValue2);
+			}
+		} else { // 세션 1개를 선택
+			sessionDatas = oneSessionSelected(sessionValue1);
+		}
+
+		// 세션 유효성 검증
+		if (sessionDatas.isValid === false) {
+			setModalText(sessionDatas.NOT_VALID_TEXT);
+			return;
+		}
+
+		// 최종 JSON 파일
 		const data : reserveDataInterface = {
-			session1: dataSession1,
-			session2: dataSession2,
+			session1: sessionDatas.sessionData1,
+			session2: sessionDatas.sessionData2,
 			Id: profile.id,
 			date: dateData,
 		};
