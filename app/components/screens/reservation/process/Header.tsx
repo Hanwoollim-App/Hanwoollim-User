@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
 		height: "100%",
 		fontFamily: "KoreanYNSJG3",
 		fontSize: fontPercentage(12),
-		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		color: color.mainColor,
 	},
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
 		height: "100%",
 		fontFamily: "KoreanYNSJG4",
 		fontSize: fontPercentage(14),
-		lineHeight: fontPercentage(19),
 		letterSpacing: 0,
 	},
 });
