@@ -23,7 +23,7 @@ const bottomTabIconOption = (route, color) => {
 			iconName = faHome;
 			break;
 	}
-	return <FontAwesomeIcon icon={iconName} size={fontPercentage(25)} color={color}/>;
+	return <FontAwesomeIcon icon={iconName} size={fontPercentage(30)} color={color}/>;
 };
 
 export default bottomTabIconOption;
