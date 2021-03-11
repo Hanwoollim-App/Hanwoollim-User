@@ -74,8 +74,8 @@ function Header({btnListener, pickerValue, pickerValueChangeListener}) {
 				<RNPickerSelect
 					style={pickerSelectStyles}
 					useNativeAndroidPickerStyle={false}
-					onValueChange={(value, index) => {
-						pickerValueChangeListener(weekItem[index]);
+					onValueChange={(value) => {
+						pickerValueChangeListener(weekItem[value - 1]);
 					}}
 					placeholder={{}}
 					value={pickerValue.value}
