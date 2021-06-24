@@ -176,10 +176,8 @@ function ReservationProcess({ route }) {
 	const [profile] = login.profile;
 
 	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
-	const [sectionInfoCount, setSectionInfoCount]: [
-		number[],
-		Function,
-	] = useState([1]);
+	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] =
+		useState([1]);
 	const [modalText, setModalText]: [string, Function] = useState('');
 
 	useEffect(() => {
