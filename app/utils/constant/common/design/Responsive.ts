@@ -1,4 +1,8 @@
-import {responsiveFontSize, responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
+import {
+	responsiveFontSize,
+	responsiveHeight,
+	responsiveWidth,
+} from "react-native-responsive-dimensions";
 
 const ZEPLIN__WINDOW__WIDTH = 375;
 const ZEPLIN__WINDOW__HEIGHT = 812;
@@ -15,7 +19,7 @@ export const heightPercentage = (height: number) => {
 
 	return responsiveHeight(percentage);
 };
-export const fontPercentage = (size : number) => {
+export const fontPercentage = (size: number) => {
 	const percentage = size * 0.125;
 
 	return responsiveFontSize(percentage);

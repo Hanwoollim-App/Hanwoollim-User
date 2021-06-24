@@ -4,7 +4,11 @@ import {useNavigation} from "@react-navigation/native";
 import CustomBtn from "../../../common/CustomBtn";
 import color from "../../../../utils/constant/common/design/Color";
 import btnTitle from "../../../../utils/constant/reservation/process/HeaderUtil";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "../../../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	haeder__back__btn: {
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function Header({currentWeek} : {currentWeek: string}) {
+function Header({currentWeek}: {currentWeek: string}) {
 	const navigation = useNavigation();
 	const backBtnClickListener = () => {
 		navigation.goBack();
@@ -49,9 +53,7 @@ function Header({currentWeek} : {currentWeek: string}) {
 				onClickListener={backBtnClickListener}
 			/>
 			<View style={styles.header__title}>
-				<Text style={styles.header__title__text}>
-					{`${currentWeek}`}
-				</Text>
+				<Text style={styles.header__title__text}>{`${currentWeek}`}</Text>
 			</View>
 		</>
 	);

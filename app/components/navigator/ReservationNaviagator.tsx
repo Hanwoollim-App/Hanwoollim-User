@@ -2,18 +2,16 @@ import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import ReservationTimeTable from "../screens/reservation/timeTable/ReservationTimeTable";
 import ReservationProcess from "../screens/reservation/process/ReservationProcess";
-import ReservationContext, {ReservationInfo} from "../../utils/context/ReservationContext";
+import ReservationContext, {
+	ReservationInfo,
+} from "../../utils/context/ReservationContext";
 
 const ReservationStack = createStackNavigator();
 
 function ReservationNaviagator() {
 	return (
-		<ReservationContext.Provider
-			value={new ReservationInfo()}
-		>
-			<ReservationStack.Navigator
-				initialRouteName="ReservationTimeTable"
-			>
+		<ReservationContext.Provider value={new ReservationInfo()}>
+			<ReservationStack.Navigator initialRouteName="ReservationTimeTable">
 				<ReservationStack.Screen
 					name="ReservationTimeTable"
 					component={ReservationTimeTable}

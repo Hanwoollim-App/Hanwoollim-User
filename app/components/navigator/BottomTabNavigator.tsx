@@ -13,30 +13,20 @@ function BottomTabNavigator() {
 		<bottomTab.Navigator
 			initialRouteName="Home"
 			backBehavior="history"
-			activeColor = "#00203f"
+			activeColor="#00203f"
 			inactiveColor="#a9a9a9"
 			barStyle={{backgroundColor: "#ffffff"}}
 			labeled={false}
 			screenOptions={({route}) => ({
 				tabBarIcon: ({color}) => bottomTabIconOption(route, color),
-			})}
-		>
-			<bottomTab.Screen
-				name="Home"
-				component={Home}
-			/>
-			<bottomTab.Screen
-				name="FlashMob"
-				component={FlashMob}
-			/>
+			})}>
+			<bottomTab.Screen name="Home" component={Home} />
+			<bottomTab.Screen name="FlashMob" component={FlashMob} />
 			<bottomTab.Screen
 				name="ReservingTimeTable"
 				component={ReservationNaviagator}
 			/>
-			<bottomTab.Screen
-				name="Board"
-				component={Board}
-			/>
+			<bottomTab.Screen name="Board" component={Board} />
 		</bottomTab.Navigator>
 	);
 }

@@ -3,9 +3,20 @@ import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import KakaoLogins, {KAKAO_AUTH_TYPES} from "@react-native-seoul/kakao-login";
 import color from "../../../utils/constant/common/design/Color";
 import LoginContext from "../../../utils/context/LoginContext";
-import {LOGIN_BUTTON_TEXT, LOGIN_TITLE_TEXT} from "../../../utils/constant/login/LoginScreenUtils";
-import {loginInterface, PROFILE_EMPTY, TOKEN_EMPTY} from "../../../utils/constant/login/LoginUtils";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
+import {
+	LOGIN_BUTTON_TEXT,
+	LOGIN_TITLE_TEXT,
+} from "../../../utils/constant/login/LoginScreenUtils";
+import {
+	loginInterface,
+	PROFILE_EMPTY,
+	TOKEN_EMPTY,
+} from "../../../utils/constant/login/LoginUtils";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "../../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	root: {
@@ -67,7 +78,7 @@ const styles = StyleSheet.create({
 });
 
 function Login({navigation}) {
-	const login : loginInterface = useContext(LoginContext);
+	const login: loginInterface = useContext(LoginContext);
 	const [token, setToken] = login.token;
 	const [profile, setProfile] = login.profile;
 
@@ -81,28 +92,30 @@ function Login({navigation}) {
 		navigation.navigate("SignUp");
 	}, [token, profile]);
 
-	const kakaoLogin = async () => KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
-		.then((result) => {
-			setToken(result.accessToken);
-			return true;
-		})
-		.catch((err) => {
-			if (err.code === "E_CANCELLED_OPERATION") {
-				console.log(`Login Cancelled:${err.message}`);
-			}
-			console.log(`Login Failed:${err.code} ${err.message}`);
-			return false;
-		});
-	const getProfile = async () => KakaoLogins.getProfile()
-		.then((result) => {
-			setProfile(result);
-		})
-		.catch((err) => {
-			console.log(`Get Profile Failed:${err.code} ${err.message}`);
-		});
+	const kakaoLogin = async () =>
+		KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
+			.then((result) => {
+				setToken(result.accessToken);
+				return true;
+			})
+			.catch((err) => {
+				if (err.code === "E_CANCELLED_OPERATION") {
+					console.log(`Login Cancelled:${err.message}`);
+				}
+				console.log(`Login Failed:${err.code} ${err.message}`);
+				return false;
+			});
+	const getProfile = async () =>
+		KakaoLogins.getProfile()
+			.then((result) => {
+				setProfile(result);
+			})
+			.catch((err) => {
+				console.log(`Get Profile Failed:${err.code} ${err.message}`);
+			});
 
 	const loginBtnClickListener = async () => {
-		if (!await kakaoLogin()) return;
+		if (!(await kakaoLogin())) return;
 		await getProfile();
 	};
 
@@ -110,14 +123,14 @@ function Login({navigation}) {
 		<View style={styles.root}>
 			<View style={styles.title}>
 				<Text style={styles.title__text}>{`${LOGIN_TITLE_TEXT}`}</Text>
-				<View style={styles.title__underScore}/>
+				<View style={styles.title__underScore} />
 			</View>
 			<View style={styles.login}>
 				<TouchableOpacity
 					style={styles.login__btn}
-					onPress={loginBtnClickListener}
-				>
-					<Image style={styles.login__btn__img}
+					onPress={loginBtnClickListener}>
+					<Image
+						style={styles.login__btn__img}
 						source={require("../../../assets/images/kakaoLogo.png")}
 					/>
 					<Text style={styles.login__btn__text}>{`${LOGIN_BUTTON_TEXT}`}</Text>

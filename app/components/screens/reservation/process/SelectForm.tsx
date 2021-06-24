@@ -1,18 +1,22 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import RNPickerSelect, {Item} from "react-native-picker-select";
-import {fontPercentage, heightPercentage, widthPercentage} from "./../../../../utils/constant/common/design/Responsive";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "./../../../../utils/constant/common/design/Responsive";
 
 interface pickerPropsInterface {
-	placeholder: Object,
-	items: Array<Item>,
-	pickerSelectStyles: Object,
-	ref: React.Ref<any>,
+	placeholder: Object;
+	items: Array<Item>;
+	pickerSelectStyles: Object;
+	ref: React.Ref<any>;
 }
 
-interface selectFormPropsInterface{
-	title : string,
-	pickerProps: pickerPropsInterface,
+interface selectFormPropsInterface {
+	title: string;
+	pickerProps: pickerPropsInterface;
 }
 
 const styles = StyleSheet.create({
@@ -39,13 +43,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SelectForm({title, pickerProps} : selectFormPropsInterface) {
+function SelectForm({title, pickerProps}: selectFormPropsInterface) {
 	return (
 		<>
 			<View style={styles.form__title}>
-				<Text style={styles.form__title__text}>
-					{`${title}`}
-				</Text>
+				<Text style={styles.form__title__text}>{`${title}`}</Text>
 			</View>
 			<View style={styles.form__picker}>
 				<RNPickerSelect

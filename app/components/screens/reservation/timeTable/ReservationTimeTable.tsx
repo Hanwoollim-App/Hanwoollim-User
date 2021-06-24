@@ -6,9 +6,7 @@ import weekItem from "../../../../utils/constant/reservation/timeTable/Reservati
 import Header from "./Header";
 
 const styles = StyleSheet.create({
-	root: {
-
-	},
+	root: {},
 	headerContainer: {
 		width: "100%",
 		height: heightPercentage(57),
@@ -16,13 +14,11 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 	},
-	bodyContainer: {
-
-	},
+	bodyContainer: {},
 });
 
 function ReservationTimeTable({navigation}) {
-	const [pickerValue, setPickerValue] : [Item, Function] = useState(weekItem[0]);
+	const [pickerValue, setPickerValue]: [Item, Function] = useState(weekItem[0]);
 	const reserveBtnListener = () => {
 		navigation.navigate("ReservationProcess", {
 			currentWeek: pickerValue.label,
@@ -41,9 +37,7 @@ function ReservationTimeTable({navigation}) {
 					pickerValueChangeListener={pickerValueChangeListener}
 				/>
 			</View>
-			<View>
-
-			</View>
+			<View></View>
 			<Text>{"예약 화면입니다."}</Text>
 		</View>
 	);

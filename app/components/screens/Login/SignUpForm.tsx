@@ -1,11 +1,15 @@
 import React from "react";
 import {StyleSheet, Text, TextInput} from "react-native";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "../../../utils/constant/common/design/Responsive";
 
 interface signUpFormProps {
-    title: string,
-    inputChangeListener: Function,
-    defalutValue : string,
+	title: string;
+	inputChangeListener: Function;
+	defalutValue: string;
 }
 const styles = StyleSheet.create({
 	input__title: {
@@ -18,7 +22,6 @@ const styles = StyleSheet.create({
 		letterSpacing: 0,
 		textAlign: "left",
 		justifyContent: "center",
-
 	},
 	input__field: {
 		width: widthPercentage(233),
@@ -28,13 +31,17 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignUpForm({title, inputChangeListener, defalutValue} : signUpFormProps) {
+function SignUpForm({
+	title,
+	inputChangeListener,
+	defalutValue,
+}: signUpFormProps) {
 	return (
 		<>
 			<Text style={styles.input__title}>{title}</Text>
 			<TextInput
 				style={styles.input__field}
-				onChangeText={(newValue : string) => inputChangeListener(newValue)}
+				onChangeText={(newValue: string) => inputChangeListener(newValue)}
 				value={defalutValue}
 			/>
 		</>

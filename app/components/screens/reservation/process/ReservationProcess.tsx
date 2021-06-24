@@ -1,4 +1,11 @@
-import React, {MutableRefObject, useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {
+	MutableRefObject,
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import {View, StyleSheet, Text} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {useNavigation} from "@react-navigation/native";
@@ -7,9 +14,25 @@ import CustomBtn from "../../../common/CustomBtn";
 import Header from "./Header";
 import SelectForm from "./SelectForm";
 import color from "../../../../utils/constant/common/design/Color";
-import {dateDataCalcutation, dayItems, MODAL_TEXT, oneSessionSelected, PROCESS_TEXT, reserveDataInterface, sectionItems, threeSessionSelected, timeItems, twoSessionsSelected, unitItems} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
+import {
+	dateDataCalcutation,
+	dayItems,
+	MODAL_TEXT,
+	oneSessionSelected,
+	PROCESS_TEXT,
+	reserveDataInterface,
+	sectionItems,
+	threeSessionSelected,
+	timeItems,
+	twoSessionsSelected,
+	unitItems,
+} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
 import CustomModal from "../../../common/CustomModal";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../../../utils/constant/common/design/Responsive";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "../../../../utils/constant/common/design/Responsive";
 import {loginInterface} from "./../../../../utils/constant/login/LoginUtils";
 
 const pickerSelectStyles = StyleSheet.create({
@@ -147,26 +170,30 @@ const styles = StyleSheet.create({
 	},
 });
 
-
 function ReservationProcess({route}) {
 	const navigation = useNavigation();
-	const login : loginInterface = useContext(LoginContext);
+	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
 	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
-	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] = useState([1]);
-	const [modalText, setModalText] : [string, Function] = useState("");
+	const [sectionInfoCount, setSectionInfoCount]: [
+		number[],
+		Function,
+	] = useState([1]);
+	const [modalText, setModalText]: [string, Function] = useState("");
 
 	useEffect(() => {
-		if (modalText !== "") { setModalVisible(true); }
+		if (modalText !== "") {
+			setModalVisible(true);
+		}
 	}, [modalText]);
-	const [date, setDate] : [Date, Function] = useState(new Date());
-	const unitRef : MutableRefObject<any> = useRef();
-	const timeRef : MutableRefObject<any> = useRef();
-	const sectionRef1 : MutableRefObject<any> = useRef();
-	const sectionRef2 : MutableRefObject<any> = useRef();
-	const sectionRef3 : MutableRefObject<any> = useRef();
-	const sectionRefArray : Array<MutableRefObject<any>> = [
+	const [date, setDate]: [Date, Function] = useState(new Date());
+	const unitRef: MutableRefObject<any> = useRef();
+	const timeRef: MutableRefObject<any> = useRef();
+	const sectionRef1: MutableRefObject<any> = useRef();
+	const sectionRef2: MutableRefObject<any> = useRef();
+	const sectionRef3: MutableRefObject<any> = useRef();
+	const sectionRefArray: Array<MutableRefObject<any>> = [
 		sectionRef1,
 		sectionRef2,
 		sectionRef3,
@@ -175,14 +202,11 @@ function ReservationProcess({route}) {
 		const newItem: number = sectionInfoCount.length + 1;
 
 		if (newItem === 4) return;
-		setSectionInfoCount((prev : number[]) => [
-			...prev,
-			newItem,
-		]);
+		setSectionInfoCount((prev: number[]) => [...prev, newItem]);
 	}, []);
 	const onDayChangeListener = useCallback((value) => {
 		setDate((prev: Date) => {
-			const ret : Date = {...prev};
+			const ret: Date = {...prev};
 
 			ret.setDate(prev.getDate() - prev.getDay() + value);
 			return ret;
@@ -190,37 +214,47 @@ function ReservationProcess({route}) {
 	}, []);
 	const onsumbitBtnClickListener = useCallback(() => {
 		// 팀 or 개인
-		const unit : number = unitRef.current.state.selectedItem.value.num;
+		const unit: number = unitRef.current.state.selectedItem.value.num;
 
-		if (unit === 2) { // 팀 예약 -> 프로토타입에서는 방지
+		if (unit === 2) {
+			// 팀 예약 -> 프로토타입에서는 방지
 			setModalText(MODAL_TEXT.NO_TEAM_TITLE);
 			return;
 		}
 
 		// 시간
-		const time : number = timeRef.current.state.selectedItem.value.num;
+		const time: number = timeRef.current.state.selectedItem.value.num;
 		const dateData = dateDataCalcutation(date, time);
 
 		// 세션
-		const sessionValue1 : any = sectionRef1.current.state.selectedItem.value;
-		let sessionValue2 : any = {num: 0};
-		let sessionValue3 : any = {num: 0};
+		const sessionValue1: any = sectionRef1.current.state.selectedItem.value;
+		let sessionValue2: any = {num: 0};
+		let sessionValue3: any = {num: 0};
 		let sessionDatas;
 
-		if (sectionInfoCount.length >= 2) { // 세션 2개 선택
+		if (sectionInfoCount.length >= 2) {
+			// 세션 2개 선택
 			sessionValue2 = sectionRef2.current.state.selectedItem.value;
 		}
-		if (sectionInfoCount.length >= 3) { // 세션 3개 선택
+		if (sectionInfoCount.length >= 3) {
+			// 세션 3개 선택
 			sessionValue3 = sectionRef3.current.state.selectedItem.value;
 		}
 
 		if (sessionValue2.num !== 0) {
-			if (sessionValue3.num !== 0) { // 세션 3개 선택
-				sessionDatas = threeSessionSelected(sessionValue1, sessionValue2, sessionValue3);
-			} else { // 세션 2개를 선택
+			if (sessionValue3.num !== 0) {
+				// 세션 3개 선택
+				sessionDatas = threeSessionSelected(
+					sessionValue1,
+					sessionValue2,
+					sessionValue3,
+				);
+			} else {
+				// 세션 2개를 선택
 				sessionDatas = twoSessionsSelected(sessionValue1, sessionValue2);
 			}
-		} else { // 세션 1개를 선택
+		} else {
+			// 세션 1개를 선택
 			sessionDatas = oneSessionSelected(sessionValue1);
 		}
 
@@ -231,7 +265,7 @@ function ReservationProcess({route}) {
 		}
 
 		// 최종 JSON 파일
-		const data : reserveDataInterface = {
+		const data: reserveDataInterface = {
 			session1: sessionDatas.sessionData1,
 			session2: sessionDatas.sessionData2,
 			Id: profile.id,
@@ -260,9 +294,7 @@ function ReservationProcess({route}) {
 				firstBtnTitle={MODAL_TEXT.BTN_TITLE}
 			/>
 			<View style={styles.headerContainer}>
-				<Header
-					currentWeek={currentWeek}
-				/>
+				<Header currentWeek={currentWeek} />
 			</View>
 			<View style={styles.bodyContainer}>
 				<View style={styles.dayPicker}>
@@ -306,35 +338,27 @@ function ReservationProcess({route}) {
 						</Text>
 					</View>
 					<View style={styles.sectionInfo}>
-						{
-							sectionInfoCount.map((value, index) => (
-								<View
-									key={value}
-									style={styles.sectionInfo__form}
-								>
-									<SelectForm
-										title={`${PROCESS_TEXT.SECTION} ${value}`}
-										pickerProps={{
-											placeholder: {},
-											pickerSelectStyles,
-											items: sectionItems,
-											ref: sectionRefArray[index],
-										}}
-									/>
-								</View>
-							))
-						}
-						{
-							sectionInfoCount.length !== 3 && (
-								<CustomBtn
-									title={PROCESS_TEXT.SECTION_ADD}
-									onClickListener={onSectionAddBtnClickListener}
-									btnStyle={styles.sectionInfo__addBtn}
-									titleStyle={styles.sectionInfo__addBtn__Text}
+						{sectionInfoCount.map((value, index) => (
+							<View key={value} style={styles.sectionInfo__form}>
+								<SelectForm
+									title={`${PROCESS_TEXT.SECTION} ${value}`}
+									pickerProps={{
+										placeholder: {},
+										pickerSelectStyles,
+										items: sectionItems,
+										ref: sectionRefArray[index],
+									}}
 								/>
-							)
-						}
-
+							</View>
+						))}
+						{sectionInfoCount.length !== 3 && (
+							<CustomBtn
+								title={PROCESS_TEXT.SECTION_ADD}
+								onClickListener={onSectionAddBtnClickListener}
+								btnStyle={styles.sectionInfo__addBtn}
+								titleStyle={styles.sectionInfo__addBtn__Text}
+							/>
+						)}
 					</View>
 					<View style={styles.submit}>
 						<CustomBtn

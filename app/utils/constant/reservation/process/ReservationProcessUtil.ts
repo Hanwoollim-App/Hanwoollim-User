@@ -1,6 +1,6 @@
 import {Item} from "react-native-picker-select";
 
-export const dayItems : Array<Item> = [
+export const dayItems: Array<Item> = [
 	{label: "월요일", value: {itemValue: "day", num: 1}},
 	{label: "화요일", value: {itemValue: "day", num: 2}},
 	{label: "수요일", value: {itemValue: "day", num: 3}},
@@ -10,7 +10,7 @@ export const dayItems : Array<Item> = [
 	{label: "일요일", value: {itemValue: "day", num: 7}},
 ];
 
-export const unitItems : Array<Item> = [
+export const unitItems: Array<Item> = [
 	{label: "개인", value: {itemValue: "unit", num: 1}},
 	{label: "팀", value: {itemValue: "unit", num: 2}},
 ];
@@ -24,7 +24,7 @@ export const sectionItems = [
 	{label: "보컬", value: {itemValue: "session", sessionID: 2, num: 1}},
 ];
 
-export const timeItems : Array<Item> = [];
+export const timeItems: Array<Item> = [];
 
 for (let i = 0; i < 24; i++) {
 	timeItems.push({
@@ -56,10 +56,10 @@ export const MODAL_TEXT = {
 };
 
 export interface reserveDataInterface {
-	session1 : number,
-	session2 : number,
-	Id: number,
-	date: Date,
+	session1: number;
+	session2: number;
+	Id: number;
+	date: Date;
 }
 
 const sessionDataCalculation = (value) => {

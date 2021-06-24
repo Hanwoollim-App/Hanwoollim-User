@@ -2,7 +2,11 @@ import React from "react";
 import {Text, View, Modal, StyleSheet} from "react-native";
 import color from "../../utils/constant/common/design/Color";
 import CustomBtn from "./CustomBtn";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../utils/constant/common/design/Responsive";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	modalView: {
@@ -76,31 +80,30 @@ const styles = StyleSheet.create({
 });
 
 interface ModalsProps {
-    mdVisible: boolean,
-    title: string,
-    subtitle?: string,
-    firstButton: Function,
-    secondButton?: Function,
-    firstBtnTitle: string,
-    secondBtnTitle?: string,
+	mdVisible: boolean;
+	title: string;
+	subtitle?: string;
+	firstButton: Function;
+	secondButton?: Function;
+	firstBtnTitle: string;
+	secondBtnTitle?: string;
 }
 
-function CustomModal({mdVisible, title, subtitle = null, firstButton, secondButton = null,
-	firstBtnTitle, secondBtnTitle = null} : ModalsProps) {
+function CustomModal({
+	mdVisible,
+	title,
+	subtitle = null,
+	firstButton,
+	secondButton = null,
+	firstBtnTitle,
+	secondBtnTitle = null,
+}: ModalsProps) {
 	return (
-		<Modal
-			animationType="slide"
-			visible={mdVisible}
-			transparent={true}
-		>
+		<Modal animationType="slide" visible={mdVisible} transparent={true}>
 			<View style={styles.modalView}>
 				<View style={styles.contentContainer}>
-					<Text style={styles.titleStyle}>
-						{title}
-					</Text>
-					<Text style={styles.subtitleStyle}>
-						{subtitle}
-					</Text>
+					<Text style={styles.titleStyle}>{title}</Text>
+					<Text style={styles.subtitleStyle}>{subtitle}</Text>
 				</View>
 				<View style={styles.btnContainer}>
 					<CustomBtn
@@ -109,14 +112,16 @@ function CustomModal({mdVisible, title, subtitle = null, firstButton, secondButt
 						titleStyle={styles.firstBtnTitleStyle}
 						btnStyle={styles.firstBtnStyle}
 					/>
-					{(secondButton) ?
+					{secondButton ? (
 						<CustomBtn
 							title={secondBtnTitle}
 							onClickListener={secondButton}
 							titleStyle={styles.secondBtnTitleStyle}
 							btnStyle={styles.secondBtnStyle}
-						/> : <View/>
-					}
+						/>
+					) : (
+						<View />
+					)}
 				</View>
 			</View>
 		</Modal>

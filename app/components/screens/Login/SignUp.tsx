@@ -2,13 +2,20 @@ import React, {useState, useContext} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {View, Text, StyleSheet, ScrollView} from "react-native";
 import color from "../../../utils/constant/common/design/Color";
-import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
+import {
+	SIGN_UP_COMPONENT_TEXT,
+	SIGN_UP_ERROR_MESSAGE,
+} from "../../../utils/constant/login/SingUpScreenUtils";
 import CustomBtn from "../../common/CustomBtn";
 import SignUpForm from "./SignUpForm";
 import LoginContext from "../../../utils/context/LoginContext";
 import {loginInterface} from "../../../utils/constant/login/LoginUtils";
 import CustomModal from "../../common/CustomModal";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from "../../../utils/constant/common/design/Responsive";
 
 const styles = StyleSheet.create({
 	root: {
@@ -90,10 +97,10 @@ const styles = StyleSheet.create({
 
 function SignUp() {
 	const navigation = useNavigation();
-	const [name, setName] : [string, Function] = useState("");
-	const [major, setMajor] : [string, Function] = useState("");
-	const [studentID, setStudentID] : [string, Function] = useState("");
-	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
+	const [name, setName]: [string, Function] = useState("");
+	const [major, setMajor]: [string, Function] = useState("");
+	const [studentID, setStudentID]: [string, Function] = useState("");
+	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
 	const [modalText, setModalText]: [string, Function] = useState("");
 	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
@@ -157,19 +164,23 @@ function SignUp() {
 			/>
 			<View style={styles.headerContainer}>
 				<View style={styles.header}>
-					<Text style={styles.header__text}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
+					<Text style={styles.header__text}>
+						{SIGN_UP_COMPONENT_TEXT.title}
+					</Text>
 				</View>
 			</View>
 			<ScrollView>
 				<View style={styles.bodyContainer}>
 					<View style={styles.welcome}>
-						<Text style={styles.welcome__text}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
+						<Text style={styles.welcome__text}>
+							{SIGN_UP_COMPONENT_TEXT.welcome}
+						</Text>
 					</View>
 					<View style={styles.inputContainer}>
 						<View style={styles.input}>
 							<SignUpForm
 								title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-								inputChangeListener={(value : string) => setName(value)}
+								inputChangeListener={(value: string) => setName(value)}
 								defalutValue={name}
 							/>
 						</View>
@@ -206,6 +217,5 @@ function SignUp() {
 		</View>
 	);
 }
-
 
 export default SignUp;
