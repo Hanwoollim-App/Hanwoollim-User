@@ -1,4 +1,4 @@
-import {Item} from "react-native-picker-select";
+import { Item } from 'react-native-picker-select';
 
 const weekItem: Array<Item> = [];
 

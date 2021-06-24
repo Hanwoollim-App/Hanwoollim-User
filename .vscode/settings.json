@@ -5,16 +5,26 @@
         "titleBar.inactiveBackground": "#adefd1",
         "panelTitle.inactiveForeground": "#DCDCDC",
     },
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-      },
-    "eslint.validate":  [
+    "editor.formatOnSave": false,
+    "javascript.format.enable": false,
+    "eslint.alwaysShowStatus": true,
+    "eslint.options": {
+        "extensions": [
+            ".ts",
+            ".js",
+            ".tsx"
+        ]
+    },
+    "eslint.validate": [
         "javascript",
         "javascriptreact",
         "typescript",
-        "typescriptreact",
+        "teypscriptreact"
     ],
     "cSpell.words": [
         "kakao"
     ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
 }

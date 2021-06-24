@@ -5,15 +5,15 @@ import React, {
 	useEffect,
 	useRef,
 	useState,
-} from "react";
-import {View, StyleSheet, Text} from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import {useNavigation} from "@react-navigation/native";
-import LoginContext from "../../../../utils/context/LoginContext";
-import CustomBtn from "../../../common/CustomBtn";
-import Header from "./Header";
-import SelectForm from "./SelectForm";
-import color from "../../../../utils/constant/common/design/Color";
+} from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+import { useNavigation } from '@react-navigation/native';
+import LoginContext from '../../../../utils/context/LoginContext';
+import CustomBtn from '../../../common/CustomBtn';
+import Header from './Header';
+import SelectForm from './SelectForm';
+import color from '../../../../utils/constant/common/design/Color';
 import {
 	dateDataCalcutation,
 	dayItems,
@@ -26,32 +26,32 @@ import {
 	timeItems,
 	twoSessionsSelected,
 	unitItems,
-} from "../../../../utils/constant/reservation/process/ReservationProcessUtil";
-import CustomModal from "../../../common/CustomModal";
+} from '../../../../utils/constant/reservation/process/ReservationProcessUtil';
+import CustomModal from '../../../common/CustomModal';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from "../../../../utils/constant/common/design/Responsive";
-import {loginInterface} from "./../../../../utils/constant/login/LoginUtils";
+} from '../../../../utils/constant/common/design/Responsive';
+import { loginInterface } from './../../../../utils/constant/login/LoginUtils';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
-		fontFamily: "KoreanYNSJG3",
+		fontFamily: 'KoreanYNSJG3',
 		fontSize: fontPercentage(10),
 		letterSpacing: 0,
-		textAlign: "left",
-		color: "#000000",
+		textAlign: 'left',
+		color: '#000000',
 	},
 	inputAndroid: {
-		width: "100%",
-		height: "100%",
+		width: '100%',
+		height: '100%',
 		paddingVertical: 2, // 이 변수가 있어야 텍스트가 박스 안쪽으로 들어옴
 		fontSize: fontPercentage(12),
-		fontFamily: "KoreanYNSJG3",
+		fontFamily: 'KoreanYNSJG3',
 		letterSpacing: 0,
-		textAlign: "center",
-		color: "#000000",
+		textAlign: 'center',
+		color: '#000000',
 	},
 });
 
@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	headerContainer: {
-		width: "100%",
+		width: '100%',
 		height: heightPercentage(57),
-		flexDirection: "row",
-		alignItems: "center",
-		borderBottomColor: "black",
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderBottomColor: 'black',
 		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
 	},
 	bodyContainer: {
@@ -80,53 +80,53 @@ const styles = StyleSheet.create({
 		borderColor: color.mainColor,
 	},
 	contentContainer: {
-		alignItems: "center",
+		alignItems: 'center',
 	},
 	timeBox: {
-		width: "100%",
+		width: '100%',
 		height: heightPercentage(41),
 		marginTop: heightPercentage(17),
 		borderRadius: fontPercentage(12),
-		borderStyle: "solid",
+		borderStyle: 'solid',
 		borderWidth: fontPercentage(1),
-		borderColor: "#bdbdbd",
+		borderColor: '#bdbdbd',
 	},
 	defaultInfo: {
-		width: "100%",
+		width: '100%',
 		marginTop: heightPercentage(15),
 		paddingBottom: heightPercentage(26),
 		borderRadius: fontPercentage(11),
-		backgroundColor: "white",
-		borderStyle: "solid",
+		backgroundColor: 'white',
+		borderStyle: 'solid',
 		borderWidth: fontPercentage(1),
-		borderColor: "#bdbdbd",
+		borderColor: '#bdbdbd',
 	},
 	defaultInfo__form: {
-		flexDirection: "row",
+		flexDirection: 'row',
 		marginTop: heightPercentage(39),
 	},
 	sectionInfo: {
-		width: "100%",
+		width: '100%',
 		marginTop: heightPercentage(13),
 		paddingBottom: heightPercentage(25),
 		borderRadius: fontPercentage(11),
-		backgroundColor: "#ffffff",
-		borderStyle: "solid",
+		backgroundColor: '#ffffff',
+		borderStyle: 'solid',
 		borderWidth: fontPercentage(1),
-		borderColor: "#bdbdbd",
+		borderColor: '#bdbdbd',
 	},
 	sectionInfo__form: {
-		flexDirection: "row",
+		flexDirection: 'row',
 		marginTop: heightPercentage(32),
 	},
 	sectionInfo__alert__text: {
 		marginTop: heightPercentage(8),
 		marginLeft: widthPercentage(140),
-		fontFamily: "KoreanYNSJG2",
+		fontFamily: 'KoreanYNSJG2',
 		fontSize: fontPercentage(8),
 		letterSpacing: 0,
-		textAlign: "left",
-		color: "#363636",
+		textAlign: 'left',
+		color: '#363636',
 	},
 	sectionInfo__addBtn: {
 		width: widthPercentage(130),
@@ -135,18 +135,18 @@ const styles = StyleSheet.create({
 		marginLeft: widthPercentage(174),
 	},
 	sectionInfo__addBtn__Text: {
-		width: "100%",
-		height: "100%",
-		fontFamily: "KoreanYNSJG4",
+		width: '100%',
+		height: '100%',
+		fontFamily: 'KoreanYNSJG4',
 		fontSize: fontPercentage(12),
-		fontWeight: "normal",
-		fontStyle: "normal",
+		fontWeight: 'normal',
+		fontStyle: 'normal',
 		letterSpacing: 0,
-		textAlign: "left",
+		textAlign: 'left',
 		color: color.mainColor,
 	},
 	submit: {
-		position: "absolute",
+		position: 'absolute',
 		width: widthPercentage(290),
 		height: heightPercentage(42),
 		marginTop: heightPercentage(550),
@@ -154,37 +154,36 @@ const styles = StyleSheet.create({
 		backgroundColor: color.mainColor,
 	},
 	submit__btn: {
-		width: "100%",
-		height: "100%",
-		justifyContent: "center",
-		alignItems: "center",
+		width: '100%',
+		height: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	sumbit__text: {
-		fontFamily: "KoreanYNSJG4",
+		fontFamily: 'KoreanYNSJG4',
 		fontSize: fontPercentage(13),
-		fontWeight: "normal",
-		fontStyle: "normal",
+		fontWeight: 'normal',
+		fontStyle: 'normal',
 		letterSpacing: 0,
-		textAlign: "center",
-		color: "#ffffff",
+		textAlign: 'center',
+		color: '#ffffff',
 	},
 });
 
-function ReservationProcess({route}) {
+function ReservationProcess({ route }) {
 	const navigation = useNavigation();
 	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
 	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
-	const [
-		sectionInfoCount, setSectionInfoCount]: [
+	const [sectionInfoCount, setSectionInfoCount]: [
 		number[],
 		Function,
 	] = useState([1]);
-	const [modalText, setModalText]: [string, Function] = useState("");
+	const [modalText, setModalText]: [string, Function] = useState('');
 
 	useEffect(() => {
-		if (modalText !== "") {
+		if (modalText !== '') {
 			setModalVisible(true);
 		}
 	}, [modalText]);
@@ -207,7 +206,7 @@ function ReservationProcess({route}) {
 	}, []);
 	const onDayChangeListener = useCallback((value) => {
 		setDate((prev: Date) => {
-			const ret: Date = {...prev};
+			const ret: Date = { ...prev };
 
 			ret.setDate(prev.getDate() - prev.getDay() + value);
 			return ret;
@@ -229,8 +228,8 @@ function ReservationProcess({route}) {
 
 		// 세션
 		const sessionValue1: any = sectionRef1.current.state.selectedItem.value;
-		let sessionValue2: any = {num: 0};
-		let sessionValue3: any = {num: 0};
+		let sessionValue2: any = { num: 0 };
+		let sessionValue3: any = { num: 0 };
 		let sessionDatas;
 
 		if (sectionInfoCount.length >= 2) {
@@ -277,7 +276,7 @@ function ReservationProcess({route}) {
 
 		setModalText(MODAL_TEXT.SUCCESS_TITLE);
 	}, []);
-	const {currentWeek}: any = route.params;
+	const { currentWeek }: any = route.params;
 
 	return (
 		<View style={styles.root}>
@@ -287,8 +286,8 @@ function ReservationProcess({route}) {
 				firstButton={() => {
 					setModalVisible(false);
 					if (modalText === MODAL_TEXT.SUCCESS_TITLE) {
-						navigation.navigate("BottomTabNavigator", {
-							screen: "Home",
+						navigation.navigate('BottomTabNavigator', {
+							screen: 'Home',
 						});
 					}
 				}}

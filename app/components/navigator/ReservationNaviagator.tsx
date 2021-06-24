@@ -1,10 +1,10 @@
-import React from "react";
-import {createStackNavigator} from "@react-navigation/stack";
-import ReservationTimeTable from "../screens/reservation/timeTable/ReservationTimeTable";
-import ReservationProcess from "../screens/reservation/process/ReservationProcess";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import ReservationTimeTable from '../screens/reservation/timeTable/ReservationTimeTable';
+import ReservationProcess from '../screens/reservation/process/ReservationProcess';
 import ReservationContext, {
 	ReservationInfo,
-} from "../../utils/context/ReservationContext";
+} from '../../utils/context/ReservationContext';
 
 const ReservationStack = createStackNavigator();
 

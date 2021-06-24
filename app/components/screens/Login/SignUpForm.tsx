@@ -1,10 +1,10 @@
-import React from "react";
-import {StyleSheet, Text, TextInput} from "react-native";
+import React from 'react';
+import { StyleSheet, Text, TextInput } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from "../../../utils/constant/common/design/Responsive";
+} from '../../../utils/constant/common/design/Responsive';
 
 interface signUpFormProps {
 	title: string;
@@ -13,20 +13,20 @@ interface signUpFormProps {
 }
 const styles = StyleSheet.create({
 	input__title: {
-		marginTop: "auto",
-		marginBottom: "auto",
+		marginTop: 'auto',
+		marginBottom: 'auto',
 		marginLeft: widthPercentage(42),
 		marginRight: widthPercentage(31),
-		fontFamily: "KoreanYNSJG3",
+		fontFamily: 'KoreanYNSJG3',
 		fontSize: fontPercentage(14),
 		letterSpacing: 0,
-		textAlign: "left",
-		justifyContent: "center",
+		textAlign: 'left',
+		justifyContent: 'center',
 	},
 	input__field: {
 		width: widthPercentage(233),
 		height: heightPercentage(43),
-		borderColor: "#707070",
+		borderColor: '#707070',
 		borderWidth: 1,
 	},
 });

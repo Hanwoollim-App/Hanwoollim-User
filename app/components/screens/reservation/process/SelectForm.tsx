@@ -1,11 +1,11 @@
-import React from "react";
-import {View, Text, StyleSheet} from "react-native";
-import RNPickerSelect, {Item} from "react-native-picker-select";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import RNPickerSelect, { Item } from 'react-native-picker-select';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from "./../../../../utils/constant/common/design/Responsive";
+} from './../../../../utils/constant/common/design/Responsive';
 
 interface pickerPropsInterface {
 	placeholder: Object;
@@ -25,25 +25,25 @@ const styles = StyleSheet.create({
 		marginLeft: widthPercentage(40),
 	},
 	form__title__text: {
-		fontFamily: "KoreanYNSJG4",
+		fontFamily: 'KoreanYNSJG4',
 		fontSize: fontPercentage(13),
-		fontWeight: "normal",
-		fontStyle: "normal",
+		fontWeight: 'normal',
+		fontStyle: 'normal',
 		letterSpacing: 0,
-		color: "#363636",
-		textAlign: "left",
+		color: '#363636',
+		textAlign: 'left',
 	},
 	form__picker: {
 		width: widthPercentage(113),
 		height: heightPercentage(26),
 		marginLeft: widthPercentage(96),
-		borderStyle: "solid",
+		borderStyle: 'solid',
 		borderWidth: fontPercentage(1),
-		borderColor: "#00203f",
+		borderColor: '#00203f',
 	},
 });
 
-function SelectForm({title, pickerProps}: selectFormPropsInterface) {
+function SelectForm({ title, pickerProps }: selectFormPropsInterface) {
 	return (
 		<>
 			<View style={styles.form__title}>

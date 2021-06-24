@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {PROFILE_EMPTY, TOKEN_EMPTY} from "./utils/constant/login/LoginUtils";
-import LoginContext from "./utils/context/LoginContext";
-import MainNavigator from "./components/navigator/MainNavigator";
+import React, { useState } from 'react';
+import { PROFILE_EMPTY, TOKEN_EMPTY } from './utils/constant/login/LoginUtils';
+import LoginContext from './utils/context/LoginContext';
+import MainNavigator from './components/navigator/MainNavigator';
 
 function App() {
 	const [token, setToken] = useState(TOKEN_EMPTY);

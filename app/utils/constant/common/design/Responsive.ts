@@ -2,7 +2,7 @@ import {
 	responsiveFontSize,
 	responsiveHeight,
 	responsiveWidth,
-} from "react-native-responsive-dimensions";
+} from 'react-native-responsive-dimensions';
 
 const ZEPLIN__WINDOW__WIDTH = 375;
 const ZEPLIN__WINDOW__HEIGHT = 812;
