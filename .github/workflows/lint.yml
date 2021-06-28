@@ -18,7 +18,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies and Check Lint
         run: |
-          yarn
-          yarn lint
+          npm install
+          npm run lint
       env:
         CI: true
