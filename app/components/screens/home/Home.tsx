@@ -1,6 +1,6 @@
-import React from "react";
-import {View, Text, BackHandler} from "react-native";
-import {useAndroidBackHandler} from "react-navigation-backhandler";
+import React from 'react';
+import { View, Text, BackHandler } from 'react-native';
+import { useAndroidBackHandler } from 'react-navigation-backhandler';
 
 function Home() {
 	useAndroidBackHandler(() => {
@@ -10,7 +10,7 @@ function Home() {
 
 	return (
 		<View>
-			<Text>{"홈 화면입니다."}</Text>
+			<Text>{'홈 화면입니다.'}</Text>
 		</View>
 	);
 }

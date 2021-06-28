@@ -1,28 +1,37 @@
-import React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faBolt, faClipboardList, faHome, faPlusCircle, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {
+	faBolt,
+	faClipboardList,
+	faHome,
+	faPlusCircle,
+	IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { fontPercentage } from '../common/design/Responsive';
 
-const bottomTabIconOption = (route) => {
+const bottomTabIconOption = (route, color) => {
 	let iconName: IconDefinition;
 
 	switch (route.name) {
-		case "Home":
+		case 'Home':
 			iconName = faHome;
 			break;
-		case "FlashMob":
+		case 'FlashMob':
 			iconName = faBolt;
 			break;
-		case "ReservingTimeTable":
+		case 'ReservingTimeTable':
 			iconName = faPlusCircle;
 			break;
-		case "Board":
+		case 'Board':
 			iconName = faClipboardList;
 			break;
 		default:
 			iconName = faHome;
 			break;
 	}
-	return <FontAwesomeIcon icon={iconName} size={20} color='#000000'/>;
+	return (
+		<FontAwesomeIcon icon={iconName} size={fontPercentage(30)} color={color} />
+	);
 };
 
 export default bottomTabIconOption;

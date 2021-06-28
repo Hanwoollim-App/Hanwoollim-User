@@ -1,109 +1,113 @@
-import React, {useState, useContext} from "react";
-import {useNavigation} from "@react-navigation/native";
-import {View, Text, Button, StyleSheet, Modal, ScrollView} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import color from "../../../utils/constant/common/design/Color";
-import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
-import CustomBtn from "../../common/CustomBtn";
-import SignUpForm from "./SignUpForm";
-import LoginContext from "../../../utils/context/LoginContext";
-import {loginInterface} from "../../../utils/constant/login/LoginUtils";
-
+import React, { useState, useContext } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import color from '../../../utils/constant/common/design/Color';
+import {
+	SIGN_UP_COMPONENT_TEXT,
+	SIGN_UP_ERROR_MESSAGE,
+} from '../../../utils/constant/login/SingUpScreenUtils';
+import CustomBtn from '../../common/CustomBtn';
+import SignUpForm from './SignUpForm';
+import LoginContext from '../../../utils/context/LoginContext';
+import { loginInterface } from '../../../utils/constant/login/LoginUtils';
+import CustomModal from '../../common/CustomModal';
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from '../../../utils/constant/common/design/Responsive';
 
 const styles = StyleSheet.create({
-	rootView: {
+	root: {
 		flex: 1,
 	},
-	modalView: {
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "white",
-		borderRadius: 20,
-	},
-	headerView: {
-		width: "100%",
-		height: "16.5%",
-		justifyContent: "center",
+	headerContainer: {
+		height: heightPercentage(134),
+		justifyContent: 'center',
 		backgroundColor: color.mainColor,
 	},
-	headerText: {
-		marginLeft: "8%",
-		fontSize: RFValue(18),
-		fontFamily: "KoreanYNSJG3",
-		fontStyle: "normal",
+	header: {
+		marginLeft: widthPercentage(30),
+	},
+	header__text: {
+		fontFamily: 'KoreanYNSJG3',
+		fontSize: fontPercentage(20),
+		fontStyle: 'normal',
 		letterSpacing: 0,
-		textAlign: "left",
-		color: "#ffffff",
+		textAlign: 'left',
+		color: '#ffffff',
 	},
-	welcomeView: {
-		width: "100%",
-		height: "7%",
-		justifyContent: "center",
-		alignItems: "center",
-		marginTop: "12%",
+	bodyContainer: {
+		height: heightPercentage(678),
+		backgroundColor: '#ffffff',
 	},
-	welcomText: {
-		width: "100%",
-		height: "100%",
-		fontSize: RFValue(12),
-		fontFamily: "KoreanYNSJG3",
-		textAlign: "center",
+	welcome: {
+		height: heightPercentage(87),
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+	},
+	welcome__text: {
+		fontFamily: 'KoreanYNSJG3',
+		fontSize: fontPercentage(15),
+		letterSpacing: 1,
+		textAlign: 'center',
 		color: color.mainColor,
 	},
-	alertTextView: {
-		width: "100%",
-		height: "7%",
-		marginTop: "23%",
-		justifyContent: "center",
-		alignItems: "center",
+	inputContainer: {
+		height: heightPercentage(268),
 	},
-	alertText: {
-		width: "100%",
-		height: "100%",
-		fontFamily: "MalgunGothic",
-		fontSize: RFValue(12),
-		letterSpacing: 0,
-		textAlign: "center",
-		color: "#777777",
+	input: {
+		height: heightPercentage(33),
+		marginTop: heightPercentage(53),
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
-	singupView: {
-		width: "100%",
-		height: "8%",
-		marginTop: "4%",
-		justifyContent: "center",
-		alignItems: "center",
+	alert: {
+		height: heightPercentage(188),
+		justifyContent: 'flex-end',
+		alignItems: 'center',
 	},
-	singUpBtn: {
-		width: "77%",
-		height: "100%",
+	alert__text: {
+		fontFamily: 'MalgunGothic',
+		fontSize: fontPercentage(13),
+		textAlign: 'center',
+		color: '#777777',
+	},
+	signUp: {
+		height: heightPercentage(135),
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	signUp__btn: {
+		width: widthPercentage(290),
+		height: heightPercentage(53),
+		justifyContent: 'center',
+		alignItems: 'center',
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
-		justifyContent: "center",
-		alignItems: "center",
 	},
-	singUpText: {
-		fontSize: RFValue(14),
-		fontFamily: "KoreanYNSJG4",
-		lineHeight: 22,
+	signUp__title: {
+		fontFamily: 'KoreanYNSJG4',
+		fontSize: fontPercentage(16),
 		letterSpacing: 0,
-		textAlign: "center",
-		color: "#ffffff",
+		textAlign: 'center',
+		color: '#ffffff',
 	},
 });
 
 function SignUp() {
 	const navigation = useNavigation();
-	const [name, setName] : [string, Function] = useState("");
-	const [major, setMajor] : [string, Function] = useState("");
-	const [studentID, setStudentID] : [string, Function] = useState("");
-	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
-	const [modalText, setModalText]: [string, Function] = useState("");
+	const [name, setName]: [string, Function] = useState('');
+	const [major, setMajor]: [string, Function] = useState('');
+	const [studentID, setStudentID]: [string, Function] = useState('');
+	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
+	const [modalText, setModalText]: [string, Function] = useState('');
 	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
 	const signUpBtnClickListener = () => {
 		// 빠짐없이 기입했는지 check.
-		if (name === "" || major === "" || studentID === "") {
+		if (name === '' || major === '' || studentID === '') {
 			setModalVisible(true);
 			setModalText(SIGN_UP_ERROR_MESSAGE.INPUT_EMPTY);
 			return;
@@ -145,64 +149,73 @@ function SignUp() {
 		// })
 		// 	.then((res) => res.json())
 		//   	.then((resJson) => console.log(resJson));
-		navigation.navigate("BottomTabNavigator", {
-			screen: "Home",
+		navigation.navigate('BottomTabNavigator', {
+			screen: 'Home',
 		});
 	};
 
 	return (
-		<View style={styles.rootView}>
-			<Modal
-				animationType="slide"
-				visible={modalVisible}
-			>
-				<View style={styles.modalView}>
-					<Text>{modalText}</Text>
-					<Button
-						title={`다시 입력하기`}
-						onPress={() => setModalVisible(false)}
-					/>
-				</View>
-			</Modal>
-			<View style={styles.headerView}>
-				<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
-			</View>
-			<ScrollView>
-				<View style={styles.welcomeView}>
-					<Text style={styles.welcomText}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
-				</View>
-				<SignUpForm
-					title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-					onChangeListener={(value : string) => setName(value)}
-					defalutValue={name}
-				/>
-				<SignUpForm
-					title={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
-					onChangeListener={(value: string) => setMajor(value)}
-					defalutValue={major}
-				/>
-				<SignUpForm
-					title={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-					onChangeListener={(value: string) => setStudentID(value)}
-					defalutValue={studentID}
-				/>
-				<View style={styles.alertTextView}>
-					<Text style={styles.alertText}>
-						{SIGN_UP_COMPONENT_TEXT.alert}
+		<View style={styles.root}>
+			<CustomModal
+				mdVisible={modalVisible}
+				title={modalText}
+				firstButton={() => setModalVisible(false)}
+				firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
+			/>
+			<View style={styles.headerContainer}>
+				<View style={styles.header}>
+					<Text style={styles.header__text}>
+						{SIGN_UP_COMPONENT_TEXT.title}
 					</Text>
 				</View>
-				<View style={styles.singupView}>
-					<CustomBtn
-						title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
-						onClickListener={signUpBtnClickListener}
-						titleStyle={styles.singUpText}
-						btnStyle={styles.singUpBtn}
-					/>
+			</View>
+			<ScrollView>
+				<View style={styles.bodyContainer}>
+					<View style={styles.welcome}>
+						<Text style={styles.welcome__text}>
+							{SIGN_UP_COMPONENT_TEXT.welcome}
+						</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<View style={styles.input}>
+							<SignUpForm
+								title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+								inputChangeListener={(value: string) => setName(value)}
+								defalutValue={name}
+							/>
+						</View>
+						<View style={styles.input}>
+							<SignUpForm
+								title={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
+								inputChangeListener={(value: string) => setMajor(value)}
+								defalutValue={major}
+							/>
+						</View>
+						<View style={styles.input}>
+							<SignUpForm
+								title={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+								inputChangeListener={(value: string) => setStudentID(value)}
+								defalutValue={studentID}
+							/>
+						</View>
+					</View>
+					<View style={styles.alert}>
+						<Text style={styles.alert__text}>
+							{SIGN_UP_COMPONENT_TEXT.alert}
+						</Text>
+					</View>
+					<View style={styles.signUp}>
+						<CustomBtn
+							title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
+							onClickListener={signUpBtnClickListener}
+							titleStyle={styles.signUp__title}
+							btnStyle={styles.signUp__btn}
+						/>
+					</View>
 				</View>
 			</ScrollView>
 		</View>
 	);
 }
-
 
 export default SignUp;

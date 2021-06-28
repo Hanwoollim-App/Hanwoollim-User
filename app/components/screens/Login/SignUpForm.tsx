@@ -1,50 +1,50 @@
-import React from "react";
-import {View, StyleSheet, Text, TextInput} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-
+import React from 'react';
+import { StyleSheet, Text, TextInput } from 'react-native';
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from '../../../utils/constant/common/design/Responsive';
 
 interface signUpFormProps {
-    title: string,
-    onChangeListener: Function,
-    defalutValue : string,
+	title: string;
+	inputChangeListener: Function;
+	defalutValue: string;
 }
 const styles = StyleSheet.create({
-	inputSection: {
-		flexDirection: "row",
-		height: "6%",
-		marginTop: "12%",
-		alignItems: "center",
-	},
-	inputTitle: {
-		marginTop: "auto",
-		marginBottom: "auto",
-		marginLeft: "11%",
-		marginRight: "8%",
-		fontFamily: "KoreanYNSJG3",
-		fontSize: RFValue(14),
+	input__title: {
+		marginTop: 'auto',
+		marginBottom: 'auto',
+		marginLeft: widthPercentage(42),
+		marginRight: widthPercentage(31),
+		fontFamily: 'KoreanYNSJG3',
+		fontSize: fontPercentage(14),
 		letterSpacing: 0,
-		textAlign: "left",
-		justifyContent: "center",
-
+		textAlign: 'left',
+		justifyContent: 'center',
 	},
-	inputField: {
-		width: "62%",
-		height: "125%",
-		borderColor: "#707070",
+	input__field: {
+		width: widthPercentage(233),
+		height: heightPercentage(43),
+		borderColor: '#707070',
 		borderWidth: 1,
 	},
 });
 
-function SignUpForm({title, onChangeListener, defalutValue} : signUpFormProps) {
+function SignUpForm({
+	title,
+	inputChangeListener,
+	defalutValue,
+}: signUpFormProps) {
 	return (
-		<View style={styles.inputSection}>
-			<Text style={styles.inputTitle}>{title}</Text>
+		<>
+			<Text style={styles.input__title}>{title}</Text>
 			<TextInput
-				style={styles.inputField}
-				onChangeText={(newValue : string) => onChangeListener(newValue)}
+				style={styles.input__field}
+				onChangeText={(newValue: string) => inputChangeListener(newValue)}
 				value={defalutValue}
 			/>
-		</View>
+		</>
 	);
 }
 
