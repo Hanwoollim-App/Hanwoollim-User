@@ -1,14 +1,21 @@
-import React, {useState, useContext} from "react";
-import {useNavigation} from "@react-navigation/native";
-import {View, Text, StyleSheet, ScrollView} from "react-native";
-import color from "../../../utils/constant/common/design/Color";
-import {SIGN_UP_COMPONENT_TEXT, SIGN_UP_ERROR_MESSAGE} from "../../../utils/constant/login/SingUpScreenUtils";
-import CustomBtn from "../../common/CustomBtn";
-import SignUpForm from "./SignUpForm";
-import LoginContext from "../../../utils/context/LoginContext";
-import {loginInterface} from "../../../utils/constant/login/LoginUtils";
-import CustomModal from "../../common/CustomModal";
-import {fontPercentage, heightPercentage, widthPercentage} from "../../../utils/constant/common/design/Responsive";
+import React, { useState, useContext } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import color from '../../../utils/constant/common/design/Color';
+import {
+	SIGN_UP_COMPONENT_TEXT,
+	SIGN_UP_ERROR_MESSAGE,
+} from '../../../utils/constant/login/SingUpScreenUtils';
+import CustomBtn from '../../common/CustomBtn';
+import SignUpForm from './SignUpForm';
+import LoginContext from '../../../utils/context/LoginContext';
+import { loginInterface } from '../../../utils/constant/login/LoginUtils';
+import CustomModal from '../../common/CustomModal';
+import {
+	fontPercentage,
+	heightPercentage,
+	widthPercentage,
+} from '../../../utils/constant/common/design/Responsive';
 
 const styles = StyleSheet.create({
 	root: {
@@ -16,34 +23,34 @@ const styles = StyleSheet.create({
 	},
 	headerContainer: {
 		height: heightPercentage(134),
-		justifyContent: "center",
+		justifyContent: 'center',
 		backgroundColor: color.mainColor,
 	},
 	header: {
 		marginLeft: widthPercentage(30),
 	},
 	header__text: {
-		fontFamily: "KoreanYNSJG3",
+		fontFamily: 'KoreanYNSJG3',
 		fontSize: fontPercentage(20),
-		fontStyle: "normal",
+		fontStyle: 'normal',
 		letterSpacing: 0,
-		textAlign: "left",
-		color: "#ffffff",
+		textAlign: 'left',
+		color: '#ffffff',
 	},
 	bodyContainer: {
 		height: heightPercentage(678),
-		backgroundColor: "#ffffff",
+		backgroundColor: '#ffffff',
 	},
 	welcome: {
 		height: heightPercentage(87),
-		justifyContent: "flex-end",
-		alignItems: "center",
+		justifyContent: 'flex-end',
+		alignItems: 'center',
 	},
 	welcome__text: {
-		fontFamily: "KoreanYNSJG3",
+		fontFamily: 'KoreanYNSJG3',
 		fontSize: fontPercentage(15),
 		letterSpacing: 1,
-		textAlign: "center",
+		textAlign: 'center',
 		color: color.mainColor,
 	},
 	inputContainer: {
@@ -52,55 +59,55 @@ const styles = StyleSheet.create({
 	input: {
 		height: heightPercentage(33),
 		marginTop: heightPercentage(53),
-		flexDirection: "row",
-		alignItems: "center",
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
 	alert: {
 		height: heightPercentage(188),
-		justifyContent: "flex-end",
-		alignItems: "center",
+		justifyContent: 'flex-end',
+		alignItems: 'center',
 	},
 	alert__text: {
-		fontFamily: "MalgunGothic",
+		fontFamily: 'MalgunGothic',
 		fontSize: fontPercentage(13),
-		textAlign: "center",
-		color: "#777777",
+		textAlign: 'center',
+		color: '#777777',
 	},
 	signUp: {
 		height: heightPercentage(135),
-		justifyContent: "center",
-		alignItems: "center",
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	signUp__btn: {
 		width: widthPercentage(290),
 		height: heightPercentage(53),
-		justifyContent: "center",
-		alignItems: "center",
+		justifyContent: 'center',
+		alignItems: 'center',
 		borderRadius: 21,
 		backgroundColor: color.mainColor,
 	},
 	signUp__title: {
-		fontFamily: "KoreanYNSJG4",
+		fontFamily: 'KoreanYNSJG4',
 		fontSize: fontPercentage(16),
 		letterSpacing: 0,
-		textAlign: "center",
-		color: "#ffffff",
+		textAlign: 'center',
+		color: '#ffffff',
 	},
 });
 
 function SignUp() {
 	const navigation = useNavigation();
-	const [name, setName] : [string, Function] = useState("");
-	const [major, setMajor] : [string, Function] = useState("");
-	const [studentID, setStudentID] : [string, Function] = useState("");
-	const [modalVisible, setModalVisible] : [boolean, Function] = useState(false);
-	const [modalText, setModalText]: [string, Function] = useState("");
+	const [name, setName]: [string, Function] = useState('');
+	const [major, setMajor]: [string, Function] = useState('');
+	const [studentID, setStudentID]: [string, Function] = useState('');
+	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
+	const [modalText, setModalText]: [string, Function] = useState('');
 	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
 	const signUpBtnClickListener = () => {
 		// 빠짐없이 기입했는지 check.
-		if (name === "" || major === "" || studentID === "") {
+		if (name === '' || major === '' || studentID === '') {
 			setModalVisible(true);
 			setModalText(SIGN_UP_ERROR_MESSAGE.INPUT_EMPTY);
 			return;
@@ -142,8 +149,8 @@ function SignUp() {
 		// })
 		// 	.then((res) => res.json())
 		//   	.then((resJson) => console.log(resJson));
-		navigation.navigate("BottomTabNavigator", {
-			screen: "Home",
+		navigation.navigate('BottomTabNavigator', {
+			screen: 'Home',
 		});
 	};
 
@@ -157,19 +164,23 @@ function SignUp() {
 			/>
 			<View style={styles.headerContainer}>
 				<View style={styles.header}>
-					<Text style={styles.header__text}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
+					<Text style={styles.header__text}>
+						{SIGN_UP_COMPONENT_TEXT.title}
+					</Text>
 				</View>
 			</View>
 			<ScrollView>
 				<View style={styles.bodyContainer}>
 					<View style={styles.welcome}>
-						<Text style={styles.welcome__text}>{SIGN_UP_COMPONENT_TEXT.welcome}</Text>
+						<Text style={styles.welcome__text}>
+							{SIGN_UP_COMPONENT_TEXT.welcome}
+						</Text>
 					</View>
 					<View style={styles.inputContainer}>
 						<View style={styles.input}>
 							<SignUpForm
 								title={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-								inputChangeListener={(value : string) => setName(value)}
+								inputChangeListener={(value: string) => setName(value)}
 								defalutValue={name}
 							/>
 						</View>
@@ -206,6 +217,5 @@ function SignUp() {
 		</View>
 	);
 }
-
 
 export default SignUp;

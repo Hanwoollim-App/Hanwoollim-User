@@ -1,10 +1,10 @@
 interface colorObject {
-    [key:string] : string;
+	[key: string]: string;
 }
 
-const color : colorObject = {
-	mainColor: "#00203f",
-	subColor: "#adefd1",
+const color: colorObject = {
+	mainColor: '#00203f',
+	subColor: '#adefd1',
 };
 
 export default color;
