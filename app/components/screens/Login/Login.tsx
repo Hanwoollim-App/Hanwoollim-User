@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
 	},
 	title__text: {
 		marginTop: heightPercentage(228),
-		fontFamily: 'YiSunShinDotumL',
 		fontSize: fontPercentage(50),
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -67,12 +66,13 @@ const styles = StyleSheet.create({
 		marginLeft: widthPercentage(14),
 	},
 	login__btn__text: {
-		marginRight: widthPercentage(21),
-		fontFamily: 'KoreanYNSJG4',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
-		fontWeight: 'normal',
+		lineHeight: fontPercentage(20),
+		fontWeight: 'bold',
 		fontStyle: 'normal',
 		letterSpacing: 0,
+		textAlign: 'left',
 		color: '#3c1e1e',
 	},
 });

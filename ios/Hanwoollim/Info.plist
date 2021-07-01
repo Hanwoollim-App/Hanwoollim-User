@@ -77,6 +77,12 @@
 		<string>Zocial.ttf</string>
 		<string>YiSunShinDotumL.ttf</string>
 		<string>YiSunShinDotumM.ttf</string>
+		<string>NotoSansKR-Black.otf</string>
+		<string>NotoSansKR-Bold.otf</string>
+		<string>NotoSansKR-Light.otf</string>
+		<string>NotoSansKR-Medium.otf</string>
+		<string>NotoSansKR-Thin.otf</string>
+		<string>NotoSansKR.otf</string>
 	</array>
 </dict>
 </plist>
