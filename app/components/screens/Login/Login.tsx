@@ -1,5 +1,14 @@
 import React, { useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {
+	View,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	Image,
+	StatusBar,
+	SafeAreaView,
+	Platform,
+} from 'react-native';
 import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
 import LoginContext from '../../../utils/context/LoginContext';
@@ -21,61 +30,77 @@ import {
 const styles = StyleSheet.create({
 	root: {
 		flex: 1,
+		width: '100%',
 		backgroundColor: color.mainColor,
 	},
 	title: {
-		height: heightPercentage(562),
+		flexBasis: heightPercentage(287),
 		alignItems: 'center',
+		justifyContent: 'flex-end',
 	},
-	title__text: {
-		marginTop: heightPercentage(228),
+	titleText: {
 		fontSize: fontPercentage(50),
+		lineHeight: fontPercentage(75),
 		fontWeight: 'normal',
 		fontStyle: 'normal',
-		letterSpacing: 0,
 		textAlign: 'center',
 		color: '#ffffff',
 	},
-	title__underScore: {
+	titleUnderBar: {
 		width: widthPercentage(261),
 		height: heightPercentage(3),
-		marginTop: heightPercentage(11),
+		borderWidth: widthPercentage(0.5),
+		marginTop: heightPercentage(5),
 		marginLeft: 'auto',
 		marginRight: 'auto',
 		backgroundColor: '#adefd1',
 		borderStyle: 'solid',
-		borderWidth: 0.5,
 		borderColor: '#707070',
 	},
 	login: {
 		height: heightPercentage(250),
+		marginTop: heightPercentage(269),
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 	},
-	login__btn: {
+	loginBtn: {
 		width: widthPercentage(212),
 		height: heightPercentage(52),
-		borderRadius: 60,
+		borderRadius: widthPercentage(15),
 		backgroundColor: color.subColor,
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'center',
+		...Platform.select({
+			ios: {
+				shadowColor: 'rgba(0, 0, 0, 0.16)',
+				shadowOffset: {
+					width: 0,
+					height: heightPercentage(3),
+				},
+				shadowRadius: widthPercentage(6),
+			},
+			android: {
+				elevation: 1,
+			},
+		}),
 	},
-	login__btn__img: {
+	loginBtn_img: {
 		width: widthPercentage(44),
 		height: heightPercentage(44),
-		marginLeft: widthPercentage(14),
 	},
-	login__btn__text: {
+	loginBtn_text: {
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
 		lineHeight: fontPercentage(20),
 		fontWeight: 'bold',
 		fontStyle: 'normal',
-		letterSpacing: 0,
 		textAlign: 'left',
 		color: '#3c1e1e',
 	},
 });
+
+const kakaoIcon = require('../../../assets/images/kakaoLogo.png');
 
 function Login({ navigation }) {
 	const login: loginInterface = useContext(LoginContext);
@@ -120,23 +145,23 @@ function Login({ navigation }) {
 	};
 
 	return (
-		<View style={styles.root}>
-			<View style={styles.title}>
-				<Text style={styles.title__text}>{`${LOGIN_TITLE_TEXT}`}</Text>
-				<View style={styles.title__underScore} />
-			</View>
-			<View style={styles.login}>
-				<TouchableOpacity
-					style={styles.login__btn}
-					onPress={loginBtnClickListener}>
-					<Image
-						style={styles.login__btn__img}
-						source={require('../../../assets/images/kakaoLogo.png')}
-					/>
-					<Text style={styles.login__btn__text}>{`${LOGIN_BUTTON_TEXT}`}</Text>
-				</TouchableOpacity>
-			</View>
-		</View>
+		<>
+			<StatusBar backgroundColor={color.mainColor} />
+			<SafeAreaView style={styles.root}>
+				<View style={styles.title}>
+					<Text style={styles.titleText}>{`${LOGIN_TITLE_TEXT}`}</Text>
+					<View style={styles.titleUnderBar} />
+				</View>
+				<View style={styles.login}>
+					<TouchableOpacity
+						style={styles.loginBtn}
+						onPress={loginBtnClickListener}>
+						<Image style={styles.loginBtn_img} source={kakaoIcon} />
+						<Text style={styles.loginBtn_text}>{`${LOGIN_BUTTON_TEXT}`}</Text>
+					</TouchableOpacity>
+				</View>
+			</SafeAreaView>
+		</>
 	);
 }
 
