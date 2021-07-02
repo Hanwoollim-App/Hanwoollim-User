@@ -26,6 +26,11 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
 	root: {
@@ -102,7 +107,8 @@ const styles = StyleSheet.create({
 
 const kakaoIcon = require('../../../assets/images/kakaoLogo.png');
 
-function Login({ navigation }) {
+function Login() {
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const login: loginInterface = useContext(LoginContext);
 	const [token, setToken] = login.token;
 	const [profile, setProfile] = login.profile;
@@ -140,6 +146,7 @@ function Login({ navigation }) {
 			});
 
 	const loginBtnClickListener = async () => {
+		navigation.navigate('SignUp');
 		if (!(await kakaoLogin())) return;
 		await getProfile();
 	};
