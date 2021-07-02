@@ -9,6 +9,11 @@ import {
 	SafeAreaView,
 	Platform,
 } from 'react-native';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
 import LoginContext from '../../../utils/context/LoginContext';
@@ -26,11 +31,6 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
-import {
-	NavigationProp,
-	ParamListBase,
-	useNavigation,
-} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
 	root: {
