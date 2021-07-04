@@ -1154,12 +1154,12 @@
   resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.16.1.tgz#cc5d05b0d651445afa519c67824d8af3e43fa10c"
   integrity sha512-sk07ARwL0cMXwkXsqcxyprL/KiEVD0xRFXFqznTnZs1YXqwxEqz6GiGtq2vQlK64CzXDpHX8gw1QQz47abBY1Q==
 
-"@react-native-seoul/kakao-login@^2.10.2":
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/@react-native-seoul/kakao-login/-/kakao-login-2.10.2.tgz#b46a53038530ff035781af063f5ef2d66bf39c18"
-  integrity sha512-GX5iOlJYfWItcUYUBqcK+RJepaP+J/qnlIr9nkOmD1dWR7iQNDJa5ltwrFwV7UHYOxjNoN846Hmr9PWnyOzweQ==
+"@react-native-seoul/kakao-login@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-seoul/kakao-login/-/kakao-login-3.3.2.tgz#bdab537086610a53dabf26911bd8498ddc786e57"
+  integrity sha512-Eacb6TkaUNpDSZYthH73zqFvx4wrrKno2Pzz9ai/HA8DKyjIsYkO9fRGXYoFXuXyYCTJqCBSVcEnU/bJfBvCXw==
   dependencies:
-    dooboolab-welcome "^1.1.0"
+    dooboolab-welcome "^1.3.0"
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -2663,7 +2663,7 @@ domutils@^1.7.0:
     dom-serializer "0"
     domelementtype "1"
 
-dooboolab-welcome@^1.1.0:
+dooboolab-welcome@^1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/dooboolab-welcome/-/dooboolab-welcome-1.3.1.tgz#37c4bbae0c84616c37ba9301dc87521ae2e9af86"
   integrity sha512-KcTf3RVRGO3QADgsEJPFixFqj1c3oZPI3SnS6rVO7soaASi4+iHmVvBFFAf+l/sQsxCbPeV8sGhsdG6ZdSLqmQ==
