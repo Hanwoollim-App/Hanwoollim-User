@@ -14,7 +14,12 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
-import KakaoLogins from '@react-native-seoul/kakao-login';
+import {
+	getProfile,
+	KakaoOAuthToken,
+	KakaoProfile,
+	login,
+} from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
 import LoginContext from '../../../utils/context/LoginContext';
 import { LOGIN_BUTTON_TEXT } from '../../../utils/constant/login/LoginScreenUtils';
@@ -105,47 +110,20 @@ const textLogo = require('../../../assets/images/textLogo_light.png');
 
 function Login() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const login: loginInterface = useContext(LoginContext);
-	const [token, setToken] = login.token;
-	const [profile, setProfile] = login.profile;
 
-	useEffect(() => {
-		if (!KakaoLogins) {
-			console.error('Module is Not Linked');
-		}
-	}, []);
-	useEffect(() => {
-		if (token === TOKEN_EMPTY || profile === PROFILE_EMPTY) return;
-		navigation.navigate('SignUp');
-	}, [token, profile]);
+	const kakaoLogin = async (): Promise<void> => {
+		const token: KakaoOAuthToken = await login();
+		const profile: KakaoProfile = await getProfile();
 
-	const kakaoLogin = async () =>
-		KakaoLogins.login()
-			.then((result) => {
-				console.log(result);
-				setToken(result.accessToken);
-				return true;
-			})
-			.catch((err) => {
-				if (err.code === 'E_CANCELLED_OPERATION') {
-					console.log(`Login Cancelled:${err.message}`);
-				}
-				console.log(`Login Failed:${err.code} ${err.message}`);
-				return false;
-			});
-	const getProfile = async () =>
-		KakaoLogins.getProfile()
-			.then((result) => {
-				setProfile(result);
-			})
-			.catch((err) => {
-				console.log(`Get Profile Failed:${err.code} ${err.message}`);
-			});
+		console.log(token);
+		console.log(profile);
+	};
 
 	const loginBtnClickListener = async () => {
-		// navigation.navigate('SignUp');
-		if (!(await kakaoLogin())) return;
-		await getProfile();
+		await kakaoLogin().catch((err) => {
+			console.log(err);
+		});
+		navigation.navigate('SignUp');
 	};
 
 	return (
