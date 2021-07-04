@@ -17,10 +17,7 @@ import {
 import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
 import LoginContext from '../../../utils/context/LoginContext';
-import {
-	LOGIN_BUTTON_TEXT,
-	LOGIN_TITLE_TEXT,
-} from '../../../utils/constant/login/LoginScreenUtils';
+import { LOGIN_BUTTON_TEXT } from '../../../utils/constant/login/LoginScreenUtils';
 import {
 	loginInterface,
 	PROFILE_EMPTY,
@@ -44,18 +41,15 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end',
 	},
 	titleText: {
-		fontSize: fontPercentage(50),
-		lineHeight: fontPercentage(75),
-		fontWeight: 'normal',
-		fontStyle: 'normal',
-		textAlign: 'center',
-		color: '#ffffff',
+		top: '5%',
+		width: '75%',
+		height: '30%',
+		resizeMode: 'cover',
 	},
 	titleUnderBar: {
 		width: widthPercentage(261),
 		height: heightPercentage(3),
 		borderWidth: widthPercentage(0.5),
-		marginTop: heightPercentage(5),
 		marginLeft: 'auto',
 		marginRight: 'auto',
 		backgroundColor: '#adefd1',
@@ -93,6 +87,7 @@ const styles = StyleSheet.create({
 	loginBtn_img: {
 		width: widthPercentage(44),
 		height: heightPercentage(44),
+		resizeMode: 'contain',
 	},
 	loginBtn_text: {
 		fontFamily: 'NotoSansKR-Regular',
@@ -106,6 +101,7 @@ const styles = StyleSheet.create({
 });
 
 const kakaoIcon = require('../../../assets/images/kakaoLogo.png');
+const textLogo = require('../../../assets/images/textLogo_light.png');
 
 function Login() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
@@ -156,7 +152,7 @@ function Login() {
 			<StatusBar backgroundColor={color.mainColor} />
 			<SafeAreaView style={styles.root}>
 				<View style={styles.title}>
-					<Text style={styles.titleText}>{`${LOGIN_TITLE_TEXT}`}</Text>
+					<Image style={styles.titleText} source={textLogo} />
 					<View style={styles.titleUnderBar} />
 				</View>
 				<View style={styles.login}>
