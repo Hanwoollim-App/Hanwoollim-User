@@ -14,7 +14,7 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
-import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
+import KakaoLogins from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
 import LoginContext from '../../../utils/context/LoginContext';
 import { LOGIN_BUTTON_TEXT } from '../../../utils/constant/login/LoginScreenUtils';
@@ -120,8 +120,9 @@ function Login() {
 	}, [token, profile]);
 
 	const kakaoLogin = async () =>
-		KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
+		KakaoLogins.login()
 			.then((result) => {
+				console.log(result);
 				setToken(result.accessToken);
 				return true;
 			})
@@ -142,7 +143,7 @@ function Login() {
 			});
 
 	const loginBtnClickListener = async () => {
-		navigation.navigate('SignUp');
+		// navigation.navigate('SignUp');
 		if (!(await kakaoLogin())) return;
 		await getProfile();
 	};
