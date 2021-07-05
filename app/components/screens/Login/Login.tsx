@@ -5,7 +5,6 @@ import {
 	TouchableOpacity,
 	StyleSheet,
 	Image,
-	StatusBar,
 	SafeAreaView,
 	Platform,
 } from 'react-native';
@@ -27,6 +26,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
+import CustomStatusBar from '../../common/CustomStatusBar';
 
 const styles = StyleSheet.create({
 	root: {
@@ -122,7 +122,7 @@ function Login() {
 
 	return (
 		<>
-			<StatusBar backgroundColor={color.mainColor} />
+			<CustomStatusBar />
 			<SafeAreaView style={styles.root}>
 				<View style={styles.title}>
 					<Image style={styles.titleText} source={textLogo} />

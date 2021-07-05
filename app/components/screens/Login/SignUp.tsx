@@ -5,7 +5,6 @@ import {
 	Text,
 	StyleSheet,
 	ScrollView,
-	StatusBar,
 	SafeAreaView,
 	Platform,
 } from 'react-native';
@@ -22,8 +21,12 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
+import CustomStatusBar from '../../common/CustomStatusBar';
 
 const styles = StyleSheet.create({
+	barStyle: {
+		backgroundColor: color.mainColor,
+	},
 	root: {
 		flex: 1,
 	},
@@ -130,7 +133,7 @@ function SignUp() {
 
 	return (
 		<>
-			<StatusBar backgroundColor={color.mainColor} />
+			<CustomStatusBar />
 			<SafeAreaView style={styles.root}>
 				<CustomModal
 					isVisible={modalValue.isVisible}
