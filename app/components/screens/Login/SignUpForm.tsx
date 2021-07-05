@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -7,44 +7,41 @@ import {
 } from '../../../utils/constant/common/design/Responsive';
 
 interface signUpFormProps {
-	title: string;
+	placeholder: string;
 	inputChangeListener: Function;
-	defalutValue: string;
+	defaultValue: string;
 }
 const styles = StyleSheet.create({
-	input__title: {
-		marginTop: 'auto',
-		marginBottom: 'auto',
-		marginLeft: widthPercentage(42),
-		marginRight: widthPercentage(31),
-		fontFamily: 'KoreanYNSJG3',
-		fontSize: fontPercentage(14),
+	input: {
+		width: '90%',
+		height: heightPercentage(46),
+		marginBottom: heightPercentage(31),
+		paddingLeft: widthPercentage(12),
+		fontFamily: 'NotoSansKR-Regular',
+		fontSize: fontPercentage(16),
+		lineHeight: fontPercentage(24),
 		letterSpacing: 0,
+		fontWeight: 'bold',
+		fontStyle: 'normal',
 		textAlign: 'left',
-		justifyContent: 'center',
-	},
-	input__field: {
-		width: widthPercentage(233),
-		height: heightPercentage(43),
-		borderColor: '#707070',
-		borderWidth: 1,
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
 	},
 });
 
 function SignUpForm({
-	title,
+	placeholder,
 	inputChangeListener,
-	defalutValue,
+	defaultValue,
 }: signUpFormProps) {
 	return (
-		<>
-			<Text style={styles.input__title}>{title}</Text>
-			<TextInput
-				style={styles.input__field}
-				onChangeText={(newValue: string) => inputChangeListener(newValue)}
-				value={defalutValue}
-			/>
-		</>
+		<TextInput
+			style={styles.input}
+			onChangeText={(newValue: string) => inputChangeListener(newValue)}
+			value={defaultValue}
+			placeholder={placeholder}
+			placeholderTextColor="#a2a2a2"
+		/>
 	);
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import {
 	View,
 	Text,
@@ -21,13 +21,7 @@ import {
 	login,
 } from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
-import LoginContext from '../../../utils/context/LoginContext';
-import { LOGIN_BUTTON_TEXT } from '../../../utils/constant/login/LoginScreenUtils';
-import {
-	loginInterface,
-	PROFILE_EMPTY,
-	TOKEN_EMPTY,
-} from '../../../utils/constant/login/LoginUtils';
+import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/LoginScreenUtils';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -139,7 +133,7 @@ function Login() {
 						style={styles.loginBtn}
 						onPress={loginBtnClickListener}>
 						<Image style={styles.loginBtn_img} source={kakaoIcon} />
-						<Text style={styles.loginBtn_text}>{`${LOGIN_BUTTON_TEXT}`}</Text>
+						<Text style={styles.loginBtn_text}>{LOGIN_BUTTON_TEXT}</Text>
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

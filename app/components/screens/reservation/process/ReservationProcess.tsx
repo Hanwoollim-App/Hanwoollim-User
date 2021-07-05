@@ -279,7 +279,7 @@ function ReservationProcess({ route }) {
 	return (
 		<View style={styles.root}>
 			<CustomModal
-				mdVisible={modalVisible}
+				isVisible={modalVisible}
 				title={modalText}
 				firstButton={() => {
 					setModalVisible(false);
