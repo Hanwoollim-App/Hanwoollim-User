@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.3)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.64.2)
@@ -10,25 +11,48 @@ PODS:
     - React-jsi (= 0.64.2)
     - ReactCommon/turbomodule/core (= 0.64.2)
   - glog (0.3.5)
-  - kakao-login (2.10.2):
-    - KakaoOpenSDK (~> 1.21.0)
+  - kakao-login (3.3.2):
+    - KakaoSDK (~> 2.4.0)
+    - KakaoSDKAuth (~> 2.4.0)
+    - KakaoSDKCommon (~> 2.4.0)
+    - KakaoSDKTalk (~> 2.4.0)
+    - KakaoSDKUser (~> 2.4.0)
     - React
-  - KakaoOpenSDK (1.21.1):
-    - KakaoOpenSDK/KakaoCommon (= 1.21.1)
-    - KakaoOpenSDK/KakaoLink (= 1.21.1)
-    - KakaoOpenSDK/KakaoMessageTemplate (= 1.21.1)
-    - KakaoOpenSDK/KakaoNavi (= 1.21.1)
-    - KakaoOpenSDK/KakaoOpenSDK (= 1.21.1)
-    - KakaoOpenSDK/KakaoPlusFriend (= 1.21.1)
-  - KakaoOpenSDK/KakaoCommon (1.21.1)
-  - KakaoOpenSDK/KakaoLink (1.21.1):
-    - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoMessageTemplate (1.21.1)
-  - KakaoOpenSDK/KakaoNavi (1.21.1):
-    - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoOpenSDK (1.21.1)
-  - KakaoOpenSDK/KakaoPlusFriend (1.21.1):
-    - KakaoOpenSDK/KakaoCommon
+  - KakaoSDK (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
+    - KakaoSDKLink (= 2.4.1)
+    - KakaoSDKNavi (= 2.4.1)
+    - KakaoSDKStory (= 2.4.1)
+    - KakaoSDKTalk (= 2.4.1)
+    - KakaoSDKTemplate (= 2.4.1)
+    - KakaoSDKUser (= 2.4.1)
+  - KakaoSDKAuth (2.4.1):
+    - KakaoSDKCommon (= 2.4.1)
+  - KakaoSDKCommon (2.4.1):
+    - KakaoSDKCommon/Common (= 2.4.1)
+    - KakaoSDKCommon/Network (= 2.4.1)
+  - KakaoSDKCommon/Common (2.4.1)
+  - KakaoSDKCommon/Network (2.4.1):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.4.1)
+  - KakaoSDKLink (2.4.1):
+    - KakaoSDKCommon (= 2.4.1)
+    - KakaoSDKTemplate (= 2.4.1)
+  - KakaoSDKNavi (2.4.1):
+    - KakaoSDKCommon/Common (= 2.4.1)
+  - KakaoSDKStory (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
+  - KakaoSDKTalk (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
+    - KakaoSDKTemplate (= 2.4.1)
+  - KakaoSDKTemplate (2.4.1):
+    - KakaoSDKCommon/Common (= 2.4.1)
+  - KakaoSDKUser (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -290,7 +314,7 @@ PODS:
     - React-perflogger (= 0.64.2)
   - RNCMaskedView (0.1.11):
     - React
-  - RNCPicker (1.16.1):
+  - RNCPicker (1.16.3):
     - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
@@ -347,8 +371,17 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - boost-for-react-native
-    - KakaoOpenSDK
+    - KakaoSDK
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKLink
+    - KakaoSDKNavi
+    - KakaoSDKStory
+    - KakaoSDKTalk
+    - KakaoSDKTemplate
+    - KakaoSDKUser
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -427,13 +460,22 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
   FBReactNativeSpec: 450d8b91aae0d1e6322b5563ead4594c261b4e02
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  kakao-login: 8d60f757a69784b797395cc2e284a18c85852d7a
-  KakaoOpenSDK: 7a7b728491fc199bf2186fec5bbf2c70ba14f474
+  kakao-login: f545fda326cdf9419645abb7c8f36ec97132c26b
+  KakaoSDK: 1e80d6877c0eac6a310f93c73fb15ca56c05f2bd
+  KakaoSDKAuth: fcba1c9ede431683f5bdd84c835a96981cb115a5
+  KakaoSDKCommon: 0912aa0c7db051ae8dc07a35395cf644f7728f95
+  KakaoSDKLink: fe6f2ca19092836f8af2a9d7fabe60fd67740104
+  KakaoSDKNavi: c138bce799ebdac6811b56453de5326e49ca5925
+  KakaoSDKStory: cb33db9a04c7c44746b3662991234f52ab61961a
+  KakaoSDKTalk: 749828662e4ac7a9f17bb1664b58526da289d18c
+  KakaoSDKTemplate: 8bb288765bfc0195631da809b2d707f09495acdf
+  KakaoSDKUser: 11955811d99d1ff1f1dfd5428afe69937e31ccef
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
   RCTTypeSafety: c1f31d19349c6b53085766359caac425926fafaa
@@ -459,7 +501,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNCPicker: 61c7a0645b9e4ac67960aa7f22a3effcecfdfb8d
+  RNCPicker: 6724ab5fcca83c34fe1f18a89baa13e9885f0393
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
@@ -467,6 +509,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
-PODFILE CHECKSUM: f5e6a3847314d5b7f6c9ccecb4a3c990de574c94
+PODFILE CHECKSUM: 9c056ed106eca4903256d0f5962c9306bdbd254f
 
 COCOAPODS: 1.10.1

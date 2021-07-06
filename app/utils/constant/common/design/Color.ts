@@ -1,5 +1,6 @@
 interface colorObject {
-	[key: string]: string;
+	mainColor: string;
+	subColor: string;
 }
 
 const color: colorObject = {
