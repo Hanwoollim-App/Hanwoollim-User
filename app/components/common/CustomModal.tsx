@@ -79,8 +79,13 @@ const styles = StyleSheet.create({
 	},
 });
 
+export interface ModalValue {
+	isVisible: boolean;
+	mainTitle: string;
+}
+
 interface ModalsProps {
-	mdVisible: boolean;
+	isVisible: boolean;
 	title: string;
 	subtitle?: string;
 	firstButton: Function;
@@ -90,7 +95,7 @@ interface ModalsProps {
 }
 
 function CustomModal({
-	mdVisible,
+	isVisible,
 	title,
 	subtitle = null,
 	firstButton,
@@ -99,7 +104,7 @@ function CustomModal({
 	secondBtnTitle = null,
 }: ModalsProps) {
 	return (
-		<Modal animationType="slide" visible={mdVisible} transparent={true}>
+		<Modal animationType="slide" visible={isVisible} transparent={true}>
 			<View style={styles.modalView}>
 				<View style={styles.contentContainer}>
 					<Text style={styles.titleStyle}>{title}</Text>

@@ -6,7 +6,7 @@ export const SIGN_UP_ERROR_MESSAGE: { [key: string]: string } = {
 };
 export const SIGN_UP_COMPONENT_TEXT: { [key: string]: any } = {
 	title: '환영합니다',
-	welcome: '한울림의 식구가 되신것을 환영합니다!\n당신이 누구인지 알려줄래요?',
+	intro: '한울림의 식구가 되신것을 환영합니다!\n당신이 누구인지 알려줄래요?',
 	inputTitle: {
 		name: '이름',
 		major: '학과',
