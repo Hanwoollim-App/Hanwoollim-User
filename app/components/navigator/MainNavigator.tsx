@@ -24,7 +24,6 @@ function MainNavigator() {
 						headerShown: false,
 					}}
 				/>
-				{/* <UserInfoStackNavigator/>  추후에 추가 예정*/}
 			</MainStackNavigator.Navigator>
 		</NavigationContainer>
 	);
