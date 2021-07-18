@@ -14,8 +14,7 @@ const defaultStyle = StyleSheet.create({
 	},
 	contents: {
 		flex: 13.25,
-		width: '100%',
-		justifyContent: 'center',
+		width: '90%',
 		alignItems: 'center',
 	},
 });
