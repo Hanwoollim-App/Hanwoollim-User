@@ -7,17 +7,22 @@ import {
 } from '@react-navigation/native';
 import React, { memo } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { fontPercentage } from '../../../utils/constant/common/design/Responsive';
+import {
+	fontPercentage,
+	heightPercentage,
+} from '../../../utils/constant/common/design/Responsive';
 import trimmingText from '../../../utils/constant/common/trimmingText';
 import blockStyles from '../../../utils/constant/home/blockStyles';
 
-const tempReservation: Array<string> = [
-	'03:00-04:00 안재훈 팀 합주',
-	'13:00-14:00 한인권 개인 연습 (드럼) , 이원기 개인 연습(보컬), 조성현 개인 연습(기타)',
-	'15:00-16:00 이호직 개인 연습 (보컬)',
-];
+const tempMyReservation: Array<string> = [];
 
 const styles = StyleSheet.create({
+	root: {
+		height: heightPercentage(88),
+	},
+	contents: {
+		flex: 2,
+	},
 	reservation: {
 		flex: 1,
 		width: '100%',
@@ -35,7 +40,7 @@ const styles = StyleSheet.create({
 	noReservation: {
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(12),
-		lineHeight: fontPercentage(23),
+		lineHeight: fontPercentage(16),
 		letterSpacing: 0,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -44,18 +49,18 @@ const styles = StyleSheet.create({
 	},
 });
 
-function TodayReservation() {
+function MyReservation() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const isEmpty: boolean = tempReservation.length === 0;
+	const isEmpty: boolean = tempMyReservation.length === 0;
 
 	const titleBtnListener: () => void = () => {
 		navigation.navigate('ReservingTimeTable');
 	};
 
 	return (
-		<View style={blockStyles.root}>
+		<View style={[blockStyles.root, styles.root]}>
 			<View style={blockStyles.title}>
-				<Text style={blockStyles.titleText}>오늘의 연습실 예약 현황</Text>
+				<Text style={blockStyles.titleText}>나의 연습실 예약 현황</Text>
 				<TouchableOpacity
 					onPress={titleBtnListener}
 					style={blockStyles.titleBtn}>
@@ -68,21 +73,20 @@ function TodayReservation() {
 					/>
 				</TouchableOpacity>
 			</View>
-			<View style={blockStyles.contents}>
+			<View style={[blockStyles.contents, styles.contents]}>
 				{(isEmpty && (
-					<Text style={styles.noReservation}>오늘 예약된 시간이 없습니다</Text>
+					<Text style={styles.noReservation}>오늘 예약된 시간이 없습니다.</Text>
 				)) ||
-					tempReservation.map((value) => (
+					tempMyReservation.map((value) => (
 						<View style={styles.reservation} key={value}>
 							<Text style={styles.reservationText}>
 								{trimmingText(value, 35)}
 							</Text>
 						</View>
 					))}
-				<Text style={styles.reservationText}>외 3개의 예약이 있습니다.</Text>
 			</View>
 		</View>
 	);
 }
 
-export default memo(TodayReservation);
+export default memo(MyReservation);

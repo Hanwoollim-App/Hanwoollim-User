@@ -44,6 +44,7 @@ const blockStyles = StyleSheet.create({
 		paddingTop: heightPercentage(5),
 		flex: 4,
 		width: '100%',
+		justifyContent: 'center',
 	},
 });
 
