@@ -1,10 +1,7 @@
 import React from 'react';
-import { BackHandler, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { BackHandler, Text } from 'react-native';
 import { useAndroidBackHandler } from 'react-navigation-backhandler';
-import defaultStyle from '../../../utils/constant/common/design/DefaultStyle';
-import CustomHeader from '../../common/CustomHeader';
-import CustomStatusBar from '../../common/CustomStatusBar';
+import ScreenWrapper from '../../common/ScreenWrapper';
 
 function Home() {
 	useAndroidBackHandler(() => {
@@ -13,17 +10,9 @@ function Home() {
 	});
 
 	return (
-		<>
-			<CustomStatusBar />
-			<SafeAreaView style={defaultStyle.root} edges={['bottom']}>
-				<View style={defaultStyle.header}>
-					<CustomHeader />
-				</View>
-				<View style={defaultStyle.contents}>
-					<Text>홈화면입니다.</Text>
-				</View>
-			</SafeAreaView>
-		</>
+		<ScreenWrapper>
+			<Text>홈 화면입니다.</Text>
+		</ScreenWrapper>
 	);
 }
 
