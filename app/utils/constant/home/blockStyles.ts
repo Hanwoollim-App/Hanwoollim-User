@@ -11,6 +11,7 @@ const blockStyles = StyleSheet.create({
 		width: '100%',
 		paddingHorizontal: '3.6%',
 		paddingVertical: heightPercentage(13),
+		marginBottom: heightPercentage(17),
 		borderRadius: widthPercentage(10),
 		backgroundColor: '#ffffff',
 		justifyContent: 'center',

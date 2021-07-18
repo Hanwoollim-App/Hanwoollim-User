@@ -15,6 +15,7 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import Notice from './Notice';
+import TodayReservation from './TodayReservation';
 
 const styles = StyleSheet.create({
 	title: {
@@ -71,6 +72,7 @@ function Home() {
 				</TouchableOpacity>
 			</View>
 			<Notice />
+			<TodayReservation />
 		</ScreenWrapper>
 	);
 }
