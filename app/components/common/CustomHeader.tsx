@@ -1,6 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 import color from '../../utils/constant/common/design/Color';
+import { fontPercentage } from '../../utils/constant/common/design/Responsive';
+
+interface customHeader {
+	title?: string;
+}
 
 const styles = StyleSheet.create({
 	root: {
@@ -9,6 +14,16 @@ const styles = StyleSheet.create({
 		backgroundColor: color.mainColor,
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	title: {
+		fontFamily: 'NotoSansKR-Regular',
+		fontSize: fontPercentage(20),
+		lineHeight: fontPercentage(25),
+		fontWeight: 'bold',
+		fontStyle: 'normal',
+		letterSpacing: 0,
+		textAlign: 'left',
+		color: '#ffffff',
 	},
 	logoImg: {
 		width: '55%',
@@ -19,12 +34,14 @@ const styles = StyleSheet.create({
 
 const logo = require('../../assets/images/textLogo_light.png');
 
-function CustomHeader() {
-	// const navigation: NavigationProp<ParamListBase> = useNavigation();
-
+function CustomHeader({ title }: customHeader) {
 	return (
 		<View style={styles.root}>
-			<Image source={logo} style={styles.logoImg} />
+			{title ? (
+				<Text style={styles.title}>{title}</Text>
+			) : (
+				<Image source={logo} style={styles.logoImg} />
+			)}
 		</View>
 	);
 }

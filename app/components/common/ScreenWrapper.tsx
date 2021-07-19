@@ -5,13 +5,18 @@ import defaultStyle from '../../utils/constant/common/design/DefaultStyle';
 import CustomHeader from './CustomHeader';
 import CustomStatusBar from './CustomStatusBar';
 
-function ScreenWrapper({ children }) {
+interface screenWrapper {
+	children: any;
+	headerTitle?: string;
+}
+
+function ScreenWrapper({ children, headerTitle }: screenWrapper) {
 	return (
 		<>
 			<CustomStatusBar />
 			<SafeAreaView style={defaultStyle.root} edges={['bottom']}>
 				<View style={defaultStyle.header}>
-					<CustomHeader />
+					<CustomHeader title={headerTitle ?? undefined} />
 				</View>
 				<View style={defaultStyle.contents}>{children}</View>
 			</SafeAreaView>
