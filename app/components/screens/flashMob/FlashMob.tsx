@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'NotoSansKR-Bold',
 		fontSize: fontPercentage(20),
 		lineHeight: fontPercentage(25),
-		fontWeight: 'bold',
+		fontWeight: '300',
 		fontStyle: 'normal',
 		letterSpacing: 0,
 		textAlign: 'center',
