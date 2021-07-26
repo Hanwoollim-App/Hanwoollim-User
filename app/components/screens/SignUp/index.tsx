@@ -14,7 +14,7 @@ import {
 	SIGN_UP_ERROR_MESSAGE,
 } from '../../../utils/constant/login/SingUpScreenUtils';
 import CustomBtn from '../../common/CustomBtn';
-import SignUpForm from './SignUpForm';
+import SignUpForm from './Form';
 import CustomModal, { ModalValue } from '../../common/CustomModal';
 import {
 	fontPercentage,

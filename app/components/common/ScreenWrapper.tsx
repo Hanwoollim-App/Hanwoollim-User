@@ -6,7 +6,7 @@ import CustomHeader from './CustomHeader';
 import CustomStatusBar from './CustomStatusBar';
 
 interface screenWrapper {
-	children: any;
+	children: React.ReactNode;
 	headerTitle?: string;
 }
 
