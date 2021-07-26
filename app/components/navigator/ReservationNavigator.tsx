@@ -1,14 +1,14 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import ReservationTimeTable from '../screens/reservation/timeTable/ReservationTimeTable';
-import ReservationProcess from '../screens/reservation/process/ReservationProcess';
+import ReservationTimeTable from '../screens/reservation/timeTable';
+import ReservationProcess from '../screens/reservation/process';
 import ReservationContext, {
 	ReservationInfo,
 } from '../../utils/context/ReservationContext';
 
 const ReservationStack = createStackNavigator();
 
-function ReservationNaviagator() {
+function ReservationNavigator() {
 	return (
 		<ReservationContext.Provider value={new ReservationInfo()}>
 			<ReservationStack.Navigator initialRouteName="ReservationTimeTable">
@@ -31,4 +31,4 @@ function ReservationNaviagator() {
 	);
 }
 
-export default ReservationNaviagator;
+export default ReservationNavigator;

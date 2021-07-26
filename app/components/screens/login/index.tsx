@@ -20,7 +20,7 @@ import {
 	login,
 } from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
-import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/LoginScreenUtils';
+import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/loginScreen';
 import {
 	fontPercentage,
 	heightPercentage,

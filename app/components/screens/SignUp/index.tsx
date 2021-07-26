@@ -12,7 +12,7 @@ import color from '../../../utils/constant/common/design/Color';
 import {
 	SIGN_UP_COMPONENT_TEXT,
 	SIGN_UP_ERROR_MESSAGE,
-} from '../../../utils/constant/login/SingUpScreenUtils';
+} from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
 import SignUpForm from './Form';
 import CustomModal, { ModalValue } from '../../common/CustomModal';

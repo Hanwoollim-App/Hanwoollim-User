@@ -26,14 +26,14 @@ import {
 	timeItems,
 	twoSessionsSelected,
 	unitItems,
-} from '../../../../utils/constant/reservation/process/ReservationProcessUtil';
+} from '../../../../utils/constant/reservation/process/reservationProcess';
 import CustomModal from '../../../common/CustomModal';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../../utils/constant/common/design/Responsive';
-import { loginInterface } from './../../../../utils/constant/login/LoginUtils';
+import { loginInterface } from '../../../../utils/constant/login/login';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
