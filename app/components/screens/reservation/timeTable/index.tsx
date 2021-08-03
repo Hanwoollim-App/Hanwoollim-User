@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -56,12 +57,47 @@ function ReservationTimeTable() {
 	const reserveBtnListener = () => {
 		navigation.navigate('ReservationProcess');
 	};
+	const [open, setOpen] = useState(false);
+	const [value, setValue] = useState(null);
+	const [items, setItems] = useState([
+		{ label: '6.28~7.4', value: '6.28~7.4' },
+		{ label: '7.4~7.11', value: '7.4~7.11' },
+		{ label: '7.11~7.18', value: '7.11~7.18' },
+		{ label: '7.18~7.25', value: '7.18~7.25' },
+	]);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
 			<View style={styles.titleBlock}>
 				<View style={styles.picker}>
-					<Text>6.28~7.4</Text>
+					<DropDownPicker
+						open={open}
+						value={value}
+						items={items}
+						setOpen={setOpen}
+						setValue={setValue}
+						setItems={setItems}
+						style={{
+							width: widthPercentage(162),
+							height: heightPercentage(36),
+							borderRadius: widthPercentage(10),
+							backgroundColor: '#ffffff',
+							borderColor: '#ffffff',
+						}}
+						textStyle={{
+							fontFamily: 'NotoSansKR-Bold',
+							fontSize: 16,
+							fontWeight: 'bold',
+						}}
+						dropDownContainerStyle={{
+							borderRadius: widthPercentage(10),
+							backgroundColor: '#ffffff',
+							borderColor: '#ffffff',
+						}}
+						placeholderStyle={{
+							color: 'grey',
+						}}
+					/>
 				</View>
 				<TouchableOpacity
 					style={styles.reserveBtn}
