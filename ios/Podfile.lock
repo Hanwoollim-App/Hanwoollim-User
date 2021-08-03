@@ -464,7 +464,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 6f1d11ebf659977e2202c9ec4c6e985009d10d19
+  FBReactNativeSpec: 96c5a00fef975625499d792580283318e4e94afc
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   kakao-login: f545fda326cdf9419645abb7c8f36ec97132c26b
   KakaoSDK: 1e80d6877c0eac6a310f93c73fb15ca56c05f2bd
