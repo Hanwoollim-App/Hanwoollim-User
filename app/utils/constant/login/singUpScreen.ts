@@ -8,6 +8,9 @@ export const SIGN_UP_COMPONENT_TEXT: { [key: string]: any } = {
 	title: '환영합니다',
 	intro: '한울림의 식구가 되신것을 환영합니다!\n당신이 누구인지 알려줄래요?',
 	inputTitle: {
+		id: '아이디',
+		pw: '비밀번호',
+		pwCheck: '비밀번호 확인',
 		name: '이름',
 		major: '학과',
 		studentID: '학번',

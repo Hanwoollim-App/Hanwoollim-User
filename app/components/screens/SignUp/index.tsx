@@ -22,6 +22,7 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import CustomStatusBar from '../../common/CustomStatusBar';
+import ScreenWrapper from '../../common/ScreenWrapper';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
 		color: '#00203f',
 	},
 	middleEmpty: {
-		height: heightPercentage(54),
+		height: heightPercentage(20),
 	},
 	input: {
 		height: heightPercentage(33),
@@ -132,53 +133,62 @@ function SignUp() {
 	};
 
 	return (
-		<>
-			<CustomStatusBar />
-			<SafeAreaView style={styles.root}>
-				<CustomModal
-					isVisible={modalValue.isVisible}
-					title={modalValue.mainTitle}
-					firstButton={() =>
-						setModalValue((prev: ModalValue) => ({
-							...prev,
-							isVisible: false,
-						}))
-					}
-					firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
+		<ScreenWrapper>
+			<CustomModal
+				isVisible={modalValue.isVisible}
+				title={modalValue.mainTitle}
+				firstButton={() =>
+					setModalValue((prev: ModalValue) => ({
+						...prev,
+						isVisible: false,
+					}))
+				}
+				firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
+			/>
+			<ScrollView
+				style={styles.scrollView}
+				contentContainerStyle={styles.scrollContent}>
+				<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
+				<View style={styles.middleEmpty} />
+				<SignUpForm
+					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.id}
+					inputChangeListener={(value: string) => setName(value)}
+					defaultValue={name}
 				/>
-				<View style={styles.header}>
-					<Text style={styles.headerText}>{SIGN_UP_COMPONENT_TEXT.title}</Text>
-				</View>
-				<ScrollView
-					style={styles.scrollView}
-					contentContainerStyle={styles.scrollContent}>
-					<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
-					<View style={styles.middleEmpty} />
-					<SignUpForm
-						placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-						inputChangeListener={(value: string) => setName(value)}
-						defaultValue={name}
-					/>
-					<SignUpForm
-						placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
-						inputChangeListener={(value: string) => setMajor(value)}
-						defaultValue={major}
-					/>
-					<SignUpForm
-						placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-						inputChangeListener={(value: string) => setStudentID(value)}
-						defaultValue={studentID}
-					/>
-					<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
-					<CustomBtn
-						title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
-						onClickListener={signUpBtnClickListener}
-						btnStyle={styles.signUp}
-						titleStyle={styles.signUpTitle}
-					/>
-				</ScrollView>
-			</SafeAreaView>
-		</>
+				<SignUpForm
+					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pw}
+					inputChangeListener={(value: string) => setName(value)}
+					defaultValue={name}
+				/>
+				<SignUpForm
+					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
+					inputChangeListener={(value: string) => setName(value)}
+					defaultValue={name}
+				/>
+				<SignUpForm
+					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+					inputChangeListener={(value: string) => setName(value)}
+					defaultValue={name}
+				/>
+				<SignUpForm
+					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
+					inputChangeListener={(value: string) => setMajor(value)}
+					defaultValue={major}
+				/>
+				<SignUpForm
+					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+					inputChangeListener={(value: string) => setStudentID(value)}
+					defaultValue={studentID}
+				/>
+				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
+				<CustomBtn
+					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
+					onClickListener={signUpBtnClickListener}
+					btnStyle={styles.signUp}
+					titleStyle={styles.signUpTitle}
+				/>
+			</ScrollView>
+		</ScreenWrapper>
 	);
 }
 
