@@ -13,12 +13,6 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
-import {
-	getProfile,
-	KakaoOAuthToken,
-	KakaoProfile,
-	login,
-} from '@react-native-seoul/kakao-login';
 import color from '../../../utils/constant/common/design/Color';
 import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/loginScreen';
 import {
@@ -105,18 +99,7 @@ const textLogo = require('../../../assets/images/textLogo_light.png');
 function Login() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-	const kakaoLogin = async (): Promise<void> => {
-		const token: KakaoOAuthToken = await login();
-		const profile: KakaoProfile = await getProfile();
-
-		console.log(token);
-		console.log(profile);
-	};
-
-	const loginBtnClickListener = async () => {
-		await kakaoLogin().catch((err) => {
-			console.log(err);
-		});
+	const loginBtnClickListener = () => {
 		navigation.navigate('SignUp');
 	};
 

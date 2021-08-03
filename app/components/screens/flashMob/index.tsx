@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -38,11 +38,21 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#000000',
 	},
+	flashmob: {
+		width: widthPercentage(335),
+		height: heightPercentage(251),
+		marginTop: heightPercentage(187),
+	},
 });
+
+const flashmob = require('../../../assets/images/flashmob.png');
 
 function FlashMob() {
 	return (
 		<ScreenWrapper headerTitle="번개모임">
+			<View>
+				<Image style={styles.flashmob} source={flashmob} />
+			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>기능 준비중입니다</Text>
 				<Text style={styles.blockContent}>조금만 기다려줘요... 약속?</Text>
