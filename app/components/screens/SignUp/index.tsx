@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {
-	View,
-	Text,
-	StyleSheet,
-	ScrollView,
-	SafeAreaView,
-	Platform,
-} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import {
 	SIGN_UP_COMPONENT_TEXT,
@@ -21,7 +15,6 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
-import CustomStatusBar from '../../common/CustomStatusBar';
 import ScreenWrapper from '../../common/ScreenWrapper';
 
 const styles = StyleSheet.create({
@@ -119,7 +112,6 @@ const styles = StyleSheet.create({
 function SignUp() {
 	const navigation = useNavigation();
 	const [name, setName]: [string, Function] = useState('');
-	const [major, setMajor]: [string, Function] = useState('');
 	const [studentID, setStudentID]: [string, Function] = useState('');
 	const [modalValue, setModalValue]: [ModalValue, Function] = useState({
 		isVisible: false,
@@ -131,6 +123,14 @@ function SignUp() {
 			screen: 'Home',
 		});
 	};
+	const [major, setMajor] = useState('');
+	const [open, setOpen] = useState(false);
+	const [items, setItems] = useState([
+		{ label: '정보시스템학과', value: '정보시스템학과' },
+		{ label: '기계공학부', value: '기계공학부' },
+		{ label: '컴퓨터소프트웨어학부', value: '컴퓨터소프트웨어학부' },
+		{ label: '융합전자공학부', value: '융합전자공학부' },
+	]);
 
 	return (
 		<ScreenWrapper>
@@ -170,10 +170,43 @@ function SignUp() {
 					inputChangeListener={(value: string) => setName(value)}
 					defaultValue={name}
 				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.major}
-					inputChangeListener={(value: string) => setMajor(value)}
-					defaultValue={major}
+				<DropDownPicker
+					open={open}
+					value={major}
+					items={items}
+					setOpen={setOpen}
+					setValue={setMajor}
+					setItems={setItems}
+					style={{
+						width: '90%',
+						height: heightPercentage(46),
+						marginBottom: heightPercentage(31),
+						paddingVertical: 0,
+						alignContent: 'center',
+						justifyContent: 'center',
+						alignItems: 'center',
+						marginLeft: widthPercentage(17),
+						borderRadius: widthPercentage(10),
+						backgroundColor: '#ffffff',
+						borderColor: '#ffffff',
+					}}
+					textStyle={{
+						fontFamily: 'NotoSansKR-Regular',
+						fontSize: 16,
+						fontWeight: 'bold',
+					}}
+					dropDownContainerStyle={{
+						width: '90%',
+						marginBottom: heightPercentage(31),
+						marginLeft: widthPercentage(17),
+						borderRadius: widthPercentage(10),
+						backgroundColor: '#ffffff',
+						borderColor: '#ffffff',
+					}}
+					placeholderStyle={{
+						color: '#a2a2a2',
+					}}
+					placeholder="전공"
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
