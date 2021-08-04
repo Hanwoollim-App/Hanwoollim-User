@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import {
+	useNavigation,
+	NavigationProp,
+	ParamListBase,
+} from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
@@ -10,6 +14,7 @@ import {
 import CustomBtn from '../../common/CustomBtn';
 import SignUpForm from './Form';
 import CustomModal, { ModalValue } from '../../common/CustomModal';
+
 import {
 	fontPercentage,
 	heightPercentage,
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
 });
 
 function SignUp() {
-	const navigation = useNavigation();
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName]: [string, Function] = useState('');
 	const [studentID, setStudentID]: [string, Function] = useState('');
 	const [modalValue, setModalValue]: [ModalValue, Function] = useState({
@@ -119,9 +124,7 @@ function SignUp() {
 	});
 
 	const signUpBtnClickListener = () => {
-		navigation.navigate('BottomTabNavigator', {
-			screen: 'Home',
-		});
+		navigation.navigate('NotApproved');
 	};
 	const [major, setMajor] = useState('');
 	const [open, setOpen] = useState(false);
