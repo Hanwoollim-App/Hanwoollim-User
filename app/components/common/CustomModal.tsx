@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Modal, StyleSheet } from 'react-native';
+import { Text, View, Modal, StyleSheet, Platform } from 'react-native';
 import color from '../../utils/constant/common/design/Color';
 import CustomBtn from './CustomBtn';
 import {
@@ -7,41 +7,68 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../utils/constant/common/design/Responsive';
+import { customBtnType, ModalsProps } from '../../utils/types/customModal';
 
 const styles = StyleSheet.create({
 	modalView: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'rgba(0,0,0,0.5)',
+	},
+	content: {
 		width: widthPercentage(250),
-		height: heightPercentage(159),
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		marginTop: heightPercentage(327),
-		marginLeft: widthPercentage(63),
-		backgroundColor: 'white',
-		elevation: 5,
-	},
-	contentContainer: {
-		height: heightPercentage(115),
 		justifyContent: 'center',
 		alignItems: 'center',
+		borderTopLeftRadius: widthPercentage(15),
+		borderTopRightRadius: widthPercentage(15),
 		backgroundColor: 'white',
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOpacity: widthPercentage(0.25),
+				shadowRadius: widthPercentage(3.84),
+				shadowOffset: {
+					height: heightPercentage(2),
+					width: 0,
+				},
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
 	},
-	btnContainer: {
-		flexDirection: 'row',
+	oneBtnContent: {
+		width: widthPercentage(250),
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: heightPercentage(44),
+		borderRadius: widthPercentage(15),
 		backgroundColor: 'white',
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOpacity: widthPercentage(0.25),
+				shadowRadius: widthPercentage(3.84),
+				shadowOffset: {
+					height: heightPercentage(2),
+					width: 0,
+				},
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
 	},
-	titleStyle: {
+	title: {
 		marginTop: heightPercentage(25),
-		fontFamily: 'NotoSansKR-Regular',
+		fontFamily: 'NotoSansKR-Bold',
 		fontSize: fontPercentage(15),
 		letterSpacing: 1,
 		fontStyle: 'normal',
 		textAlign: 'center',
 		color: '#000000',
 	},
-	subtitleStyle: {
+	subtitle: {
 		marginTop: heightPercentage(15),
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(10),
@@ -49,85 +76,142 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: 'gray',
 	},
-	firstBtnStyle: {
-		flex: 1,
+	btnList: {
+		width: widthPercentage(250),
 		height: heightPercentage(44),
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: color.mainColor,
-	},
-	secondBtnStyle: {
-		flex: 1,
-		height: heightPercentage(44),
+		marginTop: heightPercentage(0.5),
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'white',
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOpacity: widthPercentage(0.25),
+				shadowRadius: widthPercentage(3.84),
+				shadowOffset: {
+					height: heightPercentage(2),
+					width: 0,
+				},
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
 	},
-	firstBtnTitleStyle: {
+	btnListTitle: {
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
-		fontStyle: 'normal',
 		textAlign: 'center',
-		color: '#ffffff',
+		color: color.mainColor,
 	},
-	secondBtnTitleStyle: {
+	whiteLastBtn: {
+		width: widthPercentage(250),
+		height: heightPercentage(44),
+		marginTop: heightPercentage(0.3),
+		borderBottomLeftRadius: widthPercentage(15),
+		borderBottomRightRadius: widthPercentage(15),
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'white',
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOpacity: widthPercentage(0.25),
+				shadowRadius: widthPercentage(3.84),
+				shadowOffset: {
+					height: heightPercentage(2),
+					width: 0,
+				},
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
+	},
+	blueLastBtn: {
+		width: widthPercentage(250),
+		height: heightPercentage(44),
+		marginTop: heightPercentage(10),
+		borderRadius: widthPercentage(15),
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: color.mainColor,
+		...Platform.select({
+			ios: {
+				shadowColor: '#000',
+				shadowOpacity: widthPercentage(0.25),
+				shadowRadius: widthPercentage(3.84),
+				shadowOffset: {
+					height: heightPercentage(2),
+					width: 0,
+				},
+			},
+			android: {
+				elevation: 5,
+			},
+		}),
+	},
+	blueLastBtnTitle: {
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
-		fontStyle: 'normal',
 		textAlign: 'center',
-		color: '#000000',
+		color: 'white',
 	},
 });
 
-export interface ModalValue {
-	isVisible: boolean;
-	mainTitle: string;
-}
-
-interface ModalsProps {
-	isVisible: boolean;
-	title: string;
-	subtitle?: string;
-	firstButton: Function;
-	secondButton?: Function;
-	firstBtnTitle: string;
-	secondBtnTitle?: string;
-}
-
 function CustomModal({
-	isVisible,
+	mdVisible,
 	title,
-	subtitle = null,
-	firstButton,
-	secondButton = null,
-	firstBtnTitle,
-	secondBtnTitle = null,
+	subtitle = '',
+	buttonList,
 }: ModalsProps) {
+	const [last, second, ...first]: Array<customBtnType | undefined> = [
+		...buttonList,
+	].reverse();
+
 	return (
-		<Modal animationType="slide" visible={isVisible} transparent={true}>
+		<Modal animationType="fade" visible={mdVisible} transparent={true}>
 			<View style={styles.modalView}>
-				<View style={styles.contentContainer}>
-					<Text style={styles.titleStyle}>{title}</Text>
-					<Text style={styles.subtitleStyle}>{subtitle}</Text>
-				</View>
-				<View style={styles.btnContainer}>
+				{second ? (
+					<View style={styles.content}>
+						<Text style={styles.title}>{title}</Text>
+						<Text style={styles.subtitle}>{subtitle}</Text>
+					</View>
+				) : (
+					<View style={styles.oneBtnContent}>
+						<Text style={styles.title}>{title}</Text>
+						<Text style={styles.subtitle}>{subtitle}</Text>
+					</View>
+				)}
+				{first.map((result, i) => {
+					return (
+						result! && (
+							<CustomBtn
+								key={i}
+								title={result.buttonText}
+								onClickListener={result.buttonClickListener}
+								titleStyle={styles.btnListTitle}
+								btnStyle={styles.btnList}
+							/>
+						)
+					);
+				})}
+				{second! && (
 					<CustomBtn
-						title={firstBtnTitle}
-						onClickListener={firstButton}
-						titleStyle={styles.firstBtnTitleStyle}
-						btnStyle={styles.firstBtnStyle}
+						title={second.buttonText}
+						onClickListener={second.buttonClickListener}
+						titleStyle={styles.btnListTitle}
+						btnStyle={styles.whiteLastBtn}
 					/>
-					{secondButton ? (
-						<CustomBtn
-							title={secondBtnTitle}
-							onClickListener={secondButton}
-							titleStyle={styles.secondBtnTitleStyle}
-							btnStyle={styles.secondBtnStyle}
-						/>
-					) : (
-						<View />
-					)}
-				</View>
+				)}
+				{last! && (
+					<CustomBtn
+						title={last.buttonText}
+						onClickListener={last.buttonClickListener}
+						titleStyle={styles.blueLastBtnTitle}
+						btnStyle={styles.blueLastBtn}
+					/>
+				)}
 			</View>
 		</Modal>
 	);
