@@ -124,6 +124,9 @@ const styles = StyleSheet.create({
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName]: [string, Function] = useState('');
+	const [id, setId]: [string, Function] = useState('');
+	const [pw, setPw]: [string, Function] = useState('');
+	const [pwCheck, setPwCheck]: [string, Function] = useState('');
 	const [studentID, setStudentID]: [string, Function] = useState('');
 	const [modalValue, setModalValue]: [ModalValue, Function] = useState({
 		isVisible: false,
@@ -167,18 +170,18 @@ function SignUp() {
 				<View style={styles.middleEmpty} />
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.id}
-					inputChangeListener={(value: string) => setName(value)}
-					defaultValue={name}
+					inputChangeListener={(value: string) => setId(value)}
+					defaultValue={id}
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pw}
-					inputChangeListener={(value: string) => setName(value)}
-					defaultValue={name}
+					inputChangeListener={(value: string) => setPw(value)}
+					defaultValue={pw}
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
-					inputChangeListener={(value: string) => setName(value)}
-					defaultValue={name}
+					inputChangeListener={(value: string) => setPwCheck(value)}
+					defaultValue={pwCheck}
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
