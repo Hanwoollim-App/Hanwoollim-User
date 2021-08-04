@@ -91,6 +91,13 @@ const styles = StyleSheet.create({
 		textAlign: 'left',
 		color: '#3c1e1e',
 	},
+	SignUpText: {
+		fontFamily: 'NotoSansKR-bold',
+		fontSize: fontPercentage(15),
+		marginTop: heightPercentage(28),
+		textAlign: 'center',
+		color: '#adefd1',
+	},
 });
 
 const textLogo = require('../../../assets/images/textLogo_light.png');
@@ -99,6 +106,10 @@ function Login() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const loginBtnClickListener = () => {
+		navigation.navigate('SignIn');
+	};
+
+	const signUp = () => {
 		navigation.navigate('SignUp');
 	};
 
@@ -115,6 +126,9 @@ function Login() {
 						style={styles.loginBtn}
 						onPress={loginBtnClickListener}>
 						<Text style={styles.loginBtn_text}>{LOGIN_BUTTON_TEXT}</Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={signUp}>
+						<Text style={styles.SignUpText}>회원가입</Text>
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

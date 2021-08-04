@@ -14,13 +14,9 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
-import {
-	SIGN_UP_COMPONENT_TEXT,
-	SIGN_UP_ERROR_MESSAGE,
-} from '../../../utils/constant/login/singUpScreen';
+import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
 import SignUpForm from './Form';
-import CustomModal, { ModalValue } from '../../common/CustomModal';
 
 import {
 	fontPercentage,
@@ -128,17 +124,9 @@ function SignUp() {
 	const [pw, setPw]: [string, Function] = useState('');
 	const [pwCheck, setPwCheck]: [string, Function] = useState('');
 	const [studentID, setStudentID]: [string, Function] = useState('');
-	const [modalValue, setModalValue]: [ModalValue, Function] = useState({
-		isVisible: false,
-		mainTitle: '',
-	});
 
 	const signUpBtnClickListener = () => {
 		navigation.navigate('NotApproved');
-	};
-
-	const homeBtnListener: () => void = () => {
-		navigation.navigate('BottomTabNavigator');
 	};
 
 	const [major, setMajor] = useState('');
@@ -152,17 +140,6 @@ function SignUp() {
 
 	return (
 		<ScreenWrapper>
-			<CustomModal
-				isVisible={modalValue.isVisible}
-				title={modalValue.mainTitle}
-				firstButton={() =>
-					setModalValue((prev: ModalValue) => ({
-						...prev,
-						isVisible: false,
-					}))
-				}
-				firstBtnTitle={SIGN_UP_ERROR_MESSAGE.TRY_AGAIN_BTN}
-			/>
 			<ScrollView
 				style={styles.scrollView}
 				contentContainerStyle={styles.scrollContent}>
@@ -232,9 +209,7 @@ function SignUp() {
 					defaultValue={studentID}
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
-				<TouchableOpacity onPress={homeBtnListener}>
-					<Text>홈화면으로</Text>
-				</TouchableOpacity>
+
 				<CustomBtn
 					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
 					onClickListener={signUpBtnClickListener}
