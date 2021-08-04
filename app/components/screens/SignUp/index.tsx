@@ -5,7 +5,14 @@ import {
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	ScrollView,
+	Platform,
+	TouchableOpacity,
+} from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import {
 	SIGN_UP_COMPONENT_TEXT,
@@ -126,6 +133,11 @@ function SignUp() {
 	const signUpBtnClickListener = () => {
 		navigation.navigate('NotApproved');
 	};
+
+	const homeBtnListener: () => void = () => {
+		navigation.navigate('BottomTabNavigator');
+	};
+
 	const [major, setMajor] = useState('');
 	const [open, setOpen] = useState(false);
 	const [items, setItems] = useState([
@@ -217,6 +229,9 @@ function SignUp() {
 					defaultValue={studentID}
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
+				<TouchableOpacity onPress={homeBtnListener}>
+					<Text>홈화면으로</Text>
+				</TouchableOpacity>
 				<CustomBtn
 					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
 					onClickListener={signUpBtnClickListener}
