@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 	header__back__text: {
 		width: '100%',
 		height: '100%',
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(12),
 		letterSpacing: 0,
 		color: color.mainColor,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 	header__title__text: {
 		width: '100%',
 		height: '100%',
-		fontFamily: 'KoreanYNSJG4',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(14),
 		letterSpacing: 0,
 	},

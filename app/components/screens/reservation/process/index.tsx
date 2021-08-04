@@ -37,7 +37,7 @@ import { loginInterface } from '../../../../utils/constant/login/login';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(10),
 		letterSpacing: 0,
 		textAlign: 'left',
@@ -48,7 +48,7 @@ const pickerSelectStyles = StyleSheet.create({
 		height: '100%',
 		paddingVertical: 2, // 이 변수가 있어야 텍스트가 박스 안쪽으로 들어옴
 		fontSize: fontPercentage(12),
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		letterSpacing: 0,
 		textAlign: 'center',
 		color: '#000000',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 	sectionInfo__alert__text: {
 		marginTop: heightPercentage(8),
 		marginLeft: widthPercentage(140),
-		fontFamily: 'KoreanYNSJG2',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(8),
 		letterSpacing: 0,
 		textAlign: 'left',
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 	sectionInfo__addBtn__Text: {
 		width: '100%',
 		height: '100%',
-		fontFamily: 'KoreanYNSJG4',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(12),
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	sumbit__text: {
-		fontFamily: 'KoreanYNSJG4',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(13),
 		fontWeight: 'normal',
 		fontStyle: 'normal',

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	},
 	titleStyle: {
 		marginTop: heightPercentage(25),
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
 		letterSpacing: 1,
 		fontStyle: 'normal',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 	},
 	subtitleStyle: {
 		marginTop: heightPercentage(15),
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(10),
 		fontStyle: 'normal',
 		textAlign: 'center',
@@ -64,14 +64,14 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 	},
 	firstBtnTitleStyle: {
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
 		fontStyle: 'normal',
 		textAlign: 'center',
 		color: '#ffffff',
 	},
 	secondBtnTitleStyle: {
-		fontFamily: 'KoreanYNSJG3',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
 		fontStyle: 'normal',
 		textAlign: 'center',
