@@ -6,6 +6,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { View, StyleSheet, Text } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import { useNavigation } from '@react-navigation/native';
@@ -71,17 +72,16 @@ const styles = StyleSheet.create({
 	bodyContainer: {
 		width: widthPercentage(327),
 		height: heightPercentage(760),
-		marginHorizontal: widthPercentage(25),
-		marginTop: heightPercentage(29),
+		marginHorizontal: widthPercentage(20),
+		marginTop: heightPercentage(20),
 	},
 	row: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 	},
 	dayPicker: {
-		width: widthPercentage(113),
-		height: heightPercentage(26),
-		borderWidth: fontPercentage(1),
+		width: widthPercentage(154),
+		height: heightPercentage(36),
 		borderColor: color.mainColor,
 	},
 	contentContainer: {
@@ -173,6 +173,30 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#ffffff',
 	},
+	dropDown: {
+		width: widthPercentage(154),
+		height: heightPercentage(36),
+		paddingVertical: 0,
+		alignContent: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	dropDownText: {
+		fontFamily: 'NotoSansKR-Regular',
+		fontSize: 16,
+		fontWeight: 'bold',
+	},
+	dropDownContainer: {
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	dropDownPlaceHolder: {
+		color: '#a2a2a2',
+	},
 });
 
 function ReservationProcess({ route }) {
@@ -218,6 +242,10 @@ function ReservationProcess({ route }) {
 	const onsubmitBtnClickListener = useCallback(() => {}, []);
 	const currentWeek: any = route.params;
 
+	const [value, setValue] = useState('');
+	const [open, setOpen] = useState(false);
+	const [items, setItems] = useState();
+
 	return (
 		<ScreenWrapper headerTitle="예약하기">
 			{/* <CustomModal
@@ -236,12 +264,18 @@ function ReservationProcess({ route }) {
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
 					<View style={styles.dayPicker}>
-						<RNPickerSelect
-							placeholder={{}}
-							style={pickerSelectStyles}
-							items={dayItems}
+						<DropDownPicker
+							open={open}
 							value={dayItems[0]}
-							onValueChange={(value) => onDayChangeListener(value)}
+							items={dayItems}
+							setOpen={setOpen}
+							setValue={setValue}
+							setItems={setItems}
+							style={styles.dropDown}
+							textStyle={styles.dropDownText}
+							dropDownContainerStyle={styles.dropDownContainer}
+							placeholderStyle={styles.dropDownPlaceHolder}
+							placeholder="요일"
 						/>
 					</View>
 					<Text>{`${currentWeek}`}</Text>
