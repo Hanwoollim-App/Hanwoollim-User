@@ -115,6 +115,35 @@ const styles = StyleSheet.create({
 		fontStyle: 'normal',
 		color: '#ffffff',
 	},
+	dropDown: {
+		width: '90%',
+		height: heightPercentage(46),
+		marginBottom: heightPercentage(31),
+		paddingVertical: 0,
+		alignContent: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginLeft: widthPercentage(17),
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	dropDownText: {
+		fontFamily: 'NotoSansKR-Regular',
+		fontSize: 16,
+		fontWeight: 'bold',
+	},
+	dropDownContainer: {
+		width: '90%',
+		marginBottom: heightPercentage(31),
+		marginLeft: widthPercentage(17),
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	dropDownPlaceHolder: {
+		color: '#a2a2a2',
+	},
 });
 
 function SignUp() {
@@ -172,35 +201,10 @@ function SignUp() {
 					setOpen={setOpen}
 					setValue={setMajor}
 					setItems={setItems}
-					style={{
-						width: '90%',
-						height: heightPercentage(46),
-						marginBottom: heightPercentage(31),
-						paddingVertical: 0,
-						alignContent: 'center',
-						justifyContent: 'center',
-						alignItems: 'center',
-						marginLeft: widthPercentage(17),
-						borderRadius: widthPercentage(10),
-						backgroundColor: '#ffffff',
-						borderColor: '#ffffff',
-					}}
-					textStyle={{
-						fontFamily: 'NotoSansKR-Regular',
-						fontSize: 16,
-						fontWeight: 'bold',
-					}}
-					dropDownContainerStyle={{
-						width: '90%',
-						marginBottom: heightPercentage(31),
-						marginLeft: widthPercentage(17),
-						borderRadius: widthPercentage(10),
-						backgroundColor: '#ffffff',
-						borderColor: '#ffffff',
-					}}
-					placeholderStyle={{
-						color: '#a2a2a2',
-					}}
+					style={styles.dropDown}
+					textStyle={styles.dropDownText}
+					dropDownContainerStyle={styles.dropDownContainer}
+					placeholderStyle={styles.dropDownPlaceHolder}
 					placeholder="전공"
 				/>
 				<SignUpForm
