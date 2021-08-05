@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: widthPercentage(25),
 		marginTop: heightPercentage(29),
 	},
+	row: { flexDirection: 'row', justifyContent: 'space-between' },
 	dayPicker: {
 		width: widthPercentage(113),
 		height: heightPercentage(26),
@@ -211,70 +212,7 @@ function ReservationProcess({ route }) {
 			return ret;
 		});
 	}, []);
-	const onsubmitBtnClickListener = useCallback(() => {
-		// 팀 or 개인
-		const unit: number = unitRef.current.state.selectedItem.value.num;
-
-		if (unit === 2) {
-			// 팀 예약 -> 프로토타입에서는 방지
-			setModalText(MODAL_TEXT.NO_TEAM_TITLE);
-			return;
-		}
-
-		// 시간
-		const time: number = timeRef.current.state.selectedItem.value.num;
-		const dateData = dateDataCalculation(date, time);
-
-		// 세션
-		const sessionValue1: any = sectionRef1.current.state.selectedItem.value;
-		let sessionValue2: any = { num: 0 };
-		let sessionValue3: any = { num: 0 };
-		let sessionDatas;
-
-		if (sectionInfoCount.length >= 2) {
-			// 세션 2개 선택
-			sessionValue2 = sectionRef2.current.state.selectedItem.value;
-		}
-		if (sectionInfoCount.length >= 3) {
-			// 세션 3개 선택
-			sessionValue3 = sectionRef3.current.state.selectedItem.value;
-		}
-
-		if (sessionValue2.num !== 0) {
-			if (sessionValue3.num !== 0) {
-				// 세션 3개 선택
-				sessionDatas = threeSessionSelected(
-					sessionValue1,
-					sessionValue2,
-					sessionValue3,
-				);
-			} else {
-				// 세션 2개를 선택
-				sessionDatas = twoSessionsSelected(sessionValue1, sessionValue2);
-			}
-		} else {
-			// 세션 1개를 선택
-			sessionDatas = oneSessionSelected(sessionValue1);
-		}
-
-		// 세션 유효성 검증
-		if (sessionDatas.isValid === false) {
-			setModalText(sessionDatas.NOT_VALID_TEXT);
-			return;
-		}
-
-		// 최종 JSON 파일
-		const data: reserveDataInterface = {
-			session1: sessionDatas.sessionData1,
-			session2: sessionDatas.sessionData2,
-			Id: profile.id,
-			date: dateData,
-		};
-
-		console.log(data);
-
-		setModalText(MODAL_TEXT.SUCCESS_TITLE);
-	}, []);
+	const onsubmitBtnClickListener = useCallback(() => {}, []);
 	const currentWeek: any = route.params;
 
 	return (
@@ -292,19 +230,20 @@ function ReservationProcess({ route }) {
 				}}
 				firstBtnTitle={MODAL_TEXT.BTN_TITLE}
 			/> */}
-			<View style={styles.headerContainer}>
-				<Header currentWeek={currentWeek} />
-			</View>
 			<View style={styles.bodyContainer}>
-				<View style={styles.dayPicker}>
-					<RNPickerSelect
-						placeholder={{}}
-						style={pickerSelectStyles}
-						items={dayItems}
-						value={dayItems[0]}
-						onValueChange={(value) => onDayChangeListener(value)}
-					/>
+				<View style={styles.row}>
+					<View style={styles.dayPicker}>
+						<RNPickerSelect
+							placeholder={{}}
+							style={pickerSelectStyles}
+							items={dayItems}
+							value={dayItems[0]}
+							onValueChange={(value) => onDayChangeListener(value)}
+						/>
+					</View>
+					<Text>{`${currentWeek}`}</Text>
 				</View>
+
 				<View style={styles.contentContainer}>
 					<View style={styles.timeBox}>
 						<Text> {`시간들이 들어갈 공간`}</Text>
