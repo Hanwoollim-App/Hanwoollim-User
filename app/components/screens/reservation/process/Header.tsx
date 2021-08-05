@@ -11,7 +11,7 @@ import {
 } from '../../../../utils/constant/common/design/Responsive';
 
 const styles = StyleSheet.create({
-	haeder__back__btn: {
+	header__back__btn: {
 		width: widthPercentage(101),
 		height: heightPercentage(26),
 		marginLeft: widthPercentage(16),
@@ -48,7 +48,7 @@ function Header({ currentWeek }: { currentWeek: string }) {
 		<>
 			<CustomBtn
 				title={btnTitle}
-				btnStyle={styles.haeder__back__btn}
+				btnStyle={styles.header__back__btn}
 				titleStyle={styles.header__back__text}
 				onClickListener={backBtnClickListener}
 			/>
