@@ -34,6 +34,7 @@ import {
 	widthPercentage,
 } from '../../../../utils/constant/common/design/Responsive';
 import { loginInterface } from '../../../../utils/constant/login/login';
+import ScreenWrapper from '../../../common/ScreenWrapper';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
@@ -274,11 +275,11 @@ function ReservationProcess({ route }) {
 
 		setModalText(MODAL_TEXT.SUCCESS_TITLE);
 	}, []);
-	const { currentWeek }: any = route.params;
+	const currentWeek: any = route.params;
 
 	return (
-		<View style={styles.root}>
-			<CustomModal
+		<ScreenWrapper headerTitle="예약하기">
+			{/* <CustomModal
 				isVisible={modalVisible}
 				title={modalText}
 				firstButton={() => {
@@ -290,7 +291,7 @@ function ReservationProcess({ route }) {
 					}
 				}}
 				firstBtnTitle={MODAL_TEXT.BTN_TITLE}
-			/>
+			/> */}
 			<View style={styles.headerContainer}>
 				<Header currentWeek={currentWeek} />
 			</View>
@@ -368,7 +369,7 @@ function ReservationProcess({ route }) {
 					</View>
 				</View>
 			</View>
-		</View>
+		</ScreenWrapper>
 	);
 }
 
