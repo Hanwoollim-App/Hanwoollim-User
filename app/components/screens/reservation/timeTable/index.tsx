@@ -12,6 +12,7 @@ import {
 	widthPercentage,
 } from '../../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../../common/ScreenWrapper';
+import { ItemType, ValueType } from '../../../../utils/types/dropDown';
 
 const styles = StyleSheet.create({
 	titleBlock: {
@@ -57,9 +58,9 @@ function ReservationTimeTable() {
 	const reserveBtnListener = () => {
 		navigation.navigate('ReservationProcess');
 	};
-	const [open, setOpen] = useState(false);
-	const [value, setValue] = useState(null);
-	const [items, setItems] = useState([
+	const [open, setOpen]: [boolean, (boolean) => void] = useState(false);
+	const [value, setValue]: [ValueType, (any) => void] = useState(null);
+	const [items, setItems]: [ItemType[], (any) => void] = useState([
 		{ label: '6.28~7.4', value: '6.28~7.4' },
 		{ label: '7.4~7.11', value: '7.4~7.11' },
 		{ label: '7.11~7.18', value: '7.11~7.18' },
