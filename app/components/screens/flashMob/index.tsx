@@ -38,20 +38,20 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#000000',
 	},
-	flashmob: {
+	flashMob: {
 		width: widthPercentage(335),
 		height: heightPercentage(251),
 		marginTop: heightPercentage(187),
 	},
 });
 
-const flashmob = require('../../../assets/images/flashmob.png');
+const flashMob = require('../../../assets/images/flashMob.png');
 
 function FlashMob() {
 	return (
 		<ScreenWrapper headerTitle="번개모임">
 			<View>
-				<Image style={styles.flashmob} source={flashmob} />
+				<Image style={styles.flashMob} source={flashMob} />
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>기능 준비중입니다</Text>
