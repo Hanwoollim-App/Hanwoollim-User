@@ -187,7 +187,7 @@ export const threeSessionSelected = (value1, value2, value3) => {
 	return dataResultsCalculation(dataResults);
 };
 
-export const dateDataCalcutation = (date: Date, time: number) => {
+export const dateDataCalculation = (date: Date, time: number) => {
 	const ret = new Date(date);
 
 	ret.setHours(time);

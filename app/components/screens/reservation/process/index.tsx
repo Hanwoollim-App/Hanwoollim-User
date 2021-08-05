@@ -15,7 +15,7 @@ import Header from './Header';
 import SelectForm from './SelectForm';
 import color from '../../../../utils/constant/common/design/Color';
 import {
-	dateDataCalcutation,
+	dateDataCalculation,
 	dayItems,
 	MODAL_TEXT,
 	oneSessionSelected,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	sumbit__text: {
+	submit__text: {
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(13),
 		fontWeight: 'normal',
@@ -210,7 +210,7 @@ function ReservationProcess({ route }) {
 			return ret;
 		});
 	}, []);
-	const onsumbitBtnClickListener = useCallback(() => {
+	const onsubmitBtnClickListener = useCallback(() => {
 		// 팀 or 개인
 		const unit: number = unitRef.current.state.selectedItem.value.num;
 
@@ -222,7 +222,7 @@ function ReservationProcess({ route }) {
 
 		// 시간
 		const time: number = timeRef.current.state.selectedItem.value.num;
-		const dateData = dateDataCalcutation(date, time);
+		const dateData = dateDataCalculation(date, time);
 
 		// 세션
 		const sessionValue1: any = sectionRef1.current.state.selectedItem.value;
@@ -362,8 +362,8 @@ function ReservationProcess({ route }) {
 						<CustomBtn
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
-							titleStyle={styles.sumbit__text}
-							onClickListener={onsumbitBtnClickListener}
+							titleStyle={styles.submit__text}
+							onClickListener={onsubmitBtnClickListener}
 						/>
 					</View>
 				</View>
