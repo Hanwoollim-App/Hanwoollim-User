@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
 		height: heightPercentage(83),
 		width: widthPercentage(335),
 		borderRadius: widthPercentage(10),
-		marginTop: heightPercentage(20),
 		backgroundColor: '#ffffff',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -39,9 +38,14 @@ const styles = StyleSheet.create({
 		color: '#000000',
 	},
 	flashMob: {
-		width: widthPercentage(335),
-		height: heightPercentage(251),
-		marginTop: heightPercentage(187),
+		width: '100%',
+		height: '40%',
+		marginTop: '45%',
+	},
+	flashMobImg: {
+		width: '100%',
+		height: '100%',
+		resizeMode: 'contain',
 	},
 });
 
@@ -50,8 +54,8 @@ const flashMob = require('../../../assets/images/flashMob.png');
 function FlashMob() {
 	return (
 		<ScreenWrapper headerTitle="번개모임">
-			<View>
-				<Image style={styles.flashMob} source={flashMob} />
+			<View style={styles.flashMob}>
+				<Image style={styles.flashMobImg} source={flashMob} />
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>기능 준비중입니다</Text>
