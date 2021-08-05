@@ -51,6 +51,24 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#00203f',
 	},
+	dropDown: {
+		width: widthPercentage(162),
+		height: heightPercentage(36),
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	dropDownText: {
+		fontFamily: 'NotoSansKR-Bold',
+		fontSize: 16,
+		fontWeight: 'bold',
+	},
+	dropDownContainer: {
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	placeholder: { color: 'grey' },
 });
 
 function ReservationTimeTable() {
@@ -78,26 +96,10 @@ function ReservationTimeTable() {
 						setOpen={setOpen}
 						setValue={setValue}
 						setItems={setItems}
-						style={{
-							width: widthPercentage(162),
-							height: heightPercentage(36),
-							borderRadius: widthPercentage(10),
-							backgroundColor: '#ffffff',
-							borderColor: '#ffffff',
-						}}
-						textStyle={{
-							fontFamily: 'NotoSansKR-Bold',
-							fontSize: 16,
-							fontWeight: 'bold',
-						}}
-						dropDownContainerStyle={{
-							borderRadius: widthPercentage(10),
-							backgroundColor: '#ffffff',
-							borderColor: '#ffffff',
-						}}
-						placeholderStyle={{
-							color: 'grey',
-						}}
+						style={styles.dropDown}
+						textStyle={styles.dropDownText}
+						dropDownContainerStyle={styles.dropDownContainer}
+						placeholderStyle={styles.placeholder}
 					/>
 				</View>
 				<TouchableOpacity
