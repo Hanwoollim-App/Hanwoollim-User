@@ -74,7 +74,10 @@ const styles = StyleSheet.create({
 		marginHorizontal: widthPercentage(25),
 		marginTop: heightPercentage(29),
 	},
-	row: { flexDirection: 'row', justifyContent: 'space-between' },
+	row: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
 	dayPicker: {
 		width: widthPercentage(113),
 		height: heightPercentage(26),
