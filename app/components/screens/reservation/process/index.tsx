@@ -17,16 +17,10 @@ import LoginContext from '../../../../utils/context/LoginContext';
 import CustomBtn from '../../../common/CustomBtn';
 import color from '../../../../utils/constant/common/design/Color';
 import {
-	dateDataCalculation,
 	dayItems,
-	MODAL_TEXT,
-	oneSessionSelected,
 	PROCESS_TEXT,
-	reserveDataInterface,
 	sectionItems,
-	threeSessionSelected,
 	timeItems,
-	twoSessionsSelected,
 	unitItems,
 } from '../../../../utils/constant/reservation/process/reservationProcess';
 import CustomModal from '../../../common/CustomModal';
@@ -37,6 +31,7 @@ import {
 } from '../../../../utils/constant/common/design/Responsive';
 import { loginInterface } from '../../../../utils/constant/login/login';
 import ScreenWrapper from '../../../common/ScreenWrapper';
+import { customBtnType } from '../../../../utils/types/customModal';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
@@ -227,13 +222,24 @@ const styles = StyleSheet.create({
 
 function ReservationProcess({ route }) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const titleBtnListener: () => void = () => {
+	const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+	const changeVisible = () => {
+		setModalVisible(!modalVisible);
+	};
+
+	const returnToMain = () => {
 		navigation.navigate('ReservationTimeTable');
 	};
+	const modalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: returnToMain,
+		},
+	];
 	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
-	const [modalVisible, setModalVisible]: [boolean, Function] = useState(false);
 	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] =
 		useState([1]);
 	const [modalText, setModalText]: [string, Function] = useState('');
@@ -289,6 +295,11 @@ function ReservationProcess({ route }) {
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
+			<CustomModal
+				mdVisible={modalVisible}
+				title={'예약이 완료되었습니다!'}
+				buttonList={modalBtn}
+			/>
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
 					<View style={styles.dayPicker}>
@@ -378,7 +389,7 @@ function ReservationProcess({ route }) {
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={titleBtnListener}
+							onClickListener={changeVisible}
 						/>
 					</View>
 				</View>
