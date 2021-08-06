@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		width: widthPercentage(290),
 		height: heightPercentage(53),
-		marginTop: heightPercentage(300),
+		marginTop: heightPercentage(500),
 		borderRadius: fontPercentage(21),
 		backgroundColor: color.mainColor,
 	},
@@ -223,7 +223,7 @@ function ReservationProcess({ route }) {
 	const [timeOpen, setTimeOpen] = useState(false);
 	const [timeItem, setTimeItems] = useState(timeItems);
 
-	const [section, setSection] = useState('');
+	const [section, setSection] = useState([]);
 	const [sectionOpen, setSectionOpen] = useState(false);
 	const [sectionItem, setSectionItems] = useState(sectionItems);
 
@@ -288,13 +288,14 @@ function ReservationProcess({ route }) {
 							placeholder={PROCESS_TEXT.TIME}
 						/>
 					</View>
-				</View>
-				<Text style={styles.sectionInfo__alert__text}>
-					{PROCESS_TEXT.ALERT}
-				</Text>
-				<View style={styles.contentContainer}>
+					<Text style={styles.sectionInfo__alert__text}>
+						{PROCESS_TEXT.ALERT}
+					</Text>
 					<View style={styles.sectionInfo__form}>
 						<DropDownPicker
+							multiple={true}
+							min={0}
+							max={3}
 							open={sectionOpen}
 							value={section}
 							items={sectionItem}
