@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
 	},
 	sectionInfo__alert__text: {
 		marginTop: heightPercentage(8),
-		marginLeft: widthPercentage(9),
+		marginLeft: widthPercentage(-170),
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(8),
 		letterSpacing: 0,
