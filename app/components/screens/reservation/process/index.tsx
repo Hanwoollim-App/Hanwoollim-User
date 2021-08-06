@@ -209,9 +209,6 @@ function ReservationProcess({ route }) {
 		},
 	];
 
-	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] =
-		useState([1]);
-
 	const currentWeek: any = route.params;
 
 	const [day, setDay] = useState('');
@@ -296,23 +293,21 @@ function ReservationProcess({ route }) {
 					{PROCESS_TEXT.ALERT}
 				</Text>
 				<View style={styles.contentContainer}>
-					{sectionInfoCount.map((value) => (
-						<View key={value} style={styles.sectionInfo__form}>
-							<DropDownPicker
-								open={sectionOpen}
-								value={section}
-								items={sectionItem}
-								setOpen={setSectionOpen}
-								setValue={setSection}
-								setItems={setSectionItems}
-								style={styles.dropDown2}
-								textStyle={styles.dropDownText}
-								dropDownContainerStyle={styles.dropDownContainer}
-								placeholderStyle={styles.dropDownPlaceHolder}
-								placeholder={`${PROCESS_TEXT.SECTION} ${value}`}
-							/>
-						</View>
-					))}
+					<View style={styles.sectionInfo__form}>
+						<DropDownPicker
+							open={sectionOpen}
+							value={section}
+							items={sectionItem}
+							setOpen={setSectionOpen}
+							setValue={setSection}
+							setItems={setSectionItems}
+							style={styles.dropDown2}
+							textStyle={styles.dropDownText}
+							dropDownContainerStyle={styles.dropDownContainer}
+							placeholderStyle={styles.dropDownPlaceHolder}
+							placeholder={PROCESS_TEXT.SECTION}
+						/>
+					</View>
 					<View style={styles.submit}>
 						<CustomBtn
 							title={PROCESS_TEXT.SUBMIT}
