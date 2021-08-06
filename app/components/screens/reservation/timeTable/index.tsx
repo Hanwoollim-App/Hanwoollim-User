@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		height: heightPercentage(66),
+		zIndex: 100,
 	},
 	picker: {
 		width: widthPercentage(162),
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
 		borderColor: '#ffffff',
 	},
 	placeholder: { color: 'grey' },
+	timetable: { zIndex: 10 },
 });
 
 function ReservationTimeTable() {
@@ -109,7 +111,9 @@ function ReservationTimeTable() {
 					<Text style={styles.reserveBtnText}>예약하기</Text>
 				</TouchableOpacity>
 			</View>
-			<TimeTable />
+			<View style={styles.timetable}>
+				<TimeTable />
+			</View>
 		</ScreenWrapper>
 	);
 }
