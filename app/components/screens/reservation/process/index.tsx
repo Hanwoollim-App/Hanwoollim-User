@@ -8,12 +8,9 @@ import React, {
 } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, StyleSheet, Text } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
 import { useNavigation } from '@react-navigation/native';
 import LoginContext from '../../../../utils/context/LoginContext';
 import CustomBtn from '../../../common/CustomBtn';
-import Header from './Header';
-import SelectForm from './SelectForm';
 import color from '../../../../utils/constant/common/design/Color';
 import {
 	dateDataCalculation,
@@ -61,16 +58,8 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1,
 	},
-	headerContainer: {
-		width: '100%',
-		height: heightPercentage(57),
-		flexDirection: 'row',
-		alignItems: 'center',
-		borderBottomColor: 'black',
-		borderWidth: 1, // 임시로 구별하기 위해서 만들어놓았습니다. 작업이 다 끝나면 없앨 예정입니다.
-	},
 	bodyContainer: {
-		width: widthPercentage(327),
+		width: widthPercentage(335),
 		height: heightPercentage(760),
 		marginHorizontal: widthPercentage(20),
 		marginTop: heightPercentage(20),
@@ -78,11 +67,24 @@ const styles = StyleSheet.create({
 	row: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		zIndex: 100,
 	},
 	dayPicker: {
 		width: widthPercentage(154),
 		height: heightPercentage(36),
 		borderColor: color.mainColor,
+	},
+	UnitPicker: {
+		width: '100%',
+		height: heightPercentage(46),
+		marginTop: heightPercentage(20),
+		zIndex: 90,
+	},
+	reservationTimePicker: {
+		width: '100%',
+		height: heightPercentage(46),
+		marginTop: heightPercentage(20),
+		zIndex: 80,
 	},
 	contentContainer: {
 		alignItems: 'center',
@@ -95,6 +97,7 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: fontPercentage(1),
 		borderColor: '#bdbdbd',
+		zIndex: 10,
 	},
 	defaultInfo: {
 		width: '100%',
@@ -122,11 +125,12 @@ const styles = StyleSheet.create({
 	},
 	sectionInfo__form: {
 		flexDirection: 'row',
-		marginTop: heightPercentage(32),
+		marginTop: heightPercentage(20),
+		zIndex: 50,
 	},
 	sectionInfo__alert__text: {
 		marginTop: heightPercentage(8),
-		marginLeft: widthPercentage(140),
+		marginLeft: widthPercentage(9),
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(8),
 		letterSpacing: 0,
@@ -153,8 +157,8 @@ const styles = StyleSheet.create({
 	submit: {
 		position: 'absolute',
 		width: widthPercentage(290),
-		height: heightPercentage(42),
-		marginTop: heightPercentage(550),
+		height: heightPercentage(53),
+		marginTop: heightPercentage(300),
 		borderRadius: fontPercentage(21),
 		backgroundColor: color.mainColor,
 	},
@@ -165,17 +169,25 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	submit__text: {
-		fontFamily: 'NotoSansKR-Regular',
-		fontSize: fontPercentage(13),
-		fontWeight: 'normal',
-		fontStyle: 'normal',
-		letterSpacing: 0,
+		fontFamily: 'NotoSansKR-Bold',
+		fontSize: fontPercentage(20),
 		textAlign: 'center',
 		color: '#ffffff',
 	},
 	dropDown: {
 		width: widthPercentage(154),
 		height: heightPercentage(36),
+		paddingVertical: 0,
+		alignContent: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: widthPercentage(10),
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
+	},
+	dropDown2: {
+		width: widthPercentage(335),
+		height: heightPercentage(46),
 		paddingVertical: 0,
 		alignContent: 'center',
 		justifyContent: 'center',
@@ -196,6 +208,16 @@ const styles = StyleSheet.create({
 	},
 	dropDownPlaceHolder: {
 		color: '#a2a2a2',
+	},
+	date: {
+		fontFamily: 'NotoSansKR-Regular',
+		fontSize: fontPercentage(14),
+		textAlign: 'right',
+		alignContent: 'center',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: heightPercentage(6),
+		color: '#000000',
 	},
 });
 
@@ -242,9 +264,21 @@ function ReservationProcess({ route }) {
 	const onsubmitBtnClickListener = useCallback(() => {}, []);
 	const currentWeek: any = route.params;
 
-	const [value, setValue] = useState('');
-	const [open, setOpen] = useState(false);
-	const [items, setItems] = useState();
+	const [day, setDay] = useState('');
+	const [dayOpen, setDayOpen] = useState(false);
+	const [dayItem, setDayItems] = useState(dayItems);
+
+	const [unit, setUnit] = useState('');
+	const [unitOpen, setUnitOpen] = useState(false);
+	const [unitItem, setUnitItems] = useState(unitItems);
+
+	const [time, setTime] = useState('');
+	const [timeOpen, setTimeOpen] = useState(false);
+	const [timeItem, setTimeItems] = useState(timeItems);
+
+	const [section, setSection] = useState('');
+	const [sectionOpen, setSectionOpen] = useState(false);
+	const [sectionItem, setSectionItems] = useState(sectionItems);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
@@ -265,12 +299,12 @@ function ReservationProcess({ route }) {
 				<View style={styles.row}>
 					<View style={styles.dayPicker}>
 						<DropDownPicker
-							open={open}
-							value={dayItems[0]}
-							items={dayItems}
-							setOpen={setOpen}
-							setValue={setValue}
-							setItems={setItems}
+							open={dayOpen}
+							value={day}
+							items={dayItem}
+							setOpen={setDayOpen}
+							setValue={setDay}
+							setItems={setDayItems}
 							style={styles.dropDown}
 							textStyle={styles.dropDownText}
 							dropDownContainerStyle={styles.dropDownContainer}
@@ -278,63 +312,73 @@ function ReservationProcess({ route }) {
 							placeholder="요일"
 						/>
 					</View>
-					<Text>{`${currentWeek}`}</Text>
+					<Text style={styles.date}>{`${currentWeek}`}</Text>
 				</View>
 
 				<View style={styles.contentContainer}>
 					<View style={styles.timeBox}>
 						<Text> {`시간들이 들어갈 공간`}</Text>
 					</View>
-					<View style={styles.defaultInfo}>
-						<View style={styles.defaultInfo__form}>
-							<SelectForm
-								title={PROCESS_TEXT.UNIT}
-								pickerProps={{
-									placeholder: {},
-									pickerSelectStyles,
-									items: unitItems,
-									ref: unitRef,
-								}}
+					<View style={styles.UnitPicker}>
+						<DropDownPicker
+							open={unitOpen}
+							value={unit}
+							items={unitItem}
+							setOpen={setUnitOpen}
+							setValue={setUnit}
+							setItems={setUnitItems}
+							style={styles.dropDown2}
+							textStyle={styles.dropDownText}
+							dropDownContainerStyle={styles.dropDownContainer}
+							placeholderStyle={styles.dropDownPlaceHolder}
+							placeholder={PROCESS_TEXT.UNIT}
+						/>
+					</View>
+					<View style={styles.reservationTimePicker}>
+						<DropDownPicker
+							open={timeOpen}
+							value={time}
+							items={timeItem}
+							setOpen={setTimeOpen}
+							setValue={setTime}
+							setItems={setTimeItems}
+							style={styles.dropDown2}
+							textStyle={styles.dropDownText}
+							dropDownContainerStyle={styles.dropDownContainer}
+							placeholderStyle={styles.dropDownPlaceHolder}
+							placeholder={PROCESS_TEXT.TIME}
+						/>
+					</View>
+				</View>
+				<Text style={styles.sectionInfo__alert__text}>
+					{PROCESS_TEXT.ALERT}
+				</Text>
+				<View style={styles.contentContainer}>
+					{sectionInfoCount.map((value) => (
+						<View key={value} style={styles.sectionInfo__form}>
+							<DropDownPicker
+								open={sectionOpen}
+								value={section}
+								items={sectionItem}
+								setOpen={setSectionOpen}
+								setValue={setSection}
+								setItems={setSectionItems}
+								style={styles.dropDown2}
+								textStyle={styles.dropDownText}
+								dropDownContainerStyle={styles.dropDownContainer}
+								placeholderStyle={styles.dropDownPlaceHolder}
+								placeholder={`${PROCESS_TEXT.SECTION} ${value}`}
 							/>
 						</View>
-						<View style={styles.defaultInfo__form}>
-							<SelectForm
-								title={PROCESS_TEXT.TIME}
-								pickerProps={{
-									placeholder: {},
-									pickerSelectStyles,
-									items: timeItems,
-									ref: timeRef,
-								}}
-							/>
-						</View>
-						<Text style={styles.sectionInfo__alert__text}>
-							{PROCESS_TEXT.ALERT}
-						</Text>
-					</View>
-					<View style={styles.sectionInfo}>
-						{sectionInfoCount.map((value, index) => (
-							<View key={value} style={styles.sectionInfo__form}>
-								<SelectForm
-									title={`${PROCESS_TEXT.SECTION} ${value}`}
-									pickerProps={{
-										placeholder: {},
-										pickerSelectStyles,
-										items: sectionItems,
-										ref: sectionRefArray[index],
-									}}
-								/>
-							</View>
-						))}
-						{sectionInfoCount.length !== 3 && (
-							<CustomBtn
-								title={PROCESS_TEXT.SECTION_ADD}
-								onClickListener={onSectionAddBtnClickListener}
-								btnStyle={styles.sectionInfo__addBtn}
-								titleStyle={styles.sectionInfo__addBtn__Text}
-							/>
-						)}
-					</View>
+					))}
+					{sectionInfoCount.length !== 3 && (
+						<CustomBtn
+							title={PROCESS_TEXT.SECTION_ADD}
+							onClickListener={onSectionAddBtnClickListener}
+							btnStyle={styles.sectionInfo__addBtn}
+							titleStyle={styles.sectionInfo__addBtn__Text}
+						/>
+					)}
 					<View style={styles.submit}>
 						<CustomBtn
 							title={PROCESS_TEXT.SUBMIT}
