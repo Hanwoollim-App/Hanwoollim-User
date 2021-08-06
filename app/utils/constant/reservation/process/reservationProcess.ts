@@ -35,7 +35,7 @@ for (let i = 0; i < 24; i++) {
 
 export const PROCESS_TEXT = {
 	UNIT: '예약 단위',
-	TIME: '에약 시간',
+	TIME: '예약 시간',
 	ALERT: '하루에 개인당 최대 한시간만 예약이 가능합니다',
 	SECTION_ADD: '세션 추가하기 (최대 2개)',
 	SUBMIT: '예약 확정하기',
