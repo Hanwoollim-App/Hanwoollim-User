@@ -1,11 +1,4 @@
-import React, {
-	MutableRefObject,
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { useState } from 'react';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -13,7 +6,6 @@ import {
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, StyleSheet, Text } from 'react-native';
-import LoginContext from '../../../../utils/context/LoginContext';
 import CustomBtn from '../../../common/CustomBtn';
 import color from '../../../../utils/constant/common/design/Color';
 import {
@@ -29,29 +21,8 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../../utils/constant/common/design/Responsive';
-import { loginInterface } from '../../../../utils/constant/login/login';
 import ScreenWrapper from '../../../common/ScreenWrapper';
 import { customBtnType } from '../../../../utils/types/customModal';
-
-const pickerSelectStyles = StyleSheet.create({
-	inputIOS: {
-		fontFamily: 'NotoSansKR-Regular',
-		fontSize: fontPercentage(10),
-		letterSpacing: 0,
-		textAlign: 'left',
-		color: '#000000',
-	},
-	inputAndroid: {
-		width: '100%',
-		height: '100%',
-		paddingVertical: 2, // 이 변수가 있어야 텍스트가 박스 안쪽으로 들어옴
-		fontSize: fontPercentage(12),
-		fontFamily: 'NotoSansKR-Regular',
-		letterSpacing: 0,
-		textAlign: 'center',
-		color: '#000000',
-	},
-});
 
 const styles = StyleSheet.create({
 	root: {
@@ -237,44 +208,10 @@ function ReservationProcess({ route }) {
 			buttonClickListener: returnToMain,
 		},
 	];
-	const login: loginInterface = useContext(LoginContext);
-	const [profile] = login.profile;
 
 	const [sectionInfoCount, setSectionInfoCount]: [number[], Function] =
 		useState([1]);
-	const [modalText, setModalText]: [string, Function] = useState('');
 
-	useEffect(() => {
-		if (modalText !== '') {
-			setModalVisible(true);
-		}
-	}, [modalText]);
-	const [date, setDate]: [Date, Function] = useState(new Date());
-	const unitRef: MutableRefObject<any> = useRef();
-	const timeRef: MutableRefObject<any> = useRef();
-	const sectionRef1: MutableRefObject<any> = useRef();
-	const sectionRef2: MutableRefObject<any> = useRef();
-	const sectionRef3: MutableRefObject<any> = useRef();
-	const sectionRefArray: Array<MutableRefObject<any>> = [
-		sectionRef1,
-		sectionRef2,
-		sectionRef3,
-	];
-	const onSectionAddBtnClickListener = useCallback(() => {
-		const newItem: number = sectionInfoCount.length + 1;
-
-		if (newItem === 4) return;
-		setSectionInfoCount((prev: number[]) => [...prev, newItem]);
-	}, []);
-	const onDayChangeListener = useCallback((value) => {
-		setDate((prev: Date) => {
-			const ret: Date = { ...prev };
-
-			ret.setDate(prev.getDate() - prev.getDay() + value);
-			return ret;
-		});
-	}, []);
-	const onsubmitBtnClickListener = useCallback(() => {}, []);
 	const currentWeek: any = route.params;
 
 	const [day, setDay] = useState('');
@@ -376,14 +313,6 @@ function ReservationProcess({ route }) {
 							/>
 						</View>
 					))}
-					{sectionInfoCount.length !== 3 && (
-						<CustomBtn
-							title={PROCESS_TEXT.SECTION_ADD}
-							onClickListener={onSectionAddBtnClickListener}
-							btnStyle={styles.sectionInfo__addBtn}
-							titleStyle={styles.sectionInfo__addBtn__Text}
-						/>
-					)}
 					<View style={styles.submit}>
 						<CustomBtn
 							title={PROCESS_TEXT.SUBMIT}
