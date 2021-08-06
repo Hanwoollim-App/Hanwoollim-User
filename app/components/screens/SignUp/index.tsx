@@ -5,14 +5,7 @@ import {
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {
-	View,
-	Text,
-	StyleSheet,
-	ScrollView,
-	Platform,
-	TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
