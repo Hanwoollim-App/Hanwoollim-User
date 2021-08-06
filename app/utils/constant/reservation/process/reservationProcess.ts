@@ -15,13 +15,13 @@ export const unitItems: Array<Item> = [
 	{ label: '팀', value: { itemValue: 'unit', num: 2 } },
 ];
 
-export const sectionItems = [
-	{ label: '기타1', value: { itemValue: 'session', sessionID: 1, num: 4 } },
-	{ label: '기타2', value: { itemValue: 'session', sessionID: 1, num: 2 } },
-	{ label: '베이스', value: { itemValue: 'session', sessionID: 1, num: 1 } },
-	{ label: '드럼', value: { itemValue: 'session', sessionID: 2, num: 4 } },
-	{ label: '건반', value: { itemValue: 'session', sessionID: 2, num: 2 } },
-	{ label: '보컬', value: { itemValue: 'session', sessionID: 2, num: 1 } },
+export const sectionItems: Array<Item> = [
+	{ label: '기타1', value: { itemValue: 'session', num: 1 } },
+	{ label: '기타2', value: { itemValue: 'session', num: 2 } },
+	{ label: '베이스', value: { itemValue: 'session', num: 3 } },
+	{ label: '드럼', value: { itemValue: 'session', num: 4 } },
+	{ label: '건반', value: { itemValue: 'session', num: 5 } },
+	{ label: '보컬', value: { itemValue: 'session', num: 6 } },
 ];
 
 export const timeItems: Array<Item> = [];
