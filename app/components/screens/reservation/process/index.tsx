@@ -6,9 +6,13 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, StyleSheet, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import LoginContext from '../../../../utils/context/LoginContext';
 import CustomBtn from '../../../common/CustomBtn';
 import color from '../../../../utils/constant/common/design/Color';
@@ -222,7 +226,10 @@ const styles = StyleSheet.create({
 });
 
 function ReservationProcess({ route }) {
-	const navigation = useNavigation();
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
+	const titleBtnListener: () => void = () => {
+		navigation.navigate('ReservationTimeTable');
+	};
 	const login: loginInterface = useContext(LoginContext);
 	const [profile] = login.profile;
 
@@ -282,19 +289,6 @@ function ReservationProcess({ route }) {
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
-			{/* <CustomModal
-				isVisible={modalVisible}
-				title={modalText}
-				firstButton={() => {
-					setModalVisible(false);
-					if (modalText === MODAL_TEXT.SUCCESS_TITLE) {
-						navigation.navigate('BottomTabNavigator', {
-							screen: 'Home',
-						});
-					}
-				}}
-				firstBtnTitle={MODAL_TEXT.BTN_TITLE}
-			/> */}
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
 					<View style={styles.dayPicker}>
@@ -384,7 +378,7 @@ function ReservationProcess({ route }) {
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={onsubmitBtnClickListener}
+							onClickListener={titleBtnListener}
 						/>
 					</View>
 				</View>
