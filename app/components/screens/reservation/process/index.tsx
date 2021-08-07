@@ -23,6 +23,7 @@ import {
 } from '../../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../../common/ScreenWrapper';
 import { customBtnType } from '../../../../utils/types/customModal';
+import { ItemType, ValueType } from '../../../../utils/types/dropDown';
 
 const styles = StyleSheet.create({
 	root: {
@@ -170,21 +171,26 @@ function ReservationProcess({ route }) {
 
 	const currentWeek: any = route.params;
 
-	const [day, setDay] = useState('');
-	const [dayOpen, setDayOpen] = useState(false);
-	const [dayItem, setDayItems] = useState(dayItems);
+	const [day, setDay]: [ValueType, (any) => void] = useState('');
+	const [dayOpen, setDayOpen]: [boolean, (boolean) => void] = useState(false);
+	const [dayItem, setDayItems]: [ItemType[], (any) => void] =
+		useState(dayItems);
 
-	const [unit, setUnit] = useState('');
-	const [unitOpen, setUnitOpen] = useState(false);
-	const [unitItem, setUnitItems] = useState(unitItems);
+	const [unit, setUnit]: [ValueType, (any) => void] = useState('');
+	const [unitOpen, setUnitOpen]: [boolean, (boolean) => void] = useState(false);
+	const [unitItem, setUnitItems]: [ItemType[], (any) => void] =
+		useState(unitItems);
 
-	const [time, setTime] = useState('');
-	const [timeOpen, setTimeOpen] = useState(false);
-	const [timeItem, setTimeItems] = useState(timeItems);
+	const [time, setTime]: [ValueType, (any) => void] = useState('');
+	const [timeOpen, setTimeOpen]: [boolean, (boolean) => void] = useState(false);
+	const [timeItem, setTimeItems]: [ItemType[], (any) => void] =
+		useState(timeItems);
 
-	const [section, setSection] = useState([]);
-	const [sectionOpen, setSectionOpen] = useState(false);
-	const [sectionItem, setSectionItems] = useState(sectionItems);
+	const [section, setSection]: [ValueType[], (any) => void] = useState([]);
+	const [sectionOpen, setSectionOpen]: [boolean, (boolean) => void] =
+		useState(false);
+	const [sectionItem, setSectionItems]: [ItemType[], (any) => void] =
+		useState(sectionItems);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
