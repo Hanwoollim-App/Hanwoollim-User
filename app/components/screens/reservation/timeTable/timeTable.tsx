@@ -12,7 +12,6 @@ import { customBtnType } from '../../../../utils/types/customModal';
 const styles = StyleSheet.create({
 	timeTable: {
 		width: widthPercentage(336),
-		marginBottom: heightPercentage(100),
 	},
 	dayColumns: {
 		height: heightPercentage(20),

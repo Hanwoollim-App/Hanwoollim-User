@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import {
+	TouchableOpacity,
+	View,
+	Text,
+	StyleSheet,
+	ScrollView,
+} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {
 	NavigationProp,
@@ -111,9 +117,9 @@ function ReservationTimeTable() {
 					<Text style={styles.reserveBtnText}>예약하기</Text>
 				</TouchableOpacity>
 			</View>
-			<View style={styles.timetable}>
+			<ScrollView style={styles.timetable}>
 				<TimeTable />
-			</View>
+			</ScrollView>
 		</ScreenWrapper>
 	);
 }
