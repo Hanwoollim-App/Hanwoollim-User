@@ -5,10 +5,11 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "tsc --noEmit && eslint \"**/**/*.{js,jsx,ts,tsx}\"",
-    "lint-fix": "tsc --noEmit && eslint \"*/**/*.{js,jsx,ts,tsx}\" --quiet --fix"
+    "lint-fix": "tsc --noEmit && eslint \"*/**/*.{js,jsx,ts,tsx}\" --quiet --fix",
+    "type-check": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
