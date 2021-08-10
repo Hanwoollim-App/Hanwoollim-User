@@ -1,5 +1,10 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 import React, { memo } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { fontPercentage } from '../../../utils/constant/common/design/Responsive';
@@ -30,11 +35,19 @@ const styles = StyleSheet.create({
 });
 
 function Notice() {
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+	const titleBtnListener = () => {
+		navigation.navigate('NoticeScreen');
+	};
+
 	return (
 		<View style={blockStyles.root}>
 			<View style={blockStyles.title}>
 				<Text style={blockStyles.titleText}>한울림 공지사항</Text>
-				<TouchableOpacity style={blockStyles.titleBtn}>
+				<TouchableOpacity
+					style={blockStyles.titleBtn}
+					onPress={titleBtnListener}>
 					<FontAwesomeIcon
 						size={fontPercentage(20)}
 						style={{

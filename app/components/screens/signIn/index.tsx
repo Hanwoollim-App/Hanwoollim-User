@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Image,
+	TouchableOpacity,
+	Platform,
+} from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -50,13 +57,19 @@ const styles = StyleSheet.create({
 		height: heightPercentage(53),
 		borderRadius: widthPercentage(21),
 		backgroundColor: '#00203f',
-		shadowColor: 'rgba(0, 0, 0, 0.16)',
-		shadowOffset: {
-			width: 0,
-			height: heightPercentage(3),
-		},
-		shadowRadius: widthPercentage(6),
-		shadowOpacity: 1,
+		...Platform.select({
+			ios: {
+				shadowColor: 'rgba(0, 0, 0, 0.16)',
+				shadowOffset: {
+					width: 0,
+					height: heightPercentage(3),
+				},
+				shadowRadius: widthPercentage(6),
+			},
+			android: {
+				elevation: 1,
+			},
+		}),
 		marginTop: heightPercentage(300),
 		alignItems: 'center',
 		justifyContent: 'center',
