@@ -1,22 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import {
-	NavigationProp,
-	ParamListBase,
-	useNavigation,
-} from '@react-navigation/native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import CustomHeader from '../../common/CustomHeader';
-import CustomStatusBar from '../../common/CustomStatusBar';
-import CustomBtn from '../../common/CustomBtn';
-import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import NoticeItem from '../notice/NoticeItem';
 import NoticeItemInterface from '../../../utils/types/noticeItem';
+import ScreenWrapper from '../../common/ScreenWrapper';
 
 const styles = StyleSheet.create({
 	root: {
@@ -25,7 +16,7 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		width: widthPercentage(335),
-		height: heightPercentage(600),
+		height: heightPercentage(660),
 		borderRadius: widthPercentage(10),
 		backgroundColor: '#ffffff',
 		marginTop: heightPercentage(15),
@@ -133,44 +124,21 @@ const renderSeparator = () => {
 	return <View style={styles.itemSeparator} />;
 };
 
-function Notice() {
-	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const icon = (
-		<FontAwesomeIcon style={{ color: 'white' }} icon={faChevronLeft} />
-	);
-
+function NoticeScreen() {
 	return (
-		<>
-			<CustomStatusBar />
-			<View style={styles.root}>
-				<CustomHeader
-					title={'공지사항'}
-					headerLeft
-					leftIcon={icon}
-					leftIconClickListener={navigation.goBack}
-				/>
-
-				<View style={styles.list}>
-					<FlatList
-						data={DATA}
-						renderItem={({ item: notice }: { item: NoticeItemInterface }) => (
-							<NoticeItem title={notice.title} date={notice.date} />
-						)}
-						keyExtractor={(item) => item.id}
-						ItemSeparatorComponent={renderSeparator}
-					/>
-				</View>
-				<CustomBtn
-					title={'공지사항 등록하기'}
-					titleStyle={styles.btnTextStyle}
-					btnStyle={styles.btnStyle}
-					onClickListener={() => {
-						navigation.navigate('NoticeNavigator', { screen: 'NoticeUpload' });
-					}}
+		<ScreenWrapper headerTitle="공지사항">
+			<View style={styles.list}>
+				<FlatList
+					data={DATA}
+					renderItem={({ item: notice }: { item: NoticeItemInterface }) => (
+						<NoticeItem title={notice.title} date={notice.date} />
+					)}
+					keyExtractor={(item) => item.id}
+					ItemSeparatorComponent={renderSeparator}
 				/>
 			</View>
-		</>
+		</ScreenWrapper>
 	);
 }
 
-export default Notice;
+export default NoticeScreen;

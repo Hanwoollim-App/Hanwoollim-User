@@ -12,12 +12,9 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
-
-import CustomHeader from '../../common/CustomHeader';
-import CustomStatusBar from '../../common/CustomStatusBar';
-import CustomBtn from '../../common/CustomBtn';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
+import ScreenWrapper from '../../common/ScreenWrapper';
 
 const styles = StyleSheet.create({
 	root: {
@@ -127,40 +124,25 @@ function NoticeDetail() {
 	];
 
 	return (
-		<>
-			<CustomStatusBar />
-			<View style={styles.root}>
-				<CustomModal
-					mdVisible={modalVisible}
-					title={'삭제되었습니다!'}
-					buttonList={modalBtn}
-				/>
-				<CustomHeader
-					title={'공지사항'}
-					headerLeft
-					leftIcon={icon}
-					leftIconClickListener={navigation.goBack}
-				/>
-				<View style={styles.titleBox}>
-					<Text style={styles.title}>한울림 공지사항</Text>
-					<View style={styles.titleRow}>
-						<Text style={styles.date}>2021.01.01</Text>
-						<Text style={styles.writer}>작성자 관리자</Text>
-					</View>
+		<ScreenWrapper headerTitle="공지사항">
+			<CustomModal
+				mdVisible={modalVisible}
+				title={'삭제되었습니다!'}
+				buttonList={modalBtn}
+			/>
+			<View style={styles.titleBox}>
+				<Text style={styles.title}>한울림 공지사항</Text>
+				<View style={styles.titleRow}>
+					<Text style={styles.date}>2021.01.01</Text>
+					<Text style={styles.writer}>작성자 관리자</Text>
 				</View>
-				<View style={styles.postBox}>
-					<View style={styles.post}>
-						<Text style={styles.postText}>ㅁㄴㅇㄹ</Text>
-					</View>
-				</View>
-				<CustomBtn
-					title={'삭제하기'}
-					titleStyle={styles.btnTextStyle}
-					btnStyle={styles.btnStyle}
-					onClickListener={changeVisible}
-				/>
 			</View>
-		</>
+			<View style={styles.postBox}>
+				<View style={styles.post}>
+					<Text style={styles.postText}>ㅁㄴㅇㄹ</Text>
+				</View>
+			</View>
+		</ScreenWrapper>
 	);
 }
 
