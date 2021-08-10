@@ -5,6 +5,7 @@ import {
 	Text,
 	StyleSheet,
 	ScrollView,
+	Platform,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {
@@ -33,6 +34,12 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		height: heightPercentage(66),
+		...Platform.select({
+			ios: {
+				zIndex: 1000,
+			},
+			android: {},
+		}),
 	},
 	picker: {
 		width: widthPercentage(162),
