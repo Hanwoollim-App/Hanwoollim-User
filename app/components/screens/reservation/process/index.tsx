@@ -5,7 +5,7 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Platform } from 'react-native';
 import CustomBtn from '../../../common/CustomBtn';
 import color from '../../../../utils/constant/common/design/Color';
 import {
@@ -38,7 +38,12 @@ const styles = StyleSheet.create({
 	row: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		zIndex: 100,
+		...Platform.select({
+			ios: {
+				zIndex: 100,
+			},
+			android: {},
+		}),
 	},
 	dayPicker: {
 		width: widthPercentage(154),
@@ -49,13 +54,23 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: heightPercentage(46),
 		marginTop: heightPercentage(20),
-		zIndex: 90,
+		...Platform.select({
+			ios: {
+				zIndex: 90,
+			},
+			android: {},
+		}),
 	},
 	reservationTimePicker: {
 		width: '100%',
 		height: heightPercentage(46),
 		marginTop: heightPercentage(20),
-		zIndex: 80,
+		...Platform.select({
+			ios: {
+				zIndex: 80,
+			},
+			android: {},
+		}),
 	},
 	contentContainer: {
 		alignItems: 'center',
@@ -68,12 +83,22 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: fontPercentage(1),
 		borderColor: '#bdbdbd',
-		zIndex: 10,
+		...Platform.select({
+			ios: {
+				zIndex: 10,
+			},
+			android: {},
+		}),
 	},
 	sectionInfo__form: {
 		flexDirection: 'row',
 		marginTop: heightPercentage(20),
-		zIndex: 50,
+		...Platform.select({
+			ios: {
+				zIndex: 50,
+			},
+			android: {},
+		}),
 	},
 	sectionInfo__alert__text: {
 		marginTop: heightPercentage(8),
@@ -201,7 +226,7 @@ function ReservationProcess({ route }) {
 			/>
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
-					<View style={styles.dayPicker}>
+					<View>
 						<DropDownPicker
 							open={dayOpen}
 							value={day}
@@ -214,6 +239,7 @@ function ReservationProcess({ route }) {
 							dropDownContainerStyle={styles.dropDownContainer}
 							placeholderStyle={styles.dropDownPlaceHolder}
 							placeholder="요일"
+							zIndex={10000}
 						/>
 					</View>
 					<Text style={styles.date}>{`${currentWeek}`}</Text>
@@ -236,6 +262,7 @@ function ReservationProcess({ route }) {
 							dropDownContainerStyle={styles.dropDownContainer}
 							placeholderStyle={styles.dropDownPlaceHolder}
 							placeholder={PROCESS_TEXT.UNIT}
+							zIndex={9000}
 						/>
 					</View>
 					<View style={styles.reservationTimePicker}>
@@ -251,6 +278,7 @@ function ReservationProcess({ route }) {
 							dropDownContainerStyle={styles.dropDownContainer}
 							placeholderStyle={styles.dropDownPlaceHolder}
 							placeholder={PROCESS_TEXT.TIME}
+							zIndex={8000}
 						/>
 					</View>
 					<Text style={styles.sectionInfo__alert__text}>
@@ -272,6 +300,7 @@ function ReservationProcess({ route }) {
 							dropDownContainerStyle={styles.dropDownContainer}
 							placeholderStyle={styles.dropDownPlaceHolder}
 							placeholder={PROCESS_TEXT.SECTION}
+							zIndex={7000}
 						/>
 					</View>
 					<View style={styles.submit}>
