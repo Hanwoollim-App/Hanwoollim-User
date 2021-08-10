@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import {
-	NavigationProp,
-	ParamListBase,
-	useNavigation,
-} from '@react-navigation/native';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
-import CustomModal from '../../common/CustomModal';
-import { customBtnType } from '../../../utils/types/customModal';
 import ScreenWrapper from '../../common/ScreenWrapper';
 
 const styles = StyleSheet.create({
@@ -103,33 +94,8 @@ const styles = StyleSheet.create({
 });
 
 function NoticeDetail() {
-	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const icon = (
-		<FontAwesomeIcon style={{ color: 'white' }} icon={faChevronLeft} />
-	);
-	const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
-	};
-
-	const returnToMain = () => {
-		navigation.navigate('HomeNavigator');
-	};
-	const modalBtn: Array<customBtnType> = [
-		{
-			buttonText: '확인',
-			buttonClickListener: returnToMain,
-		},
-	];
-
 	return (
 		<ScreenWrapper headerTitle="공지사항">
-			<CustomModal
-				mdVisible={modalVisible}
-				title={'삭제되었습니다!'}
-				buttonList={modalBtn}
-			/>
 			<View style={styles.titleBox}>
 				<Text style={styles.title}>한울림 공지사항</Text>
 				<View style={styles.titleRow}>
