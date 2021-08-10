@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Platform } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -32,13 +32,19 @@ const styles = StyleSheet.create({
 		height: heightPercentage(53),
 		borderRadius: widthPercentage(21),
 		backgroundColor: '#00203f',
-		shadowColor: 'rgba(0, 0, 0, 0.16)',
-		shadowOffset: {
-			width: 0,
-			height: heightPercentage(3),
-		},
-		shadowRadius: widthPercentage(6),
-		shadowOpacity: 1,
+		...Platform.select({
+			ios: {
+				shadowColor: 'rgba(0, 0, 0, 0.16)',
+				shadowOffset: {
+					width: 0,
+					height: heightPercentage(3),
+				},
+				shadowRadius: widthPercentage(6),
+			},
+			android: {
+				elevation: 1,
+			},
+		}),
 		marginTop: heightPercentage(18),
 		alignItems: 'center',
 		justifyContent: 'center',
