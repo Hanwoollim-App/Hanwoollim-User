@@ -24,11 +24,15 @@ import TimeTable from './timeTable';
 const styles = StyleSheet.create({
 	titleBlock: {
 		width: '95%',
+		alignItems: 'center',
+		height: heightPercentage(66),
+	},
+	row: {
+		width: '95%',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		height: heightPercentage(66),
-		zIndex: 100,
 	},
 	picker: {
 		width: widthPercentage(162),
@@ -73,11 +77,11 @@ const styles = StyleSheet.create({
 	},
 	dropDownContainer: {
 		borderRadius: widthPercentage(10),
+		minHeight: heightPercentage(50),
 		backgroundColor: '#ffffff',
 		borderColor: '#ffffff',
 	},
 	placeholder: { color: 'grey' },
-	timetable: { zIndex: 10 },
 });
 
 function ReservationTimeTable() {
@@ -96,8 +100,8 @@ function ReservationTimeTable() {
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
-			<View style={styles.titleBlock}>
-				<View style={styles.picker}>
+			<View style={styles.row}>
+				<View>
 					<DropDownPicker
 						open={open}
 						value={value}
@@ -117,7 +121,7 @@ function ReservationTimeTable() {
 					<Text style={styles.reserveBtnText}>예약하기</Text>
 				</TouchableOpacity>
 			</View>
-			<ScrollView style={styles.timetable}>
+			<ScrollView>
 				<TimeTable />
 			</ScrollView>
 		</ScreenWrapper>
