@@ -5,6 +5,7 @@ import LoginNavigator from './LoginNavigator';
 import BottomTabNavigator from './BottomTabNavigator';
 import NoticeNavigator from './NoticeNavigator';
 import NoticeScreen from '../screens/notice';
+import MyPage from '../screens/myPage';
 
 const MainStackNavigator = createStackNavigator();
 
@@ -36,6 +37,13 @@ function MainNavigator() {
 				<MainStackNavigator.Screen
 					name="NoticeScreen"
 					component={NoticeScreen}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<MainStackNavigator.Screen
+					name="MyPage"
+					component={MyPage}
 					options={{
 						headerShown: false,
 					}}

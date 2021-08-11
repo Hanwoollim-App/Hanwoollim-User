@@ -6,6 +6,11 @@ import {
 	View,
 	TouchableOpacity,
 } from 'react-native';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useAndroidBackHandler } from 'react-navigation-backhandler';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
@@ -63,12 +68,19 @@ function Home() {
 		BackHandler.exitApp();
 		return true;
 	});
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+	const myPageBtnListener = () => {
+		navigation.navigate('MyPage');
+	};
 
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
 				<Text style={styles.titleText}>{tempValue.userName} 님</Text>
-				<TouchableOpacity style={styles.titleSetting}>
+				<TouchableOpacity
+					style={styles.titleSetting}
+					onPress={myPageBtnListener}>
 					{settingIcon}
 				</TouchableOpacity>
 			</View>
