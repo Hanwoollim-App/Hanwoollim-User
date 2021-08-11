@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import CustomModal from '../../common/CustomModal';
+import { customBtnType } from '../../../utils/types/customModal';
 
 const styles = StyleSheet.create({
 	nameBlock: {
@@ -77,8 +84,35 @@ const styles = StyleSheet.create({
 });
 
 function MyPage() {
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
+	const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+	const changeVisible = () => {
+		setModalVisible(!modalVisible);
+	};
+
+	const returnToLogin = () => {
+		navigation.navigate('Login');
+	};
+	const modalBtn: Array<customBtnType> = [
+		{
+			buttonText: '네',
+			buttonClickListener: returnToLogin,
+		},
+		{
+			buttonText: '취소',
+			buttonClickListener: changeVisible,
+		},
+	];
+
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
+			<CustomModal
+				mdVisible={modalVisible}
+				title={'정말 탈퇴하시겠습니까?'}
+				subtitle="탈퇴 후 기존 정보 복구는 불가합니다"
+				buttonList={modalBtn}
+			/>
 			<View style={styles.nameBlock}>
 				<View style={styles.titleTextBlock}>
 					<Text style={styles.hello}>안녕하세요,</Text>
@@ -103,7 +137,7 @@ function MyPage() {
 						</TouchableOpacity>
 					</View>
 					<View style={styles.btnTextBlock}>
-						<TouchableOpacity>
+						<TouchableOpacity onPress={changeVisible}>
 							<Text style={styles.btnText}>{'회원탈퇴하기 >'}</Text>
 						</TouchableOpacity>
 					</View>
