@@ -10,7 +10,7 @@ import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
 import InfoEditForm from './Form';
-import { majorItem } from '../../../utils/constant/login/majorItem';
+import majorItem from '../../../utils/constant/login/majorItem';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -152,8 +152,7 @@ function infoEdit() {
 	};
 
 	const [major, setMajor]: [ValueType, (any) => void] = useState('');
-	const [open, setOpen]: [boolean, (boolean) => void] =
-		useState<boolean>(false);
+	const [open, setOpen]: [boolean, (boolean) => void] = useState(false);
 	const [items, setItems]: [ItemType[], (any) => void] = useState(majorItem);
 
 	return (

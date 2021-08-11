@@ -18,6 +18,7 @@ import {
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import majorItem from '../../../utils/constant/login/majorItem';
+import { ItemType, ValueType } from '../../../utils/types/dropDown';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -152,9 +153,9 @@ function SignUp() {
 		navigation.navigate('NotApproved');
 	};
 
-	const [major, setMajor] = useState('');
-	const [open, setOpen] = useState(false);
-	const [items, setItems] = useState(majorItem);
+	const [major, setMajor]: [ValueType, (any) => void] = useState('');
+	const [open, setOpen]: [boolean, (boolean) => void] = useState(false);
+	const [items, setItems]: [ItemType[], (any) => void] = useState(majorItem);
 
 	return (
 		<ScreenWrapper>
