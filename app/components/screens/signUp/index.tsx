@@ -17,6 +17,7 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import majorItem from '../../../utils/constant/login/majorItem';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -153,12 +154,7 @@ function SignUp() {
 
 	const [major, setMajor] = useState('');
 	const [open, setOpen] = useState(false);
-	const [items, setItems] = useState([
-		{ label: '정보시스템학과', value: '정보시스템학과' },
-		{ label: '기계공학부', value: '기계공학부' },
-		{ label: '컴퓨터소프트웨어학부', value: '컴퓨터소프트웨어학부' },
-		{ label: '융합전자공학부', value: '융합전자공학부' },
-	]);
+	const [items, setItems] = useState(majorItem);
 
 	return (
 		<ScreenWrapper>

@@ -10,13 +10,14 @@ import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
 import InfoEditForm from './Form';
-
+import { majorItem } from '../../../utils/constant/login/majorItem';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import { ItemType, ValueType } from '../../../utils/types/dropDown';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -150,14 +151,10 @@ function infoEdit() {
 		navigation.navigate('MyPage');
 	};
 
-	const [major, setMajor] = useState<string>('');
-	const [open, setOpen] = useState<boolean>(false);
-	const [items, setItems] = useState([
-		{ label: '정보시스템학과', value: '정보시스템학과' },
-		{ label: '기계공학부', value: '기계공학부' },
-		{ label: '컴퓨터소프트웨어학부', value: '컴퓨터소프트웨어학부' },
-		{ label: '융합전자공학부', value: '융합전자공학부' },
-	]);
+	const [major, setMajor]: [ValueType, (any) => void] = useState('');
+	const [open, setOpen]: [boolean, (boolean) => void] =
+		useState<boolean>(false);
+	const [items, setItems]: [ItemType[], (any) => void] = useState(majorItem);
 
 	return (
 		<ScreenWrapper>
