@@ -6,6 +6,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import NoticeNavigator from './NoticeNavigator';
 import NoticeScreen from '../screens/notice';
 import MyPage from '../screens/myPage';
+import infoEdit from '../screens/myPage/infoEdit';
 
 const MainStackNavigator = createStackNavigator();
 
@@ -44,6 +45,13 @@ function MainNavigator() {
 				<MainStackNavigator.Screen
 					name="MyPage"
 					component={MyPage}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<MainStackNavigator.Screen
+					name="infoEdit"
+					component={infoEdit}
 					options={{
 						headerShown: false,
 					}}

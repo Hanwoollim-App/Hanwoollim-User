@@ -94,6 +94,10 @@ function MyPage() {
 	const returnToLogin = () => {
 		navigation.navigate('Login');
 	};
+	const infoEdit = () => {
+		navigation.navigate('infoEdit');
+	};
+
 	const modalBtn: Array<customBtnType> = [
 		{
 			buttonText: '네',
@@ -132,7 +136,7 @@ function MyPage() {
 			<View style={styles.btnBlock}>
 				<View style={styles.btnBlock2}>
 					<View style={styles.btnTextBlock}>
-						<TouchableOpacity>
+						<TouchableOpacity onPress={infoEdit}>
 							<Text style={styles.btnText}>{'개인정보수정 >'}</Text>
 						</TouchableOpacity>
 					</View>
