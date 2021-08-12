@@ -155,7 +155,7 @@ function SignUp() {
 
 	const [major, setMajor] = useState<ValueType>('');
 	const [open, setOpen] = useState<boolean>(false);
-	const [items, setItems] = useState<ItemType[]>(majorItem);
+	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	return (
 		<ScreenWrapper>

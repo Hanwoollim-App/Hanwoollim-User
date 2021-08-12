@@ -198,19 +198,20 @@ function ReservationProcess({ route }) {
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
-	const [dayItem, setDayItems] = useState<ItemType[]>(dayItems);
+	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
 	const [unit, setUnit] = useState<ValueType>('');
 	const [unitOpen, setUnitOpen] = useState<boolean>(false);
-	const [unitItem, setUnitItems] = useState<ItemType[]>(unitItems);
+	const [unitItem, setUnitItems] = useState<Array<ItemType>>(unitItems);
 
 	const [time, setTime] = useState<ValueType>('');
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
-	const [timeItem, setTimeItems] = useState<ItemType[]>(timeItems);
+	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
 	const [section, setSection] = useState<ValueType[]>([]);
 	const [sectionOpen, setSectionOpen] = useState<boolean>(false);
-	const [sectionItem, setSectionItems] = useState<ItemType[]>(sectionItems);
+	const [sectionItem, setSectionItems] =
+		useState<Array<ItemType>>(sectionItems);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
