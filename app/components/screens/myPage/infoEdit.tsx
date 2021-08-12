@@ -9,15 +9,14 @@ import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
-import SignUpForm from './Form';
-
+import InfoEditForm from './Form';
+import majorItem from '../../../utils/constant/login/majorItem';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
-import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
 
 const styles = StyleSheet.create({
@@ -49,7 +48,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	introText: {
-		marginTop: heightPercentage(40),
+		marginTop: heightPercentage(59),
+		marginBottom: heightPercentage(34),
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(15),
 		lineHeight: fontPercentage(20),
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(13),
 		lineHeight: fontPercentage(18),
+		marginTop: heightPercentage(160),
 		letterSpacing: 0,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
 	signUp: {
 		width: '77.3%',
 		height: heightPercentage(53),
-		marginTop: heightPercentage(33),
+		marginTop: heightPercentage(32),
 		borderRadius: fontPercentage(15),
 		backgroundColor: color.mainColor,
 		...Platform.select({
@@ -141,16 +142,13 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignUp() {
+function infoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName]: [string, Function] = useState('');
-	const [id, setId]: [string, Function] = useState('');
-	const [pw, setPw]: [string, Function] = useState('');
-	const [pwCheck, setPwCheck]: [string, Function] = useState('');
 	const [studentID, setStudentID]: [string, Function] = useState('');
 
-	const signUpBtnClickListener = () => {
-		navigation.navigate('NotApproved');
+	const infoEditBtnClickListener = () => {
+		navigation.navigate('MyPage');
 	};
 
 	const [major, setMajor]: [ValueType, (any) => void] = useState('');
@@ -162,24 +160,11 @@ function SignUp() {
 			<ScrollView
 				style={styles.scrollView}
 				contentContainerStyle={styles.scrollContent}>
-				<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
+				<Text style={styles.introText}>
+					{'뭔가가 바뀌었나요?\n바뀐 내용을 적어주세요!!'}
+				</Text>
 				<View style={styles.middleEmpty} />
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.id}
-					inputChangeListener={(value: string) => setId(value)}
-					defaultValue={id}
-				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pw}
-					inputChangeListener={(value: string) => setPw(value)}
-					defaultValue={pw}
-				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
-					inputChangeListener={(value: string) => setPwCheck(value)}
-					defaultValue={pwCheck}
-				/>
-				<SignUpForm
+				<InfoEditForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
 					inputChangeListener={(value: string) => setName(value)}
 					defaultValue={name}
@@ -197,7 +182,7 @@ function SignUp() {
 					placeholderStyle={styles.dropDownPlaceHolder}
 					placeholder="전공"
 				/>
-				<SignUpForm
+				<InfoEditForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
 					inputChangeListener={(value: string) => setStudentID(value)}
 					defaultValue={studentID}
@@ -205,8 +190,8 @@ function SignUp() {
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
 				<CustomBtn
-					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
-					onClickListener={signUpBtnClickListener}
+					title={'정보 수정하기'}
+					onClickListener={infoEditBtnClickListener}
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
 				/>
@@ -215,4 +200,4 @@ function SignUp() {
 	);
 }
 
-export default SignUp;
+export default infoEdit;
