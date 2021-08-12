@@ -3,6 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginNavigator from './LoginNavigator';
 import BottomTabNavigator from './BottomTabNavigator';
+import NoticeNavigator from './NoticeNavigator';
+import NoticeScreen from '../screens/notice';
+import MyPage from '../screens/myPage';
+import infoEdit from '../screens/myPage/infoEdit';
 
 const MainStackNavigator = createStackNavigator();
 
@@ -24,7 +28,34 @@ function MainNavigator() {
 						headerShown: false,
 					}}
 				/>
-				{/* <UserInfoStackNavigator/>  추후에 추가 예정*/}
+				<MainStackNavigator.Screen
+					name="NoticeNavigator"
+					component={NoticeNavigator}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<MainStackNavigator.Screen
+					name="NoticeScreen"
+					component={NoticeScreen}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<MainStackNavigator.Screen
+					name="MyPage"
+					component={MyPage}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<MainStackNavigator.Screen
+					name="infoEdit"
+					component={infoEdit}
+					options={{
+						headerShown: false,
+					}}
+				/>
 			</MainStackNavigator.Navigator>
 		</NavigationContainer>
 	);
