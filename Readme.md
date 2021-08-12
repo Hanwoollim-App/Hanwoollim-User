@@ -6,9 +6,10 @@
 * Hook
 ------
 ## 기능
+* 공지사항
 * 연습실 예약 
-* 번개 모임 (가칭)
-* 게시판 (가칭)
+* 번개 모임 (준비중)
+* 게시판 (준비중)
 -----
 ## Folder Structure
 ```
@@ -46,6 +47,8 @@ app
 MainNavigator
 ├─ LoginNavigator
 │      ├ Login
+│      ├ NotApproved
+│      ├ SignIn 
 │      └ SignUp    
 ├─ BottomTabNavigator
 │      ├ Home
@@ -54,7 +57,11 @@ MainNavigator
 │      │        ├ ReservationTimeTable
 │      │        └ ReservationProcess
 │      └ Board
-└ UserInfoStackNavigator
+├─ NoticeNavigator
+│      └ NoticeDetail
+├─ NoticeScreen
+├─ MyPage
+└── infoEdit
 ```
 ## License
 * All copyrights belongs to Hanwoollim
