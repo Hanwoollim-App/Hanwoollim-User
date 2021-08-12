@@ -196,26 +196,21 @@ function ReservationProcess({ route }) {
 
 	const currentWeek: any = route.params;
 
-	const [day, setDay]: [ValueType, (any) => void] = useState('');
-	const [dayOpen, setDayOpen]: [boolean, (boolean) => void] = useState(false);
-	const [dayItem, setDayItems]: [ItemType[], (any) => void] =
-		useState(dayItems);
+	const [day, setDay] = useState<ValueType>('');
+	const [dayOpen, setDayOpen] = useState<boolean>(false);
+	const [dayItem, setDayItems] = useState<ItemType[]>(dayItems);
 
-	const [unit, setUnit]: [ValueType, (any) => void] = useState('');
-	const [unitOpen, setUnitOpen]: [boolean, (boolean) => void] = useState(false);
-	const [unitItem, setUnitItems]: [ItemType[], (any) => void] =
-		useState(unitItems);
+	const [unit, setUnit] = useState<ValueType>('');
+	const [unitOpen, setUnitOpen] = useState<boolean>(false);
+	const [unitItem, setUnitItems] = useState<ItemType[]>(unitItems);
 
-	const [time, setTime]: [ValueType, (any) => void] = useState('');
-	const [timeOpen, setTimeOpen]: [boolean, (boolean) => void] = useState(false);
-	const [timeItem, setTimeItems]: [ItemType[], (any) => void] =
-		useState(timeItems);
+	const [time, setTime] = useState<ValueType>('');
+	const [timeOpen, setTimeOpen] = useState<boolean>(false);
+	const [timeItem, setTimeItems] = useState<ItemType[]>(timeItems);
 
-	const [section, setSection]: [ValueType[], (any) => void] = useState([]);
-	const [sectionOpen, setSectionOpen]: [boolean, (boolean) => void] =
-		useState(false);
-	const [sectionItem, setSectionItems]: [ItemType[], (any) => void] =
-		useState(sectionItems);
+	const [section, setSection] = useState<ValueType[]>([]);
+	const [sectionOpen, setSectionOpen] = useState<boolean>(false);
+	const [sectionItem, setSectionItems] = useState<ItemType[]>(sectionItems);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">

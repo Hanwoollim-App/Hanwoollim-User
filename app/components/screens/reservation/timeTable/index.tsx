@@ -96,9 +96,9 @@ function ReservationTimeTable() {
 	const reserveBtnListener = () => {
 		navigation.navigate('ReservationProcess');
 	};
-	const [open, setOpen]: [boolean, (boolean) => void] = useState(false);
-	const [value, setValue]: [ValueType, (any) => void] = useState(null);
-	const [items, setItems]: [ItemType[], (any) => void] = useState([
+	const [open, setOpen] = useState<boolean>(false);
+	const [value, setValue] = useState<ValueType>(null);
+	const [items, setItems] = useState<ItemType[]>([
 		{ label: '6.28~7.4', value: '6.28~7.4' },
 		{ label: '7.4~7.11', value: '7.4~7.11' },
 		{ label: '7.11~7.18', value: '7.11~7.18' },

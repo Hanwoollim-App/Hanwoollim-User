@@ -143,19 +143,19 @@ const styles = StyleSheet.create({
 
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [name, setName]: [string, Function] = useState('');
-	const [id, setId]: [string, Function] = useState('');
-	const [pw, setPw]: [string, Function] = useState('');
-	const [pwCheck, setPwCheck]: [string, Function] = useState('');
-	const [studentID, setStudentID]: [string, Function] = useState('');
+	const [name, setName] = useState<string>('');
+	const [id, setId] = useState<string>('');
+	const [pw, setPw] = useState<string>('');
+	const [pwCheck, setPwCheck] = useState<string>('');
+	const [studentID, setStudentID] = useState<string>('');
 
 	const signUpBtnClickListener = () => {
 		navigation.navigate('NotApproved');
 	};
 
-	const [major, setMajor]: [ValueType, (any) => void] = useState('');
-	const [open, setOpen]: [boolean, (boolean) => void] = useState(false);
-	const [items, setItems]: [ItemType[], (any) => void] = useState(majorItem);
+	const [major, setMajor] = useState<ValueType>('');
+	const [open, setOpen] = useState<boolean>(false);
+	const [items, setItems] = useState<ItemType[]>(majorItem);
 
 	return (
 		<ScreenWrapper>
