@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const headerLogo = require('../../../assets/images/textLogo_light.png');
-	const [id, setId]: [string, Function] = useState('');
-	const [pw, setPw]: [string, Function] = useState('');
+	const [id, setId] = useState<string>('');
+	const [pw, setPw] = useState<string>('');
 
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
 

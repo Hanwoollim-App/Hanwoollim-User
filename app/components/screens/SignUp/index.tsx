@@ -17,6 +17,8 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import majorItem from '../../../utils/constant/login/majorItem';
+import { ItemType, ValueType } from '../../../utils/types/dropDown';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -141,24 +143,19 @@ const styles = StyleSheet.create({
 
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [name, setName]: [string, Function] = useState('');
-	const [id, setId]: [string, Function] = useState('');
-	const [pw, setPw]: [string, Function] = useState('');
-	const [pwCheck, setPwCheck]: [string, Function] = useState('');
-	const [studentID, setStudentID]: [string, Function] = useState('');
+	const [name, setName] = useState<string>('');
+	const [id, setId] = useState<string>('');
+	const [pw, setPw] = useState<string>('');
+	const [pwCheck, setPwCheck] = useState<string>('');
+	const [studentID, setStudentID] = useState<string>('');
 
 	const signUpBtnClickListener = () => {
 		navigation.navigate('NotApproved');
 	};
 
-	const [major, setMajor] = useState('');
-	const [open, setOpen] = useState(false);
-	const [items, setItems] = useState([
-		{ label: '정보시스템학과', value: '정보시스템학과' },
-		{ label: '기계공학부', value: '기계공학부' },
-		{ label: '컴퓨터소프트웨어학부', value: '컴퓨터소프트웨어학부' },
-		{ label: '융합전자공학부', value: '융합전자공학부' },
-	]);
+	const [major, setMajor] = useState<ValueType>('');
+	const [open, setOpen] = useState<boolean>(false);
+	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	return (
 		<ScreenWrapper>

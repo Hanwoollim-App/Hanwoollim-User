@@ -144,16 +144,16 @@ const styles = StyleSheet.create({
 
 function infoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [name, setName]: [string, Function] = useState('');
-	const [studentID, setStudentID]: [string, Function] = useState('');
+	const [name, setName] = useState<string>('');
+	const [studentID, setStudentID] = useState<string>('');
 
 	const infoEditBtnClickListener = () => {
 		navigation.navigate('MyPage');
 	};
 
-	const [major, setMajor]: [ValueType, (any) => void] = useState('');
-	const [open, setOpen]: [boolean, (boolean) => void] = useState(false);
-	const [items, setItems]: [ItemType[], (any) => void] = useState(majorItem);
+	const [major, setMajor] = useState<ValueType>('');
+	const [open, setOpen] = useState<boolean>(false);
+	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	return (
 		<ScreenWrapper>
