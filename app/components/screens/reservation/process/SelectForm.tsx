@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 		marginLeft: widthPercentage(40),
 	},
 	form__title__text: {
-		fontFamily: 'KoreanYNSJG4',
+		fontFamily: 'NotoSansKR-Regular',
 		fontSize: fontPercentage(13),
 		fontWeight: 'normal',
 		fontStyle: 'normal',

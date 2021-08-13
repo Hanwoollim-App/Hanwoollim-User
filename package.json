@@ -5,10 +5,11 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "tsc --noEmit && eslint \"**/**/*.{js,jsx,ts,tsx}\"",
-    "lint-fix": "tsc --noEmit && eslint \"*/**/*.{js,jsx,ts,tsx}\" --quiet --fix"
+    "lint-fix": "tsc --noEmit && eslint \"*/**/*.{js,jsx,ts,tsx}\" --quiet --fix",
+    "type-check": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
@@ -16,7 +17,6 @@
     "@fortawesome/react-native-fontawesome": "^0.2.6",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-picker/picker": "^1.9.10",
-    "@react-native-seoul/kakao-login": "^3.3.2",
     "@react-navigation/material-bottom-tabs": "^5.3.11",
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
@@ -25,6 +25,7 @@
     "eslint-config-prettier": "^8.3.0",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-dropdown-picker": "^5.1.23",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-paper": "^4.7.0",
     "react-native-picker-select": "^8.0.4",
@@ -33,6 +34,7 @@
     "react-native-responsive-fontsize": "^0.5.0",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.1",
+    "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^8.0.0",
     "react-navigation-backhandler": "^2.0.1"
