@@ -21,6 +21,7 @@ import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
 import api from '../../../utils/constant/api';
 import CustomModal from '../../common/CustomModal';
+import { customBtnType } from '../../../utils/types/customModal';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -162,6 +163,22 @@ function SignUp() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
+	const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+	const changeVisible = () => {
+		setModalVisible(!modalVisible);
+	};
+
+	const returnToMain = () => {
+		setModalVisible(!modalVisible);
+	};
+	const modalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: returnToMain,
+		},
+	];
+
 	const signUpBtnClickListener = () => {
 		api
 			.post('/user/signup', {
@@ -177,11 +194,17 @@ function SignUp() {
 			})
 			.catch((err) => {
 				console.log(err.response.data.message);
+				changeVisible();
 			});
 	};
 
 	return (
 		<ScreenWrapper>
+			<CustomModal
+				mdVisible={modalVisible}
+				title={'아이디가 중복됩니다'}
+				buttonList={modalBtn}
+			/>
 			<ScrollView
 				style={styles.scrollView}
 				contentContainerStyle={styles.scrollContent}>
