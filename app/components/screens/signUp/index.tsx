@@ -143,6 +143,14 @@ const styles = StyleSheet.create({
 	},
 });
 
+/*
+	방어로직 만들어야 하는것
+	1) 학번이 10자리 체크
+	2) pw 랑 pwCheck 이 같은지 체크
+	3) 학번의 시작 4자리가 현재 년도보다 큰지 체크
+	4) 빠짐없이 입력했는지 체크	
+*/
+
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName] = useState<string>('');
@@ -168,7 +176,7 @@ function SignUp() {
 				navigation.navigate('NotApproved');
 			})
 			.catch((err) => {
-				console.log(err);
+				console.log(err.response.data.message);
 			});
 	};
 
