@@ -193,8 +193,10 @@ function SignUp() {
 				navigation.navigate('NotApproved');
 			})
 			.catch((err) => {
-				console.log(err.response.data.message);
-				changeVisible();
+				console.log(err.response);
+				if (err.response.status === 400) {
+					changeVisible();
+				}
 			});
 	};
 
