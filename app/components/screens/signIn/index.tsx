@@ -23,6 +23,7 @@ import CustomBtn from '../../common/CustomBtn';
 import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
+import api from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -108,7 +109,19 @@ function SignIn() {
 	];
 
 	const signInBtnClickListener = () => {
-		navigation.navigate('BottomTabNavigator');
+		api
+			.post('/user/signin', {
+				id,
+				password: pw,
+			})
+			.then((res) => {
+				if (res.data.position === 'not_approved') {
+					navigation.navigate('NotApproved');
+				}
+			})
+			.catch((err) => {
+				console.log(err.response);
+			});
 	};
 
 	return (
@@ -139,6 +152,7 @@ function SignIn() {
 						placeholder={'비밀번호'}
 						inputChangeListener={(value: string) => setPw(value)}
 						defaultValue={pw}
+						isSecureInput
 					/>
 					<TouchableOpacity onPress={changeVisible}>
 						<Text>로그인 실패</Text>

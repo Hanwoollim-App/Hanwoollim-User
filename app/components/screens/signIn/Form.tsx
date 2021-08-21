@@ -10,6 +10,7 @@ interface signUpFormProps {
 	placeholder: string;
 	inputChangeListener: Function;
 	defaultValue: string;
+	isSecureInput?: boolean;
 }
 const styles = StyleSheet.create({
 	input: {
@@ -34,6 +35,7 @@ function SignInForm({
 	placeholder,
 	inputChangeListener,
 	defaultValue,
+	isSecureInput = false,
 }: signUpFormProps) {
 	return (
 		<TextInput
@@ -42,6 +44,7 @@ function SignInForm({
 			value={defaultValue}
 			placeholder={placeholder}
 			placeholderTextColor="#a2a2a2"
+			secureTextEntry={isSecureInput}
 		/>
 	);
 }
