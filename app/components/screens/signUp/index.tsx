@@ -163,6 +163,12 @@ function SignUp() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
+	const [idOverlapErrorModalVisible, setIdOverlapErrorModalVisible] =
+		useState<boolean>(false);
+	const [
+		studentIdOverlapErrorModalVisible,
+		setStudentIdOverlapErrorModalVisible,
+	] = useState<boolean>(false);
 	const [idErrorModalVisible, setIdErrorModalVisible] =
 		useState<boolean>(false);
 	const [pwErrorModalVisible, setPwErrorModalVisible] =
@@ -178,6 +184,12 @@ function SignUp() {
 	const [majorLengthErrorModalVisible, setMajorLengthErrorModalVisible] =
 		useState<boolean>(false);
 
+	const idOverlapErrorChangeVisible = () => {
+		setIdOverlapErrorModalVisible(!idOverlapErrorModalVisible);
+	};
+	const studentIdOverlapErrorChangeVisible = () => {
+		setStudentIdOverlapErrorModalVisible(!studentIdOverlapErrorModalVisible);
+	};
 	const idErrorChangeVisible = () => {
 		setIdErrorModalVisible(!idErrorModalVisible);
 	};
@@ -201,6 +213,8 @@ function SignUp() {
 	};
 
 	const returnToMain = () => {
+		setIdOverlapErrorModalVisible(false);
+		setStudentIdOverlapErrorModalVisible(false);
 		setIdErrorModalVisible(false);
 		setPwErrorModalVisible(false);
 		setPwCheckErrorModalVisible(false);
@@ -232,12 +246,20 @@ function SignUp() {
 			.catch((err) => {
 				console.log(err.response);
 				if (err.response.status === 400) {
-					idErrorChangeVisible();
+					if (err.response.data.message === 'Failed! ID is already in use!')
+						idOverlapErrorChangeVisible();
+					if (
+						err.response.data.message ===
+						'Failed! Student Id is already in use!'
+					)
+						studentIdOverlapErrorChangeVisible();
 				}
 				if (pwCheck !== pw) {
 					pwCheckErrorChangeVisible();
 				}
 				if (err.response.status === 500) {
+					if (err.response.data.message === '아이디 입력하세요')
+						idErrorChangeVisible();
 					if (err.response.data.message === '이름을 입력하세요')
 						nameErrorChangeVisible();
 					if (err.response.data.message === '전공을 입력하세요')
@@ -256,8 +278,13 @@ function SignUp() {
 	return (
 		<ScreenWrapper>
 			<CustomModal
-				mdVisible={idErrorModalVisible}
-				title={'아이디 또는 학번이 중복됩니다'}
+				mdVisible={idOverlapErrorModalVisible}
+				title={'아이디가 중복됩니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={studentIdOverlapErrorModalVisible}
+				title={'학번이 중복됩니다'}
 				buttonList={modalBtn}
 			/>
 			<CustomModal
@@ -268,6 +295,11 @@ function SignUp() {
 			<CustomModal
 				mdVisible={pwCheckErrorModalVisible}
 				title={'비밀번호가 같지 않습니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={idErrorModalVisible}
+				title={'아이디를 입력해주세요'}
 				buttonList={modalBtn}
 			/>
 			<CustomModal
