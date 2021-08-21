@@ -5,7 +5,7 @@ import {
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
@@ -47,8 +47,6 @@ const styles = StyleSheet.create({
 	},
 	scrollView: {
 		width: '100%',
-	},
-	scrollContent: {
 		alignItems: 'center',
 	},
 	introText: {
@@ -322,9 +320,7 @@ function SignUp() {
 				title={'학번은 10자리입니다!'}
 				buttonList={modalBtn}
 			/>
-			<ScrollView
-				style={styles.scrollView}
-				contentContainerStyle={styles.scrollContent}>
+			<View style={styles.scrollView}>
 				<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
 				<View style={styles.middleEmpty} />
 				<SignUpForm
@@ -375,7 +371,7 @@ function SignUp() {
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
 				/>
-			</ScrollView>
+			</View>
 		</ScreenWrapper>
 	);
 }
