@@ -163,14 +163,51 @@ function SignUp() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
-	const [modalVisible, setModalVisible] = useState<boolean>(false);
+	const [idErrorModalVisible, setIdErrorModalVisible] =
+		useState<boolean>(false);
+	const [pwErrorModalVisible, setPwErrorModalVisible] =
+		useState<boolean>(false);
+	const [pwCheckErrorModalVisible, setPwCheckErrorModalVisible] =
+		useState<boolean>(false);
+	const [nameErrorModalVisible, setNameErrorModalVisible] =
+		useState<boolean>(false);
+	const [majorErrorModalVisible, setMajorErrorModalVisible] =
+		useState<boolean>(false);
+	const [studentIdErrorModalVisible, setStudentIdErrorModalVisible] =
+		useState<boolean>(false);
+	const [majorLengthErrorModalVisible, setMajorLengthErrorModalVisible] =
+		useState<boolean>(false);
 
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
+	const idErrorChangeVisible = () => {
+		setIdErrorModalVisible(!idErrorModalVisible);
+	};
+	const pwErrorChangeVisible = () => {
+		setPwErrorModalVisible(!pwErrorModalVisible);
+	};
+	const pwCheckErrorChangeVisible = () => {
+		setPwCheckErrorModalVisible(!pwCheckErrorModalVisible);
+	};
+	const nameErrorChangeVisible = () => {
+		setNameErrorModalVisible(!nameErrorModalVisible);
+	};
+	const majorErrorChangeVisible = () => {
+		setMajorErrorModalVisible(!majorErrorModalVisible);
+	};
+	const studentIdErrorChangeVisible = () => {
+		setStudentIdErrorModalVisible(!studentIdErrorModalVisible);
+	};
+	const majorLengthErrorChangeVisible = () => {
+		setMajorLengthErrorModalVisible(!majorLengthErrorModalVisible);
 	};
 
 	const returnToMain = () => {
-		setModalVisible(!modalVisible);
+		setIdErrorModalVisible(false);
+		setPwErrorModalVisible(false);
+		setPwCheckErrorModalVisible(false);
+		setNameErrorModalVisible(false);
+		setMajorErrorModalVisible(false);
+		setStudentIdErrorModalVisible(false);
+		setMajorLengthErrorModalVisible(false);
 	};
 	const modalBtn: Array<customBtnType> = [
 		{
@@ -195,7 +232,23 @@ function SignUp() {
 			.catch((err) => {
 				console.log(err.response);
 				if (err.response.status === 400) {
-					changeVisible();
+					idErrorChangeVisible();
+				}
+				if (pwCheck !== pw) {
+					pwCheckErrorChangeVisible();
+				}
+				if (err.response.status === 500) {
+					if (err.response.data.message === '이름을 입력하세요')
+						nameErrorChangeVisible();
+					if (err.response.data.message === '전공을 입력하세요')
+						majorErrorChangeVisible();
+					if (err.response.data.message === '비밀번호를 입력하세요')
+						pwErrorChangeVisible();
+					if (err.response.data.message === '학번를 입력하세요')
+						studentIdErrorChangeVisible();
+				}
+				if (studentID.length !== 10) {
+					majorLengthErrorChangeVisible();
 				}
 			});
 	};
@@ -203,8 +256,38 @@ function SignUp() {
 	return (
 		<ScreenWrapper>
 			<CustomModal
-				mdVisible={modalVisible}
-				title={'아이디가 중복됩니다'}
+				mdVisible={idErrorModalVisible}
+				title={'아이디 또는 학번이 중복됩니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={pwErrorModalVisible}
+				title={'비밀번호를 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={pwCheckErrorModalVisible}
+				title={'비밀번호가 같지 않습니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={nameErrorModalVisible}
+				title={'이름을 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={majorErrorModalVisible}
+				title={'전공을 선택해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={studentIdErrorModalVisible}
+				title={'학번을 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={majorLengthErrorModalVisible}
+				title={'학번은 10자리입니다!'}
 				buttonList={modalBtn}
 			/>
 			<ScrollView
