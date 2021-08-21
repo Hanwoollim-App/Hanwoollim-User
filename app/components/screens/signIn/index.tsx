@@ -90,15 +90,33 @@ function SignIn() {
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
 
-	const [modalVisible, setModalVisible] = useState<boolean>(false);
+	const [idErrorModalVisible, setIdErrorModalVisible] =
+		useState<boolean>(false);
+	const [pwErrorModalVisible, setPwErrorModalVisible] =
+		useState<boolean>(false);
+	const [idExistErrorModalVisible, setIdExistErrorModalVisible] =
+		useState<boolean>(false);
+	const [pwExistErrorModalVisible, setPwExistErrorModalVisible] =
+		useState<boolean>(false);
 
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
+	const idErrorChangeVisible = () => {
+		setIdErrorModalVisible(!idErrorModalVisible);
+	};
+	const pwErrorChangeVisible = () => {
+		setPwErrorModalVisible(!pwErrorModalVisible);
+	};
+	const idExistErrorChangeVisible = () => {
+		setIdExistErrorModalVisible(!idErrorModalVisible);
+	};
+	const pwExistErrorChangeVisible = () => {
+		setPwExistErrorModalVisible(!pwExistErrorModalVisible);
 	};
 
 	const returnToSignIn = () => {
-		navigation.navigate('SignIn');
-		setModalVisible(!modalVisible);
+		setIdErrorModalVisible(false);
+		setPwErrorModalVisible(false);
+		setIdExistErrorModalVisible(false);
+		setPwExistErrorModalVisible(false);
 	};
 
 	const modalBtn: Array<customBtnType> = [
@@ -125,6 +143,18 @@ function SignIn() {
 			})
 			.catch((err) => {
 				console.log(err.response);
+				if (id === '') {
+					idErrorChangeVisible();
+				}
+				if (pw === '') {
+					pwErrorChangeVisible();
+				}
+				if (err.response.status === 404) {
+					idExistErrorChangeVisible();
+				}
+				if (err.response.status === 401) {
+					pwExistErrorChangeVisible();
+				}
 			});
 	};
 
@@ -133,8 +163,23 @@ function SignIn() {
 			<CustomStatusBar />
 			<View style={styles.root}>
 				<CustomModal
-					mdVisible={modalVisible}
-					title={'로그인 실패'}
+					mdVisible={idErrorModalVisible}
+					title={'아이디를 입력해주세요'}
+					buttonList={modalBtn}
+				/>
+				<CustomModal
+					mdVisible={pwErrorModalVisible}
+					title={'비밀번호를 입력해주세요'}
+					buttonList={modalBtn}
+				/>
+				<CustomModal
+					mdVisible={idExistErrorModalVisible}
+					title={'아이디가 존재하지 않습니다'}
+					buttonList={modalBtn}
+				/>
+				<CustomModal
+					mdVisible={pwExistErrorModalVisible}
+					title={'비밀번호가 잘못되었습니다'}
 					buttonList={modalBtn}
 				/>
 				<View style={styles.header}>
@@ -158,9 +203,6 @@ function SignIn() {
 						defaultValue={pw}
 						isSecureInput
 					/>
-					<TouchableOpacity onPress={changeVisible}>
-						<Text>로그인 실패</Text>
-					</TouchableOpacity>
 					<CustomBtn
 						title={'로그인'}
 						titleStyle={styles.btnTextStyle}
