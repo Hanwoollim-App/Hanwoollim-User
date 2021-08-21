@@ -98,6 +98,8 @@ function SignIn() {
 		useState<boolean>(false);
 	const [pwExistErrorModalVisible, setPwExistErrorModalVisible] =
 		useState<boolean>(false);
+	const [unexpectedErrorModalVisible, setUnexpectedErrorModalVisible] =
+		useState<boolean>(false);
 
 	const idErrorChangeVisible = () => {
 		setIdErrorModalVisible(!idErrorModalVisible);
@@ -111,12 +113,16 @@ function SignIn() {
 	const pwExistErrorChangeVisible = () => {
 		setPwExistErrorModalVisible(!pwExistErrorModalVisible);
 	};
+	const unexpectedErrorChangeVisible = () => {
+		setUnexpectedErrorModalVisible(!unexpectedErrorModalVisible);
+	};
 
 	const returnToSignIn = () => {
 		setIdErrorModalVisible(false);
 		setPwErrorModalVisible(false);
 		setIdExistErrorModalVisible(false);
 		setPwExistErrorModalVisible(false);
+		setUnexpectedErrorModalVisible(false);
 	};
 
 	const modalBtn: Array<customBtnType> = [
@@ -155,6 +161,9 @@ function SignIn() {
 				if (err.response.status === 401) {
 					pwExistErrorChangeVisible();
 				}
+				if (err.response.status === 500) {
+					unexpectedErrorChangeVisible();
+				}
 			});
 	};
 
@@ -180,6 +189,11 @@ function SignIn() {
 				<CustomModal
 					mdVisible={pwExistErrorModalVisible}
 					title={'비밀번호가 잘못되었습니다'}
+					buttonList={modalBtn}
+				/>
+				<CustomModal
+					mdVisible={unexpectedErrorModalVisible}
+					title={'예상치 못한 오류가 발생했습니다'}
 					buttonList={modalBtn}
 				/>
 				<View style={styles.header}>
