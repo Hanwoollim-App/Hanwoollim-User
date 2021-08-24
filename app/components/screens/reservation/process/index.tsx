@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
 	},
 	scrollTime: {
 		fontFamily: 'NotoSansKR-Regular',
-		fontSize: fontPercentage(6),
+		fontSize: fontPercentage(9),
 		color: '#6d6d6d',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -189,8 +189,12 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: 1,
 		borderColor: '#707070',
-		marginTop: heightPercentage(20),
+		marginTop: heightPercentage(3),
 		marginLeft: widthPercentage(3),
+	},
+	alignCenter: {
+		flexDirection: 'row',
+		alignItems: 'center',
 	},
 });
 
@@ -212,7 +216,7 @@ function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: any = route.params;
+	const currentWeek: any = route.params.value;
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
@@ -264,17 +268,22 @@ function ReservationProcess({ route }) {
 				<View style={styles.contentContainer}>
 					<View style={styles.timeBox}>
 						<ScrollView horizontal={true}>
-							{scrollTime.map((item) => {
-								return (
-									<>
-										<View>
-											<Text style={styles.scrollTime}>{item.label}</Text>
-										</View>
-										<View style={styles.scrollTimeBox}></View>
-										<View style={styles.scrollTimeBox}></View>
-									</>
-								);
-							})}
+							<View style={styles.alignCenter}>
+								{scrollTime.map((item) => {
+									return (
+										<>
+											<View>
+												<Text style={styles.scrollTime}>{item.label}</Text>
+												<View style={styles.scrollTimeBox}></View>
+											</View>
+											<View>
+												<Text style={styles.scrollTime}> </Text>
+												<View style={styles.scrollTimeBox}></View>
+											</View>
+										</>
+									);
+								})}
+							</View>
 						</ScrollView>
 					</View>
 					<View style={styles.UnitPicker}>
