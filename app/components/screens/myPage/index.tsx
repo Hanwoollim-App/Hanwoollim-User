@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import {
 	NavigationProp,
@@ -13,6 +13,8 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
+import api from '../../../utils/constant/api';
+import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	nameBlock: {
@@ -86,13 +88,17 @@ const styles = StyleSheet.create({
 function MyPage() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
+	const { user, setUser }: any = useContext(UserInfoContext);
 
 	const changeVisible = () => {
 		setModalVisible(!modalVisible);
 	};
 
 	const returnToLogin = () => {
-		navigation.navigate('Login');
+		api.post('user/info').then(({ data }) => {
+			console.log(data);
+		});
+		// navigation.navigate('Login');
 	};
 	const infoEdit = () => {
 		navigation.navigate('infoEdit');
@@ -109,6 +115,10 @@ function MyPage() {
 		},
 	];
 
+	api.get('user/info').then(({ data }) => {
+		console.log(data);
+	});
+
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
 			<CustomModal
@@ -120,17 +130,17 @@ function MyPage() {
 			<View style={styles.nameBlock}>
 				<View style={styles.titleTextBlock}>
 					<Text style={styles.hello}>안녕하세요,</Text>
-					<Text style={styles.boldText}>김동현님</Text>
+					<Text style={styles.boldText}>{name}님</Text>
 				</View>
 			</View>
 			<View style={styles.infoBlock}>
 				<View style={styles.infoTextBlock}>
 					<Text style={styles.boldText}>학과</Text>
-					<Text style={styles.info}>정보시스템학과</Text>
+					<Text style={styles.info}>{userMajor}</Text>
 				</View>
 				<View style={styles.infoTextBlock}>
 					<Text style={styles.boldText}>학번</Text>
-					<Text style={styles.info}>2018777777</Text>
+					<Text style={styles.info}>{id}</Text>
 				</View>
 			</View>
 			<View style={styles.btnBlock}>
