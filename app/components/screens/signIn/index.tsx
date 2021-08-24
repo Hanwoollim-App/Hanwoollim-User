@@ -138,12 +138,15 @@ function SignIn() {
 				id,
 				password: pw,
 			})
-			.then((res) => {
-				if (res.data.position === 'not_approved') {
+			.then(({ data }) => {
+				console.log(data);
+				if (data.position === 'not_approved') {
 					navigation.navigate('NotApproved');
 				}
-				if (res.data.position === 'chairman' && 'admin' && 'user') {
-					api.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
+				if (data.position === 'chairman' && 'admin' && 'user') {
+					const { accessToken } = data;
+
+					api.defaults.headers['x-access-token'] = accessToken;
 					navigation.navigate('BottomTabNavigator');
 				}
 			})
