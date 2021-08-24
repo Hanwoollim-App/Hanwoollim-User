@@ -19,6 +19,8 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
+import api from '../../../utils/constant/api';
+import CustomModal from '../../common/CustomModal';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -141,6 +143,14 @@ const styles = StyleSheet.create({
 	},
 });
 
+/*
+	방어로직 만들어야 하는것
+	1) 학번이 10자리 체크
+	2) pw 랑 pwCheck 이 같은지 체크
+	3) 학번의 시작 4자리가 현재 년도보다 큰지 체크
+	4) 빠짐없이 입력했는지 체크	
+*/
+
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName] = useState<string>('');
@@ -148,14 +158,27 @@ function SignUp() {
 	const [pw, setPw] = useState<string>('');
 	const [pwCheck, setPwCheck] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
-
-	const signUpBtnClickListener = () => {
-		navigation.navigate('NotApproved');
-	};
-
 	const [major, setMajor] = useState<ValueType>('');
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
+
+	const signUpBtnClickListener = () => {
+		api
+			.post('/user/signup', {
+				id,
+				password: pw,
+				username: name,
+				major,
+				studentid: studentID,
+			})
+			.then((res) => {
+				console.log(res);
+				navigation.navigate('NotApproved');
+			})
+			.catch((err) => {
+				console.log(err.response.data.message);
+			});
+	};
 
 	return (
 		<ScreenWrapper>
@@ -173,11 +196,13 @@ function SignUp() {
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pw}
 					inputChangeListener={(value: string) => setPw(value)}
 					defaultValue={pw}
+					isSecureInput
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
 					inputChangeListener={(value: string) => setPwCheck(value)}
 					defaultValue={pwCheck}
+					isSecureInput
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
