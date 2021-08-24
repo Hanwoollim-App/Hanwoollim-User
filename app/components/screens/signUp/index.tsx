@@ -233,9 +233,9 @@ function SignUp() {
 			.post('/user/signup', {
 				id,
 				password: pw,
-				username: name,
+				userName: name,
 				major,
-				studentid: studentID,
+				studentId: studentID,
 			})
 			.then((res) => {
 				console.log(res);
