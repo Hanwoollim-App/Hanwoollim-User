@@ -75,7 +75,7 @@ function Home() {
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
-				<Text style={styles.titleText}> {/* {user.userName}*/} 님</Text>
+				<Text style={styles.titleText}> {user.userName} 님</Text>
 				<TouchableOpacity
 					style={styles.titleSetting}
 					onPress={myPageBtnListener}>

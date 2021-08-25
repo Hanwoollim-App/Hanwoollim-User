@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
 	View,
 	Text,
@@ -134,7 +134,8 @@ function SignIn() {
 			buttonClickListener: returnToSignIn,
 		},
 	];
-	const { user, setUser }: any = useContext(UserInfoContext);
+	const { setUser }: any = useContext(UserInfoContext);
+
 	const getUserInfo = () => {
 		api.get('/user/info').then(({ data }) => {
 			const { userName, major, studentId } = data;
@@ -145,11 +146,19 @@ function SignIn() {
 				major,
 				studentId,
 			}));
-			console.log(user.userName);
+			navigation.navigate('BottomTabNavigator');
+			// navigation.navigate('BottomTabNavigator');
 			// 이 콘솔로그가 처음 로그인할 때는 정의되지 않았다고 뜨지만 다시 로그인을 시도하면 정상적으로 출력됨
 			// 즉 처음 로그인해서 홈화면에 올때까진 context에 정보를 못 담는것 같은데 이유가,,,
 		});
 	};
+
+	// useEffect(() => {
+	// 	if (user?.userName) {
+	// 		navigation.navigate('BottomTabNavigator');
+	// 	}
+	// }, [user]);
+
 	const signInBtnClickListener = () => {
 		api
 			.post('/user/signin', {
@@ -166,7 +175,6 @@ function SignIn() {
 
 					api.defaults.headers['x-access-token'] = accessToken;
 					getUserInfo();
-					navigation.navigate('BottomTabNavigator');
 				}
 			})
 			.catch((err) => {
