@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
 	View,
 	Text,
@@ -24,6 +24,9 @@ import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import api from '../../../utils/constant/api';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	root: {
@@ -131,7 +134,19 @@ function SignIn() {
 			buttonClickListener: returnToSignIn,
 		},
 	];
+	const { setUser }: any = useContext(UserInfoContext);
+	const getUserInfo = () => {
+		api.get('/user/info').then(({ data }) => {
+			const { userName, major, studentId } = data;
 
+			setUser((prevUser) => ({
+				...prevUser,
+				userName,
+				major,
+				studentId,
+			}));
+		});
+	};
 	const signInBtnClickListener = () => {
 		api
 			.post('/user/signin', {
@@ -147,6 +162,7 @@ function SignIn() {
 					const { accessToken } = data;
 
 					api.defaults.headers['x-access-token'] = accessToken;
+					getUserInfo();
 					navigation.navigate('BottomTabNavigator');
 				}
 			})

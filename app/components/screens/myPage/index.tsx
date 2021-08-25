@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
 function MyPage() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
-	const { user, setUser }: any = useContext(UserInfoContext);
 
 	const changeVisible = () => {
 		setModalVisible(!modalVisible);
@@ -115,9 +114,7 @@ function MyPage() {
 		},
 	];
 
-	api.get('user/info').then(({ data }) => {
-		console.log(data);
-	});
+	const { user }: any = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
@@ -130,17 +127,17 @@ function MyPage() {
 			<View style={styles.nameBlock}>
 				<View style={styles.titleTextBlock}>
 					<Text style={styles.hello}>안녕하세요,</Text>
-					<Text style={styles.boldText}>{name}님</Text>
+					<Text style={styles.boldText}>{user.userName}님</Text>
 				</View>
 			</View>
 			<View style={styles.infoBlock}>
 				<View style={styles.infoTextBlock}>
 					<Text style={styles.boldText}>학과</Text>
-					<Text style={styles.info}>{userMajor}</Text>
+					<Text style={styles.info}>{user.major}</Text>
 				</View>
 				<View style={styles.infoTextBlock}>
 					<Text style={styles.boldText}>학번</Text>
-					<Text style={styles.info}>{id}</Text>
+					<Text style={styles.info}>{user.studentId}</Text>
 				</View>
 			</View>
 			<View style={styles.btnBlock}>
