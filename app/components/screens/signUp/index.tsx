@@ -152,6 +152,25 @@ const styles = StyleSheet.create({
 
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+	const returnToSignUp = () => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
+	};
+	const modalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: returnToSignUp,
+		},
+	];
+
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+		buttonList: { modalBtn },
+	});
+
 	const [name, setName] = useState<string>('');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
@@ -161,81 +180,14 @@ function SignUp() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
-	const [idOverlapErrorModalVisible, setIdOverlapErrorModalVisible] =
-		useState<boolean>(false);
-	const [
-		studentIdOverlapErrorModalVisible,
-		setStudentIdOverlapErrorModalVisible,
-	] = useState<boolean>(false);
-	const [idErrorModalVisible, setIdErrorModalVisible] =
-		useState<boolean>(false);
-	const [pwErrorModalVisible, setPwErrorModalVisible] =
-		useState<boolean>(false);
-	const [pwCheckErrorModalVisible, setPwCheckErrorModalVisible] =
-		useState<boolean>(false);
-	const [nameErrorModalVisible, setNameErrorModalVisible] =
-		useState<boolean>(false);
-	const [majorErrorModalVisible, setMajorErrorModalVisible] =
-		useState<boolean>(false);
-	const [studentIdErrorModalVisible, setStudentIdErrorModalVisible] =
-		useState<boolean>(false);
-	const [majorLengthErrorModalVisible, setMajorLengthErrorModalVisible] =
-		useState<boolean>(false);
-
-	const idOverlapErrorChangeVisible = () => {
-		setIdOverlapErrorModalVisible(!idOverlapErrorModalVisible);
-	};
-	const studentIdOverlapErrorChangeVisible = () => {
-		setStudentIdOverlapErrorModalVisible(!studentIdOverlapErrorModalVisible);
-	};
-	const idErrorChangeVisible = () => {
-		setIdErrorModalVisible(!idErrorModalVisible);
-	};
-	const pwErrorChangeVisible = () => {
-		setPwErrorModalVisible(!pwErrorModalVisible);
-	};
-	const pwCheckErrorChangeVisible = () => {
-		setPwCheckErrorModalVisible(!pwCheckErrorModalVisible);
-	};
-	const nameErrorChangeVisible = () => {
-		setNameErrorModalVisible(!nameErrorModalVisible);
-	};
-	const majorErrorChangeVisible = () => {
-		setMajorErrorModalVisible(!majorErrorModalVisible);
-	};
-	const studentIdErrorChangeVisible = () => {
-		setStudentIdErrorModalVisible(!studentIdErrorModalVisible);
-	};
-	const majorLengthErrorChangeVisible = () => {
-		setMajorLengthErrorModalVisible(!majorLengthErrorModalVisible);
-	};
-
-	const returnToMain = () => {
-		setIdOverlapErrorModalVisible(false);
-		setStudentIdOverlapErrorModalVisible(false);
-		setIdErrorModalVisible(false);
-		setPwErrorModalVisible(false);
-		setPwCheckErrorModalVisible(false);
-		setNameErrorModalVisible(false);
-		setMajorErrorModalVisible(false);
-		setStudentIdErrorModalVisible(false);
-		setMajorLengthErrorModalVisible(false);
-	};
-	const modalBtn: Array<customBtnType> = [
-		{
-			buttonText: '확인',
-			buttonClickListener: returnToMain,
-		},
-	];
-
 	const signUpBtnClickListener = () => {
 		api
-			.post('/user/signup', {
+			.post('/user/signUp', {
 				id,
 				password: pw,
-				username: name,
+				userName: name,
 				major,
-				studentid: studentID,
+				studentId: studentID,
 			})
 			.then((res) => {
 				console.log(res);
@@ -245,30 +197,63 @@ function SignUp() {
 				console.log(err.response);
 				if (err.response.status === 400) {
 					if (err.response.data.message === 'Failed! ID is already in use!')
-						idOverlapErrorChangeVisible();
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '아이디가 중복됩니다',
+						}));
 					if (
 						err.response.data.message ===
 						'Failed! Student Id is already in use!'
 					)
-						studentIdOverlapErrorChangeVisible();
-				}
-				if (pwCheck !== pw) {
-					pwCheckErrorChangeVisible();
-				}
-				if (err.response.status === 500) {
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '학번이 중복됩니다',
+						}));
+				} else if (pwCheck !== pw) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '비밀번호가 다릅니다',
+					}));
+				} else if (err.response.status === 500) {
 					if (err.response.data.message === '아이디 입력하세요')
-						idErrorChangeVisible();
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '아이디를 입력하세요',
+						}));
 					if (err.response.data.message === '이름을 입력하세요')
-						nameErrorChangeVisible();
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '이름을 입력하세요',
+						}));
 					if (err.response.data.message === '전공을 입력하세요')
-						majorErrorChangeVisible();
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '전공을 입력하세요',
+						}));
 					if (err.response.data.message === '비밀번호를 입력하세요')
-						pwErrorChangeVisible();
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '비밀번호를 입력하세요',
+						}));
 					if (err.response.data.message === '학번를 입력하세요')
-						studentIdErrorChangeVisible();
-				}
-				if (studentID.length !== 10) {
-					majorLengthErrorChangeVisible();
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '학번을 입력하세요',
+						}));
+				} else if (studentID.length !== 10) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '학번은 10자리입니다',
+					}));
 				}
 			});
 	};
@@ -276,48 +261,8 @@ function SignUp() {
 	return (
 		<ScreenWrapper>
 			<CustomModal
-				mdVisible={idOverlapErrorModalVisible}
-				title={'아이디가 중복됩니다'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={studentIdOverlapErrorModalVisible}
-				title={'학번이 중복됩니다'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={pwErrorModalVisible}
-				title={'비밀번호를 입력해주세요'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={pwCheckErrorModalVisible}
-				title={'비밀번호가 같지 않습니다'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={idErrorModalVisible}
-				title={'아이디를 입력해주세요'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={nameErrorModalVisible}
-				title={'이름을 입력해주세요'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={majorErrorModalVisible}
-				title={'전공을 선택해주세요'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={studentIdErrorModalVisible}
-				title={'학번을 입력해주세요'}
-				buttonList={modalBtn}
-			/>
-			<CustomModal
-				mdVisible={majorLengthErrorModalVisible}
-				title={'학번은 10자리입니다!'}
+				mdVisible={modalValue.isVisible}
+				title={modalValue.text}
 				buttonList={modalBtn}
 			/>
 			<View style={styles.scrollView}>
