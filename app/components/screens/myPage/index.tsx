@@ -14,7 +14,9 @@ import ScreenWrapper from '../../common/ScreenWrapper';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import api from '../../../utils/constant/api';
-import { UserInfoContext } from '../../../utils/context/UserInfoContext';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	nameBlock: {
@@ -114,7 +116,7 @@ function MyPage() {
 		},
 	];
 
-	const { user }: any = useContext(UserInfoContext);
+	const { user }: userInterface = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
