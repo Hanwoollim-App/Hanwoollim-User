@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	StyleSheet,
 	BackHandler,
@@ -22,6 +22,7 @@ import ScreenWrapper from '../../common/ScreenWrapper';
 import Notice from './Notice';
 import TodayReservation from './TodayReservation';
 import MyReservation from './MyReservation';
+import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	title: {
@@ -59,10 +60,6 @@ const settingIcon = (
 	/>
 );
 
-const tempValue: any = {
-	userName: '김동현',
-};
-
 function Home() {
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
@@ -73,11 +70,12 @@ function Home() {
 	const myPageBtnListener = () => {
 		navigation.navigate('MyPage');
 	};
+	const { user }: any = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
-				<Text style={styles.titleText}>{tempValue.userName} 님</Text>
+				<Text style={styles.titleText}> {/* {user.userName}*/} 님</Text>
 				<TouchableOpacity
 					style={styles.titleSetting}
 					onPress={myPageBtnListener}>

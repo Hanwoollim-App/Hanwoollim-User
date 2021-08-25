@@ -134,7 +134,7 @@ function SignIn() {
 			buttonClickListener: returnToSignIn,
 		},
 	];
-	const { setUser }: any = useContext(UserInfoContext);
+	const { user, setUser }: any = useContext(UserInfoContext);
 	const getUserInfo = () => {
 		api.get('/user/info').then(({ data }) => {
 			const { userName, major, studentId } = data;
@@ -145,6 +145,9 @@ function SignIn() {
 				major,
 				studentId,
 			}));
+			console.log(user.userName);
+			// 이 콘솔로그가 처음 로그인할 때는 정의되지 않았다고 뜨지만 다시 로그인을 시도하면 정상적으로 출력됨
+			// 즉 처음 로그인해서 홈화면에 올때까진 context에 정보를 못 담는것 같은데 이유가,,,
 		});
 	};
 	const signInBtnClickListener = () => {
