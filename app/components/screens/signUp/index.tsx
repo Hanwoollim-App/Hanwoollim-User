@@ -195,17 +195,16 @@ function SignUp() {
 			})
 			.catch((err) => {
 				console.log(err.response);
+				const errorMessage = err.response.data.message;
+
 				if (err.response.status === 400) {
-					if (err.response.data.message === 'Failed! ID is already in use!')
+					if (errorMessage.startsWith('Failed! ID is already in use!'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
 							text: '아이디가 중복됩니다',
 						}));
-					if (
-						err.response.data.message ===
-						'Failed! Student Id is already in use!'
-					)
+					if (errorMessage.startsWith('Failed! Student Id is already in use!'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
@@ -218,31 +217,31 @@ function SignUp() {
 						text: '비밀번호가 다릅니다',
 					}));
 				} else if (err.response.status === 500) {
-					if (err.response.data.message === '아이디 입력하세요')
+					if (errorMessage.startsWith('아이디 입력하세요'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
 							text: '아이디를 입력하세요',
 						}));
-					if (err.response.data.message === '이름을 입력하세요')
+					if (errorMessage.startsWith('이름을 입력하세요'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
 							text: '이름을 입력하세요',
 						}));
-					if (err.response.data.message === '전공을 입력하세요')
+					if (errorMessage.startsWith('전공을 입력하세요'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
 							text: '전공을 입력하세요',
 						}));
-					if (err.response.data.message === '비밀번호를 입력하세요')
+					if (errorMessage.startsWith('비밀번호를 입력하세요'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
 							text: '비밀번호를 입력하세요',
 						}));
-					if (err.response.data.message === '학번를 입력하세요')
+					if (errorMessage.startsWith('학번를 입력하세요'))
 						setModalValue((prev) => ({
 							...prev,
 							isVisible: true,
