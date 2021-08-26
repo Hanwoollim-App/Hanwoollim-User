@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-const flashMob = require('../../../assets/images/flashMob.png');
+const flashMob = require('../../../assets/images/flashmob.png');
 
 function FlashMob() {
 	return (

@@ -1,12 +1,5 @@
-import React, { useState } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	TouchableOpacity,
-	Platform,
-} from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -24,6 +17,7 @@ import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import api from '../../../utils/constant/api';
+import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	root: {
@@ -109,6 +103,25 @@ function SignIn() {
 		buttonList: { modalBtn },
 	});
 
+	const { setUser }: any = useContext(UserInfoContext);
+
+	const getUserInfo = () => {
+		api.get('/user/info').then(({ data }) => {
+			const { userName, major, studentId } = data;
+
+			setUser((prevUser) => ({
+				...prevUser,
+				userName,
+				major,
+				studentId,
+			}));
+			navigation.navigate('BottomTabNavigator');
+			// navigation.navigate('BottomTabNavigator');
+			// 이 콘솔로그가 처음 로그인할 때는 정의되지 않았다고 뜨지만 다시 로그인을 시도하면 정상적으로 출력됨
+			// 즉 처음 로그인해서 홈화면에 올때까진 context에 정보를 못 담는것 같은데 이유가,,,
+		});
+	};
+
 	const signInBtnClickListener = () => {
 		api
 			.post('/user/signIn', {
@@ -120,7 +133,10 @@ function SignIn() {
 				if (data.position === 'not_approved') {
 					navigation.navigate('NotApproved');
 				} else if (data.position === 'chairman' || 'admin' || 'user') {
-					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
+					const { accessToken } = data;
+
+					api.defaults.headers['x-access-token'] = accessToken;
+					getUserInfo();
 					navigation.navigate('BottomTabNavigator');
 				}
 			})
