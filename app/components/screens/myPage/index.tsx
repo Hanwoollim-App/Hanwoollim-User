@@ -96,10 +96,14 @@ function MyPage() {
 	};
 
 	const returnToLogin = () => {
-		api.post('user/info').then(({ data }) => {
-			console.log(data);
-		});
-		// navigation.navigate('Login');
+		api
+			.post('/user/info', {
+				execute: 1,
+			})
+			.then((res) => {
+				console.log(res);
+				navigation.navigate('Login');
+			});
 	};
 	const infoEdit = () => {
 		navigation.navigate('infoEdit');
