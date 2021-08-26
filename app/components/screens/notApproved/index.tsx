@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	StyleSheet,
 	BackHandler,
@@ -15,6 +15,7 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	title: {
@@ -74,20 +75,17 @@ const settingIcon = (
 	/>
 );
 
-const tempValue: any = {
-	userName: '김동현',
-};
-
 function NotApproved() {
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
 		return true;
 	});
+	const { user }: any = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
-				<Text style={styles.titleText}>{tempValue.userName} 님</Text>
+				<Text style={styles.titleText}>{user.userName} 님</Text>
 				<TouchableOpacity style={styles.titleSetting}>
 					{settingIcon}
 				</TouchableOpacity>
