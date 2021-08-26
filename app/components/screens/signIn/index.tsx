@@ -93,41 +93,12 @@ function SignIn() {
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
 
-	const [idErrorModalVisible, setIdErrorModalVisible] =
-		useState<boolean>(false);
-	const [pwErrorModalVisible, setPwErrorModalVisible] =
-		useState<boolean>(false);
-	const [idExistErrorModalVisible, setIdExistErrorModalVisible] =
-		useState<boolean>(false);
-	const [pwExistErrorModalVisible, setPwExistErrorModalVisible] =
-		useState<boolean>(false);
-	const [unexpectedErrorModalVisible, setUnexpectedErrorModalVisible] =
-		useState<boolean>(false);
-
-	const idErrorChangeVisible = () => {
-		setIdErrorModalVisible(!idErrorModalVisible);
-	};
-	const pwErrorChangeVisible = () => {
-		setPwErrorModalVisible(!pwErrorModalVisible);
-	};
-	const idExistErrorChangeVisible = () => {
-		setIdExistErrorModalVisible(!idErrorModalVisible);
-	};
-	const pwExistErrorChangeVisible = () => {
-		setPwExistErrorModalVisible(!pwExistErrorModalVisible);
-	};
-	const unexpectedErrorChangeVisible = () => {
-		setUnexpectedErrorModalVisible(!unexpectedErrorModalVisible);
-	};
-
 	const returnToSignIn = () => {
-		setIdErrorModalVisible(false);
-		setPwErrorModalVisible(false);
-		setIdExistErrorModalVisible(false);
-		setPwExistErrorModalVisible(false);
-		setUnexpectedErrorModalVisible(false);
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
 	};
-
 	const modalBtn: Array<customBtnType> = [
 		{
 			buttonText: '확인',
@@ -159,9 +130,15 @@ function SignIn() {
 	// 	}
 	// }, [user]);
 
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+		buttonList: { modalBtn },
+	});
+
 	const signInBtnClickListener = () => {
 		api
-			.post('/user/signin', {
+			.post('/user/signIn', {
 				id,
 				password: pw,
 			})
@@ -180,19 +157,35 @@ function SignIn() {
 			.catch((err) => {
 				console.log(err.response);
 				if (id === '') {
-					idErrorChangeVisible();
-				}
-				if (pw === '') {
-					pwErrorChangeVisible();
-				}
-				if (err.response.status === 404) {
-					idExistErrorChangeVisible();
-				}
-				if (err.response.status === 401) {
-					pwExistErrorChangeVisible();
-				}
-				if (err.response.status === 500) {
-					unexpectedErrorChangeVisible();
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '아이디를 입력해주세요',
+					}));
+				} else if (pw === '') {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '비밀번호를 입력해주세요',
+					}));
+				} else if (err.response.status === 404) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '아이디가 존재하지 않습니다',
+					}));
+				} else if (err.response.status === 401) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '비밀번호가 잘못되었습니다',
+					}));
+				} else if (err.response.status === 500) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '예상치 못한 에러가 발생하였습니다',
+					}));
 				}
 			});
 	};
@@ -202,28 +195,8 @@ function SignIn() {
 			<CustomStatusBar />
 			<View style={styles.root}>
 				<CustomModal
-					mdVisible={idErrorModalVisible}
-					title={'아이디를 입력해주세요'}
-					buttonList={modalBtn}
-				/>
-				<CustomModal
-					mdVisible={pwErrorModalVisible}
-					title={'비밀번호를 입력해주세요'}
-					buttonList={modalBtn}
-				/>
-				<CustomModal
-					mdVisible={idExistErrorModalVisible}
-					title={'아이디가 존재하지 않습니다'}
-					buttonList={modalBtn}
-				/>
-				<CustomModal
-					mdVisible={pwExistErrorModalVisible}
-					title={'비밀번호가 잘못되었습니다'}
-					buttonList={modalBtn}
-				/>
-				<CustomModal
-					mdVisible={unexpectedErrorModalVisible}
-					title={'예상치 못한 오류가 발생했습니다'}
+					mdVisible={modalValue.isVisible}
+					title={modalValue.text}
 					buttonList={modalBtn}
 				/>
 				<View style={styles.header}>

@@ -93,9 +93,7 @@ const styles = StyleSheet.create({
 
 function ReservationTimeTable() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const reserveBtnListener = () => {
-		navigation.navigate('ReservationProcess');
-	};
+
 	const [open, setOpen] = useState<boolean>(false);
 	const [value, setValue] = useState<ValueType>(null);
 	const [items, setItems] = useState<Array<ItemType>>([
@@ -104,6 +102,9 @@ function ReservationTimeTable() {
 		{ label: '7.11~7.18', value: '7.11~7.18' },
 		{ label: '7.18~7.25', value: '7.18~7.25' },
 	]);
+	const reserveBtnListener = () => {
+		navigation.navigate('ReservationProcess', { value });
+	};
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
