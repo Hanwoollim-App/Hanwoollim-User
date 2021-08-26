@@ -23,6 +23,7 @@ import CustomBtn from '../../common/CustomBtn';
 import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
+import api from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -89,17 +90,12 @@ function SignIn() {
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
 
-	const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
-	};
-
 	const returnToSignIn = () => {
-		navigation.navigate('SignIn');
-		setModalVisible(!modalVisible);
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
 	};
-
 	const modalBtn: Array<customBtnType> = [
 		{
 			buttonText: '확인',
@@ -107,8 +103,61 @@ function SignIn() {
 		},
 	];
 
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+		buttonList: { modalBtn },
+	});
+
 	const signInBtnClickListener = () => {
-		navigation.navigate('BottomTabNavigator');
+		api
+			.post('/user/signIn', {
+				id,
+				password: pw,
+			})
+			.then(({ data }) => {
+				console.log(data);
+				if (data.position === 'not_approved') {
+					navigation.navigate('NotApproved');
+				} else if (data.position === 'chairman' || 'admin' || 'user') {
+					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
+					navigation.navigate('BottomTabNavigator');
+				}
+			})
+			.catch((err) => {
+				console.log(err.response);
+				if (id === '') {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '아이디를 입력해주세요',
+					}));
+				} else if (pw === '') {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '비밀번호를 입력해주세요',
+					}));
+				} else if (err.response.status === 404) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '아이디가 존재하지 않습니다',
+					}));
+				} else if (err.response.status === 401) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '비밀번호가 잘못되었습니다',
+					}));
+				} else if (err.response.status === 500) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '예상치 못한 에러가 발생하였습니다',
+					}));
+				}
+			});
 	};
 
 	return (
@@ -116,8 +165,8 @@ function SignIn() {
 			<CustomStatusBar />
 			<View style={styles.root}>
 				<CustomModal
-					mdVisible={modalVisible}
-					title={'로그인 실패'}
+					mdVisible={modalValue.isVisible}
+					title={modalValue.text}
 					buttonList={modalBtn}
 				/>
 				<View style={styles.header}>
@@ -139,10 +188,8 @@ function SignIn() {
 						placeholder={'비밀번호'}
 						inputChangeListener={(value: string) => setPw(value)}
 						defaultValue={pw}
+						isSecureInput
 					/>
-					<TouchableOpacity onPress={changeVisible}>
-						<Text>로그인 실패</Text>
-					</TouchableOpacity>
 					<CustomBtn
 						title={'로그인'}
 						titleStyle={styles.btnTextStyle}

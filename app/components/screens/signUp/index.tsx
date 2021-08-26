@@ -5,7 +5,7 @@ import {
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
@@ -21,6 +21,7 @@ import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
 import api from '../../../utils/constant/api';
 import CustomModal from '../../common/CustomModal';
+import { customBtnType } from '../../../utils/types/customModal';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -46,8 +47,6 @@ const styles = StyleSheet.create({
 	},
 	scrollView: {
 		width: '100%',
-	},
-	scrollContent: {
 		alignItems: 'center',
 	},
 	introText: {
@@ -162,6 +161,73 @@ function SignUp() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
+	const [idOverlapErrorModalVisible, setIdOverlapErrorModalVisible] =
+		useState<boolean>(false);
+	const [
+		studentIdOverlapErrorModalVisible,
+		setStudentIdOverlapErrorModalVisible,
+	] = useState<boolean>(false);
+	const [idErrorModalVisible, setIdErrorModalVisible] =
+		useState<boolean>(false);
+	const [pwErrorModalVisible, setPwErrorModalVisible] =
+		useState<boolean>(false);
+	const [pwCheckErrorModalVisible, setPwCheckErrorModalVisible] =
+		useState<boolean>(false);
+	const [nameErrorModalVisible, setNameErrorModalVisible] =
+		useState<boolean>(false);
+	const [majorErrorModalVisible, setMajorErrorModalVisible] =
+		useState<boolean>(false);
+	const [studentIdErrorModalVisible, setStudentIdErrorModalVisible] =
+		useState<boolean>(false);
+	const [majorLengthErrorModalVisible, setMajorLengthErrorModalVisible] =
+		useState<boolean>(false);
+
+	const idOverlapErrorChangeVisible = () => {
+		setIdOverlapErrorModalVisible(!idOverlapErrorModalVisible);
+	};
+	const studentIdOverlapErrorChangeVisible = () => {
+		setStudentIdOverlapErrorModalVisible(!studentIdOverlapErrorModalVisible);
+	};
+	const idErrorChangeVisible = () => {
+		setIdErrorModalVisible(!idErrorModalVisible);
+	};
+	const pwErrorChangeVisible = () => {
+		setPwErrorModalVisible(!pwErrorModalVisible);
+	};
+	const pwCheckErrorChangeVisible = () => {
+		setPwCheckErrorModalVisible(!pwCheckErrorModalVisible);
+	};
+	const nameErrorChangeVisible = () => {
+		setNameErrorModalVisible(!nameErrorModalVisible);
+	};
+	const majorErrorChangeVisible = () => {
+		setMajorErrorModalVisible(!majorErrorModalVisible);
+	};
+	const studentIdErrorChangeVisible = () => {
+		setStudentIdErrorModalVisible(!studentIdErrorModalVisible);
+	};
+	const majorLengthErrorChangeVisible = () => {
+		setMajorLengthErrorModalVisible(!majorLengthErrorModalVisible);
+	};
+
+	const returnToMain = () => {
+		setIdOverlapErrorModalVisible(false);
+		setStudentIdOverlapErrorModalVisible(false);
+		setIdErrorModalVisible(false);
+		setPwErrorModalVisible(false);
+		setPwCheckErrorModalVisible(false);
+		setNameErrorModalVisible(false);
+		setMajorErrorModalVisible(false);
+		setStudentIdErrorModalVisible(false);
+		setMajorLengthErrorModalVisible(false);
+	};
+	const modalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: returnToMain,
+		},
+	];
+
 	const signUpBtnClickListener = () => {
 		api
 			.post('/user/signup', {
@@ -176,15 +242,85 @@ function SignUp() {
 				navigation.navigate('NotApproved');
 			})
 			.catch((err) => {
-				console.log(err.response.data.message);
+				console.log(err.response);
+				if (err.response.status === 400) {
+					if (err.response.data.message === 'Failed! ID is already in use!')
+						idOverlapErrorChangeVisible();
+					if (
+						err.response.data.message ===
+						'Failed! Student Id is already in use!'
+					)
+						studentIdOverlapErrorChangeVisible();
+				}
+				if (pwCheck !== pw) {
+					pwCheckErrorChangeVisible();
+				}
+				if (err.response.status === 500) {
+					if (err.response.data.message === '아이디 입력하세요')
+						idErrorChangeVisible();
+					if (err.response.data.message === '이름을 입력하세요')
+						nameErrorChangeVisible();
+					if (err.response.data.message === '전공을 입력하세요')
+						majorErrorChangeVisible();
+					if (err.response.data.message === '비밀번호를 입력하세요')
+						pwErrorChangeVisible();
+					if (err.response.data.message === '학번를 입력하세요')
+						studentIdErrorChangeVisible();
+				}
+				if (studentID.length !== 10) {
+					majorLengthErrorChangeVisible();
+				}
 			});
 	};
 
 	return (
 		<ScreenWrapper>
-			<ScrollView
-				style={styles.scrollView}
-				contentContainerStyle={styles.scrollContent}>
+			<CustomModal
+				mdVisible={idOverlapErrorModalVisible}
+				title={'아이디가 중복됩니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={studentIdOverlapErrorModalVisible}
+				title={'학번이 중복됩니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={pwErrorModalVisible}
+				title={'비밀번호를 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={pwCheckErrorModalVisible}
+				title={'비밀번호가 같지 않습니다'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={idErrorModalVisible}
+				title={'아이디를 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={nameErrorModalVisible}
+				title={'이름을 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={majorErrorModalVisible}
+				title={'전공을 선택해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={studentIdErrorModalVisible}
+				title={'학번을 입력해주세요'}
+				buttonList={modalBtn}
+			/>
+			<CustomModal
+				mdVisible={majorLengthErrorModalVisible}
+				title={'학번은 10자리입니다!'}
+				buttonList={modalBtn}
+			/>
+			<View style={styles.scrollView}>
 				<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
 				<View style={styles.middleEmpty} />
 				<SignUpForm
@@ -235,7 +371,7 @@ function SignUp() {
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
 				/>
-			</ScrollView>
+			</View>
 		</ScreenWrapper>
 	);
 }
