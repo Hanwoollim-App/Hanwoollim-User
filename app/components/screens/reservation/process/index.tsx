@@ -5,7 +5,7 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, StyleSheet, Text, Platform } from 'react-native';
+import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import CustomBtn from '../../../common/CustomBtn';
 import color from '../../../../utils/constant/common/design/Color';
 import {
@@ -14,6 +14,8 @@ import {
 	sectionItems,
 	timeItems,
 	unitItems,
+	times,
+	timeBoxes,
 } from '../../../../utils/constant/reservation/process/reservationProcess';
 import CustomModal from '../../../common/CustomModal';
 import {
@@ -80,9 +82,8 @@ const styles = StyleSheet.create({
 		height: heightPercentage(41),
 		marginTop: heightPercentage(17),
 		borderRadius: fontPercentage(12),
-		borderStyle: 'solid',
-		borderWidth: fontPercentage(1),
-		borderColor: '#bdbdbd',
+		backgroundColor: '#ffffff',
+		borderColor: '#ffffff',
 		...Platform.select({
 			ios: {
 				zIndex: 10,
@@ -174,6 +175,27 @@ const styles = StyleSheet.create({
 		marginTop: heightPercentage(6),
 		color: '#000000',
 	},
+	scrollTime: {
+		fontFamily: 'NotoSansKR-Regular',
+		fontSize: fontPercentage(9),
+		color: '#6d6d6d',
+		alignItems: 'center',
+		justifyContent: 'center',
+		alignContent: 'center',
+	},
+	scrollTimeBox: {
+		width: widthPercentage(19),
+		height: heightPercentage(11),
+		borderStyle: 'solid',
+		borderWidth: 1,
+		borderColor: '#707070',
+		marginTop: heightPercentage(3),
+		marginLeft: widthPercentage(3),
+	},
+	alignCenter: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
 });
 
 function ReservationProcess({ route }) {
@@ -194,7 +216,7 @@ function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: any = route.params;
+	const currentWeek: any = route.params.value;
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
@@ -212,6 +234,8 @@ function ReservationProcess({ route }) {
 	const [sectionOpen, setSectionOpen] = useState<boolean>(false);
 	const [sectionItem, setSectionItems] =
 		useState<Array<ItemType>>(sectionItems);
+
+	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
@@ -243,7 +267,24 @@ function ReservationProcess({ route }) {
 
 				<View style={styles.contentContainer}>
 					<View style={styles.timeBox}>
-						<Text> {`시간들이 들어갈 공간`}</Text>
+						<ScrollView horizontal={true}>
+							<View style={styles.alignCenter}>
+								{scrollTime.map((item) => {
+									return (
+										<>
+											<View>
+												<Text style={styles.scrollTime}>{item.label}</Text>
+												<View style={styles.scrollTimeBox}></View>
+											</View>
+											<View>
+												<Text style={styles.scrollTime}> </Text>
+												<View style={styles.scrollTimeBox}></View>
+											</View>
+										</>
+									);
+								})}
+							</View>
+						</ScrollView>
 					</View>
 					<View style={styles.UnitPicker}>
 						<DropDownPicker

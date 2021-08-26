@@ -33,6 +33,24 @@ for (let i = 0; i < 24; i++) {
 	});
 }
 
+export const times: Array<Item> = [];
+
+for (let i = 0; i < 24; i++) {
+	times.push({
+		label: `${i}`,
+		value: `${i}`,
+	});
+}
+
+export const timeBoxes: Array<Item> = [];
+
+for (let i = 0; i < 48; i++) {
+	timeBoxes.push({
+		label: `${i}`,
+		value: `${i}`,
+	});
+}
+
 export const PROCESS_TEXT = {
 	UNIT: '예약 단위',
 	TIME: '예약 시간',
