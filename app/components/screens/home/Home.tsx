@@ -22,7 +22,9 @@ import ScreenWrapper from '../../common/ScreenWrapper';
 import Notice from './Notice';
 import TodayReservation from './TodayReservation';
 import MyReservation from './MyReservation';
-import { UserInfoContext } from '../../../utils/context/UserInfoContext';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	title: {
@@ -70,7 +72,7 @@ function Home() {
 	const myPageBtnListener = () => {
 		navigation.navigate('MyPage');
 	};
-	const { user }: any = useContext(UserInfoContext);
+	const { user }: userInterface = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper>
