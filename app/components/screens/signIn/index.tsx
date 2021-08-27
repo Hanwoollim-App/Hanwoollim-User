@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
@@ -17,7 +17,9 @@ import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import api from '../../../utils/constant/api';
-import { UserInfoContext } from '../../../utils/context/UserInfoContext';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	root: {
@@ -80,6 +82,16 @@ const styles = StyleSheet.create({
 
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+	const { setUser }: userInterface = useContext(UserInfoContext);
+
+	// useEffect(() => {
+	// 	if (!user?.userName) {
+	// 		console.log('asdf');
+	// 	} else {
+	// 		console.log('qwer');
+	// 	}
+	// }, [user]);
+
 	const headerLogo = require('../../../assets/images/textLogo_light.png');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
@@ -103,24 +115,21 @@ function SignIn() {
 		buttonList: { modalBtn },
 	});
 
-	const { setUser }: any = useContext(UserInfoContext);
+	// const navigationTo = (path) => navigation.navigate(path);
 
-	const getUserInfo = () => {
-		api.get('/user/info').then(({ data }) => {
-			const { userName, major, studentId } = data;
+	// const getUserInfo = (path) => {
+	// 	api.get('/user/info').then(({ data }) => {
+	// 		const { userName, major, studentId } = data;
 
-			setUser((prevUser) => ({
-				...prevUser,
-				userName,
-				major,
-				studentId,
-			}));
-			navigation.navigate('BottomTabNavigator');
-			// navigation.navigate('BottomTabNavigator');
-			// 이 콘솔로그가 처음 로그인할 때는 정의되지 않았다고 뜨지만 다시 로그인을 시도하면 정상적으로 출력됨
-			// 즉 처음 로그인해서 홈화면에 올때까진 context에 정보를 못 담는것 같은데 이유가,,,
-		});
-	};
+	// 		setUser((prevUser) => ({
+	// 			...prevUser,
+	// 			userName,
+	// 			major,
+	// 			studentId,
+	// 		}));
+	// 		navigationTo(path);
+	// 	});
+	// };
 
 	const signInBtnClickListener = () => {
 		api
@@ -130,14 +139,34 @@ function SignIn() {
 			})
 			.then(({ data }) => {
 				console.log(data);
-				if (data.position === 'not_approved') {
-					navigation.navigate('NotApproved');
-				} else if (data.position === 'chairman' || 'admin' || 'user') {
-					const { accessToken } = data;
+				const { accessToken } = data;
 
-					api.defaults.headers['x-access-token'] = accessToken;
-					getUserInfo();
-					navigation.navigate('BottomTabNavigator');
+				api.defaults.headers['x-access-token'] = accessToken;
+				if (data.position === 'not_approved') {
+					console.log('notApproved');
+					api.get('/user/info').then((res) => {
+						const { userName } = res.data;
+
+						setUser((prevUser) => ({
+							...prevUser,
+							userName,
+						}));
+						// navigation.navigate('BottomTabNavigator');
+						navigation.navigate('NotApproved');
+					});
+				} else if (data.position === 'chairman' || 'admin' || 'user') {
+					console.log('Approved');
+					api.get('/user/info').then((res) => {
+						const { userName, major, studentId } = res.data;
+
+						setUser((prevUser) => ({
+							...prevUser,
+							userName,
+							major,
+							studentId,
+						}));
+						navigation.navigate('BottomTabNavigator');
+					});
 				}
 			})
 			.catch((err) => {
@@ -148,25 +177,33 @@ function SignIn() {
 						isVisible: true,
 						text: '아이디를 입력해주세요',
 					}));
-				} else if (pw === '') {
+					return;
+				}
+				if (pw === '') {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
 						text: '비밀번호를 입력해주세요',
 					}));
-				} else if (err.response.status === 404) {
+					return;
+				}
+				if (err.response.status === 404) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
 						text: '아이디가 존재하지 않습니다',
 					}));
-				} else if (err.response.status === 401) {
+					return;
+				}
+				if (err.response.status === 401) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
 						text: '비밀번호가 잘못되었습니다',
 					}));
-				} else if (err.response.status === 500) {
+					return;
+				}
+				if (err.response.status === 500) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
