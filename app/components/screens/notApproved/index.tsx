@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import { StyleSheet, BackHandler, Text, View } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useAndroidBackHandler } from 'react-navigation-backhandler';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
 import {
 	fontPercentage,
 	heightPercentage,
