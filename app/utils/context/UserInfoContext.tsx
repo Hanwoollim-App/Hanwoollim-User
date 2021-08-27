@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 
 interface userInterface {
 	userName: string;
@@ -7,7 +7,7 @@ interface userInterface {
 	studentId: number;
 }
 
-export const UserInfoContext = React.createContext({});
+export const UserInfoContext = createContext({});
 export const UserInfoProvider = ({ children }: any) => {
 	const [user, setUser] = useState<userInterface>();
 
