@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 	},
 	titleTextBlock: {
 		height: heightPercentage(50),
-		width: widthPercentage(74),
+		width: widthPercentage(90),
 		marginLeft: widthPercentage(15),
 	},
 	infoTextBlock: {
