@@ -191,25 +191,53 @@ function SignUp() {
 				console.log(err.response);
 				const errorMessage = err.response.data.message;
 
-				if (err.response.status === 400) {
-					if (errorMessage.startsWith('Failed! ID is already in use!')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '아이디가 중복됩니다',
-						}));
-						return;
-					}
-					if (
-						errorMessage.startsWith('Failed! Student Id is already in use!')
-					) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '학번이 중복됩니다',
-						}));
-						return;
-					}
+				if (errorMessage.startsWith('Failed! ID is already in use!')) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '아이디가 중복됩니다',
+					}));
+					return;
+				}
+				if (errorMessage.startsWith('Failed! Student Id is already in use!')) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '학번이 중복됩니다',
+					}));
+					return;
+				}
+				if (errorMessage.startsWith('아이디 입력하세요')) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '아이디를 입력하세요',
+					}));
+					return;
+				}
+				if (errorMessage.startsWith('이름을 입력하세요')) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '이름을 입력하세요',
+					}));
+					return;
+				}
+				if (errorMessage.startsWith('전공을 입력하세요')) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '전공을 선택하세요',
+					}));
+					return;
+				}
+				if (errorMessage.startsWith('비밀번호를 입력하세요')) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '비밀번호를 입력하세요',
+					}));
+					return;
 				}
 				if (pwCheck !== pw) {
 					setModalValue((prev) => ({
@@ -219,60 +247,19 @@ function SignUp() {
 					}));
 					return;
 				}
-				if (studentID.length !== 10) {
+				if (errorMessage.startsWith('학번를 입력하세요')) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
-						text: '학번은 10자리입니다',
+						text: '학번을 입력하세요',
 					}));
+					return;
 				}
-				if (err.response.status === 500) {
-					if (errorMessage.startsWith('아이디 입력하세요')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '아이디를 입력하세요',
-						}));
-						return;
-					}
-					if (errorMessage.startsWith('이름을 입력하세요')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '이름을 입력하세요',
-						}));
-						return;
-					}
-					if (errorMessage.startsWith('전공을 입력하세요')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '전공을 선택하세요',
-						}));
-						return;
-					}
-					if (errorMessage.startsWith('비밀번호를 입력하세요')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '비밀번호를 입력하세요',
-						}));
-						return;
-					}
-					if (errorMessage.startsWith('학번를 입력하세요')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '학번을 입력하세요',
-						}));
-						return;
-					}
-				}
-				if (studentID.length !== 10) {
+				if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
-						text: '학번은 10자리입니다',
+						text: '학번은 10자리만 입력가능합니다',
 					}));
 				}
 			});
