@@ -1,11 +1,5 @@
 import React, { useContext } from 'react';
-import {
-	StyleSheet,
-	BackHandler,
-	Text,
-	View,
-	TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, BackHandler, Text, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useAndroidBackHandler } from 'react-navigation-backhandler';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
@@ -65,16 +59,6 @@ const styles = StyleSheet.create({
 	},
 });
 
-const settingIcon = (
-	<FontAwesomeIcon
-		style={{
-			color: '#000000',
-		}}
-		size={fontPercentage(24)}
-		icon={faCog}
-	/>
-);
-
 function NotApproved() {
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
@@ -86,9 +70,6 @@ function NotApproved() {
 		<ScreenWrapper>
 			<View style={styles.title}>
 				<Text style={styles.titleText}>{user.userName} 님</Text>
-				<TouchableOpacity style={styles.titleSetting}>
-					{settingIcon}
-				</TouchableOpacity>
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>아직 승인되지 않은 계정입니다</Text>
