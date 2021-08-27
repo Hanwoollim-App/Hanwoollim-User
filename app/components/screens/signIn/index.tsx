@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
@@ -83,15 +83,6 @@ const styles = StyleSheet.create({
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const { setUser }: userInterface = useContext(UserInfoContext);
-
-	// useEffect(() => {
-	// 	if (!user?.userName) {
-	// 		console.log('asdf');
-	// 	} else {
-	// 		console.log('qwer');
-	// 	}
-	// }, [user]);
-
 	const headerLogo = require('../../../assets/images/textLogo_light.png');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
@@ -115,22 +106,6 @@ function SignIn() {
 		buttonList: { modalBtn },
 	});
 
-	// const navigationTo = (path) => navigation.navigate(path);
-
-	// const getUserInfo = (path) => {
-	// 	api.get('/user/info').then(({ data }) => {
-	// 		const { userName, major, studentId } = data;
-
-	// 		setUser((prevUser) => ({
-	// 			...prevUser,
-	// 			userName,
-	// 			major,
-	// 			studentId,
-	// 		}));
-	// 		navigationTo(path);
-	// 	});
-	// };
-
 	const signInBtnClickListener = () => {
 		api
 			.post('/user/signIn', {
@@ -151,7 +126,6 @@ function SignIn() {
 							...prevUser,
 							userName,
 						}));
-						// navigation.navigate('BottomTabNavigator');
 						navigation.navigate('NotApproved');
 					});
 				} else if (data.position === 'chairman' || 'admin' || 'user') {
