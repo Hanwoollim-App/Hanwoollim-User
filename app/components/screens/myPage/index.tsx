@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
 	useNavigation,
+	useFocusEffect,
 } from '@react-navigation/native';
 import {
 	fontPercentage,
@@ -120,8 +121,24 @@ function MyPage() {
 		},
 	];
 
-	const { user }: userInterface = useContext(UserInfoContext);
+	const { user, setUser }: userInterface = useContext(UserInfoContext);
 
+	useFocusEffect(
+		useCallback(() => {
+			api.get('/user/info').then((res) => {
+				const { userName, major, studentId } = res.data;
+
+				setUser((prevUser) => ({
+					...prevUser,
+					userName,
+					major,
+					studentId,
+				}));
+			});
+
+			return () => {};
+		}, [user]),
+	);
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
 			<CustomModal
