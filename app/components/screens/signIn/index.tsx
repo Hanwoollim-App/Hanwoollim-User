@@ -25,6 +25,11 @@ import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import api from '../../../utils/constant/api';
 
+interface signInDataInterface {
+	accessToken: string;
+	position: string;
+}
+
 const styles = StyleSheet.create({
 	root: {
 		flex: 1,
@@ -90,9 +95,10 @@ function isApprovedAccount(position: string) {
 	return isValidAccount;
 }
 
+const headerLogo = require('../../../assets/images/textLogo_light.png');
+
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const headerLogo = require('../../../assets/images/textLogo_light.png');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
 
@@ -117,17 +123,16 @@ function SignIn() {
 
 	const signInBtnClickListener = () => {
 		api
-			.post('/user/signIn', {
+			.post<signInDataInterface>('/user/signIn', {
 				id,
 				password: pw,
 			})
 			.then(({ data }) => {
 				if (isApprovedAccount(data.position)) {
-					navigation.navigate('NotApproved');
-					return;
+					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
+					navigation.navigate('BottomTabNavigator');
 				}
-				api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
-				navigation.navigate('BottomTabNavigator');
+				navigation.navigate('NotApproved');
 			})
 			.catch((err) => {
 				if (id === '') {
