@@ -96,7 +96,6 @@ function SignIn() {
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
 		text: '',
-		buttonList: { modalBtn },
 	});
 
 	const returnToSignIn = () => {
