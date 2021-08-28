@@ -108,6 +108,14 @@ function SignIn() {
 		},
 	];
 
+	const openErrorModal = (errText: string) => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: true,
+			text: errText,
+		}));
+	};
+
 	const signInBtnClickListener = () => {
 		userSignIn(id, pw)
 			.then(({ data }) => {
@@ -120,35 +128,23 @@ function SignIn() {
 			})
 			.catch((err) => {
 				if (id === '') {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '아이디를 입력해주세요',
-					}));
-				} else if (pw === '') {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호를 입력해주세요',
-					}));
-				} else if (err.response.status === 404) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '아이디가 존재하지 않습니다',
-					}));
-				} else if (err.response.status === 401) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호가 잘못되었습니다',
-					}));
-				} else if (err.response.status === 500) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '예상치 못한 에러가 발생하였습니다',
-					}));
+					openErrorModal('아이디를 입력해주세요');
+					return;
+				}
+				if (pw === '') {
+					openErrorModal('비밀번호를 입력해주세요');
+					return;
+				}
+				if (err.response.status === 404) {
+					openErrorModal('아이디가 존재하지 않습니다.');
+					return;
+				}
+				if (err.response.status === 401) {
+					openErrorModal('비밀번호가 잘못되었습니다.');
+					return;
+				}
+				if (err.response.status === 500) {
+					openErrorModal('예상치 못한 에러가 발생하였습니다.');
 				}
 			});
 	};
