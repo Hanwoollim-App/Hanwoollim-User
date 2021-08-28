@@ -78,10 +78,7 @@ const styles = StyleSheet.create({
 });
 
 function isApprovedAccount(position: string) {
-	console.log(position);
 	const isValidAccount: boolean = position !== 'not_approved';
-
-	console.log(isValidAccount);
 
 	return isValidAccount;
 }
