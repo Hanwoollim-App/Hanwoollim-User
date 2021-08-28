@@ -174,6 +174,14 @@ function infoEdit() {
 	});
 
 	const infoEditBtnClickListener = () => {
+		if (studentID.length !== 10) {
+			setModalValue((prev) => ({
+				...prev,
+				isVisible: true,
+				text: '학번은 10자리입니다',
+			}));
+			return;
+		}
 		api
 			.patch('/user/editInfo', {
 				userName: name,
@@ -219,14 +227,6 @@ function infoEdit() {
 						...prev,
 						isVisible: true,
 						text: '항목을 입력해주세요',
-					}));
-					return;
-				}
-				if (studentID.length !== 10) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '학번은 10자리입니다',
 					}));
 				}
 			});

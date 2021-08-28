@@ -175,6 +175,14 @@ function SignUp() {
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	const signUpBtnClickListener = () => {
+		if (pwCheck !== pw) {
+			setModalValue((prev) => ({
+				...prev,
+				isVisible: true,
+				text: '비밀번호가 다릅니다',
+			}));
+			return;
+		}
 		api
 			.post('/user/signUp', {
 				id,
@@ -236,14 +244,6 @@ function SignUp() {
 						...prev,
 						isVisible: true,
 						text: '비밀번호를 입력하세요',
-					}));
-					return;
-				}
-				if (pwCheck !== pw) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호가 다릅니다',
 					}));
 					return;
 				}

@@ -134,7 +134,6 @@ function MyPage() {
 					major,
 					studentId,
 				}));
-				console.log('asdf');
 			});
 
 			return () => {};
