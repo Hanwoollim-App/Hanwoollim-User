@@ -134,10 +134,11 @@ function MyPage() {
 					major,
 					studentId,
 				}));
+				console.log('asdf');
 			});
 
 			return () => {};
-		}, [user]),
+		}, []),
 	);
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
