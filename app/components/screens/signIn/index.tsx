@@ -1,12 +1,5 @@
-import React, { useState } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	TouchableOpacity,
-	Platform,
-} from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -24,6 +17,9 @@ import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import api from '../../../utils/constant/api';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	root: {
@@ -86,6 +82,7 @@ const styles = StyleSheet.create({
 
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+	const { setUser }: userInterface = useContext(UserInfoContext);
 	const headerLogo = require('../../../assets/images/textLogo_light.png');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
@@ -117,11 +114,33 @@ function SignIn() {
 			})
 			.then(({ data }) => {
 				console.log(data);
+				const { accessToken } = data;
+
+				api.defaults.headers['x-access-token'] = accessToken;
 				if (data.position === 'not_approved') {
-					navigation.navigate('NotApproved');
+					console.log('notApproved');
+					api.get('/user/info').then((res) => {
+						const { userName } = res.data;
+
+						setUser((prevUser) => ({
+							...prevUser,
+							userName,
+						}));
+						navigation.navigate('NotApproved');
+					});
 				} else if (data.position === 'chairman' || 'admin' || 'user') {
-					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
-					navigation.navigate('BottomTabNavigator');
+					console.log('Approved');
+					api.get('/user/info').then((res) => {
+						const { userName, major, studentId } = res.data;
+
+						setUser((prevUser) => ({
+							...prevUser,
+							userName,
+							major,
+							studentId,
+						}));
+						navigation.navigate('BottomTabNavigator');
+					});
 				}
 			})
 			.catch((err) => {
@@ -132,25 +151,33 @@ function SignIn() {
 						isVisible: true,
 						text: '아이디를 입력해주세요',
 					}));
-				} else if (pw === '') {
+					return;
+				}
+				if (pw === '') {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
 						text: '비밀번호를 입력해주세요',
 					}));
-				} else if (err.response.status === 404) {
+					return;
+				}
+				if (err.response.status === 404) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
 						text: '아이디가 존재하지 않습니다',
 					}));
-				} else if (err.response.status === 401) {
+					return;
+				}
+				if (err.response.status === 401) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
 						text: '비밀번호가 잘못되었습니다',
 					}));
-				} else if (err.response.status === 500) {
+					return;
+				}
+				if (err.response.status === 500) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
