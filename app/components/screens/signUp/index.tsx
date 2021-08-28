@@ -19,7 +19,7 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
-import api from '../../../utils/constant/api';
+import api from '../../../utils/constant/api/api';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 

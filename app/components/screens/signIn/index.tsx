@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	TouchableOpacity,
-	Platform,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -23,12 +16,7 @@ import CustomBtn from '../../common/CustomBtn';
 import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import api from '../../../utils/constant/api';
-
-interface signInDataInterface {
-	accessToken: string;
-	position: string;
-}
+import { api, userSignIn } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -90,7 +78,10 @@ const styles = StyleSheet.create({
 });
 
 function isApprovedAccount(position: string) {
+	console.log(position);
 	const isValidAccount: boolean = position !== 'not_approved';
+
+	console.log(isValidAccount);
 
 	return isValidAccount;
 }
@@ -122,15 +113,12 @@ function SignIn() {
 	];
 
 	const signInBtnClickListener = () => {
-		api
-			.post<signInDataInterface>('/user/signIn', {
-				id,
-				password: pw,
-			})
+		userSignIn(id, pw)
 			.then(({ data }) => {
 				if (isApprovedAccount(data.position)) {
 					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 					navigation.navigate('BottomTabNavigator');
+					return;
 				}
 				navigation.navigate('NotApproved');
 			})
