@@ -2,7 +2,7 @@ import { Item } from 'react-native-picker-select';
 
 const weekItem: Array<Item> = [];
 
-for (let i: number = 1; i <= 2; i++) {
+for (let i: number = 1; i <= 5; i++) {
 	const curDate: Date = new Date();
 
 	curDate.setDate(curDate.getDate() + (i - 1) * 7);
