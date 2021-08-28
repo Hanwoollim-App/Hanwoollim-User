@@ -84,11 +84,23 @@ const styles = StyleSheet.create({
 	},
 });
 
+function isApprovedAccount(position: string) {
+	const isValidAccount: boolean = position !== 'not_approved';
+
+	return isValidAccount;
+}
+
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const headerLogo = require('../../../assets/images/textLogo_light.png');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
+
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+		buttonList: { modalBtn },
+	});
 
 	const returnToSignIn = () => {
 		setModalValue((prev) => ({
@@ -103,12 +115,6 @@ function SignIn() {
 		},
 	];
 
-	const [modalValue, setModalValue] = useState({
-		isVisible: false,
-		text: '',
-		buttonList: { modalBtn },
-	});
-
 	const signInBtnClickListener = () => {
 		api
 			.post('/user/signIn', {
@@ -116,16 +122,14 @@ function SignIn() {
 				password: pw,
 			})
 			.then(({ data }) => {
-				console.log(data);
-				if (data.position === 'not_approved') {
+				if (isApprovedAccount(data.position)) {
 					navigation.navigate('NotApproved');
-				} else if (data.position === 'chairman' || 'admin' || 'user') {
-					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
-					navigation.navigate('BottomTabNavigator');
+					return;
 				}
+				api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
+				navigation.navigate('BottomTabNavigator');
 			})
 			.catch((err) => {
-				console.log(err.response);
 				if (id === '') {
 					setModalValue((prev) => ({
 						...prev,
