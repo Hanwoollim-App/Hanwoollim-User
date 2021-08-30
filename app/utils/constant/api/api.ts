@@ -13,3 +13,7 @@ export function userSignIn(id: string, password: string) {
 		password,
 	});
 }
+
+export function setAuthToken(accessToken: string) {
+	api.defaults.headers['x-access-token'] = accessToken;
+}

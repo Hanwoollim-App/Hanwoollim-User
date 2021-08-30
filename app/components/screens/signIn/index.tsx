@@ -16,7 +16,7 @@ import CustomBtn from '../../common/CustomBtn';
 import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import { api, userSignIn } from '../../../utils/constant/api';
+import { api, userSignIn, setAuthToken } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -120,7 +120,9 @@ function SignIn() {
 		userSignIn(id, pw)
 			.then(({ data }) => {
 				if (isApprovedAccount(data.position)) {
-					api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
+					const { accessToken } = data;
+
+					setAuthToken(accessToken);
 					navigation.navigate('BottomTabNavigator');
 					return;
 				}
