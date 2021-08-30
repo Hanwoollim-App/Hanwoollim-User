@@ -127,37 +127,15 @@ function SignIn() {
 
 	const signInBtnClickListener = () => {
 		userSignIn(id, pw)
-			.then(({ data }) => {
+			.then(async ({ data }) => {
 				const { accessToken } = data;
 
 				updateAuthToken(accessToken);
 				if (isApprovedAccount(data.position)) {
-					api.get('/user/info').then((res) => {
-						const { userName, major, studentId } = res.data;
-
-						setUser((prevUser) => ({
-							...prevUser,
-							userName,
-							major,
-							studentId,
-						}));
-						navigation.navigate('BottomTabNavigator');
-					});
-					// getUserInfo('BottomTabNavigator')
+					await getUserInfo('BottomTabNavigator');
 					return;
 				}
-				api.get('/user/info').then((res) => {
-					const { userName, major, studentId } = res.data;
-
-					setUser((prevUser) => ({
-						...prevUser,
-						userName,
-						major,
-						studentId,
-					}));
-					navigation.navigate('NotApproved');
-				});
-				// getUserInfo('NotApproved')
+				await getUserInfo('NotApproved');
 			})
 			.catch((err) => {
 				if (id === '') {

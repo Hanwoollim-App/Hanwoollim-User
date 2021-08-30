@@ -44,11 +44,11 @@ export function userSignUp(
 	});
 }
 
-export function getUserInfo(path) {
+export async function getUserInfo(path: string) {
 	const { setUser }: userInterface = useContext(UserInfoContext);
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-	api.get('/user/info').then((res) => {
+	return api.get('/user/info').then((res) => {
 		const { userName, major, studentId } = res.data;
 
 		setUser((prevUser) => ({
