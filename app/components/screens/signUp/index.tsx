@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	useNavigation,
 	NavigationProp,
@@ -184,7 +184,7 @@ function SignUp() {
 		userSignUp(id, pw, name, major, studentID)
 			.then((res) => {
 				console.log(res);
-				navigation.navigate('NotApproved');
+				navigation.navigate('SignIn');
 			})
 			.catch((err) => {
 				console.log(err.response);
