@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	useNavigation,
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import color from '../../../utils/constant/common/design/Color';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
@@ -17,7 +17,13 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import CustomModal from '../../common/CustomModal';
+import { customBtnType } from '../../../utils/types/customModal';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
+import api from '../../../utils/constant/api';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -43,10 +49,9 @@ const styles = StyleSheet.create({
 	},
 	scrollView: {
 		width: '100%',
-	},
-	scrollContent: {
 		alignItems: 'center',
 	},
+	scrollContent: {},
 	introText: {
 		marginTop: heightPercentage(59),
 		marginBottom: heightPercentage(34),
@@ -146,20 +151,98 @@ function infoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
+	const [major, setMajor] = useState<ValueType>('');
+	const { setUser }: userInterface = useContext(UserInfoContext);
+
+	const errorModal = () => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
+	};
+	const errModalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: errorModal,
+		},
+	];
+
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+		buttonsList: { errModalBtn },
+	});
 
 	const infoEditBtnClickListener = () => {
-		navigation.navigate('MyPage');
+		if (studentID.length !== 10) {
+			setModalValue((prev) => ({
+				...prev,
+				isVisible: true,
+				text: '학번은 10자리입니다',
+			}));
+			return;
+		}
+		api
+			.patch('/user/editInfo', {
+				userName: name,
+				major,
+				studentId: studentID,
+			})
+			.then((res) => {
+				console.log(res);
+				const { userName, studentId } = res.data;
+
+				setUser((prevUser) => ({
+					...prevUser,
+					userName,
+					major,
+					studentId,
+				}));
+				navigation.navigate('MyPage');
+			})
+			.catch((err) => {
+				console.log(err.response);
+				const errorMessage = err.response.data.message;
+
+				if (err.response.status === 400) {
+					if (errorMessage.startsWith('Failed! ID is already in use!')) {
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '아이디가 사용중입니다',
+						}));
+						return;
+					}
+					if (errorMessage.startsWith('bad type of request')) {
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '잘못된 형식입니다',
+						}));
+						return;
+					}
+				}
+				if (err.response.status === 404) {
+					setModalValue((prev) => ({
+						...prev,
+						isVisible: true,
+						text: '항목을 입력해주세요',
+					}));
+				}
+			});
 	};
 
-	const [major, setMajor] = useState<ValueType>('');
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	return (
 		<ScreenWrapper>
-			<ScrollView
-				style={styles.scrollView}
-				contentContainerStyle={styles.scrollContent}>
+			<CustomModal
+				mdVisible={modalValue.isVisible}
+				title={modalValue.text}
+				buttonList={errModalBtn}
+			/>
+			<View style={styles.scrollView}>
 				<Text style={styles.introText}>
 					{'뭔가가 바뀌었나요?\n바뀐 내용을 적어주세요!!'}
 				</Text>
@@ -195,7 +278,7 @@ function infoEdit() {
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
 				/>
-			</ScrollView>
+			</View>
 		</ScreenWrapper>
 	);
 }

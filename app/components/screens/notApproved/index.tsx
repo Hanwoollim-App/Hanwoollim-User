@@ -1,20 +1,13 @@
-import React from 'react';
-import {
-	StyleSheet,
-	BackHandler,
-	Text,
-	View,
-	TouchableOpacity,
-} from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import React, { useContext } from 'react';
+import { StyleSheet, BackHandler, Text, View } from 'react-native';
 import { useAndroidBackHandler } from 'react-navigation-backhandler';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	title: {
@@ -64,33 +57,17 @@ const styles = StyleSheet.create({
 	},
 });
 
-const settingIcon = (
-	<FontAwesomeIcon
-		style={{
-			color: '#000000',
-		}}
-		size={fontPercentage(24)}
-		icon={faCog}
-	/>
-);
-
-const tempValue: any = {
-	userName: '김동현',
-};
-
 function NotApproved() {
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
 		return true;
 	});
+	const { user }: any = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
-				<Text style={styles.titleText}>{tempValue.userName} 님</Text>
-				<TouchableOpacity style={styles.titleSetting}>
-					{settingIcon}
-				</TouchableOpacity>
+				<Text style={styles.titleText}>{user.userName} 님</Text>
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>아직 승인되지 않은 계정입니다</Text>

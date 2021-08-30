@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
 	useNavigation,
+	useFocusEffect,
 } from '@react-navigation/native';
 import {
 	fontPercentage,
@@ -13,6 +14,10 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
+import api from '../../../utils/constant/api';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	nameBlock: {
@@ -46,7 +51,7 @@ const styles = StyleSheet.create({
 	},
 	titleTextBlock: {
 		height: heightPercentage(50),
-		width: widthPercentage(74),
+		width: widthPercentage(90),
 		marginLeft: widthPercentage(15),
 	},
 	infoTextBlock: {
@@ -92,7 +97,14 @@ function MyPage() {
 	};
 
 	const returnToLogin = () => {
-		navigation.navigate('Login');
+		api
+			.post('/user/info', {
+				execute: 1,
+			})
+			.then((res) => {
+				console.log(res);
+				navigation.navigate('Login');
+			});
 	};
 	const infoEdit = () => {
 		navigation.navigate('infoEdit');
@@ -109,6 +121,24 @@ function MyPage() {
 		},
 	];
 
+	const { user, setUser }: userInterface = useContext(UserInfoContext);
+
+	useFocusEffect(
+		useCallback(() => {
+			api.get('/user/info').then((res) => {
+				const { userName, major, studentId } = res.data;
+
+				setUser((prevUser) => ({
+					...prevUser,
+					userName,
+					major,
+					studentId,
+				}));
+			});
+
+			return () => {};
+		}, []),
+	);
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
 			<CustomModal
@@ -120,17 +150,17 @@ function MyPage() {
 			<View style={styles.nameBlock}>
 				<View style={styles.titleTextBlock}>
 					<Text style={styles.hello}>안녕하세요,</Text>
-					<Text style={styles.boldText}>김동현님</Text>
+					<Text style={styles.boldText}>{user.userName}님</Text>
 				</View>
 			</View>
 			<View style={styles.infoBlock}>
 				<View style={styles.infoTextBlock}>
 					<Text style={styles.boldText}>학과</Text>
-					<Text style={styles.info}>정보시스템학과</Text>
+					<Text style={styles.info}>{user.major}</Text>
 				</View>
 				<View style={styles.infoTextBlock}>
 					<Text style={styles.boldText}>학번</Text>
-					<Text style={styles.info}>2018777777</Text>
+					<Text style={styles.info}>{user.studentId}</Text>
 				</View>
 			</View>
 			<View style={styles.btnBlock}>
