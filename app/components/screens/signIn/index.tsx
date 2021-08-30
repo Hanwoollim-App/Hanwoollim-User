@@ -143,6 +143,7 @@ function SignIn() {
 						}));
 						navigation.navigate('BottomTabNavigator');
 					});
+					// getUserInfo('BottomTabNavigator')
 					return;
 				}
 				api.get('/user/info').then((res) => {
@@ -156,6 +157,7 @@ function SignIn() {
 					}));
 					navigation.navigate('NotApproved');
 				});
+				// getUserInfo('NotApproved')
 			})
 			.catch((err) => {
 				if (id === '') {

@@ -1,5 +1,10 @@
 import axios from 'axios';
 import { useContext } from 'react';
+import {
+	NavigationProp,
+	ParamListBase,
+	useNavigation,
+} from '@react-navigation/native';
 import { signInDataInterface } from './type';
 import { ValueType } from '../../../utils/types/dropDown';
 import userInterface, {
@@ -39,16 +44,19 @@ export function userSignUp(
 	});
 }
 
-// export function getUserInfo() {
-// 	api.get('/user/info').then((res) => {
-// 		const { setUser }: userInterface = useContext(UserInfoContext);
-// 		const { userName, major, studentId } = res.data;
+export function getUserInfo(path) {
+	const { setUser }: userInterface = useContext(UserInfoContext);
+	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-// 		setUser((prevUser) => ({
-// 			...prevUser,
-// 			userName,
-// 			major,
-// 			studentId,
-// 		}));
-// 	});
-// }
+	api.get('/user/info').then((res) => {
+		const { userName, major, studentId } = res.data;
+
+		setUser((prevUser) => ({
+			...prevUser,
+			userName,
+			major,
+			studentId,
+		}));
+		navigation.navigate(path);
+	});
+}
