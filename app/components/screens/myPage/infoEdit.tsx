@@ -20,7 +20,7 @@ import ScreenWrapper from '../../common/ScreenWrapper';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
-import api from '../../../utils/constant/api';
+import { api } from '../../../utils/constant/api';
 import userInterface, {
 	UserInfoContext,
 } from '../../../utils/context/UserInfoContext';
@@ -153,7 +153,10 @@ function infoEdit() {
 	const [studentID, setStudentID] = useState<string>('');
 	const [major, setMajor] = useState<ValueType>('');
 	const { setUser }: userInterface = useContext(UserInfoContext);
-
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+	});
 	const errorModal = () => {
 		setModalValue((prev) => ({
 			...prev,
@@ -167,19 +170,17 @@ function infoEdit() {
 		},
 	];
 
-	const [modalValue, setModalValue] = useState({
-		isVisible: false,
-		text: '',
-		buttonsList: { errModalBtn },
-	});
+	const openErrorModal = (errText: string) => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: true,
+			text: errText,
+		}));
+	};
 
 	const infoEditBtnClickListener = () => {
 		if (studentID.length !== 10) {
-			setModalValue((prev) => ({
-				...prev,
-				isVisible: true,
-				text: '학번은 10자리입니다',
-			}));
+			openErrorModal('학번은 10자리입니다');
 			return;
 		}
 		api
@@ -206,28 +207,22 @@ function infoEdit() {
 
 				if (err.response.status === 400) {
 					if (errorMessage.startsWith('Failed! ID is already in use!')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '아이디가 사용중입니다',
-						}));
+						openErrorModal('아이디가 사용중입니다');
+						return;
+					}
+					if (
+						errorMessage.startsWith('Failed! Student Id is already in use!')
+					) {
+						openErrorModal('학번이 중복됩니다');
 						return;
 					}
 					if (errorMessage.startsWith('bad type of request')) {
-						setModalValue((prev) => ({
-							...prev,
-							isVisible: true,
-							text: '잘못된 형식입니다',
-						}));
+						openErrorModal('잘못된 형식입니다');
 						return;
 					}
 				}
 				if (err.response.status === 404) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '항목을 입력해주세요',
-					}));
+					openErrorModal('항목을 입력해주세요');
 				}
 			});
 	};
