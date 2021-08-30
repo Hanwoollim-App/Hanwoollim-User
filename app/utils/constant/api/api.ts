@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { signInDataInterface } from './type';
+import { ValueType } from '../../../utils/types/dropDown';
 
 export const api = axios.create({
 	baseURL: 'https://api.hanwoolim.n-e.kr',
@@ -16,4 +17,20 @@ export function userSignIn(id: string, password: string) {
 
 export function setAuthToken(accessToken: string) {
 	api.defaults.headers['x-access-token'] = accessToken;
+}
+
+export function userSignUp(
+	id: string,
+	password: string,
+	userName: string,
+	major: ValueType,
+	studentId: string,
+) {
+	return api.post('/user/signUp', {
+		id,
+		password,
+		userName,
+		major,
+		studentId,
+	});
 }

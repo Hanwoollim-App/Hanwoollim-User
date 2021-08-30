@@ -22,6 +22,7 @@ import { ItemType, ValueType } from '../../../utils/types/dropDown';
 import api from '../../../utils/constant/api/api';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
+import { userSignUp } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -144,6 +145,11 @@ const styles = StyleSheet.create({
 
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+	});
 	const returnToSignUp = () => {
 		setModalValue((prev) => ({
 			...prev,
@@ -157,12 +163,6 @@ function SignUp() {
 		},
 	];
 
-	const [modalValue, setModalValue] = useState({
-		isVisible: false,
-		text: '',
-		buttonList: { modalBtn },
-	});
-
 	const [name, setName] = useState<string>('');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
@@ -173,14 +173,7 @@ function SignUp() {
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	const signUpBtnClickListener = () => {
-		api
-			.post('/user/signUp', {
-				id,
-				password: pw,
-				userName: name,
-				major,
-				studentId: studentID,
-			})
+		userSignUp(id, pw, name, major, studentID)
 			.then((res) => {
 				console.log(res);
 				navigation.navigate('NotApproved');
@@ -202,13 +195,6 @@ function SignUp() {
 							isVisible: true,
 							text: '학번이 중복됩니다',
 						}));
-				} else if (pwCheck !== pw) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호가 다릅니다',
-					}));
-				} else if (err.response.status === 500) {
 					if (errorMessage.startsWith('아이디 입력하세요'))
 						setModalValue((prev) => ({
 							...prev,
@@ -239,11 +225,19 @@ function SignUp() {
 							isVisible: true,
 							text: '학번을 입력하세요',
 						}));
-				} else if (studentID.length !== 10) {
+					if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
+						setModalValue((prev) => ({
+							...prev,
+							isVisible: true,
+							text: '학번은 10자리입니다',
+						}));
+					}
+				}
+				if (pwCheck !== pw) {
 					setModalValue((prev) => ({
 						...prev,
 						isVisible: true,
-						text: '학번은 10자리입니다',
+						text: '비밀번호가 다릅니다',
 					}));
 				}
 			});
