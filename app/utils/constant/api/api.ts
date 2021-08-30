@@ -1,6 +1,10 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import { signInDataInterface } from './type';
 import { ValueType } from '../../../utils/types/dropDown';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 export const api = axios.create({
 	baseURL: 'https://api.hanwoolim.n-e.kr',
@@ -34,3 +38,17 @@ export function userSignUp(
 		studentId,
 	});
 }
+
+// export function getUserInfo() {
+// 	api.get('/user/info').then((res) => {
+// 		const { setUser }: userInterface = useContext(UserInfoContext);
+// 		const { userName, major, studentId } = res.data;
+
+// 		setUser((prevUser) => ({
+// 			...prevUser,
+// 			userName,
+// 			major,
+// 			studentId,
+// 		}));
+// 	});
+// }

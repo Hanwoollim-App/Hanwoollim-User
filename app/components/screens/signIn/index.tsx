@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
@@ -17,7 +16,15 @@ import CustomBtn from '../../common/CustomBtn';
 import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import { api, userSignIn, updateAuthToken } from '../../../utils/constant/api';
+import {
+	api,
+	userSignIn,
+	updateAuthToken,
+	getUserInfo,
+} from '../../../utils/constant/api';
+import userInterface, {
+	UserInfoContext,
+} from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({
 	root: {
@@ -90,6 +97,7 @@ function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
+	const { setUser }: userInterface = useContext(UserInfoContext);
 
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
@@ -120,14 +128,34 @@ function SignIn() {
 	const signInBtnClickListener = () => {
 		userSignIn(id, pw)
 			.then(({ data }) => {
-				if (isApprovedAccount(data.position)) {
-					const { accessToken } = data;
+				const { accessToken } = data;
 
-					updateAuthToken(accessToken);
-					navigation.navigate('BottomTabNavigator');
+				updateAuthToken(accessToken);
+				if (isApprovedAccount(data.position)) {
+					api.get('/user/info').then((res) => {
+						const { userName, major, studentId } = res.data;
+
+						setUser((prevUser) => ({
+							...prevUser,
+							userName,
+							major,
+							studentId,
+						}));
+						navigation.navigate('BottomTabNavigator');
+					});
 					return;
 				}
-				navigation.navigate('NotApproved');
+				api.get('/user/info').then((res) => {
+					const { userName, major, studentId } = res.data;
+
+					setUser((prevUser) => ({
+						...prevUser,
+						userName,
+						major,
+						studentId,
+					}));
+					navigation.navigate('NotApproved');
+				});
 			})
 			.catch((err) => {
 				if (id === '') {

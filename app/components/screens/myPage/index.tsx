@@ -14,7 +14,7 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import api from '../../../utils/constant/api';
+import { api } from '../../../utils/constant/api';
 import userInterface, {
 	UserInfoContext,
 } from '../../../utils/context/UserInfoContext';
