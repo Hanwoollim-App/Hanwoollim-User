@@ -15,7 +15,7 @@ export function userSignIn(id: string, password: string) {
 	});
 }
 
-export function setAuthToken(accessToken: string) {
+export function updateAuthToken(accessToken: string) {
 	api.defaults.headers['x-access-token'] = accessToken;
 }
 
