@@ -21,6 +21,7 @@ import {
 import ScreenWrapper from '../../../common/ScreenWrapper';
 import { ItemType, ValueType } from '../../../../utils/types/dropDown';
 import TimeTable from './timeTable';
+import weekItem from '../../../../utils/constant/reservation/timeTable/reservationTimeTable';
 
 const styles = StyleSheet.create({
 	titleBlock: {
@@ -96,14 +97,12 @@ function ReservationTimeTable() {
 
 	const [open, setOpen] = useState<boolean>(false);
 	const [value, setValue] = useState<ValueType>(null);
-	const [items, setItems] = useState<Array<ItemType>>([
-		{ label: '6.28~7.4', value: '6.28~7.4' },
-		{ label: '7.4~7.11', value: '7.4~7.11' },
-		{ label: '7.11~7.18', value: '7.11~7.18' },
-		{ label: '7.18~7.25', value: '7.18~7.25' },
-	]);
+	const [date, setDate] = useState<Array<ItemType>>(weekItem);
 	const reserveBtnListener = () => {
-		navigation.navigate('ReservationProcess', { value });
+		const index = weekItem.findIndex((i) => i.value === value);
+		const weekName = weekItem[index].label;
+
+		navigation.navigate('ReservationProcess', { weekName });
 	};
 
 	return (
@@ -113,10 +112,10 @@ function ReservationTimeTable() {
 					<DropDownPicker
 						open={open}
 						value={value}
-						items={items}
+						items={date}
 						setOpen={setOpen}
 						setValue={setValue}
-						setItems={setItems}
+						setItems={setDate}
 						style={styles.dropDown}
 						textStyle={styles.dropDownText}
 						dropDownContainerStyle={styles.dropDownContainer}

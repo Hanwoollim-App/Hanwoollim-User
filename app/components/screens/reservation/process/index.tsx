@@ -216,7 +216,7 @@ function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: any = route.params.value;
+	const currentWeek: any = route.params.weekName;
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);

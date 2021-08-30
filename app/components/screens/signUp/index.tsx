@@ -19,11 +19,10 @@ import {
 import ScreenWrapper from '../../common/ScreenWrapper';
 import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
-import api from '../../../utils/constant/api';
+import api from '../../../utils/constant/api/api';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import { UserInfoContext } from '../../../utils/context/UserInfoContext';
-import SignIn from '../signIn';
+import { userSignUp } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -146,6 +145,11 @@ const styles = StyleSheet.create({
 
 function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+	});
 	const returnToSignUp = () => {
 		setModalValue((prev) => ({
 			...prev,
@@ -159,11 +163,13 @@ function SignUp() {
 		},
 	];
 
-	const [modalValue, setModalValue] = useState({
-		isVisible: false,
-		text: '',
-		buttonList: { modalBtn },
-	});
+	const openErrorModal = (errText: string) => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: true,
+			text: errText,
+		}));
+	};
 
 	const [name, setName] = useState<string>('');
 	const [id, setId] = useState<string>('');
@@ -175,22 +181,7 @@ function SignUp() {
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	const signUpBtnClickListener = () => {
-		if (pwCheck !== pw) {
-			setModalValue((prev) => ({
-				...prev,
-				isVisible: true,
-				text: '비밀번호가 다릅니다',
-			}));
-			return;
-		}
-		api
-			.post('/user/signUp', {
-				id,
-				password: pw,
-				userName: name,
-				major,
-				studentId: studentID,
-			})
+		userSignUp(id, pw, name, major, studentID)
 			.then((res) => {
 				console.log(res);
 				navigation.navigate('SignIn');
@@ -199,68 +190,44 @@ function SignUp() {
 				console.log(err.response);
 				const errorMessage = err.response.data.message;
 
-				if (errorMessage.startsWith('Failed! ID is already in use!')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '아이디가 중복됩니다',
-					}));
-					return;
+				if (err.response.status === 400) {
+					if (errorMessage.startsWith('Failed! ID is already in use!')) {
+						openErrorModal('아이디가 중복됩니다');
+						return;
+					}
+					if (
+						errorMessage.startsWith('Failed! Student Id is already in use!')
+					) {
+						openErrorModal('학번이 중복됩니다');
+						return;
+					}
+					if (errorMessage.startsWith('아이디 입력하세요')) {
+						openErrorModal('아이디를 입력하세요');
+						return;
+					}
+					if (errorMessage.startsWith('이름을 입력하세요')) {
+						openErrorModal('이름을 입력하세요');
+						return;
+					}
+					if (errorMessage.startsWith('전공을 입력하세요')) {
+						openErrorModal('전공을 입력하세요');
+						return;
+					}
+					if (errorMessage.startsWith('비밀번호를 입력하세요')) {
+						openErrorModal('비밀번호를 입력하세요');
+						return;
+					}
+					if (errorMessage.startsWith('학번를 입력하세요')) {
+						openErrorModal('학번을 입력하세요');
+						return;
+					}
+					if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
+						openErrorModal('학번은 10자리입니다.');
+						return;
+					}
 				}
-				if (errorMessage.startsWith('Failed! Student Id is already in use!')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '학번이 중복됩니다',
-					}));
-					return;
-				}
-				if (errorMessage.startsWith('아이디 입력하세요')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '아이디를 입력하세요',
-					}));
-					return;
-				}
-				if (errorMessage.startsWith('이름을 입력하세요')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '이름을 입력하세요',
-					}));
-					return;
-				}
-				if (errorMessage.startsWith('전공을 입력하세요')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '전공을 선택하세요',
-					}));
-					return;
-				}
-				if (errorMessage.startsWith('비밀번호를 입력하세요')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호를 입력하세요',
-					}));
-					return;
-				}
-				if (errorMessage.startsWith('학번를 입력하세요')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '학번을 입력하세요',
-					}));
-					return;
-				}
-				if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '학번은 10자리만 입력가능합니다',
-					}));
+				if (pwCheck !== pw) {
+					openErrorModal('비밀번호가 다릅니다');
 				}
 			});
 	};

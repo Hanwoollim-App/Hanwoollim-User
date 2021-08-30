@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
@@ -16,10 +17,7 @@ import CustomBtn from '../../common/CustomBtn';
 import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import api from '../../../utils/constant/api';
-import userInterface, {
-	UserInfoContext,
-} from '../../../utils/context/UserInfoContext';
+import { api, userSignIn, updateAuthToken } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -80,12 +78,23 @@ const styles = StyleSheet.create({
 	},
 });
 
+function isApprovedAccount(position: string) {
+	const isValidAccount: boolean = position !== 'not_approved';
+
+	return isValidAccount;
+}
+
+const headerLogo = require('../../../assets/images/textLogo_light.png');
+
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const { setUser }: userInterface = useContext(UserInfoContext);
-	const headerLogo = require('../../../assets/images/textLogo_light.png');
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
+
+	const [modalValue, setModalValue] = useState({
+		isVisible: false,
+		text: '',
+	});
 
 	const returnToSignIn = () => {
 		setModalValue((prev) => ({
@@ -100,89 +109,45 @@ function SignIn() {
 		},
 	];
 
-	const [modalValue, setModalValue] = useState({
-		isVisible: false,
-		text: '',
-		buttonList: { modalBtn },
-	});
+	const openErrorModal = (errText: string) => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: true,
+			text: errText,
+		}));
+	};
 
 	const signInBtnClickListener = () => {
-		api
-			.post('/user/signIn', {
-				id,
-				password: pw,
-			})
+		userSignIn(id, pw)
 			.then(({ data }) => {
-				console.log(data);
-				const { accessToken } = data;
+				if (isApprovedAccount(data.position)) {
+					const { accessToken } = data;
 
-				api.defaults.headers['x-access-token'] = accessToken;
-				if (data.position === 'not_approved') {
-					console.log('notApproved');
-					api.get('/user/info').then((res) => {
-						const { userName } = res.data;
-
-						setUser((prevUser) => ({
-							...prevUser,
-							userName,
-						}));
-						navigation.navigate('NotApproved');
-					});
-				} else if (data.position === 'chairman' || 'admin' || 'user') {
-					console.log('Approved');
-					api.get('/user/info').then((res) => {
-						const { userName, major, studentId } = res.data;
-
-						setUser((prevUser) => ({
-							...prevUser,
-							userName,
-							major,
-							studentId,
-						}));
-						navigation.navigate('BottomTabNavigator');
-					});
+					updateAuthToken(accessToken);
+					navigation.navigate('BottomTabNavigator');
+					return;
 				}
+				navigation.navigate('NotApproved');
 			})
 			.catch((err) => {
-				console.log(err.response);
 				if (id === '') {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '아이디를 입력해주세요',
-					}));
+					openErrorModal('아이디를 입력해주세요');
 					return;
 				}
 				if (pw === '') {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호를 입력해주세요',
-					}));
+					openErrorModal('비밀번호를 입력해주세요');
 					return;
 				}
 				if (err.response.status === 404) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '아이디가 존재하지 않습니다',
-					}));
+					openErrorModal('아이디가 존재하지 않습니다.');
 					return;
 				}
 				if (err.response.status === 401) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '비밀번호가 잘못되었습니다',
-					}));
+					openErrorModal('비밀번호가 잘못되었습니다.');
 					return;
 				}
 				if (err.response.status === 500) {
-					setModalValue((prev) => ({
-						...prev,
-						isVisible: true,
-						text: '예상치 못한 에러가 발생하였습니다',
-					}));
+					openErrorModal('예상치 못한 에러가 발생하였습니다.');
 				}
 			});
 	};
