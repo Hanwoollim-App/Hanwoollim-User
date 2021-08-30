@@ -44,10 +44,7 @@ export function userSignUp(
 	});
 }
 
-export async function getUserInfo(path: string) {
-	const { setUser }: userInterface = useContext(UserInfoContext);
-	const navigation: NavigationProp<ParamListBase> = useNavigation();
-
+export async function getUserInfo(path: string, setUser, navigation) {
 	return api.get('/user/info').then((res) => {
 		const { userName, major, studentId } = res.data;
 

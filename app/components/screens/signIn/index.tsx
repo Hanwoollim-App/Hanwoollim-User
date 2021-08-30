@@ -132,12 +132,13 @@ function SignIn() {
 
 				updateAuthToken(accessToken);
 				if (isApprovedAccount(data.position)) {
-					await getUserInfo('BottomTabNavigator');
+					await getUserInfo('BottomTabNavigator', setUser, navigation);
 					return;
 				}
-				await getUserInfo('NotApproved');
+				await getUserInfo('NotApproved', setUser, navigation);
 			})
 			.catch((err) => {
+				console.log(err);
 				if (id === '') {
 					openErrorModal('아이디를 입력해주세요');
 					return;
