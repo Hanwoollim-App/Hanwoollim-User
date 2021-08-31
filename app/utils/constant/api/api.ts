@@ -1,15 +1,6 @@
 import axios from 'axios';
-import { useContext } from 'react';
-import {
-	NavigationProp,
-	ParamListBase,
-	useNavigation,
-} from '@react-navigation/native';
 import { signInDataInterface } from './type';
 import { ValueType } from '../../../utils/types/dropDown';
-import userInterface, {
-	UserInfoContext,
-} from '../../../utils/context/UserInfoContext';
 
 export const api = axios.create({
 	baseURL: 'https://api.hanwoolim.n-e.kr',
