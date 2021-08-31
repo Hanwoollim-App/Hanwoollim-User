@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, Text, Platform } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import { noticeDataParamList } from '../../../utils/types/noticeItem';
 
 const styles = StyleSheet.create({
 	root: {
@@ -99,21 +101,21 @@ const styles = StyleSheet.create({
 	},
 });
 
-function NoticeDetail({ route }) {
-	const { title, date, body, writer } = route.params;
+function NoticeDetail() {
+	const route = useRoute<noticeDataParamList>();
 
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.titleBox}>
-				<Text style={styles.title}>{title}</Text>
+				<Text style={styles.title}>{route.params.title}</Text>
 				<View style={styles.titleRow}>
-					<Text style={styles.date}>{date}</Text>
-					<Text style={styles.writer}>{writer}</Text>
+					<Text style={styles.date}>{route.params.date}</Text>
+					<Text style={styles.writer}>{route.params.writer}</Text>
 				</View>
 			</View>
 			<View style={styles.postBox}>
 				<View style={styles.post}>
-					<Text style={styles.postText}>{body}</Text>
+					<Text style={styles.postText}>{route.params.body}</Text>
 				</View>
 			</View>
 		</ScreenWrapper>
