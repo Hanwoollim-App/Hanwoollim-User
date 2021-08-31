@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, Platform } from 'react-native';
+import { View, StyleSheet, FlatList, Platform, Text } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -71,6 +71,16 @@ function NoticeScreen() {
 		getNotice(setNoticeData);
 	}, []);
 
+	const EmptyListMessage = () => {
+		return (
+			<ScreenWrapper headerTitle="공지사항">
+				<View>
+					<Text>'asdf'</Text>
+				</View>
+			</ScreenWrapper>
+		);
+	};
+
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.list}>
@@ -91,6 +101,7 @@ function NoticeScreen() {
 					)}
 					keyExtractor={(item) => item.id}
 					ItemSeparatorComponent={renderSeparator}
+					ListEmptyComponent={() => <Text>아직 공지사항이 없습니다</Text>}
 				/>
 			</View>
 		</ScreenWrapper>
