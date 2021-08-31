@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import {
 	fontPercentage,
@@ -6,8 +6,6 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
-import { api } from '../../../utils/constant/api';
-import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 
 const styles = StyleSheet.create({
 	root: {

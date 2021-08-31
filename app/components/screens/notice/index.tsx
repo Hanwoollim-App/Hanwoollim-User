@@ -8,7 +8,7 @@ import {
 import NoticeItem from '../notice/NoticeItem';
 import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 import ScreenWrapper from '../../common/ScreenWrapper';
-import { api, getNotice } from '../../../utils/constant/api';
+import { getNotice } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {

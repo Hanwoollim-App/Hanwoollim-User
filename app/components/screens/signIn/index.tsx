@@ -17,7 +17,6 @@ import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import {
-	api,
 	userSignIn,
 	updateAuthToken,
 	getUserInfo,
