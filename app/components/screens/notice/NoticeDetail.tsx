@@ -103,19 +103,20 @@ const styles = StyleSheet.create({
 
 function NoticeDetail() {
 	const route = useRoute<noticeDataParamList>();
+	const notice = route.params;
 
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.titleBox}>
-				<Text style={styles.title}>{route.params.title}</Text>
+				<Text style={styles.title}>{notice.title}</Text>
 				<View style={styles.titleRow}>
-					<Text style={styles.date}>{route.params.date}</Text>
-					<Text style={styles.writer}>{route.params.writer}</Text>
+					<Text style={styles.date}>{notice.date}</Text>
+					<Text style={styles.writer}>{notice.writer}</Text>
 				</View>
 			</View>
 			<View style={styles.postBox}>
 				<View style={styles.post}>
-					<Text style={styles.postText}>{route.params.body}</Text>
+					<Text style={styles.postText}>{notice.body}</Text>
 				</View>
 			</View>
 		</ScreenWrapper>
