@@ -104,8 +104,6 @@ const styles = StyleSheet.create({
 function NoticeDetail({ route }) {
 	const { title, date, body, writer } = route.params;
 
-	console.log(body);
-	console.log(title);
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.titleBox}>

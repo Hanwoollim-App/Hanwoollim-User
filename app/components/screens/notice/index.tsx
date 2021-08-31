@@ -8,7 +8,7 @@ import {
 import NoticeItem from '../notice/NoticeItem';
 import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 import ScreenWrapper from '../../common/ScreenWrapper';
-import { api } from '../../../utils/constant/api';
+import { api, getNotice } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -68,10 +68,7 @@ function NoticeScreen() {
 		useState<Array<NoticeDetailItemInterface>>();
 
 	useEffect(() => {
-		api.get('/manager/announcement').then((res) => {
-			console.log(res.data);
-			setNoticeData(res.data);
-		});
+		getNotice(setNoticeData);
 	}, []);
 
 	return (

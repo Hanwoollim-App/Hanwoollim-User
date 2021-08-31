@@ -48,3 +48,9 @@ export async function getUserInfo(path: string, setUser, navigation) {
 		navigation.navigate(path);
 	});
 }
+
+export function getNotice(setNoticeData) {
+	return api.get('/manager/announcement').then((res) => {
+		setNoticeData(res.data);
+	});
+}
