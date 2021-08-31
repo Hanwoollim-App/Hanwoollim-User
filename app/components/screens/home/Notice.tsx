@@ -42,12 +42,10 @@ function Notice() {
 	};
 
 	return (
-		<View style={blockStyles.root}>
+		<TouchableOpacity style={blockStyles.root} onPress={titleBtnListener}>
 			<View style={blockStyles.title}>
 				<Text style={blockStyles.titleText}>한울림 공지사항</Text>
-				<TouchableOpacity
-					style={blockStyles.titleBtn}
-					onPress={titleBtnListener}>
+				<View style={blockStyles.titleBtn}>
 					<FontAwesomeIcon
 						size={fontPercentage(20)}
 						style={{
@@ -55,7 +53,7 @@ function Notice() {
 						}}
 						icon={faChevronRight}
 					/>
-				</TouchableOpacity>
+				</View>
 			</View>
 			<View style={blockStyles.contents}>
 				{tempNoticeContents.map((notice) => (
@@ -64,7 +62,7 @@ function Notice() {
 					</View>
 				))}
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 }
 
