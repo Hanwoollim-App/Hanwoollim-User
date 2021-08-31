@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, Platform } from 'react-native';
 import {
 	fontPercentage,
@@ -6,7 +6,7 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import NoticeItem from '../notice/NoticeItem';
-import NoticeItemInterface from '../../../utils/types/noticeItem';
+import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import { api } from '../../../utils/constant/api';
 
@@ -64,22 +64,32 @@ const renderSeparator = () => {
 };
 
 function NoticeScreen() {
-	const [noticeData, setNoticeData] = useState<Array<NoticeItemInterface>>();
+	const [noticeData, setNoticeData] =
+		useState<Array<NoticeDetailItemInterface>>();
 
-	api.get('/manager/announcement').then((res) => {
-		console.log(res.data);
-		setNoticeData(res.data);
-	});
+	useEffect(() => {
+		api.get('/manager/announcement').then((res) => {
+			console.log(res.data);
+			setNoticeData(res.data);
+		});
+	}, []);
+
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.list}>
 				<FlatList
 					data={noticeData}
-					renderItem={({ item: notice }: { item: NoticeItemInterface }) => (
+					renderItem={({
+						item: notice,
+					}: {
+						item: NoticeDetailItemInterface;
+					}) => (
 						<NoticeItem
 							title={notice.title}
 							date={notice.date}
 							id={notice.id}
+							writer={notice.writer}
+							body={notice.body}
 						/>
 					)}
 					keyExtractor={(item) => item.id}

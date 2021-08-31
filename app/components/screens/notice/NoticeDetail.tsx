@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import {
 	fontPercentage,
@@ -6,6 +6,8 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import { api } from '../../../utils/constant/api';
+import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 
 const styles = StyleSheet.create({
 	root: {
@@ -99,19 +101,42 @@ const styles = StyleSheet.create({
 	},
 });
 
-function NoticeDetail() {
+function NoticeDetail({ route }) {
+	// const [noticeData, setNoticeData] =
+	// 	useState<Array<NoticeDetailItemInterface>>();
+
+	// useEffect(() => {
+	// 	api.get('/manager/announcement').then((res) => {
+	// 		console.log(res.data);
+	// 		const { title, date, id, writer, body } = res.data;
+
+	// 		setNoticeData((prevUser) => ({
+	// 			...prevUser,
+	// 			title,
+	// 			date,
+	// 			id,
+	// 			writer,
+	// 			body,
+	// 		}));
+	// 	});
+	// 	console.log(noticeData);
+	// }, []);
+	const { title, date, body, writer } = route.params;
+
+	console.log(body);
+	console.log(title);
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.titleBox}>
-				<Text style={styles.title}>한울림 공지사항</Text>
+				<Text style={styles.title}>{title}</Text>
 				<View style={styles.titleRow}>
-					<Text style={styles.date}>2021.01.01</Text>
-					<Text style={styles.writer}>작성자 관리자</Text>
+					<Text style={styles.date}>{date}</Text>
+					<Text style={styles.writer}>{writer}</Text>
 				</View>
 			</View>
 			<View style={styles.postBox}>
 				<View style={styles.post}>
-					<Text style={styles.postText}>ㅁㄴㅇㄹ</Text>
+					<Text style={styles.postText}>{body}</Text>
 				</View>
 			</View>
 		</ScreenWrapper>
