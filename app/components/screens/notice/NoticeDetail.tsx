@@ -102,25 +102,6 @@ const styles = StyleSheet.create({
 });
 
 function NoticeDetail({ route }) {
-	// const [noticeData, setNoticeData] =
-	// 	useState<Array<NoticeDetailItemInterface>>();
-
-	// useEffect(() => {
-	// 	api.get('/manager/announcement').then((res) => {
-	// 		console.log(res.data);
-	// 		const { title, date, id, writer, body } = res.data;
-
-	// 		setNoticeData((prevUser) => ({
-	// 			...prevUser,
-	// 			title,
-	// 			date,
-	// 			id,
-	// 			writer,
-	// 			body,
-	// 		}));
-	// 	});
-	// 	console.log(noticeData);
-	// }, []);
 	const { title, date, body, writer } = route.params;
 
 	console.log(body);
