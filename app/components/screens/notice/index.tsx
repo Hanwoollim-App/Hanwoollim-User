@@ -57,6 +57,13 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#ffffff',
 	},
+	emptyNoticeText: {
+		fontSize: fontPercentage(20),
+		justifyContent: 'center',
+		textAlign: 'center',
+		alignItems: 'center',
+		marginTop: heightPercentage(18),
+	},
 });
 
 const renderSeparator = () => {
@@ -70,17 +77,6 @@ function NoticeScreen() {
 	useEffect(() => {
 		getNotice(setNoticeData);
 	}, []);
-
-	const EmptyListMessage = () => {
-		return (
-			<ScreenWrapper headerTitle="공지사항">
-				<View>
-					<Text>'asdf'</Text>
-				</View>
-			</ScreenWrapper>
-		);
-	};
-
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.list}>
@@ -101,7 +97,9 @@ function NoticeScreen() {
 					)}
 					keyExtractor={(item) => item.id}
 					ItemSeparatorComponent={renderSeparator}
-					ListEmptyComponent={() => <Text>아직 공지사항이 없습니다</Text>}
+					ListEmptyComponent={() => (
+						<Text style={styles.emptyNoticeText}>아직 공지사항이 없습니다</Text>
+					)}
 				/>
 			</View>
 		</ScreenWrapper>
