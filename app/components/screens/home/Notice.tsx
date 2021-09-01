@@ -4,20 +4,15 @@ import {
 	NavigationProp,
 	ParamListBase,
 	useNavigation,
+	useFocusEffect,
 } from '@react-navigation/native';
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { fontPercentage } from '../../../utils/constant/common/design/Responsive';
 import trimmingText from '../../../utils/constant/common/trimmingText';
 import blockStyles from '../../../utils/constant/home/blockStyles';
 import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 import { getNotice } from '../../../utils/constant/api';
-
-const tempNoticeContents: Array<string> = [
-	'새로운 회장단으로 기계공학부 18학번 이호직, 장준하 당선',
-	'한울림 신입 부원 상시 모집 중!',
-	'한울림 전용 예약 어플이 개발 중입니다.',
-];
 
 const styles = StyleSheet.create({
 	notice: {
@@ -42,13 +37,15 @@ function Notice() {
 	const titleBtnListener = () => {
 		navigation.navigate('NoticeScreen');
 	};
-	const [noticeData, setNoticeData] =
-		useState<Array<NoticeDetailItemInterface>>();
+	const [noticeData, setNoticeData] = useState<
+		Array<NoticeDetailItemInterface>
+	>([]);
 
-	useEffect(() => {
-		getNotice(setNoticeData);
-	}, []);
-	console.log(noticeData);
+	useFocusEffect(
+		useCallback(() => {
+			getNotice(setNoticeData);
+		}, []),
+	);
 	return (
 		<TouchableOpacity style={blockStyles.root} onPress={titleBtnListener}>
 			<View style={blockStyles.title}>
@@ -65,7 +62,7 @@ function Notice() {
 			</View>
 			<View style={blockStyles.contents}>
 				{noticeData.map((notice) => (
-					<View style={styles.notice} key={notice}>
+					<View style={styles.notice} key={notice.id}>
 						<Text style={styles.noticeText}>
 							{trimmingText(notice.title, 35)}
 						</Text>
