@@ -35,18 +35,8 @@ export function userSignUp(
 	});
 }
 
-export async function getUserInfo(path: string, setUser, navigation) {
-	return api.get('/user/info').then((res) => {
-		const { userName, major, studentId } = res.data;
-
-		setUser((prevUser) => ({
-			...prevUser,
-			userName,
-			major,
-			studentId,
-		}));
-		navigation.navigate(path);
-	});
+export async function getUserInfo() {
+	return api.get('/user/info');
 }
 
 export function getNotice(setNoticeData) {
