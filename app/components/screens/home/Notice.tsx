@@ -14,6 +14,7 @@ import blockStyles from '../../../utils/constant/home/blockStyles';
 import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 import { getNotice } from '../../../utils/constant/api';
 
+const textLength = 35;
 const styles = StyleSheet.create({
 	notice: {
 		flex: 1,
@@ -64,7 +65,7 @@ function Notice() {
 				{noticeData.map((notice) => (
 					<View style={styles.notice} key={notice.id}>
 						<Text style={styles.noticeText}>
-							{trimmingText(notice.title, 35)}
+							{trimmingText(notice.title, textLength)}
 						</Text>
 					</View>
 				))}
