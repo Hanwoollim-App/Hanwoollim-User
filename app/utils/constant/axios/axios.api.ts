@@ -1,6 +1,10 @@
 import axios from 'axios';
-import { signInDataInterface } from './type';
-import { ValueType } from '../../../utils/types/dropDown';
+import { ValueType } from '../../types/dropDown';
+
+export interface signInDataInterface {
+	accessToken: string;
+	position: string;
+}
 
 export const api = axios.create({
 	baseURL: 'https://api.hanwoolim.n-e.kr',

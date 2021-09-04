@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import color from '../../../utils/constant/common/design/Color';
+import color from '../../../utils/constant/color/color.data';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../common/CustomBtn';
 import SignUpForm from './Form';
@@ -15,14 +15,14 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/constant/common/design/Responsive';
+} from '../../../utils/constant/responsive/responsive.api';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import majorItem from '../../../utils/constant/login/majorItem';
 import { ItemType, ValueType } from '../../../utils/types/dropDown';
-import api from '../../../utils/constant/api/api';
+import api from '../../../utils/constant/axios/axios.api';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import { userSignUp } from '../../../utils/constant/api';
+import { userSignUp } from '../../../utils/constant/axios';
 
 const styles = StyleSheet.create({
 	barStyle: {

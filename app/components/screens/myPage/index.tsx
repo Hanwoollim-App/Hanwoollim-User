@@ -10,11 +10,11 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/constant/common/design/Responsive';
+} from '../../../utils/constant/responsive/responsive.api';
 import ScreenWrapper from '../../common/ScreenWrapper';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
-import { api } from '../../../utils/constant/api';
+import { api } from '../../../utils/constant/axios';
 import userInterface, {
 	UserInfoContext,
 } from '../../../utils/context/UserInfoContext';

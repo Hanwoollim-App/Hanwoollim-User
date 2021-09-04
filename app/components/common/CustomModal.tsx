@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View, Modal, StyleSheet, Platform } from 'react-native';
-import color from '../../utils/constant/common/design/Color';
+import color from '../../utils/constant/color/color.data';
 import CustomBtn from './CustomBtn';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../utils/constant/common/design/Responsive';
+} from '../../utils/constant/responsive/responsive.api';
 import { customBtnType, ModalsProps } from '../../utils/types/customModal';
 
 const styles = StyleSheet.create({

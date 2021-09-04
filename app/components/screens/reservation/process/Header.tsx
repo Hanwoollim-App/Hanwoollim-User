@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CustomBtn from '../../../common/CustomBtn';
-import color from '../../../../utils/constant/common/design/Color';
+import color from '../../../../utils/constant/color/color.data';
 import btnTitle from '../../../../utils/constant/reservation/process/header';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/constant/common/design/Responsive';
+} from '../../../../utils/constant/responsive/responsive.api';
 
 const styles = StyleSheet.create({
 	header__title: {

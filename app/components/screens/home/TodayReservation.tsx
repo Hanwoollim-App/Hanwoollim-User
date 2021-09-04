@@ -7,8 +7,8 @@ import {
 } from '@react-navigation/native';
 import React, { memo } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { fontPercentage } from '../../../utils/constant/common/design/Responsive';
-import trimmingText from '../../../utils/constant/common/trimmingText';
+import { fontPercentage } from '../../../utils/constant/responsive/responsive.api';
+import trimmingText from '../../../utils/constant/trimming-text/trimming-text.api';
 import blockStyles from '../../../utils/constant/home/blockStyles';
 
 const tempReservation: Array<string> = [

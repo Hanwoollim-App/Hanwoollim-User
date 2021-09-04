@@ -17,7 +17,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/constant/common/design/Responsive';
+} from '../../../../utils/constant/responsive/responsive.api';
 import ScreenWrapper from '../../../common/ScreenWrapper';
 import { ItemType, ValueType } from '../../../../utils/types/dropDown';
 import TimeTable from './timeTable';

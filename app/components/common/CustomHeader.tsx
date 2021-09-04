@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { textLightLogoImage } from '../../assets';
-import color from '../../utils/constant/common/design/Color';
+import color from '../../utils/constant/color/color.data';
 import {
 	fontPercentage,
 	heightPercentage,
-} from '../../utils/constant/common/design/Responsive';
+} from '../../utils/constant/responsive/responsive.api';
 
 const styles = StyleSheet.create({
 	root: {

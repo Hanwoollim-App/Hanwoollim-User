@@ -7,7 +7,7 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import CustomBtn from '../../../common/CustomBtn';
-import color from '../../../../utils/constant/common/design/Color';
+import color from '../../../../utils/constant/color/color.data';
 import {
 	dayItems,
 	PROCESS_TEXT,
@@ -22,7 +22,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/constant/common/design/Responsive';
+} from '../../../../utils/constant/responsive/responsive.api';
 import ScreenWrapper from '../../../common/ScreenWrapper';
 import { customBtnType } from '../../../../utils/types/customModal';
 import { ItemType, ValueType } from '../../../../utils/types/dropDown';

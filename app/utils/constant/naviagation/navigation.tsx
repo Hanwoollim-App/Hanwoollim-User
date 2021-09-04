@@ -7,7 +7,7 @@ import {
 	faPlusCircle,
 	IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import { fontPercentage } from '../common/design/Responsive';
+import { fontPercentage } from '../responsive/responsive.api';
 
 const bottomTabIconOption = (route, color) => {
 	let iconName: IconDefinition;

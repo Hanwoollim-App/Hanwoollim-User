@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import defaultStyle from '../../utils/constant/common/design/DefaultStyle';
+import defaultStyle from '../../utils/constant/default-style/default-style.data';
 import HeaderInterface from './CustomHeader';
 import CustomStatusBar from './CustomStatusBar';
 
