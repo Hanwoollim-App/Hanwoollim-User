@@ -1,13 +1,14 @@
-import React from 'react';
-import { View, StyleSheet, FlatList, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, FlatList, Platform, Text } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import NoticeItem from '../notice/NoticeItem';
-import NoticeItemInterface from '../../../utils/types/noticeItem';
+import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 import ScreenWrapper from '../../common/ScreenWrapper';
+import { getNotice } from '../../../utils/constant/api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -56,91 +57,49 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: '#ffffff',
 	},
+	emptyNoticeText: {
+		fontSize: fontPercentage(20),
+		justifyContent: 'center',
+		textAlign: 'center',
+		alignItems: 'center',
+		marginTop: heightPercentage(18),
+	},
 });
-
-const DATA = [
-	{
-		id: '1',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '2',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '3',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '4',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '5',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '6',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '7',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '8',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '9',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '10',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '11',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '12',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-	{
-		id: '13',
-		title: '한울림 공지사항',
-		date: '2021.01.01',
-	},
-];
 
 const renderSeparator = () => {
 	return <View style={styles.itemSeparator} />;
 };
 
 function NoticeScreen() {
+	const [noticeData, setNoticeData] =
+		useState<Array<NoticeDetailItemInterface>>();
+
+	useEffect(() => {
+		getNotice(setNoticeData);
+	}, []);
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.list}>
 				<FlatList
-					data={DATA}
-					renderItem={({ item: notice }: { item: NoticeItemInterface }) => (
-						<NoticeItem title={notice.title} date={notice.date} />
+					data={noticeData}
+					renderItem={({
+						item: notice,
+					}: {
+						item: NoticeDetailItemInterface;
+					}) => (
+						<NoticeItem
+							title={notice.title}
+							date={notice.date}
+							id={notice.id}
+							writer={notice.writer}
+							body={notice.body}
+						/>
 					)}
 					keyExtractor={(item) => item.id}
 					ItemSeparatorComponent={renderSeparator}
+					ListEmptyComponent={() => (
+						<Text style={styles.emptyNoticeText}>아직 공지사항이 없습니다</Text>
+					)}
 				/>
 			</View>
 		</ScreenWrapper>

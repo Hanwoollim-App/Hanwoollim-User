@@ -1,15 +1,6 @@
 import axios from 'axios';
-import { useContext } from 'react';
-import {
-	NavigationProp,
-	ParamListBase,
-	useNavigation,
-} from '@react-navigation/native';
 import { signInDataInterface } from './type';
 import { ValueType } from '../../../utils/types/dropDown';
-import userInterface, {
-	UserInfoContext,
-} from '../../../utils/context/UserInfoContext';
 
 export const api = axios.create({
 	baseURL: 'https://api.hanwoolim.n-e.kr',
@@ -44,16 +35,12 @@ export function userSignUp(
 	});
 }
 
-export async function getUserInfo(path: string, setUser, navigation) {
-	return api.get('/user/info').then((res) => {
-		const { userName, major, studentId } = res.data;
+export async function getUserInfo() {
+	return api.get('/user/info');
+}
 
-		setUser((prevUser) => ({
-			...prevUser,
-			userName,
-			major,
-			studentId,
-		}));
-		navigation.navigate(path);
+export function getNotice(setNoticeData) {
+	return api.get('/manager/announcement').then((res) => {
+		setNoticeData(res.data);
 	});
 }

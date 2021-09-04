@@ -11,7 +11,7 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 
-import NoticeItemInterface from '../../../utils/types/noticeItem';
+import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
 
 const styles = StyleSheet.create({
 	root: {
@@ -39,11 +39,20 @@ const styles = StyleSheet.create({
 	},
 });
 
-function NoticeItem({ title, date }: NoticeItemInterface) {
+function NoticeItem({
+	title,
+	date,
+	id,
+	body,
+	writer,
+}: NoticeDetailItemInterface) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const NoticeClickListener = () => {
-		navigation.navigate('NoticeNavigator', { screen: 'NoticeDetail' });
+		navigation.navigate('NoticeNavigator', {
+			screen: 'NoticeDetail',
+			params: { title, date, id, body, writer },
+		});
 	};
 
 	return (

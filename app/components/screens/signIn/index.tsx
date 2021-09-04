@@ -17,7 +17,6 @@ import CustomStatusBar from '../../common/CustomStatusBar';
 import CustomModal from '../../common/CustomModal';
 import { customBtnType } from '../../../utils/types/customModal';
 import {
-	api,
 	userSignIn,
 	updateAuthToken,
 	getUserInfo,
@@ -131,11 +130,22 @@ function SignIn() {
 				const { accessToken } = data;
 
 				updateAuthToken(accessToken);
+
+				const res = await getUserInfo();
+				const { userName, major, studentId } = res.data;
+
+				setUser((prevUser) => ({
+					...prevUser,
+					userName,
+					major,
+					studentId,
+				}));
+
 				if (isApprovedAccount(data.position)) {
-					await getUserInfo('BottomTabNavigator', setUser, navigation);
+					navigation.navigate('BottomTabNavigator');
 					return;
 				}
-				await getUserInfo('NotApproved', setUser, navigation);
+				navigation.navigate('NotApproved');
 			})
 			.catch((err) => {
 				console.log(err);
