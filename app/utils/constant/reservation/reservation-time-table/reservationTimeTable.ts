@@ -1,6 +1,8 @@
 import { Item } from 'react-native-picker-select';
 
-const weekItem: Array<Item> = [];
+export const btnTitle: string = 'ᐸ  홈으로 돌아가기';
+
+export const weekItem: Array<Item> = [];
 
 for (let i: number = 1; i <= 5; i++) {
 	const curDate: Date = new Date();
@@ -30,5 +32,3 @@ for (let i: number = 1; i <= 5; i++) {
 		},
 	});
 }
-
-export default weekItem;

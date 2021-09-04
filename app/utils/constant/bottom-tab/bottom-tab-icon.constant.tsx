@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { fontPercentage } from '../../api/responsive/responsive.api';
 
-const bottomTabIconOption = (route, color) => {
+export const bottomTabIconOption = (route, color) => {
 	let iconName: IconDefinition;
 
 	switch (route.name) {
@@ -33,5 +33,3 @@ const bottomTabIconOption = (route, color) => {
 		<FontAwesomeIcon icon={iconName} size={fontPercentage(30)} color={color} />
 	);
 };
-
-export default bottomTabIconOption;

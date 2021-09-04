@@ -7,7 +7,7 @@ import {
 	widthPercentage,
 } from '../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { UserInfoContext } from '../../../utils/context/UserInfoContext';
+import { UserInfoContext } from '../../../utils/context/user-info.context';
 
 const styles = StyleSheet.create({
 	title: {

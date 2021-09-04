@@ -1,9 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {
-	fontPercentage,
-	widthPercentage,
-	heightPercentage,
-} from '../../api/responsive/responsive.api';
+import { fontPercentage, widthPercentage, heightPercentage } from '../../api';
 
 const blockStyles = StyleSheet.create({
 	root: {

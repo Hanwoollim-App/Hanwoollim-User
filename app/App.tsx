@@ -1,7 +1,7 @@
 import React from 'react';
-import { LoginContextProvider } from './utils/context/LoginContext';
+import { LoginContextProvider } from './utils/context/login.context';
 import MainNavigator from './components/navigator/root/root.navigator';
-import { UserInfoProvider } from './utils/context/UserInfoContext';
+import { UserInfoProvider } from './utils/context/user-info.context';
 
 function App() {
 	return (

@@ -24,7 +24,7 @@ import TodayReservation from './components/today-reservation.home.component';
 import MyReservation from './components/my-reservation.home.component';
 import userInterface, {
 	UserInfoContext,
-} from '../../../utils/context/UserInfoContext';
+} from '../../../utils/context/user-info.context';
 
 const styles = StyleSheet.create({
 	title: {
