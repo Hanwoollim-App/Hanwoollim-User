@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import ReservationTimeTable from '../../screens/reservation/timeTable';
-import ReservationProcess from '../../screens/reservation/process';
+import ReservationTimeTable from '../../screens/reservation/reservation-time-table';
+import ReservationProcess from '../../screens/reservation/reservation-process';
 import ReservationContext, {
 	ReservationInfo,
 } from '../../../utils/context/ReservationContext';

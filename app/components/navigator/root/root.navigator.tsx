@@ -5,8 +5,8 @@ import LoginNavigator from '../login/login.navigator';
 import BottomTabNavigator from '../bottom-tab/bottom-tab.navigator';
 import NoticeNavigator from '../notice/notice.navigator';
 import NoticeScreen from '../../screens/notice';
-import MyPage from '../../screens/myPage';
-import infoEdit from '../../screens/myPage/infoEdit';
+import MyPage from '../../screens/my-page';
+import infoEdit from '../../screens/my-page/my-page-info-edit/my-page-info-edit.screen.tsx';
 
 const RootStackNavigator = createStackNavigator();
 

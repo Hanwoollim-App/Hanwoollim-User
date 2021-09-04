@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Home from '../../screens/home/Home';
-import FlashMob from '../../screens/flashMob';
+import Home from '../../screens/home/home.screen';
+import FlashMob from '../../screens/flash-mob';
 import Board from '../../screens/board';
 import bottomTabIconOption from '../../../utils/constant/naviagation/navigation';
 import ReservationNavigator from '../reservation/reservation.navigator';
