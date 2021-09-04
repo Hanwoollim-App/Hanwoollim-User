@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { View } from 'react-native';
 import {
 	NavigationProp,
@@ -9,18 +9,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultStyle from '../../../utils/data/default-style/default-style.data';
-import HeaderInterface from '../custom-header/custom-header.layout';
-import CustomStatusBar from '../custom-status-bar/custom-status-bar.layout';
+import { HeaderInterface } from '../custom-header';
+import { CustomStatusBar } from '../custom-status-bar';
 
-interface screenWrapper {
-	children: React.ReactNode;
+type screenWrapperPropType = {
+	children: ReactNode;
 	headerTitle?: string;
-}
+};
+
 const icon = (
 	<FontAwesomeIcon style={{ color: 'white' }} icon={faChevronLeft} />
 );
 
-export function ScreenWrapper({ children, headerTitle }: screenWrapper) {
+export function ScreenWrapper({
+	children,
+	headerTitle,
+}: screenWrapperPropType) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	return (

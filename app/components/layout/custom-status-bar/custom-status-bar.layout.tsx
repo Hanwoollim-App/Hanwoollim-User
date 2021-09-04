@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Platform, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import color from '../../../utils/data/color/color.data';
+import { color } from '../../../utils';
 
 const STATUSBAR_HEIGHT =
 	Platform.OS === 'ios' ? getStatusBarHeight() : StatusBar.currentHeight;

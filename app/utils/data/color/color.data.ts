@@ -3,9 +3,7 @@ interface colorObject {
 	subColor: string;
 }
 
-const color: colorObject = {
+export const color: colorObject = {
 	mainColor: '#00203f',
 	subColor: '#adefd1',
 };
-
-export default color;

@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import { textLightLogoImage } from '../../../assets';
-import color from '../../../utils/data/color/color.data';
-import {
-	fontPercentage,
-	heightPercentage,
-} from '../../../utils/api/responsive/responsive.api';
+import { color, fontPercentage, heightPercentage } from '../../../utils';
 
 const styles = StyleSheet.create({
 	root: {
@@ -63,15 +59,15 @@ const styles = StyleSheet.create({
 	},
 });
 
-interface HeaderInterface {
+type CustomHeaderPropType = {
 	title?: string;
 	headerLeft?: boolean;
 	headerRight?: boolean;
-	leftIcon?: React.ReactNode;
-	rightIcon?: React.ReactNode;
+	leftIcon?: ReactNode;
+	rightIcon?: ReactNode;
 	leftIconClickListener?: Function;
 	rightIconClickListener?: Function;
-}
+};
 
 export function CustomHeader({
 	title,
@@ -81,7 +77,7 @@ export function CustomHeader({
 	rightIcon,
 	leftIconClickListener = () => {},
 	rightIconClickListener = () => {},
-}: HeaderInterface) {
+}: CustomHeaderPropType) {
 	return (
 		<View style={styles.root}>
 			{headerLeft ? (

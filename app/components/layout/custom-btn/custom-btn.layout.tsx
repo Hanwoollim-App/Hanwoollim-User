@@ -1,19 +1,19 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 
-interface CustomBtnProps {
+type CustomBtnPropType = {
 	title: string;
 	onClickListener: Function;
 	titleStyle: Object;
 	btnStyle: Object;
-}
+};
 
 export function CustomBtn({
 	title,
 	onClickListener,
 	titleStyle,
 	btnStyle,
-}: CustomBtnProps) {
+}: CustomBtnPropType) {
 	return (
 		<TouchableOpacity onPress={() => onClickListener()} style={btnStyle}>
 			<Text style={titleStyle}>{title}</Text>
