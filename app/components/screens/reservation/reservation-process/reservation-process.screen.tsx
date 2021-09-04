@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
+import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
-import CustomBtn from '../../../layout/custom-btn/custom-btn.layout';
-import color from '../../../../utils/data/color/color.data';
+import { CustomBtn, CustomModal, ScreenWrapper } from '../../../layout';
 import {
 	dayItems,
 	PROCESS_TEXT,
@@ -15,17 +14,14 @@ import {
 	timeItems,
 	unitItems,
 	times,
-	timeBoxes,
-} from '../../../../utils/constant/reservation/reservation-process/reservation-process.constant';
-import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
-import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { customBtnType } from '../../../../utils/types/custom-modal.type';
-import { ItemType, ValueType } from '../../../../utils/types/drop-down.type';
+	customBtnType,
+	ItemType,
+	ValueType,
+	color,
+} from '../../../../utils';
 
 const styles = StyleSheet.create({
 	root: {

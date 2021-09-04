@@ -1,4 +1,4 @@
-function trimmingText(
+export function trimmingText(
 	text: string,
 	LIMIT_LENGTH: number,
 	isDotsAdded = true,
@@ -10,5 +10,3 @@ function trimmingText(
 	}
 	return text.length > LIMIT_LENGTH ? text.substring(0, LIMIT_LENGTH) : text;
 }
-
-export default trimmingText;

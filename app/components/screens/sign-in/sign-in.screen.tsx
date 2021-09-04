@@ -9,22 +9,16 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/api/responsive/responsive.api';
-import color from '../../../utils/data/color/color.data';
-import SignInForm from './components/form.sign-in.component';
-import CustomBtn from '../../layout/custom-btn/custom-btn.layout';
-import CustomStatusBar from '../../layout/custom-status-bar/custom-status-bar.layout';
-import CustomModal from '../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../utils/types/custom-modal.type';
-import {
+	color,
+	customBtnType,
 	userSignIn,
 	updateAuthToken,
 	getUserInfo,
-} from '../../../utils/api/axios';
-import {
 	UserInfoContext,
-	userInterface,
-} from '../../../utils/context/user-info.context';
+} from '../../../utils';
+import { SignInForm } from './components';
+import { CustomBtn, CustomStatusBar, CustomModal } from '../../layout';
+
 import { textLightLogoImage } from '../../../assets';
 
 const styles = StyleSheet.create({

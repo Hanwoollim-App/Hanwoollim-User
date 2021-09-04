@@ -17,11 +17,12 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { ItemType, ValueType } from '../../../../utils/types/drop-down.type';
-import TimeTable from './components/time-table.reservation-time-table.component';
-import weekItem from '../../../../utils/constant/reservation/reservation-time-table/reservationTimeTable';
+	ItemType,
+	ValueType,
+	weekItem,
+} from '../../../../utils';
+import { ScreenWrapper } from '../../../layout';
+import { TimeTable } from './components';
 
 const styles = StyleSheet.create({
 	titleBlock: {

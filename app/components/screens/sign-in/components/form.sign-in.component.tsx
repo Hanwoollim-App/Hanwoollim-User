@@ -4,7 +4,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
+} from '../../../../utils';
 
 interface signUpFormProps {
 	placeholder: string;
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignInForm({
+export function SignInForm({
 	placeholder,
 	inputChangeListener,
 	defaultValue,
@@ -48,5 +48,3 @@ function SignInForm({
 		/>
 	);
 }
-
-export default React.memo(SignInForm);

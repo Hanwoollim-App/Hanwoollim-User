@@ -17,14 +17,10 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import {
 	fontPercentage,
 	heightPercentage,
-} from '../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import Notice from './components/notice.home.component';
-import TodayReservation from './components/today-reservation.home.component';
-import MyReservation from './components/my-reservation.home.component';
-import userInterface, {
 	UserInfoContext,
-} from '../../../utils/context/user-info.context';
+} from '../../../utils';
+import { ScreenWrapper } from '../../layout';
+import { Notice, TodayReservation, MyReservation } from './components';
 
 const styles = StyleSheet.create({
 	title: {
@@ -72,7 +68,7 @@ export function Home() {
 	const myPageBtnListener = () => {
 		navigation.navigate('MyPage');
 	};
-	const { user }: userInterface = useContext(UserInfoContext);
+	const { user } = useContext(UserInfoContext);
 
 	return (
 		<ScreenWrapper>

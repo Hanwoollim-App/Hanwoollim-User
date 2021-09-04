@@ -4,11 +4,11 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/constant/responsive/responsive.api';
-import NoticeItem from '../notice/NoticeItem';
-import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
-import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { getNotice } from '../../../utils/constant/axios';
+	getNotice,
+	NoticeDetailItemInterface,
+} from '../../../../utils';
+import { NoticeItem } from '..';
+import { ScreenWrapper } from '../../../layout';
 
 const styles = StyleSheet.create({
 	root: {

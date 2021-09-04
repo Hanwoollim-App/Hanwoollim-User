@@ -4,10 +4,10 @@ import {
 	heightPercentage,
 	widthPercentage,
 	fontPercentage,
-} from '../../../../../utils/api/responsive/responsive.api';
-import color from '../../../../../utils/data/color/color.data';
-import CustomModal from '../../../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../../../utils/types/custom-modal.type';
+	color,
+	customBtnType,
+} from '../../../../../utils';
+import { CustomModal } from '../../../../layout';
 
 const styles = StyleSheet.create({
 	timeTable: {
@@ -251,5 +251,3 @@ export function TimeTable() {
 		</View>
 	);
 }
-
-export default TimeTable;

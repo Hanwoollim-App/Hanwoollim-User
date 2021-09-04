@@ -5,9 +5,9 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { UserInfoContext } from '../../../utils/context/user-info.context';
+	UserInfoContext,
+} from '../../../utils';
+import { ScreenWrapper } from '../../layout';
 
 const styles = StyleSheet.create({
 	title: {

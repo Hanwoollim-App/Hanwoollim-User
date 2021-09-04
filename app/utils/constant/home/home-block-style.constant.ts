@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { fontPercentage, widthPercentage, heightPercentage } from '../../api';
 
-const blockStyles = StyleSheet.create({
+export const blockStyles = StyleSheet.create({
 	root: {
 		height: heightPercentage(150),
 		width: '100%',
@@ -43,5 +43,3 @@ const blockStyles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
-
-export default blockStyles;

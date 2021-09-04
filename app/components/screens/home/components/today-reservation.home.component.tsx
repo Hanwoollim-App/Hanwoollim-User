@@ -1,3 +1,5 @@
+import React from 'react';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
@@ -5,11 +7,7 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
-import React, { memo } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { fontPercentage } from '../../../../utils/api/responsive/responsive.api';
-import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
-import blockStyles from '../../../../utils/constant/home/home-block-style.constant';
+import { fontPercentage, trimmingText, blockStyles } from '../../../../utils';
 
 const tempReservation: Array<string> = [
 	'03:00-04:00 안재훈 팀 합주',

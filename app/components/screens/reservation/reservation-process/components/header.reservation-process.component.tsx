@@ -1,14 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import CustomBtn from '../../../../layout/custom-btn/custom-btn.layout';
-import color from '../../../../../utils/data/color/color.data';
-import btnTitle from '../../../../../utils/constant/reservation/reservation-process/header';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../../utils/api/responsive/responsive.api';
+} from '../../../../../utils';
 
 const styles = StyleSheet.create({
 	header__title: {
@@ -27,10 +23,8 @@ const styles = StyleSheet.create({
 
 export function Header({ currentWeek }: { currentWeek: string }) {
 	return (
-		<>
-			<View style={styles.header__title}>
-				<Text style={styles.header__title__text}>{`${currentWeek}`}</Text>
-			</View>
-		</>
+		<View style={styles.header__title}>
+			<Text style={styles.header__title__text}>{`${currentWeek}`}</Text>
+		</View>
 	);
 }

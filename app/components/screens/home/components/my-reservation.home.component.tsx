@@ -1,3 +1,4 @@
+import React from 'react';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
@@ -5,14 +6,13 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
-import React, { memo } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
-import blockStyles from '../../../../utils/constant/home/home-block-style.constant';
+	trimmingText,
+	blockStyles,
+} from '../../../../utils';
 
 const tempMyReservation: Array<string> = [];
 

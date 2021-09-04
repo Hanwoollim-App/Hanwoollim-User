@@ -1,3 +1,5 @@
+,import React, { useCallback, useState } from 'react';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
@@ -6,13 +8,14 @@ import {
 	useNavigation,
 	useFocusEffect,
 } from '@react-navigation/native';
-import React, { memo, useCallback, useState } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { fontPercentage } from '../../../../utils/api/responsive/responsive.api';
-import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
-import blockStyles from '../../../../utils/constant/home/home-block-style.constant';
-import NoticeDetailItemInterface from '../../../../utils/types/notice-detail-item.type';
-import { getNotice } from '../../../../utils/api/axios';
+import {
+	fontPercentage,
+	trimmingText,
+	blockStyles,
+	getNotice, 
+	NoticeDetailItemInterface,
+} from '../../../../utils';
+
 
 const textLength = 35;
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../../utils/api/responsive/responsive.api';
+} from '../../../../../utils';
 
 interface pickerPropsInterface {
 	placeholder: Object;

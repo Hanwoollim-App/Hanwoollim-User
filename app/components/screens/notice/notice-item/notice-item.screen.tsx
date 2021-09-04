@@ -9,9 +9,8 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-
-import NoticeDetailItemInterface from '../../../../utils/types/notice-detail-item.type';
+	NoticeDetailItemInterface,
+} from '../../../../utils';
 
 const styles = StyleSheet.create({
 	root: {

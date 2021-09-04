@@ -1,29 +1,27 @@
 import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import {
 	useNavigation,
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { View, Text, StyleSheet, Platform } from 'react-native';
-import color from '../../../../utils/data/color/color.data';
-import { SIGN_UP_COMPONENT_TEXT } from '../../../../utils/constant/sign-up/sign-up-text.constant';
-import CustomBtn from '../../../layout/custom-btn/custom-btn.layout';
-import InfoEditForm from './components/form.my-page-info-edit.component';
-import majorItem from '../../../../utils/constant/login/login-major-item.constant';
+
+import { InfoEditForm } from './components';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../../utils/types/custom-modal.type';
-import { ItemType, ValueType } from '../../../../utils/types/drop-down.type';
-import { api } from '../../../../utils/api/axios';
-import userInterface, {
+	color,
+	majorItem,
+	SIGN_UP_COMPONENT_TEXT,
 	UserInfoContext,
-} from '../../../../utils/context/user-info.context';
+	api,
+	ItemType,
+	ValueType,
+	customBtnType,
+} from '../../../../utils';
+import { ScreenWrapper, CustomBtn, CustomModal } from '../../../layout';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -152,7 +150,7 @@ export function InfoEdit() {
 	const [name, setName] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
 	const [major, setMajor] = useState<ValueType>('');
-	const { setUser }: userInterface = useContext(UserInfoContext);
+	const { setUser } = useContext(UserInfoContext);
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
 		text: '',

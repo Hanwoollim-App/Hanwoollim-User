@@ -5,9 +5,9 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { noticeDataParamList } from '../../../../utils/types/notice-item.type';
+	noticeDataParamList,
+} from '../../../../utils';
+import { ScreenWrapper } from '../../../layout';
 
 const styles = StyleSheet.create({
 	root: {

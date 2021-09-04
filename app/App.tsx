@@ -1,13 +1,12 @@
 import React from 'react';
-import { LoginContextProvider } from './utils/context/login.context';
-import MainNavigator from './components/navigator/root/root.navigator';
-import { UserInfoProvider } from './utils/context/user-info.context';
+import { LoginContextProvider, UserInfoProvider } from './utils';
+import { RootNavigator } from './components/navigator';
 
 function App() {
 	return (
 		<UserInfoProvider>
 			<LoginContextProvider>
-				<MainNavigator />
+				<RootNavigator />
 			</LoginContextProvider>
 		</UserInfoProvider>
 	);

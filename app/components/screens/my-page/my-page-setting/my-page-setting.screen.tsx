@@ -10,14 +10,11 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/api/responsive/responsive.api';
-import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../../utils/types/custom-modal.type';
-import { api } from '../../../../utils/api/axios';
-import userInterface, {
+	customBtnType,
+	api,
 	UserInfoContext,
-} from '../../../../utils/context/user-info.context';
+} from '../../../../utils';
+import { ScreenWrapper, CustomModal } from '../../../layout';
 
 const styles = StyleSheet.create({
 	nameBlock: {
@@ -121,7 +118,7 @@ export function MyPage() {
 		},
 	];
 
-	const { user, setUser }: userInterface = useContext(UserInfoContext);
+	const { user, setUser } = useContext(UserInfoContext);
 
 	useFocusEffect(
 		useCallback(() => {
