@@ -16,7 +16,7 @@ import {
 	unitItems,
 	times,
 	timeBoxes,
-} from '../../../../utils/constant/reservation/process/reservationProcess';
+} from '../../../../utils/constant/reservation/reservation-process/reservation-process.constant';
 import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
 import {
 	fontPercentage,
@@ -24,8 +24,8 @@ import {
 	widthPercentage,
 } from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { customBtnType } from '../../../../utils/types/customModal';
-import { ItemType, ValueType } from '../../../../utils/types/dropDown';
+import { customBtnType } from '../../../../utils/types/custom-modal.type';
+import { ItemType, ValueType } from '../../../../utils/types/drop-down.type';
 
 const styles = StyleSheet.create({
 	root: {

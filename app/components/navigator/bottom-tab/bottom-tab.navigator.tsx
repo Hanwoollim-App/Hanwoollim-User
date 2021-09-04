@@ -3,7 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Home from '../../screens/home/home.screen';
 import FlashMob from '../../screens/flash-mob';
 import Board from '../../screens/board';
-import bottomTabIconOption from '../../../utils/constant/naviagation/navigation';
+import bottomTabIconOption from '../../../utils/constant/bottom-tab/bottom-tab-icon.constant';
 import ReservationNavigator from '../reservation/reservation.navigator';
 
 const bottomTab = createMaterialBottomTabNavigator();

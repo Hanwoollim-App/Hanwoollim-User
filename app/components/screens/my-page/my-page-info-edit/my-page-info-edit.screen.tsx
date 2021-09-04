@@ -7,10 +7,10 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import color from '../../../../utils/data/color/color.data';
-import { SIGN_UP_COMPONENT_TEXT } from '../../../../utils/constant/login/singUpScreen';
+import { SIGN_UP_COMPONENT_TEXT } from '../../../../utils/constant/sign-up/sign-up-text.constant';
 import CustomBtn from '../../../layout/custom-btn/custom-btn.layout';
 import InfoEditForm from './components/form.my-page-info-edit.component';
-import majorItem from '../../../../utils/constant/login/majorItem';
+import majorItem from '../../../../utils/constant/login/login-major-item.constant';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -18,12 +18,12 @@ import {
 } from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../../utils/types/customModal';
-import { ItemType, ValueType } from '../../../../utils/types/dropDown';
+import { customBtnType } from '../../../../utils/types/custom-modal.type';
+import { ItemType, ValueType } from '../../../../utils/types/drop-down.type';
 import { api } from '../../../../utils/api/axios';
 import userInterface, {
 	UserInfoContext,
-} from '../../../../utils/context/UserInfoContext';
+} from '../../../../utils/context/user-info.context';
 
 const styles = StyleSheet.create({
 	barStyle: {

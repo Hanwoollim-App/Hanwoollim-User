@@ -12,7 +12,7 @@ import {
 	heightPercentage,
 } from '../../../../utils/api/responsive/responsive.api';
 import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
-import blockStyles from '../../../../utils/constant/home/blockStyles';
+import blockStyles from '../../../../utils/constant/home/home-block-style.constant';
 
 const tempMyReservation: Array<string> = [];
 

@@ -15,7 +15,7 @@ import SignInForm from './components/form.sign-in.component';
 import CustomBtn from '../../layout/custom-btn/custom-btn.layout';
 import CustomStatusBar from '../../layout/custom-status-bar/custom-status-bar.layout';
 import CustomModal from '../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../utils/types/customModal';
+import { customBtnType } from '../../../utils/types/custom-modal.type';
 import {
 	userSignIn,
 	updateAuthToken,
@@ -24,7 +24,7 @@ import {
 import {
 	UserInfoContext,
 	userInterface,
-} from '../../../utils/context/UserInfoContext';
+} from '../../../utils/context/user-info.context';
 import { textLightLogoImage } from '../../../assets';
 
 const styles = StyleSheet.create({

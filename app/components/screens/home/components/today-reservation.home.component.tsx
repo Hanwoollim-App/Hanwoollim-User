@@ -9,7 +9,7 @@ import React, { memo } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { fontPercentage } from '../../../../utils/api/responsive/responsive.api';
 import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
-import blockStyles from '../../../../utils/constant/home/blockStyles';
+import blockStyles from '../../../../utils/constant/home/home-block-style.constant';
 
 const tempReservation: Array<string> = [
 	'03:00-04:00 안재훈 팀 합주',

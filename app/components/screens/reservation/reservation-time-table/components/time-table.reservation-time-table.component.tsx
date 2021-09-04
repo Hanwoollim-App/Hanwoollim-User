@@ -7,7 +7,7 @@ import {
 } from '../../../../../utils/api/responsive/responsive.api';
 import color from '../../../../../utils/data/color/color.data';
 import CustomModal from '../../../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../../../utils/types/customModal';
+import { customBtnType } from '../../../../../utils/types/custom-modal.type';
 
 const styles = StyleSheet.create({
 	timeTable: {

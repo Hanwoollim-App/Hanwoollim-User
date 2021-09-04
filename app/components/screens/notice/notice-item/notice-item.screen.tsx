@@ -11,7 +11,7 @@ import {
 	widthPercentage,
 } from '../../../../utils/api/responsive/responsive.api';
 
-import NoticeDetailItemInterface from '../../../../utils/types/noticeDetailItem';
+import NoticeDetailItemInterface from '../../../../utils/types/notice-detail-item.type';
 
 const styles = StyleSheet.create({
 	root: {

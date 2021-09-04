@@ -7,7 +7,7 @@ import {
 	widthPercentage,
 } from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { noticeDataParamList } from '../../../../utils/types/noticeItem';
+import { noticeDataParamList } from '../../../../utils/types/notice-item.type';
 
 const styles = StyleSheet.create({
 	root: {

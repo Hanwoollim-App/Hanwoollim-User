@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CustomBtn from '../../../../layout/custom-btn/custom-btn.layout';
 import color from '../../../../../utils/data/color/color.data';
-import btnTitle from '../../../../../utils/constant/reservation/process/header';
+import btnTitle from '../../../../../utils/constant/reservation/reservation-process/header';
 import {
 	fontPercentage,
 	heightPercentage,

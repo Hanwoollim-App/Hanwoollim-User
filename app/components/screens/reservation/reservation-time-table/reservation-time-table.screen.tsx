@@ -19,9 +19,9 @@ import {
 	widthPercentage,
 } from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../../layout/screen-wrapper/screen-wrapper.layout.tsx';
-import { ItemType, ValueType } from '../../../../utils/types/dropDown';
+import { ItemType, ValueType } from '../../../../utils/types/drop-down.type';
 import TimeTable from './components/time-table.reservation-time-table.component';
-import weekItem from '../../../../utils/constant/reservation/timeTable/reservationTimeTable';
+import weekItem from '../../../../utils/constant/reservation/reservation-time-table/reservationTimeTable';
 
 const styles = StyleSheet.create({
 	titleBlock: {

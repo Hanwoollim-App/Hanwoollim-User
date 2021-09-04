@@ -10,8 +10,8 @@ import React, { memo, useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { fontPercentage } from '../../../../utils/api/responsive/responsive.api';
 import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
-import blockStyles from '../../../../utils/constant/home/blockStyles';
-import NoticeDetailItemInterface from '../../../../utils/types/noticeDetailItem';
+import blockStyles from '../../../../utils/constant/home/home-block-style.constant';
+import NoticeDetailItemInterface from '../../../../utils/types/notice-detail-item.type';
 import { getNotice } from '../../../../utils/api/axios';
 
 const textLength = 35;

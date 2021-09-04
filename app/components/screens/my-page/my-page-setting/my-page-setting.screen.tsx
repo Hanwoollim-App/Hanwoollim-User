@@ -13,11 +13,11 @@ import {
 } from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
-import { customBtnType } from '../../../../utils/types/customModal';
+import { customBtnType } from '../../../../utils/types/custom-modal.type';
 import { api } from '../../../../utils/api/axios';
 import userInterface, {
 	UserInfoContext,
-} from '../../../../utils/context/UserInfoContext';
+} from '../../../../utils/context/user-info.context';
 
 const styles = StyleSheet.create({
 	nameBlock: {

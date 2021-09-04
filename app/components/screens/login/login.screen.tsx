@@ -14,7 +14,7 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import color from '../../../utils/data/color/color.data';
-import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/loginScreen';
+import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/login-text.constant';
 import {
 	fontPercentage,
 	heightPercentage,
