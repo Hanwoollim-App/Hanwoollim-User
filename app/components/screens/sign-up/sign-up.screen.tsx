@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function SignUp() {
+export function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const [modalValue, setModalValue] = useState({
@@ -294,5 +294,3 @@ function SignUp() {
 		</ScreenWrapper>
 	);
 }
-
-export default SignUp;

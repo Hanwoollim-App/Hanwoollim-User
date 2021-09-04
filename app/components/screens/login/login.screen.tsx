@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function Login() {
+export function Login() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const loginBtnClickListener = () => {
@@ -134,5 +134,3 @@ function Login() {
 		</>
 	);
 }
-
-export default Login;

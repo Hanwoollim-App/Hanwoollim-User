@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function MyPage() {
+export function MyPage() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -180,5 +180,3 @@ function MyPage() {
 		</ScreenWrapper>
 	);
 }
-
-export default MyPage;

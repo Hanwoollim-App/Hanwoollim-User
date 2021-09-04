@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function NotApproved() {
+export function NotApproved() {
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
 		return true;
@@ -76,5 +76,3 @@ function NotApproved() {
 		</ScreenWrapper>
 	);
 }
-
-export default NotApproved;

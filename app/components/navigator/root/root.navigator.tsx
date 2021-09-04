@@ -1,12 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginNavigator from '../login/login.navigator';
-import BottomTabNavigator from '../bottom-tab/bottom-tab.navigator';
-import NoticeNavigator from '../notice/notice.navigator';
-import NoticeScreen from '../../screens/notice';
-import MyPage from '../../screens/my-page';
-import infoEdit from '../../screens/my-page/my-page-info-edit/my-page-info-edit.screen.tsx';
+import { LoginNavigator, BottomTabNavigator, NoticeNavigator } from '..';
+import { NoticeScreen, MyPage, InfoEdit } from '../../screens';
 
 const RootStackNavigator = createStackNavigator();
 
@@ -51,7 +47,7 @@ export function RootNavigator() {
 				/>
 				<RootStackNavigator.Screen
 					name="infoEdit"
-					component={infoEdit}
+					component={InfoEdit}
 					options={{
 						headerShown: false,
 					}}

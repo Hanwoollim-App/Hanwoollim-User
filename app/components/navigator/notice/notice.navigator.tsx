@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import NoticeDetail from '../../screens/notice/NoticeDetail';
+import { NoticeDetail } from '../../screens';
 
 const NoticeStack = createStackNavigator();
 
