@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Modal, StyleSheet, Platform } from 'react-native';
-import { CustomBtn } from '../../layout/custom-btn';
+import { CustomBtn } from '..';
 import {
 	fontPercentage,
 	heightPercentage,
