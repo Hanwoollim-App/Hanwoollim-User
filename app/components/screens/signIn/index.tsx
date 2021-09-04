@@ -12,9 +12,9 @@ import {
 } from '../../../utils/constant/responsive/responsive.api';
 import color from '../../../utils/constant/color/color.data';
 import SignInForm from './Form';
-import CustomBtn from '../../common/CustomBtn';
-import CustomStatusBar from '../../common/CustomStatusBar';
-import CustomModal from '../../common/CustomModal';
+import CustomBtn from '../../layout/custom-btn/custom-btn.layout';
+import CustomStatusBar from '../../layout/custom-status-bar/custom-status-bar.layout';
+import CustomModal from '../../layout/custom-modal/custom-modal.layout';
 import { customBtnType } from '../../../utils/types/customModal';
 import {
 	userSignIn,

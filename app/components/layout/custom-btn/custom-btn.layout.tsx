@@ -7,7 +7,8 @@ interface CustomBtnProps {
 	titleStyle: Object;
 	btnStyle: Object;
 }
-function CustomBtn({
+
+export function CustomBtn({
 	title,
 	onClickListener,
 	titleStyle,
@@ -19,5 +20,3 @@ function CustomBtn({
 		</TouchableOpacity>
 	);
 }
-
-export default React.memo(CustomBtn);

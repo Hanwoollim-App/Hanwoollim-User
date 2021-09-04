@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Platform, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import color from '../../utils/constant/color/color.data';
+import color from '../../../utils/constant/color/color.data';
 
 const STATUSBAR_HEIGHT =
 	Platform.OS === 'ios' ? getStatusBarHeight() : StatusBar.currentHeight;
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function CustomStatusBar() {
+export function CustomStatusBar() {
 	return (
 		<View style={styles.statusBar}>
 			<StatusBar
@@ -24,5 +24,3 @@ function CustomStatusBar() {
 		</View>
 	);
 }
-
-export default CustomStatusBar;

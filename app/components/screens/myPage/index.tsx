@@ -11,8 +11,8 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/responsive/responsive.api';
-import ScreenWrapper from '../../common/ScreenWrapper';
-import CustomModal from '../../common/CustomModal';
+import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
+import CustomModal from '../../layout/custom-modal/custom-modal.layout';
 import { customBtnType } from '../../../utils/types/customModal';
 import { api } from '../../../utils/constant/axios';
 import userInterface, {

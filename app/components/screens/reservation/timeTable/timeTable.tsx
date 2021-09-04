@@ -6,7 +6,7 @@ import {
 	fontPercentage,
 } from '../../../../utils/constant/responsive/responsive.api';
 import color from '../../../../utils/constant/color/color.data';
-import CustomModal from '../../../common/CustomModal';
+import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
 import { customBtnType } from '../../../../utils/types/customModal';
 
 const styles = StyleSheet.create({

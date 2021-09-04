@@ -6,7 +6,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/responsive/responsive.api';
-import ScreenWrapper from '../../common/ScreenWrapper';
+import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 
 const styles = StyleSheet.create({

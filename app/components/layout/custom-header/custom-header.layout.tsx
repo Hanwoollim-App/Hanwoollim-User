@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
-import { textLightLogoImage } from '../../assets';
-import color from '../../utils/constant/color/color.data';
+import { textLightLogoImage } from '../../../assets';
+import color from '../../../utils/constant/color/color.data';
 import {
 	fontPercentage,
 	heightPercentage,
-} from '../../utils/constant/responsive/responsive.api';
+} from '../../../utils/constant/responsive/responsive.api';
 
 const styles = StyleSheet.create({
 	root: {
@@ -73,7 +73,7 @@ interface HeaderInterface {
 	rightIconClickListener?: Function;
 }
 
-function CustomHeader({
+export function CustomHeader({
 	title,
 	headerLeft = false,
 	headerRight = false,
@@ -114,5 +114,3 @@ function CustomHeader({
 		</View>
 	);
 }
-
-export default CustomHeader;

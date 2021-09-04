@@ -7,7 +7,7 @@ import {
 } from '../../../utils/constant/responsive/responsive.api';
 import NoticeItem from '../notice/NoticeItem';
 import NoticeDetailItemInterface from '../../../utils/types/noticeDetailItem';
-import ScreenWrapper from '../../common/ScreenWrapper';
+import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import { getNotice } from '../../../utils/constant/axios';
 
 const styles = StyleSheet.create({

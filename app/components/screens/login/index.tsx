@@ -20,7 +20,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../utils/constant/responsive/responsive.api';
-import CustomStatusBar from '../../common/CustomStatusBar';
+import CustomStatusBar from '../../layout/custom-status-bar/custom-status-bar.layout';
 import { textLightLogoImage } from '../../../assets';
 
 const styles = StyleSheet.create({

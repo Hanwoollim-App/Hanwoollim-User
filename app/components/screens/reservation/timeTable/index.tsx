@@ -18,7 +18,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 } from '../../../../utils/constant/responsive/responsive.api';
-import ScreenWrapper from '../../../common/ScreenWrapper';
+import ScreenWrapper from '../../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import { ItemType, ValueType } from '../../../../utils/types/dropDown';
 import TimeTable from './timeTable';
 import weekItem from '../../../../utils/constant/reservation/timeTable/reservationTimeTable';
