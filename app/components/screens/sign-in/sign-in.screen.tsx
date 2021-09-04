@@ -9,8 +9,8 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/constant/responsive/responsive.api';
-import color from '../../../utils/constant/color/color.data';
+} from '../../../utils/api/responsive/responsive.api';
+import color from '../../../utils/data/color/color.data';
 import SignInForm from './components/form.sign-in.component';
 import CustomBtn from '../../layout/custom-btn/custom-btn.layout';
 import CustomStatusBar from '../../layout/custom-status-bar/custom-status-bar.layout';
@@ -20,7 +20,7 @@ import {
 	userSignIn,
 	updateAuthToken,
 	getUserInfo,
-} from '../../../utils/constant/axios';
+} from '../../../utils/api/axios';
 import {
 	UserInfoContext,
 	userInterface,

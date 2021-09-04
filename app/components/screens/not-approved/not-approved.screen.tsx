@@ -5,7 +5,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/constant/responsive/responsive.api';
+} from '../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import { UserInfoContext } from '../../../utils/context/UserInfoContext';
 

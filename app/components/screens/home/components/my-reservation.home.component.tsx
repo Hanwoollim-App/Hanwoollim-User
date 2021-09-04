@@ -10,8 +10,8 @@ import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
-} from '../../../../utils/constant/responsive/responsive.api';
-import trimmingText from '../../../../utils/constant/trimming-text/trimming-text.api';
+} from '../../../../utils/api/responsive/responsive.api';
+import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
 import blockStyles from '../../../../utils/constant/home/blockStyles';
 
 const tempMyReservation: Array<string> = [];

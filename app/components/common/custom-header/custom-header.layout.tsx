@@ -73,7 +73,7 @@ interface HeaderInterface {
 	rightIconClickListener?: Function;
 }
 
-export function CustomHeader({
+function CustomHeader({
 	title,
 	headerLeft = false,
 	headerRight = false,
@@ -114,3 +114,5 @@ export function CustomHeader({
 		</View>
 	);
 }
+
+export default CustomHeader;

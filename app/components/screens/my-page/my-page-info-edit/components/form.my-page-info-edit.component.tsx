@@ -4,7 +4,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../../utils/constant/responsive/responsive.api';
+} from '../../../../../utils/api/responsive/responsive.api';
 
 interface infoEditFormProps {
 	placeholder: string;

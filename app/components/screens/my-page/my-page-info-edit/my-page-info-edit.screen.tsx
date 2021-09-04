@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import color from '../../../../utils/constant/color/color.data';
+import color from '../../../../utils/data/color/color.data';
 import { SIGN_UP_COMPONENT_TEXT } from '../../../../utils/constant/login/singUpScreen';
 import CustomBtn from '../../../layout/custom-btn/custom-btn.layout';
 import InfoEditForm from './components/form.my-page-info-edit.component';
@@ -15,12 +15,12 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/constant/responsive/responsive.api';
+} from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import CustomModal from '../../../layout/custom-modal/custom-modal.layout';
 import { customBtnType } from '../../../../utils/types/customModal';
 import { ItemType, ValueType } from '../../../../utils/types/dropDown';
-import { api } from '../../../../utils/constant/axios';
+import { api } from '../../../../utils/api/axios';
 import userInterface, {
 	UserInfoContext,
 } from '../../../../utils/context/UserInfoContext';

@@ -13,13 +13,13 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
-import color from '../../../utils/constant/color/color.data';
+import color from '../../../utils/data/color/color.data';
 import LOGIN_BUTTON_TEXT from '../../../utils/constant/login/loginScreen';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../utils/constant/responsive/responsive.api';
+} from '../../../utils/api/responsive/responsive.api';
 import CustomStatusBar from '../../layout/custom-status-bar/custom-status-bar.layout';
 import { textLightLogoImage } from '../../../assets';
 

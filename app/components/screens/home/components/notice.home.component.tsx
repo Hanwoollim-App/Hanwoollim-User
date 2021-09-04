@@ -8,11 +8,11 @@ import {
 } from '@react-navigation/native';
 import React, { memo, useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { fontPercentage } from '../../../../utils/constant/responsive/responsive.api';
-import trimmingText from '../../../../utils/constant/trimming-text/trimming-text.api';
+import { fontPercentage } from '../../../../utils/api/responsive/responsive.api';
+import trimmingText from '../../../../utils/api/trimming-text/trimming-text.api';
 import blockStyles from '../../../../utils/constant/home/blockStyles';
 import NoticeDetailItemInterface from '../../../../utils/types/noticeDetailItem';
-import { getNotice } from '../../../../utils/constant/axios';
+import { getNotice } from '../../../../utils/api/axios';
 
 const textLength = 35;
 const styles = StyleSheet.create({

@@ -3,7 +3,7 @@ import {
 	fontPercentage,
 	widthPercentage,
 	heightPercentage,
-} from '../responsive/responsive.api';
+} from '../../api/responsive/responsive.api';
 
 const blockStyles = StyleSheet.create({
 	root: {

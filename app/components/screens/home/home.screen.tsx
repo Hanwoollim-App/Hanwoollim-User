@@ -17,7 +17,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import {
 	fontPercentage,
 	heightPercentage,
-} from '../../../utils/constant/responsive/responsive.api';
+} from '../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import Notice from './components/notice.home.component';
 import TodayReservation from './components/today-reservation.home.component';

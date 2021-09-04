@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function CustomStatusBar() {
+function CustomStatusBar() {
 	return (
 		<View style={styles.statusBar}>
 			<StatusBar
@@ -24,3 +24,5 @@ export function CustomStatusBar() {
 		</View>
 	);
 }
+
+export default CustomStatusBar;

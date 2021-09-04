@@ -20,7 +20,7 @@ const icon = (
 	<FontAwesomeIcon style={{ color: 'white' }} icon={faChevronLeft} />
 );
 
-export function ScreenWrapper({ children, headerTitle }: screenWrapper) {
+function ScreenWrapper({ children, headerTitle }: screenWrapper) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	return (
@@ -40,3 +40,5 @@ export function ScreenWrapper({ children, headerTitle }: screenWrapper) {
 		</>
 	);
 }
+
+export default ScreenWrapper;

@@ -17,7 +17,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/constant/responsive/responsive.api';
+} from '../../../../utils/api/responsive/responsive.api';
 import ScreenWrapper from '../../../layout/screen-wrapper/screen-wrapper.layout.tsx';
 import { ItemType, ValueType } from '../../../../utils/types/dropDown';
 import TimeTable from './components/time-table.reservation-time-table.component';

@@ -9,7 +9,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-} from '../../../../utils/constant/responsive/responsive.api';
+} from '../../../../utils/api/responsive/responsive.api';
 
 import NoticeDetailItemInterface from '../../../../utils/types/noticeDetailItem';
 

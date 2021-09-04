@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function CustomModal({
+function CustomModal({
 	mdVisible,
 	title,
 	subtitle = '',
@@ -216,3 +216,5 @@ export function CustomModal({
 		</Modal>
 	);
 }
+
+export default React.memo(CustomModal);
