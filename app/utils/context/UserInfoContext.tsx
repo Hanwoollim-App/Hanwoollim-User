@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useState, createContext } from 'react';
 
-interface userInterface {
+export interface userInterface {
 	userName: string;
 	major: string;
 	studentId: number;

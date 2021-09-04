@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { boardImage } from '../../../assets';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -49,13 +50,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-const board = require('../../../assets/images/board.png');
-
 function Board() {
 	return (
 		<ScreenWrapper headerTitle="자료게시판">
 			<View style={styles.board}>
-				<Image style={styles.boardImg} source={board} />
+				<Image source={boardImage} style={styles.boardImg} />
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>기능 준비중입니다</Text>

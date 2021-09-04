@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import { textLightLogoImage } from '../../assets';
 import color from '../../utils/constant/common/design/Color';
 import {
 	fontPercentage,
 	heightPercentage,
-	widthPercentage,
 } from '../../utils/constant/common/design/Responsive';
 
 const styles = StyleSheet.create({
@@ -73,8 +73,6 @@ interface HeaderInterface {
 	rightIconClickListener?: Function;
 }
 
-const logo = require('../../assets/images/textLogo_light.png');
-
 function CustomHeader({
 	title,
 	headerLeft = false,
@@ -101,7 +99,7 @@ function CustomHeader({
 				</View>
 			) : (
 				<View style={styles.headerCenter}>
-					<Image source={logo} style={styles.logoImg} />
+					<Image source={textLightLogoImage} style={styles.logoImg} />
 				</View>
 			)}
 			{headerRight ? (

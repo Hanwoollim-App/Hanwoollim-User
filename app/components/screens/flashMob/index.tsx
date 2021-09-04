@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { flashMobImage } from '../../../assets';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -49,13 +50,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-const flashMob = require('../../../assets/images/flashmob.png');
-
 function FlashMob() {
 	return (
 		<ScreenWrapper headerTitle="번개모임">
 			<View style={styles.flashMob}>
-				<Image style={styles.flashMobImg} source={flashMob} />
+				<Image source={flashMobImage} style={styles.flashMobImg} />
 			</View>
 			<View style={styles.block}>
 				<Text style={styles.blockTitle}>기능 준비중입니다</Text>

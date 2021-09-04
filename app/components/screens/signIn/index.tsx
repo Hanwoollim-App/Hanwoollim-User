@@ -21,9 +21,11 @@ import {
 	updateAuthToken,
 	getUserInfo,
 } from '../../../utils/constant/api';
-import userInterface, {
+import {
 	UserInfoContext,
+	userInterface,
 } from '../../../utils/context/UserInfoContext';
+import { textLightLogoImage } from '../../../assets';
 
 const styles = StyleSheet.create({
 	root: {
@@ -90,13 +92,11 @@ function isApprovedAccount(position: string) {
 	return isValidAccount;
 }
 
-const headerLogo = require('../../../assets/images/textLogo_light.png');
-
 function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
-	const { setUser }: userInterface = useContext(UserInfoContext);
+	const { setUser } = useContext(UserInfoContext);
 
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
@@ -182,7 +182,7 @@ function SignIn() {
 				/>
 				<View style={styles.header}>
 					<View>
-						<Image style={styles.headerImg} source={headerLogo} />
+						<Image source={textLightLogoImage} style={styles.headerImg} />
 					</View>
 				</View>
 				<Text style={styles.titleText}>

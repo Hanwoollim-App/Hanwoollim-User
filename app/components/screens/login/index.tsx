@@ -21,6 +21,7 @@ import {
 	widthPercentage,
 } from '../../../utils/constant/common/design/Responsive';
 import CustomStatusBar from '../../common/CustomStatusBar';
+import { textLightLogoImage } from '../../../assets';
 
 const styles = StyleSheet.create({
 	root: {
@@ -100,8 +101,6 @@ const styles = StyleSheet.create({
 	},
 });
 
-const textLogo = require('../../../assets/images/textLogo_light.png');
-
 function Login() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
@@ -118,7 +117,7 @@ function Login() {
 			<CustomStatusBar />
 			<SafeAreaView style={styles.root}>
 				<View style={styles.title}>
-					<Image style={styles.titleText} source={textLogo} />
+					<Image source={textLightLogoImage} style={styles.titleText} />
 					<View style={styles.titleUnderBar} />
 				</View>
 				<View style={styles.login}>
