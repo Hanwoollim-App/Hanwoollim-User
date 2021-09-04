@@ -1,64 +1,62 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginNavigator from './LoginNavigator';
-import BottomTabNavigator from './BottomTabNavigator';
-import NoticeNavigator from './NoticeNavigator';
-import NoticeScreen from '../screens/notice';
-import MyPage from '../screens/myPage';
-import infoEdit from '../screens/myPage/infoEdit';
+import LoginNavigator from '../login/login.navigator';
+import BottomTabNavigator from '../bottom-tab/bottom-tab.navigator';
+import NoticeNavigator from '../notice/notice.navigator';
+import NoticeScreen from '../../screens/notice';
+import MyPage from '../../screens/myPage';
+import infoEdit from '../../screens/myPage/infoEdit';
 
-const MainStackNavigator = createStackNavigator();
+const RootStackNavigator = createStackNavigator();
 
-function MainNavigator() {
+export function RootNavigator() {
 	return (
 		<NavigationContainer>
-			<MainStackNavigator.Navigator>
-				<MainStackNavigator.Screen
+			<RootStackNavigator.Navigator>
+				<RootStackNavigator.Screen
 					name="LoginNavigator"
 					component={LoginNavigator}
 					options={{
 						headerShown: false,
 					}}
 				/>
-				<MainStackNavigator.Screen
+				<RootStackNavigator.Screen
 					name="BottomTabNavigator"
 					component={BottomTabNavigator}
 					options={{
 						headerShown: false,
 					}}
 				/>
-				<MainStackNavigator.Screen
+				<RootStackNavigator.Screen
 					name="NoticeNavigator"
 					component={NoticeNavigator}
 					options={{
 						headerShown: false,
 					}}
 				/>
-				<MainStackNavigator.Screen
+				<RootStackNavigator.Screen
 					name="NoticeScreen"
 					component={NoticeScreen}
 					options={{
 						headerShown: false,
 					}}
 				/>
-				<MainStackNavigator.Screen
+				<RootStackNavigator.Screen
 					name="MyPage"
 					component={MyPage}
 					options={{
 						headerShown: false,
 					}}
 				/>
-				<MainStackNavigator.Screen
+				<RootStackNavigator.Screen
 					name="infoEdit"
 					component={infoEdit}
 					options={{
 						headerShown: false,
 					}}
 				/>
-			</MainStackNavigator.Navigator>
+			</RootStackNavigator.Navigator>
 		</NavigationContainer>
 	);
 }
-
-export default MainNavigator;

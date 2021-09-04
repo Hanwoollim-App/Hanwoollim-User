@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from '../screens/login';
-import SignUp from '../screens/signUp';
-import NotApproved from '../screens/notApproved';
-import SignIn from '../screens/signIn';
+import Login from '../../screens/login';
+import SignUp from '../../screens/signUp';
+import NotApproved from '../../screens/notApproved';
+import SignIn from '../../screens/signIn';
 
 const LoginStack = createStackNavigator();
 
-function LoginNavigator() {
+export function LoginNavigator() {
 	return (
 		<LoginStack.Navigator>
 			<LoginStack.Screen
@@ -41,5 +41,3 @@ function LoginNavigator() {
 		</LoginStack.Navigator>
 	);
 }
-
-export default LoginNavigator;

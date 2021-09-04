@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoginContextProvider } from './utils/context/LoginContext';
-import MainNavigator from './components/navigator/MainNavigator';
+import MainNavigator from './components/navigator/root/root.navigator';
 import { UserInfoProvider } from './utils/context/UserInfoContext';
 
 function App() {
