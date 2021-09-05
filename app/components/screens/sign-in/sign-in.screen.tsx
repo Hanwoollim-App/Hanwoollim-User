@@ -5,6 +5,7 @@ import {
 	ParamListBase,
 	useNavigation,
 } from '@react-navigation/native';
+import { useAsyncCallback } from 'react-async-hook';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -14,11 +15,15 @@ import {
 	userSignIn,
 	updateAuthToken,
 	getUserInfo,
-	UserInfoContext,
 	useUserInfo,
 } from '../../../utils';
 import { SignInForm } from './components';
-import { CustomBtn, CustomStatusBar, CustomModal } from '../../layout';
+import {
+	CustomBtn,
+	CustomStatusBar,
+	CustomModal,
+	LoadingModal,
+} from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
 
@@ -81,11 +86,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-function isApprovedAccount(position: string) {
+const isApprovedAccount = (position: string): boolean => {
 	const isValidAccount: boolean = position !== 'not_approved';
 
 	return isValidAccount;
-}
+};
 
 export function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
@@ -119,9 +124,11 @@ export function SignIn() {
 		}));
 	};
 
-	const signInBtnClickListener = () => {
-		userSignIn(id, pw)
-			.then(async ({ data }) => {
+	const { execute: signInBtnClickListener, loading: isSigningIn } =
+		useAsyncCallback(
+			async () => {
+				const { data } = userSignIn(id, pw);
+
 				const { accessToken } = data;
 
 				updateAuthToken(accessToken);
@@ -141,34 +148,36 @@ export function SignIn() {
 					return;
 				}
 				navigation.navigate('NotApproved');
-			})
-			.catch((err) => {
-				console.log(err);
-				if (id === '') {
-					openErrorModal('아이디를 입력해주세요');
-					return;
-				}
-				if (pw === '') {
-					openErrorModal('비밀번호를 입력해주세요');
-					return;
-				}
-				if (err.response.status === 404) {
-					openErrorModal('아이디가 존재하지 않습니다.');
-					return;
-				}
-				if (err.response.status === 401) {
-					openErrorModal('비밀번호가 잘못되었습니다.');
-					return;
-				}
-				if (err.response.status === 500) {
-					openErrorModal('예상치 못한 에러가 발생하였습니다.');
-				}
-			});
-	};
+			},
+			{
+				onError: (err) => {
+					if (id === '') {
+						openErrorModal('아이디를 입력해주세요');
+						return;
+					}
+					if (pw === '') {
+						openErrorModal('비밀번호를 입력해주세요');
+						return;
+					}
+					if (err.response.status === 404) {
+						openErrorModal('아이디가 존재하지 않습니다.');
+						return;
+					}
+					if (err.response.status === 401) {
+						openErrorModal('비밀번호가 잘못되었습니다.');
+						return;
+					}
+					if (err.response.status === 500) {
+						openErrorModal('예상치 못한 에러가 발생하였습니다.');
+					}
+				},
+			},
+		);
 
 	return (
 		<>
 			<CustomStatusBar />
+			<LoadingModal isVisible={isSigningIn} />
 			<View style={styles.root}>
 				<CustomModal
 					mdVisible={modalValue.isVisible}
