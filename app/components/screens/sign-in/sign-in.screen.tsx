@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
@@ -26,6 +26,7 @@ import {
 } from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
+import { useLoadingModal } from '../../../utils/context/loading-modal.context';
 
 const styles = StyleSheet.create({
 	root: {
@@ -173,10 +174,11 @@ export function SignIn() {
 			},
 		);
 
+	useLoadingModal([isSigningIn]);
+
 	return (
 		<>
 			<CustomStatusBar />
-			<LoadingModal isVisible={isSigningIn} />
 			<View style={styles.root}>
 				<CustomModal
 					mdVisible={modalValue.isVisible}
