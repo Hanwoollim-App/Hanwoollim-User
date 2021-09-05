@@ -11,7 +11,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 	customBtnType,
-	api,
+	baseAxios,
 	UserInfoContext,
 } from '../../../../utils';
 import { ScreenWrapper, CustomModal } from '../../../layout';
@@ -94,7 +94,7 @@ export function MyPage() {
 	};
 
 	const returnToLogin = () => {
-		api
+		baseAxios
 			.post('/user/info', {
 				execute: 1,
 			})
@@ -122,7 +122,7 @@ export function MyPage() {
 
 	useFocusEffect(
 		useCallback(() => {
-			api.get('/user/info').then((res) => {
+			baseAxios.get('/user/info').then((res) => {
 				const { userName, major, studentId } = res.data;
 
 				setUser((prevUser) => ({

@@ -1,4 +1,4 @@
-,import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -12,10 +12,9 @@ import {
 	fontPercentage,
 	trimmingText,
 	blockStyles,
-	getNotice, 
+	getNotice,
 	NoticeDetailItemInterface,
 } from '../../../../utils';
-
 
 const textLength = 35;
 const styles = StyleSheet.create({

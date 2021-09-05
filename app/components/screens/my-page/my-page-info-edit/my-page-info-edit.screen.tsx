@@ -16,7 +16,7 @@ import {
 	majorItem,
 	SIGN_UP_COMPONENT_TEXT,
 	UserInfoContext,
-	api,
+	baseAxios,
 	ItemType,
 	ValueType,
 	customBtnType,
@@ -181,7 +181,7 @@ export function InfoEdit() {
 			openErrorModal('학번은 10자리입니다');
 			return;
 		}
-		api
+		baseAxios
 			.patch('/user/editInfo', {
 				userName: name,
 				major,
