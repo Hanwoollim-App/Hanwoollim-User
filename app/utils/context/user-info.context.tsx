@@ -1,19 +1,54 @@
-/* eslint-disable no-undef */
-import React, { useState, createContext } from 'react';
+import React, {
+	useState,
+	createContext,
+	ReactNode,
+	Dispatch,
+	SetStateAction,
+	useContext,
+} from 'react';
 
-export interface userInterface {
+export type userInfoType = {
 	userName: string;
 	major: string;
 	studentId: number;
-}
+};
 
-export const UserInfoContext = createContext({});
-export const UserInfoProvider = ({ children }: any) => {
-	const [user, setUser] = useState<userInterface>();
+export type userInfoContextType = {
+	user: userInfoType;
+	setUser: Function;
+};
+
+export type userInfoProviderProps = {
+	children: ReactNode;
+};
+
+export const UserInfoContext = createContext<userInfoContextType>(null);
+
+export const UserInfoProvider = ({ children }: userInfoProviderProps) => {
+	const [user, setUser] = useState<userInfoType>();
 
 	return (
 		<UserInfoContext.Provider value={{ user, setUser }}>
 			{children}
 		</UserInfoContext.Provider>
 	);
+};
+
+const useUserInfoContext = () => {
+	const context = useContext(UserInfoContext);
+
+	if (!context) {
+		throw new Error('useUserInfo must be used within a UserInfoContext');
+	}
+
+	return context;
+};
+
+export const useUserInfo = () => {
+	const { user, setUser } = useUserInfoContext();
+
+	return {
+		user,
+		setUser,
+	};
 };

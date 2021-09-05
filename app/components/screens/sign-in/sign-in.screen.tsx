@@ -15,6 +15,7 @@ import {
 	updateAuthToken,
 	getUserInfo,
 	UserInfoContext,
+	useUserInfo,
 } from '../../../utils';
 import { SignInForm } from './components';
 import { CustomBtn, CustomStatusBar, CustomModal } from '../../layout';
@@ -90,7 +91,7 @@ export function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [id, setId] = useState<string>('');
 	const [pw, setPw] = useState<string>('');
-	const { setUser } = useContext(UserInfoContext);
+	const { setUser } = useUserInfo();
 
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,

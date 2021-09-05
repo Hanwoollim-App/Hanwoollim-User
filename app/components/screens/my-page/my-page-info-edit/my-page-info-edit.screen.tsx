@@ -20,6 +20,7 @@ import {
 	ItemType,
 	ValueType,
 	customBtnType,
+	useUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, CustomBtn, CustomModal } from '../../../layout';
 
@@ -150,7 +151,7 @@ export function InfoEdit() {
 	const [name, setName] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
 	const [major, setMajor] = useState<ValueType>('');
-	const { setUser } = useContext(UserInfoContext);
+	const { setUser } = useUserInfo();
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
 		text: '',
@@ -188,7 +189,6 @@ export function InfoEdit() {
 				studentId: studentID,
 			})
 			.then((res) => {
-				console.log(res);
 				const { userName, studentId } = res.data;
 
 				setUser((prevUser) => ({

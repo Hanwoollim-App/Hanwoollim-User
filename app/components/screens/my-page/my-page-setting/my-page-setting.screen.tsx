@@ -13,6 +13,7 @@ import {
 	customBtnType,
 	baseAxios,
 	UserInfoContext,
+	useUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, CustomModal } from '../../../layout';
 
@@ -118,7 +119,7 @@ export function MyPage() {
 		},
 	];
 
-	const { user, setUser } = useContext(UserInfoContext);
+	const { user, setUser } = useUserInfo();
 
 	useFocusEffect(
 		useCallback(() => {
