@@ -136,13 +136,12 @@ export function SignIn() {
 				const { data: userInfoData } = await getUserInfo();
 				const { userName, major, studentId, position } = userInfoData;
 
-				setUser((prevUser) => ({
-					...prevUser,
+				setUser({
 					userName,
 					major,
 					studentId,
 					position,
-				}));
+				});
 
 				if (isApprovedAccount(position)) {
 					navigation.navigate('BottomTabNavigator');

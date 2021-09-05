@@ -1,4 +1,11 @@
-import React, { useState, createContext, ReactNode, useContext } from 'react';
+import React, {
+	useState,
+	createContext,
+	ReactNode,
+	useContext,
+	Dispatch,
+	SetStateAction,
+} from 'react';
 
 export type userInfoType = {
 	userName: string;
@@ -9,7 +16,10 @@ export type userInfoType = {
 
 export type userInfoContextType = {
 	user: userInfoType;
-	setUser: Function;
+	setUser:
+		| Dispatch<userInfoType>
+		| Dispatch<SetStateAction<null | userInfoType>>
+		| ((prevUser: userInfoType) => void);
 };
 
 export type userInfoProviderProps = {
