@@ -141,6 +141,7 @@ export function SignIn() {
 					userName,
 					major,
 					studentId,
+					position,
 				}));
 
 				if (isApprovedAccount(position)) {

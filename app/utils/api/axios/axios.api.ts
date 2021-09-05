@@ -1,3 +1,4 @@
+import { userInfoType } from './../../context/user-info.context';
 import axios, { AxiosResponse } from 'axios';
 import { ValueType } from '../../types/drop-down.type';
 
@@ -42,7 +43,7 @@ export const userSignUp = (
 	});
 };
 
-export const getUserInfo = (): Promise<AxiosResponse<any>> => {
+export const getUserInfo = (): Promise<AxiosResponse<userInfoType>> => {
 	return baseAxios.get('/user/info');
 };
 

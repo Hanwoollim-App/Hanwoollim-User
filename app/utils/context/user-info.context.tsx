@@ -1,16 +1,10 @@
-import React, {
-	useState,
-	createContext,
-	ReactNode,
-	Dispatch,
-	SetStateAction,
-	useContext,
-} from 'react';
+import React, { useState, createContext, ReactNode, useContext } from 'react';
 
 export type userInfoType = {
 	userName: string;
 	major: string;
 	studentId: number;
+	position: string;
 };
 
 export type userInfoContextType = {
