@@ -15,7 +15,7 @@ baseAxios.defaults.headers.post['Content-Type'] = 'application/json';
 export const userSignIn = (
 	id: string,
 	password: string,
-): Promise<AxiosResponse<signInDataInterface>> => {
+): Promise<AxiosResponse<any>> => {
 	return baseAxios.post<signInDataInterface>('/user/signIn', {
 		id,
 		password,
