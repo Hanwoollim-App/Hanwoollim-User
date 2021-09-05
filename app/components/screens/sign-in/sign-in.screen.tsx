@@ -127,14 +127,13 @@ export function SignIn() {
 	const { execute: signInBtnClickListener, loading: isSigningIn } =
 		useAsyncCallback(
 			async () => {
-				const { data } = userSignIn(id, pw);
-
-				const { accessToken } = data;
+				const { data: signInData } = await userSignIn(id, pw);
+				const { accessToken } = signInData;
 
 				updateAuthToken(accessToken);
 
-				const res = await getUserInfo();
-				const { userName, major, studentId } = res.data;
+				const { data: userInfoData } = await getUserInfo();
+				const { userName, major, studentId, position } = userInfoData;
 
 				setUser((prevUser) => ({
 					...prevUser,
@@ -143,7 +142,7 @@ export function SignIn() {
 					studentId,
 				}));
 
-				if (isApprovedAccount(data.position)) {
+				if (isApprovedAccount(position)) {
 					navigation.navigate('BottomTabNavigator');
 					return;
 				}
