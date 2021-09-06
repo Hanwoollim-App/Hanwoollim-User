@@ -21,6 +21,7 @@ import {
 	ValueType,
 	customBtnType,
 	useUserInfo,
+	userInfoType,
 } from '../../../../utils';
 import { ScreenWrapper, CustomBtn, CustomModal } from '../../../layout';
 
@@ -189,14 +190,22 @@ export function InfoEdit() {
 				studentId: studentID,
 			})
 			.then((res) => {
-				const { userName, studentId } = res.data;
-
-				setUser((prevUser) => ({
-					...prevUser,
+				const {
 					userName,
-					major,
 					studentId,
-				}));
+					major,
+				}: { userName: string; studentId: number; major: string } = res.data;
+
+				setUser((prevUser: userInfoType) => {
+					const { position } = prevUser;
+
+					return {
+						userName,
+						studentId,
+						position,
+						major,
+					};
+				});
 				navigation.navigate('MyPage');
 			})
 			.catch((err) => {

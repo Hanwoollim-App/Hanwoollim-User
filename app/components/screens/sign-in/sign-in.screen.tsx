@@ -17,18 +17,11 @@ import {
 	getUserInfo,
 	useUserInfo,
 	customModalValueType,
-	userInfoType,
 } from '../../../utils';
 import { SignInForm } from './components';
-import {
-	CustomBtn,
-	CustomStatusBar,
-	CustomModal,
-	LoadingModal,
-} from '../../layout';
+import { CustomBtn, CustomStatusBar, CustomModal } from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
-import { useLoadingModal } from '../../../utils/context/loading-modal.context';
 
 const styles = StyleSheet.create({
 	root: {
@@ -160,7 +153,7 @@ export function SignIn() {
 					return true;
 				});
 
-			if (!isError) {
+			if (isError) {
 				return;
 			}
 
@@ -181,8 +174,6 @@ export function SignIn() {
 				navigation.navigate('NotApproved');
 			});
 		});
-
-	useLoadingModal([isSigningIn]);
 
 	return (
 		<>
