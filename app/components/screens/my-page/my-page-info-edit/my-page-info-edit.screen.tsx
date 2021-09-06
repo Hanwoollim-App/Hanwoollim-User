@@ -209,7 +209,6 @@ export function InfoEdit() {
 				navigation.navigate('MyPage');
 			})
 			.catch((err) => {
-				console.log(err.response);
 				const errorMessage = err.response.data.message;
 
 				if (err.response.status === 400) {

@@ -56,9 +56,7 @@ export function SelectForm({ title, pickerProps }: selectFormPropsInterface) {
 					useNativeAndroidPickerStyle={false}
 					style={pickerProps.pickerSelectStyles}
 					items={pickerProps.items}
-					onValueChange={(value) => {
-						console.log(value);
-					}}
+					onValueChange={() => {}}
 				/>
 			</View>
 		</>

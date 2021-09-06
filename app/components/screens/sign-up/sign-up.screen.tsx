@@ -180,12 +180,10 @@ export function SignUp() {
 
 	const signUpBtnClickListener = () => {
 		userSignUp(id, pw, name, major, studentID)
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				navigation.navigate('SignIn');
 			})
 			.catch((err) => {
-				console.log(err.response);
 				const errorMessage = err.response.data.message;
 
 				if (err.response.status === 400) {

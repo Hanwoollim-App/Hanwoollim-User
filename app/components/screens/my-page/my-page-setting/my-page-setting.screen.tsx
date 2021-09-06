@@ -100,7 +100,6 @@ export function MyPage() {
 				execute: 1,
 			})
 			.then((res) => {
-				console.log(res);
 				navigation.navigate('Login');
 			});
 	};
