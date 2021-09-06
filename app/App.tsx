@@ -1,14 +1,14 @@
 import React from 'react';
-import { LoginContextProvider } from './utils/context/LoginContext';
-import MainNavigator from './components/navigator/MainNavigator';
-import { UserInfoProvider } from './utils/context/UserInfoContext';
+import { UserInfoProvider } from './utils';
+import { RootNavigator } from './components/navigator';
+import { LoadingModalProvider } from './utils/context/loading-modal.context';
 
 function App() {
 	return (
 		<UserInfoProvider>
-			<LoginContextProvider>
-				<MainNavigator />
-			</LoginContextProvider>
+			<LoadingModalProvider>
+				<RootNavigator />
+			</LoadingModalProvider>
 		</UserInfoProvider>
 	);
 }
