@@ -16,10 +16,7 @@ export type userInfoType = {
 
 export type userInfoContextType = {
 	user: userInfoType;
-	setUser:
-		| Dispatch<userInfoType>
-		| Dispatch<SetStateAction<null | userInfoType>>
-		| ((prevUser: userInfoType) => void);
+	setUser: (value: SetStateAction<userInfoType>) => void;
 };
 
 export type userInfoProviderProps = {

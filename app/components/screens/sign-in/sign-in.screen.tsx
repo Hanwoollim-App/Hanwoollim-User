@@ -16,6 +16,8 @@ import {
 	updateAuthToken,
 	getUserInfo,
 	useUserInfo,
+	customModalValueType,
+	userInfoType,
 } from '../../../utils';
 import { SignInForm } from './components';
 import {
@@ -99,7 +101,7 @@ export function SignIn() {
 	const [pw, setPw] = useState<string>('');
 	const { setUser } = useUserInfo();
 
-	const [modalValue, setModalValue] = useState({
+	const [modalValue, setModalValue] = useState<customModalValueType>({
 		isVisible: false,
 		text: '',
 	});
@@ -110,6 +112,14 @@ export function SignIn() {
 			isVisible: false,
 		}));
 	};
+
+	const openErrorModal = (errText: string) => {
+		setModalValue({
+			isVisible: true,
+			text: errText,
+		});
+	};
+
 	const modalBtn: Array<customBtnType> = [
 		{
 			buttonText: '확인',
@@ -117,23 +127,44 @@ export function SignIn() {
 		},
 	];
 
-	const openErrorModal = (errText: string) => {
-		setModalValue((prev) => ({
-			...prev,
-			isVisible: true,
-			text: errText,
-		}));
-	};
-
 	const { execute: signInBtnClickListener, loading: isSigningIn } =
-		useAsyncCallback(
-			async () => {
-				const { data: signInData } = await userSignIn(id, pw);
-				const { accessToken } = signInData;
+		useAsyncCallback(async () => {
+			const isError = await userSignIn(id, pw)
+				.then(({ data: signInData }) => {
+					const { accessToken } = signInData;
 
-				updateAuthToken(accessToken);
+					updateAuthToken(accessToken);
+					return false;
+				})
+				.catch((err) => {
+					if (id === '') {
+						openErrorModal('아이디를 입력해주세요');
+						return true;
+					}
+					if (pw === '') {
+						openErrorModal('비밀번호를 입력해주세요');
+						return true;
+					}
+					if (err.response.status === 404) {
+						openErrorModal('아이디가 존재하지 않습니다.');
+						return true;
+					}
+					if (err.response.status === 401) {
+						openErrorModal('비밀번호가 잘못되었습니다.');
+						return true;
+					}
+					if (err.response.status === 500) {
+						openErrorModal('예상치 못한 에러가 발생하였습니다.');
+						return true;
+					}
+					return true;
+				});
 
-				const { data: userInfoData } = await getUserInfo();
+			if (!isError) {
+				return;
+			}
+
+			await getUserInfo().then(({ data: userInfoData }) => {
 				const { userName, major, studentId, position } = userInfoData;
 
 				setUser({
@@ -148,31 +179,8 @@ export function SignIn() {
 					return;
 				}
 				navigation.navigate('NotApproved');
-			},
-			{
-				onError: (err) => {
-					if (id === '') {
-						openErrorModal('아이디를 입력해주세요');
-						return;
-					}
-					if (pw === '') {
-						openErrorModal('비밀번호를 입력해주세요');
-						return;
-					}
-					if (err.response.status === 404) {
-						openErrorModal('아이디가 존재하지 않습니다.');
-						return;
-					}
-					if (err.response.status === 401) {
-						openErrorModal('비밀번호가 잘못되었습니다.');
-						return;
-					}
-					if (err.response.status === 500) {
-						openErrorModal('예상치 못한 에러가 발생하였습니다.');
-					}
-				},
-			},
-		);
+			});
+		});
 
 	useLoadingModal([isSigningIn]);
 
