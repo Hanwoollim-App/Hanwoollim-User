@@ -54,3 +54,21 @@ export const getNotice = async (
 		setNoticeData(res.data);
 	});
 };
+
+export const editUserInfo = (
+	userName: string,
+	major: ValueType,
+	studentId: string,
+): Promise<AxiosResponse<any>> => {
+	return baseAxios.patch('/user/editInfo', {
+		userName,
+		major,
+		studentId,
+	});
+};
+
+export const executeUser = (): Promise<AxiosResponse<any>> => {
+	return baseAxios.post('/user/info', {
+		execute: 1,
+	});
+};

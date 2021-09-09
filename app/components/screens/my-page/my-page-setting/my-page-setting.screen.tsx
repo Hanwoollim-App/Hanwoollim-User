@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import {
 	NavigationProp,
@@ -11,9 +11,9 @@ import {
 	heightPercentage,
 	widthPercentage,
 	customBtnType,
-	baseAxios,
-	UserInfoContext,
 	useUserInfo,
+	getUserInfo,
+	executeUser,
 } from '../../../../utils';
 import { ScreenWrapper, CustomModal } from '../../../layout';
 
@@ -95,13 +95,9 @@ export function MyPage() {
 	};
 
 	const returnToLogin = () => {
-		baseAxios
-			.post('/user/info', {
-				execute: 1,
-			})
-			.then((res) => {
-				navigation.navigate('Login');
-			});
+		executeUser().then(() => {
+			navigation.navigate('Login');
+		});
 	};
 	const infoEdit = () => {
 		navigation.navigate('infoEdit');
@@ -122,7 +118,7 @@ export function MyPage() {
 
 	useFocusEffect(
 		useCallback(() => {
-			baseAxios.get('/user/info').then((res) => {
+			getUserInfo().then((res) => {
 				const { userName, major, studentId } = res.data;
 
 				setUser((prevUser) => ({
