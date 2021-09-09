@@ -26,9 +26,6 @@ for (let i: number = 1; i <= 5; i++) {
 
 	weekItem.push({
 		label: content,
-		value: {
-			weekNum: i,
-			monday: prevMonday,
-		},
+		value: i,
 	});
 }
