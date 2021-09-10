@@ -59,7 +59,7 @@ export const editUserInfo = (
 	userName: string,
 	major: ValueType,
 	studentId: string,
-): Promise<AxiosResponse<any>> => {
+): Promise<AxiosResponse<userInfoType>> => {
 	return baseAxios.patch('/user/editInfo', {
 		userName,
 		major,
@@ -67,7 +67,7 @@ export const editUserInfo = (
 	});
 };
 
-export const executeUser = (): Promise<AxiosResponse<any>> => {
+export const executeUser = (): Promise<AxiosResponse<userInfoType>> => {
 	return baseAxios.post('/user/info', {
 		execute: 1,
 	});
