@@ -8,6 +8,7 @@ import {
 	Platform,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { isNull } from 'lodash';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -19,7 +20,7 @@ import {
 	widthPercentage,
 	ItemType,
 	ValueType,
-	weekItem,
+	weekItems,
 } from '../../../../utils';
 import { ScreenWrapper } from '../../../layout';
 import { TimeTable } from './components';
@@ -98,10 +99,13 @@ export function ReservationTimeTable() {
 
 	const [open, setOpen] = useState<boolean>(false);
 	const [value, setValue] = useState<ValueType>(null);
-	const [date, setDate] = useState<Array<ItemType>>(weekItem);
+	const [date, setDate] = useState<Array<ItemType>>(weekItems);
 
 	const reserveBtnListener = () => {
-		const weekName = weekItem.filter((item) => item.value === value)[0];
+		if (isNull(value)) {
+			return;
+		}
+		const weekName = weekItems.filter((item) => item.value === value)[0];
 
 		navigation.navigate('ReservationProcess', { weekName });
 	};

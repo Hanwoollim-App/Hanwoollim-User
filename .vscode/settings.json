@@ -23,7 +23,8 @@
     ],
     "cSpell.words": [
         "Hanwoollim",
-        "kakao"
+        "kakao",
+        "loadsh"
     ],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true

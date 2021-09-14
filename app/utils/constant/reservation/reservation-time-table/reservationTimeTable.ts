@@ -2,7 +2,7 @@ import { Item } from 'react-native-picker-select';
 
 export const btnTitle: string = 'ᐸ  홈으로 돌아가기';
 
-export const weekItem: Array<Item> = [];
+export const weekItems: Array<Item> = [];
 
 for (let i: number = 1; i <= 5; i++) {
 	const curDate: Date = new Date();
@@ -24,7 +24,7 @@ for (let i: number = 1; i <= 5; i++) {
 		nextSunday.getMonth() + 1
 	}.${nextSunday.getDate()}`;
 
-	weekItem.push({
+	weekItems.push({
 		label: content,
 		value: i,
 	});
