@@ -19,7 +19,7 @@ import {
 	ValueType,
 	customBtnType,
 	useUserInfo,
-	userInfoType,
+	UserInfoType,
 	editUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, CustomBtn, CustomModal } from '../../../layout';
@@ -190,7 +190,7 @@ export function InfoEdit() {
 					major,
 				}: { userName: string; studentId: number; major: string } = res.data;
 
-				setUser((prevUser: userInfoType) => {
+				setUser((prevUser: UserInfoType) => {
 					const { position } = prevUser;
 
 					return {

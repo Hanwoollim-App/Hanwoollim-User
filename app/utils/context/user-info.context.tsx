@@ -3,30 +3,29 @@ import React, {
 	createContext,
 	ReactNode,
 	useContext,
-	Dispatch,
 	SetStateAction,
 } from 'react';
 
-export type userInfoType = {
+export type UserInfoType = {
 	userName: string;
 	major: string;
 	studentId: number;
 	position: string;
 };
 
-export type userInfoContextType = {
-	user: userInfoType;
-	setUser: (value: SetStateAction<userInfoType>) => void;
+export type UserInfoContextType = {
+	user: UserInfoType;
+	setUser: (value: SetStateAction<UserInfoType>) => void;
 };
 
-export type userInfoProviderProps = {
+export type UserInfoProviderProps = {
 	children: ReactNode;
 };
 
-export const UserInfoContext = createContext<userInfoContextType>(null);
+export const UserInfoContext = createContext<UserInfoContextType>(null);
 
-export const UserInfoProvider = ({ children }: userInfoProviderProps) => {
-	const [user, setUser] = useState<userInfoType>();
+export const UserInfoProvider = ({ children }: UserInfoProviderProps) => {
+	const [user, setUser] = useState<UserInfoType>();
 
 	return (
 		<UserInfoContext.Provider value={{ user, setUser }}>
