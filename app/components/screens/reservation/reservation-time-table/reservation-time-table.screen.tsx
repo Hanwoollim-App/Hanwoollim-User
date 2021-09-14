@@ -100,12 +100,9 @@ export function ReservationTimeTable() {
 	const [value, setValue] = useState<ValueType>(null);
 	const [date, setDate] = useState<Array<ItemType>>(weekItem);
 
-	const index = weekItem.findIndex((i) => i.value === value);
-	const weekName = weekItem[index];
-
-	// console.log(weekName.label);
 	const reserveBtnListener = () => {
-		console.log(weekName);
+		const weekName = weekItem.filter((item) => item.value === value)[0];
+
 		navigation.navigate('ReservationProcess', { weekName });
 	};
 
