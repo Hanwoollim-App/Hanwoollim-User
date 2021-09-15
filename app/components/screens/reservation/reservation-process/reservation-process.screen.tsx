@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import {
 	NavigationProp,
@@ -212,7 +212,7 @@ export function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: any = route.params.weekName;
+	const currentWeek: any = route.params.weekName.label;
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
@@ -267,7 +267,7 @@ export function ReservationProcess({ route }) {
 							<View style={styles.alignCenter}>
 								{scrollTime.map((item) => {
 									return (
-										<>
+										<Fragment key={item.value}>
 											<View>
 												<Text style={styles.scrollTime}>{item.label}</Text>
 												<View style={styles.scrollTimeBox}></View>
@@ -276,7 +276,7 @@ export function ReservationProcess({ route }) {
 												<Text style={styles.scrollTime}> </Text>
 												<View style={styles.scrollTimeBox}></View>
 											</View>
-										</>
+										</Fragment>
 									);
 								})}
 							</View>
