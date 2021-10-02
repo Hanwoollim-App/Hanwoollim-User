@@ -75,8 +75,13 @@ export function NoticeScreen() {
 		useState<Array<NoticeDetailItemInterface>>();
 
 	useEffect(() => {
-		getNotice(setNoticeData);
+		(async () => {
+			const res = await getNotice();
+
+			setNoticeData(res.data);
+		})();
 	}, []);
+
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.list}>

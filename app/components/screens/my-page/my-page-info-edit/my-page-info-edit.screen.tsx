@@ -15,13 +15,12 @@ import {
 	color,
 	majorItem,
 	SIGN_UP_COMPONENT_TEXT,
-	UserInfoContext,
-	baseAxios,
 	ItemType,
 	ValueType,
 	customBtnType,
 	useUserInfo,
-	userInfoType,
+	UserInfoType,
+	editUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, CustomBtn, CustomModal } from '../../../layout';
 
@@ -183,12 +182,7 @@ export function InfoEdit() {
 			openErrorModal('학번은 10자리입니다');
 			return;
 		}
-		baseAxios
-			.patch('/user/editInfo', {
-				userName: name,
-				major,
-				studentId: studentID,
-			})
+		editUserInfo(name, major, studentID)
 			.then((res) => {
 				const {
 					userName,
@@ -196,7 +190,7 @@ export function InfoEdit() {
 					major,
 				}: { userName: string; studentId: number; major: string } = res.data;
 
-				setUser((prevUser: userInfoType) => {
+				setUser((prevUser: UserInfoType) => {
 					const { position } = prevUser;
 
 					return {

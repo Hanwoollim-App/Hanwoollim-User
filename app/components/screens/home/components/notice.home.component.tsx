@@ -44,7 +44,15 @@ export function Notice() {
 		Array<NoticeDetailItemInterface>
 	>([]);
 
-	useFocusEffect(useCallback(() => {}, [getNotice(setNoticeData)]));
+	useFocusEffect(
+		useCallback(() => {
+			(async () => {
+				const res = await getNotice();
+
+				setNoticeData(res.data);
+			})();
+		}, []),
+	);
 	return (
 		<TouchableOpacity style={blockStyles.root} onPress={titleBtnListener}>
 			<View style={blockStyles.title}>
