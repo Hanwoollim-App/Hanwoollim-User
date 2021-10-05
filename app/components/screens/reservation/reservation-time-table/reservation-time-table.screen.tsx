@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
 	TouchableOpacity,
 	View,
@@ -12,6 +12,7 @@ import isNull from 'lodash/isNull';
 import {
 	NavigationProp,
 	ParamListBase,
+	useFocusEffect,
 	useNavigation,
 } from '@react-navigation/native';
 import {
@@ -132,7 +133,7 @@ export function ReservationTimeTable() {
 		});
 	};
 
-	useEffect(() => {
+	const handleUpdateReservationData = () => {
 		if (isNull(targetDateValue)) {
 			return;
 		}
@@ -147,7 +148,17 @@ export function ReservationTimeTable() {
 				console.log(err.response);
 			}
 		})();
+	};
+
+	useEffect(() => {
+		handleUpdateReservationData();
 	}, [targetDateValue]);
+
+	useFocusEffect(
+		useCallback(() => {
+			handleUpdateReservationData();
+		}, []),
+	);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
