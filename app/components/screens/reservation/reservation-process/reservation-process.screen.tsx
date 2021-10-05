@@ -212,7 +212,8 @@ export function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: any = route.params.weekName.label;
+	const currentWeek: string = route.params.weekName.label;
+	const startDate: string = route.params.startDate;
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
@@ -232,6 +233,10 @@ export function ReservationProcess({ route }) {
 		useState<Array<ItemType>>(sectionItems);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
+
+	const handleReservation = () => {
+		changeVisible();
+	};
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
@@ -341,7 +346,7 @@ export function ReservationProcess({ route }) {
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={changeVisible}
+							onClickListener={handleReservation}
 						/>
 					</View>
 				</View>
