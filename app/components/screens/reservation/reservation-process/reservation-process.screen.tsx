@@ -265,7 +265,7 @@ export function ReservationProcess({ route }) {
 			await postReservation({
 				startDate,
 				reservationType: 'Personal',
-				MON: {
+				WEN: {
 					startTime: time as number,
 					endTime: (time as number) + 1,
 					session1: section[0] as string,

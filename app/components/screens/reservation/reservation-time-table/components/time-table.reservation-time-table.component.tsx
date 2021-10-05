@@ -1,3 +1,4 @@
+import isUndefined from 'lodash/isUndefined';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {
@@ -6,6 +7,8 @@ import {
 	fontPercentage,
 	color,
 	customBtnType,
+	IReservationGivenDataByDay,
+	convertOneDigitToTwoDigit,
 } from '../../../../../utils';
 import { CustomModal } from '../../../../layout';
 
@@ -76,7 +79,19 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function TimeTable() {
+type ITimeTableProps = {
+	reservationData: {
+		MON?: IReservationGivenDataByDay[];
+		TUE?: IReservationGivenDataByDay[];
+		WEN?: IReservationGivenDataByDay[];
+		THUR?: IReservationGivenDataByDay[];
+		FRI?: IReservationGivenDataByDay[];
+		SAT?: IReservationGivenDataByDay[];
+		SUN?: IReservationGivenDataByDay[];
+	};
+};
+
+export function TimeTable({ reservationData }: ITimeTableProps) {
 	const generateTimes = (startTime: number, endTime: number) => {
 		const times = [];
 
@@ -88,42 +103,90 @@ export function TimeTable() {
 	const times = generateTimes(0, 24);
 	const week = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
 
+	const convertNumTimeToStringTime = (numTime: number) =>
+		`${convertOneDigitToTwoDigit(numTime.toString(10))}:00`;
+
 	const schedule = [
-		[
-			{
-				// 월
-				name: '이재만',
-				startTime: '08:00',
-				endTime: '09:00',
-				session: '기타',
-			},
-			{
-				name: '고병찬',
-				startTime: '15:00',
-				endTime: '15:30',
-				session: '베이스',
-			},
-			{
-				name: '홍길동',
-				startTime: '16:30',
-				endTime: '17:30',
-				session: '베이스',
-			},
-		],
-		[
-			{
-				// 화
-				name: '이재만',
-				startTime: '10:30',
-				endTime: '11:00',
-				session: '보컬',
-			},
-		],
-		[], // 수
-		[], // 목
-		[], // 금
-		[], // 토
-		[], // 일
+		!isUndefined(reservationData.MON)
+			? [
+					...reservationData.MON.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: [],
+
+		!isUndefined(reservationData.TUE)
+			? [
+					...reservationData.TUE.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: null,
+		!isUndefined(reservationData.WEN)
+			? [
+					...reservationData?.WEN.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: [],
+
+		!isUndefined(reservationData.THUR)
+			? [
+					...reservationData.THUR.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: [],
+		!isUndefined(reservationData.FRI)
+			? [
+					...reservationData.FRI.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: [],
+		!isUndefined(reservationData.SAT)
+			? [
+					...reservationData.SAT.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: [],
+
+		!isUndefined(reservationData.SUN)
+			? [
+					...reservationData.SUN.map((data) => ({
+						isMine: data.isMine,
+						name: data.name,
+						startTime: convertNumTimeToStringTime(data.startTime),
+						endTime: convertNumTimeToStringTime(data.endTime),
+						session1: data.session1,
+					})),
+			  ]
+			: [],
 	];
 
 	const colorGenerator = (num: number) => {
@@ -232,7 +295,7 @@ export function TimeTable() {
 						onPress={() => {
 							changeVisible();
 							setMdTitle(reserve.name);
-							setMdText(reserve.session);
+							setMdText(reserve.session1);
 						}}
 						style={[
 							styles.reserveBox,
@@ -244,7 +307,7 @@ export function TimeTable() {
 							},
 						]}>
 						<Text style={styles.reserveTitle}>{reserve.name}</Text>
-						<Text style={styles.reserveText}>{reserve.session}</Text>
+						<Text style={styles.reserveText}>{reserve.session1}</Text>
 					</TouchableOpacity>
 				)),
 			)}

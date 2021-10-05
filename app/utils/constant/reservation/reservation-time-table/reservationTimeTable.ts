@@ -4,7 +4,7 @@ export const btnTitle: string = 'ᐸ  홈으로 돌아가기';
 
 export const weekItems: Array<Item> = [];
 
-const convertOneDigitToTwoDigit = (num: string) =>
+export const convertOneDigitToTwoDigit = (num: string) =>
 	num.length === 1 ? `0${num}` : num;
 
 for (let i: number = 1; i <= 5; i++) {

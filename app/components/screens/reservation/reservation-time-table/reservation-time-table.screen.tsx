@@ -102,6 +102,7 @@ export function ReservationTimeTable() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [targetDateValue, setTargetDateValue] = useState<ValueType>(null);
 	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
+	const [reservationData, setReservationData] = useState(null);
 
 	const convertToRequestFormStartDate = () => {
 		const monthAndDate = startDates
@@ -141,9 +142,9 @@ export function ReservationTimeTable() {
 
 		(async () => {
 			try {
-				const data = await getReservation(targetStartDate);
+				const { data } = await getReservation(targetStartDate);
 
-				console.log(data);
+				setReservationData(data[0]);
 			} catch (err) {
 				console.log(err.response);
 			}
@@ -183,7 +184,11 @@ export function ReservationTimeTable() {
 					<Text style={styles.reserveBtnText}>예약하기</Text>
 				</TouchableOpacity>
 			</View>
-			<ScrollView>{targetDateValue && <TimeTable />}</ScrollView>
+			<ScrollView>
+				{targetDateValue && reservationData && (
+					<TimeTable reservationData={reservationData} />
+				)}
+			</ScrollView>
 		</ScreenWrapper>
 	);
 }

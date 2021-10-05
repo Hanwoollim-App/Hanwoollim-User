@@ -17,7 +17,7 @@ export type IReservationGivenDataByDay = {
 	startTime: number;
 	endTime: number;
 	session1: string;
-	session2: string;
+	session2?: string;
 };
 
 export type IReservationPostingData = {
