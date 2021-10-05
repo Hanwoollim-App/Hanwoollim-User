@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
 	TouchableOpacity,
 	View,
@@ -8,10 +8,11 @@ import {
 	Platform,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { isNull } from 'lodash';
+import isNull from 'lodash/isNull';
 import {
 	NavigationProp,
 	ParamListBase,
+	useFocusEffect,
 	useNavigation,
 } from '@react-navigation/native';
 import {
@@ -21,9 +22,11 @@ import {
 	ItemType,
 	ValueType,
 	weekItems,
+	getReservation,
 } from '../../../../utils';
-import { ScreenWrapper } from '../../../layout';
+import { LoadingPage, ScreenWrapper } from '../../../layout';
 import { TimeTable } from './components';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	titleBlock: {
@@ -98,17 +101,67 @@ export function ReservationTimeTable() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const [open, setOpen] = useState<boolean>(false);
-	const [value, setValue] = useState<ValueType>(null);
-	const [date, setDate] = useState<Array<ItemType>>(weekItems);
+	const [targetDateValue, setTargetDateValue] = useState<ValueType>(null);
+	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
+	const [reservationData, setReservationData] = useState(null);
+
+	const convertToRequestFormStartDate = () => {
+		const monthAndDate = startDates
+			.filter((startDate) => startDate.value === targetDateValue)[0]
+			.label.split('~')[0]
+			.replace('.', '-');
+
+		// @ts-ignore
+		const year = targetDateValue.split('-')[1];
+
+		const convertedStartDate = `${year}-${monthAndDate}`;
+
+		return convertedStartDate;
+	};
 
 	const reserveBtnListener = () => {
-		if (isNull(value)) {
+		if (isNull(targetDateValue)) {
 			return;
 		}
-		const weekName = weekItems.filter((item) => item.value === value)[0];
+		const weekName = weekItems.filter(
+			(item) => item.value === targetDateValue,
+		)[0];
 
-		navigation.navigate('ReservationProcess', { weekName });
+		const targetStartDate = convertToRequestFormStartDate();
+
+		navigation.navigate('ReservationProcess', {
+			weekName,
+			startDate: targetStartDate,
+		});
 	};
+
+	const {
+		execute: handleUpdateReservationData,
+		loading: isUpdatingReservationData,
+	} = useAsyncCallback(async () => {
+		if (isNull(targetDateValue)) {
+			return;
+		}
+		const targetStartDate = convertToRequestFormStartDate();
+
+		try {
+			const { data } = await getReservation(targetStartDate);
+
+			setReservationData(data[0]);
+		} catch (err) {
+			console.log(err.response);
+		}
+	});
+
+	useEffect(() => {
+		(async () => handleUpdateReservationData())();
+	}, [targetDateValue]);
+
+	useFocusEffect(
+		useCallback(() => {
+			(async () => handleUpdateReservationData())();
+		}, []),
+	);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
@@ -116,11 +169,11 @@ export function ReservationTimeTable() {
 				<View>
 					<DropDownPicker
 						open={open}
-						value={value}
-						items={date}
+						value={targetDateValue}
+						items={startDates}
 						setOpen={setOpen}
-						setValue={setValue}
-						setItems={setDate}
+						setValue={setTargetDateValue}
+						setItems={setStartDates}
 						style={styles.dropDown}
 						textStyle={styles.dropDownText}
 						dropDownContainerStyle={styles.dropDownContainer}
@@ -134,7 +187,12 @@ export function ReservationTimeTable() {
 				</TouchableOpacity>
 			</View>
 			<ScrollView>
-				<TimeTable />
+				{targetDateValue && reservationData && (
+					<TimeTable
+						isLoading={isUpdatingReservationData}
+						reservationData={reservationData}
+					/>
+				)}
 			</ScrollView>
 		</ScreenWrapper>
 	);

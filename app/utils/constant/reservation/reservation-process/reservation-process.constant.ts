@@ -10,10 +10,7 @@ export const dayItems: Array<Item> = [
 	{ label: '일요일', value: 'SUN' },
 ];
 
-export const unitItems: Array<Item> = [
-	{ label: '개인', value: '개인' },
-	{ label: '팀', value: '팀' },
-];
+export const unitItems: Array<Item> = [{ label: '개인', value: '개인' }];
 
 export const sectionItems: Array<Item> = [
 	{ label: '기타1', value: '기타1' },

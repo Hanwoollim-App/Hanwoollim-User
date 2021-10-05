@@ -21,6 +21,7 @@ import {
 	ItemType,
 	ValueType,
 	color,
+	postReservation,
 } from '../../../../utils';
 
 const styles = StyleSheet.create({
@@ -198,10 +199,6 @@ export function ReservationProcess({ route }) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
-	};
-
 	const returnToMain = () => {
 		navigation.navigate('ReservationTimeTable');
 	};
@@ -212,7 +209,8 @@ export function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: any = route.params.weekName.label;
+	const currentWeek: string = route.params.weekName.label;
+	const startDate: string = route.params.startDate;
 
 	const [day, setDay] = useState<ValueType>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
@@ -232,6 +230,53 @@ export function ReservationProcess({ route }) {
 		useState<Array<ItemType>>(sectionItems);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
+
+	const changeVisible = () => {
+		setModalVisible(!modalVisible);
+	};
+
+	const handleReservation = async () => {
+		try {
+			if (day === 'MON') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					MON: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+				return;
+			}
+			if (day === 'TUE') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					TUE: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+
+				return;
+			}
+			await postReservation({
+				startDate,
+				reservationType: 'Personal',
+				WEN: {
+					startTime: time as number,
+					endTime: (time as number) + 1,
+					session1: section[0] as string,
+				},
+			});
+		} catch (err) {
+			console.log(err.response);
+		}
+
+		changeVisible();
+	};
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
@@ -267,7 +312,7 @@ export function ReservationProcess({ route }) {
 							<View style={styles.alignCenter}>
 								{scrollTime.map((item) => {
 									return (
-										<Fragment key={item.value}>
+										<Fragment key={item.value as string}>
 											<View>
 												<Text style={styles.scrollTime}>{item.label}</Text>
 												<View style={styles.scrollTimeBox}></View>
@@ -341,7 +386,7 @@ export function ReservationProcess({ route }) {
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={changeVisible}
+							onClickListener={handleReservation}
 						/>
 					</View>
 				</View>
