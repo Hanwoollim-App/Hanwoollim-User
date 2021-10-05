@@ -126,7 +126,10 @@ export function ReservationTimeTable() {
 
 		const targetStartDate = convertToRequestFormStartDate();
 
-		navigation.navigate('ReservationProcess', { weekName, targetStartDate });
+		navigation.navigate('ReservationProcess', {
+			weekName,
+			startDate: targetStartDate,
+		});
 	};
 
 	useEffect(() => {

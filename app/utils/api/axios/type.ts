@@ -11,7 +11,7 @@ export type signInDataType = {
 	position: string;
 };
 
-export type IReservationDataByDay = {
+export type IReservationGivenDataByDay = {
 	isMine: boolean;
 	name: string;
 	startTime: number;
@@ -20,14 +20,33 @@ export type IReservationDataByDay = {
 	session2: string;
 };
 
+export type IReservationPostingData = {
+	startTime: number;
+	endTime: number;
+	session1: string;
+	session2?: string;
+};
+
 export type IGetReservationData = {
 	startDate: string;
 	reservationType: string;
-	MON: IReservationDataByDay[];
-	TUE: IReservationDataByDay[];
-	WEN: IReservationDataByDay[];
-	THU: IReservationDataByDay[];
-	FRI: IReservationDataByDay[];
-	SAT: IReservationDataByDay[];
-	SUN: IReservationDataByDay[];
+	MON: IReservationGivenDataByDay[];
+	TUE: IReservationGivenDataByDay[];
+	WEN: IReservationGivenDataByDay[];
+	THUR: IReservationGivenDataByDay[];
+	FRI: IReservationGivenDataByDay[];
+	SAT: IReservationGivenDataByDay[];
+	SUN: IReservationGivenDataByDay[];
+};
+
+export type IPostReservationData = {
+	startDate: string;
+	reservationType: string;
+	MON?: IReservationPostingData;
+	TUE?: IReservationPostingData;
+	WEN?: IReservationPostingData;
+	THUR?: IReservationPostingData;
+	FRI?: IReservationPostingData;
+	SAT?: IReservationPostingData;
+	SUN?: IReservationPostingData;
 };

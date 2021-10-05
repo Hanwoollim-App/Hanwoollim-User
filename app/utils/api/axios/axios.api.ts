@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import { UserInfoType } from './../../context/user-info.context';
 import { ValueType } from '../../types/drop-down.type';
-import { AnnounceMentType, IGetReservationData, signInDataType } from './type';
+import {
+	AnnounceMentType,
+	IGetReservationData,
+	IPostReservationData,
+	signInDataType,
+} from './type';
 
 export const baseAxios = axios.create({
 	baseURL: 'https://api.hanwoolim.n-e.kr',
@@ -73,4 +78,10 @@ export const getReservation = (
 			startDate,
 		},
 	});
+};
+
+export const postReservation = (
+	data: IPostReservationData,
+): Promise<AxiosResponse> => {
+	return baseAxios.post('/user/reservation', data);
 };
