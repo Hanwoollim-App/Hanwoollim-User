@@ -24,8 +24,9 @@ import {
 	weekItems,
 	getReservation,
 } from '../../../../utils';
-import { ScreenWrapper } from '../../../layout';
+import { LoadingPage, ScreenWrapper } from '../../../layout';
 import { TimeTable } from './components';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	titleBlock: {
@@ -134,30 +135,31 @@ export function ReservationTimeTable() {
 		});
 	};
 
-	const handleUpdateReservationData = () => {
+	const {
+		execute: handleUpdateReservationData,
+		loading: isUpdatingReservationData,
+	} = useAsyncCallback(async () => {
 		if (isNull(targetDateValue)) {
 			return;
 		}
 		const targetStartDate = convertToRequestFormStartDate();
 
-		(async () => {
-			try {
-				const { data } = await getReservation(targetStartDate);
+		try {
+			const { data } = await getReservation(targetStartDate);
 
-				setReservationData(data[0]);
-			} catch (err) {
-				console.log(err.response);
-			}
-		})();
-	};
+			setReservationData(data[0]);
+		} catch (err) {
+			console.log(err.response);
+		}
+	});
 
 	useEffect(() => {
-		handleUpdateReservationData();
+		(async () => handleUpdateReservationData())();
 	}, [targetDateValue]);
 
 	useFocusEffect(
 		useCallback(() => {
-			handleUpdateReservationData();
+			(async () => handleUpdateReservationData())();
 		}, []),
 	);
 
@@ -186,7 +188,10 @@ export function ReservationTimeTable() {
 			</View>
 			<ScrollView>
 				{targetDateValue && reservationData && (
-					<TimeTable reservationData={reservationData} />
+					<TimeTable
+						isLoading={isUpdatingReservationData}
+						reservationData={reservationData}
+					/>
 				)}
 			</ScrollView>
 		</ScreenWrapper>

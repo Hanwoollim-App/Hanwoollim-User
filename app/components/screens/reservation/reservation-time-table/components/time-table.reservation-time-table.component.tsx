@@ -10,7 +10,7 @@ import {
 	IReservationGivenDataByDay,
 	convertOneDigitToTwoDigit,
 } from '../../../../../utils';
-import { CustomModal } from '../../../../layout';
+import { CustomModal, LoadingPage } from '../../../../layout';
 
 const styles = StyleSheet.create({
 	timeTable: {
@@ -89,9 +89,10 @@ type ITimeTableProps = {
 		SAT?: IReservationGivenDataByDay[];
 		SUN?: IReservationGivenDataByDay[];
 	};
+	isLoading: boolean;
 };
 
-export function TimeTable({ reservationData }: ITimeTableProps) {
+export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 	const generateTimes = (startTime: number, endTime: number) => {
 		const times = [];
 
@@ -118,7 +119,6 @@ export function TimeTable({ reservationData }: ITimeTableProps) {
 					})),
 			  ]
 			: [],
-
 		!isUndefined(reservationData.TUE)
 			? [
 					...reservationData.TUE.map((data) => ({
@@ -141,7 +141,6 @@ export function TimeTable({ reservationData }: ITimeTableProps) {
 					})),
 			  ]
 			: [],
-
 		!isUndefined(reservationData.THUR)
 			? [
 					...reservationData.THUR.map((data) => ({
@@ -175,7 +174,6 @@ export function TimeTable({ reservationData }: ITimeTableProps) {
 					})),
 			  ]
 			: [],
-
 		!isUndefined(reservationData.SUN)
 			? [
 					...reservationData.SUN.map((data) => ({
@@ -262,6 +260,13 @@ export function TimeTable({ reservationData }: ITimeTableProps) {
 		},
 	];
 
+	if (isLoading)
+		return (
+			<View
+				style={{ width: widthPercentage(340), height: heightPercentage(600) }}>
+				<LoadingPage />
+			</View>
+		);
 	return (
 		<View style={styles.timeTable}>
 			<CustomModal
