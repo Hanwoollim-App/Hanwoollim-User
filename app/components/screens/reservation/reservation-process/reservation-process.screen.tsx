@@ -200,46 +200,15 @@ const styles = StyleSheet.create({
 export function ReservationProcess({ route }) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-	const [modalValue, setModalValue] = useState<customModalValueType>({
+	const [errModalValue, setErrModalValue] = useState<customModalValueType>({
 		isVisible: false,
 		text: '',
 	});
-
-	// const returnToMain = () => {
-	// 	navigation.navigate('ReservationTimeTable');
-	// };
-
-	const changeVisible = () => {
-		setModalValue((prev) => ({
-			...prev,
+	const [successModalValue, setSuccessModalValue] =
+		useState<customModalValueType>({
 			isVisible: false,
-		}));
-	};
-
-	const openSuccessModal = (successText: string) => {
-		setModalValue({
-			isVisible: true,
-			text: successText,
+			text: '',
 		});
-		navigation.navigate('ReservationTimeTable');
-	};
-
-	const openErrorModal = (errText: string) => {
-		setModalValue({
-			isVisible: true,
-			text: errText,
-		});
-	};
-	const modalBtn: Array<customBtnType> = [
-		{
-			buttonText: '확인',
-			buttonClickListener: changeVisible,
-		},
-	];
-
-	const currentWeek: string = route.params.weekName.label;
-	const startDate: string = route.params.startDate;
-
 	const [day, setDay] = useState<EDay>();
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
@@ -259,6 +228,50 @@ export function ReservationProcess({ route }) {
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
 
+	const handleErrModalBtn = () =>
+		setErrModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
+
+	const handleSuccessModalBtn = () => {
+		setSuccessModalValue({
+			isVisible: false,
+			text: '',
+		});
+		navigation.pop();
+	};
+
+	const openSuccessModal = (successText: string) =>
+		setSuccessModalValue({
+			isVisible: true,
+			text: successText,
+		});
+
+	const openErrorModal = (errText: string) => {
+		setErrModalValue({
+			isVisible: true,
+			text: errText,
+		});
+	};
+
+	const errModalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: handleErrModalBtn,
+		},
+	];
+
+	const successModalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: handleSuccessModalBtn,
+		},
+	];
+
+	const currentWeek: string = route.params.weekName.label;
+	const startDate: string = route.params.startDate;
+
 	const handleReservation = async () => {
 		try {
 			await postReservation({
@@ -272,7 +285,6 @@ export function ReservationProcess({ route }) {
 			});
 			openSuccessModal('예약되었습니다!');
 		} catch (err) {
-			console.log(err.response);
 			if (err.response.status === 400) {
 				openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
 				return;
@@ -294,9 +306,14 @@ export function ReservationProcess({ route }) {
 	return (
 		<ScreenWrapper headerTitle="예약하기">
 			<CustomModal
-				mdVisible={modalValue.isVisible}
-				title={modalValue.text}
-				buttonList={modalBtn}
+				mdVisible={errModalValue.isVisible}
+				title={errModalValue.text}
+				buttonList={errModalBtn}
+			/>
+			<CustomModal
+				mdVisible={successModalValue.isVisible}
+				title={errModalValue.text}
+				buttonList={successModalBtn}
 			/>
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
