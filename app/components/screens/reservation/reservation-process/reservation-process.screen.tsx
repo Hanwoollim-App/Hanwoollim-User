@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
+	RouteProp,
 	useNavigation,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -25,6 +26,8 @@ import {
 	EDay,
 	customModalValueType,
 } from '../../../../utils';
+import { IReservationNavigatorParamList } from '../../../navigator';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const styles = StyleSheet.create({
 	root: {
@@ -197,9 +200,25 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function ReservationProcess({ route }) {
-	const navigation: NavigationProp<ParamListBase> = useNavigation();
+type IReservationNavigationProp = StackNavigationProp<
+	IReservationNavigatorParamList,
+	'ReservationProcess'
+>;
 
+type IReservationProcessRouteProp = RouteProp<
+	IReservationNavigatorParamList,
+	'ReservationProcess'
+>;
+
+type IReservationProcessProp = {
+	navigation: IReservationNavigationProp;
+	route: IReservationProcessRouteProp;
+};
+
+export function ReservationProcess({
+	navigation,
+	route,
+}: IReservationProcessProp) {
 	const [errModalValue, setErrModalValue] = useState<customModalValueType>({
 		isVisible: false,
 		text: '',
@@ -269,8 +288,8 @@ export function ReservationProcess({ route }) {
 		},
 	];
 
-	const currentWeek: string = route.params.weekName.label;
-	const startDate: string = route.params.startDate;
+	const currentWeek = route.params.weekName.label;
+	const startDate = route.params.startDate;
 
 	const handleReservation = async () => {
 		try {
