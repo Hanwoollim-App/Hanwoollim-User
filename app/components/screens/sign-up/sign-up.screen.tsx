@@ -19,7 +19,7 @@ import {
 	customBtnType,
 	userSignUp,
 } from '../../../utils';
-import { ScreenWrapper, CustomModal, CustomBtn } from '../../layout';
+import { ScreenWrapper, Modal, ICTAButton } from '../../layout';
 import { SignUpForm } from './components';
 
 const styles = StyleSheet.create({
@@ -230,7 +230,7 @@ export function SignUp() {
 
 	return (
 		<ScreenWrapper>
-			<CustomModal
+			<Modal
 				mdVisible={modalValue.isVisible}
 				title={modalValue.text}
 				buttonList={modalBtn}
@@ -280,7 +280,7 @@ export function SignUp() {
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
-				<CustomBtn
+				<ICTAButton
 					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
 					onClickListener={signUpBtnClickListener}
 					btnStyle={styles.signUp}

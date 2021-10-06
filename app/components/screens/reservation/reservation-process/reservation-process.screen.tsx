@@ -7,7 +7,7 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { CustomBtn, CustomModal, ScreenWrapper } from '../../../layout';
+import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
 	dayItems,
 	PROCESS_TEXT,
@@ -324,12 +324,12 @@ export function ReservationProcess({
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
-			<CustomModal
+			<Modal
 				mdVisible={errModalValue.isVisible}
 				title={errModalValue.text}
 				buttonList={errModalBtn}
 			/>
-			<CustomModal
+			<Modal
 				mdVisible={successModalValue.isVisible}
 				title={errModalValue.text}
 				buttonList={successModalBtn}
@@ -428,7 +428,7 @@ export function ReservationProcess({
 						/>
 					</View>
 					<View style={styles.submit}>
-						<CustomBtn
+						<ICTAButton
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
