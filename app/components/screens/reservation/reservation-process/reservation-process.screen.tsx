@@ -23,6 +23,7 @@ import {
 	color,
 	postReservation,
 	EDay,
+	customModalValueType,
 } from '../../../../utils';
 
 const styles = StyleSheet.create({
@@ -198,22 +199,29 @@ const styles = StyleSheet.create({
 
 export function ReservationProcess({ route }) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [modalVisible, setModalVisible] = useState<boolean>(false);
 
 	const [modalValue, setModalValue] = useState<customModalValueType>({
 		isVisible: false,
 		text: '',
 	});
 
-	const returnToMain = () => {
-		navigation.navigate('ReservationTimeTable');
-	};
+	// const returnToMain = () => {
+	// 	navigation.navigate('ReservationTimeTable');
+	// };
 
 	const changeVisible = () => {
 		setModalValue((prev) => ({
 			...prev,
 			isVisible: false,
 		}));
+	};
+
+	const openSuccessModal = (successText: string) => {
+		setModalValue({
+			isVisible: true,
+			text: successText,
+		});
+		navigation.navigate('ReservationTimeTable');
 	};
 
 	const openErrorModal = (errText: string) => {
@@ -259,9 +267,10 @@ export function ReservationProcess({ route }) {
 				[EDay[day]]: {
 					startTime: time as number,
 					endTime: (time as number) + 1,
-					session1: section[0] as string,
+					session1: section as string,
 				},
 			});
+			openSuccessModal('예약되었습니다!');
 		} catch (err) {
 			console.log(err.response);
 			if (err.response.status === 400) {
