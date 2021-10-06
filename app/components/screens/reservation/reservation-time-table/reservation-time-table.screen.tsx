@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	TouchableOpacity,
 	View,
@@ -12,7 +12,6 @@ import isNull from 'lodash/isNull';
 import {
 	NavigationProp,
 	ParamListBase,
-	useFocusEffect,
 	useNavigation,
 	useIsFocused,
 } from '@react-navigation/native';
@@ -28,6 +27,7 @@ import {
 } from '../../../../utils';
 import { ScreenWrapper } from '../../../layout';
 import { TimeTable } from './components';
+import { emptyReservation } from './reservation-time-table.data';
 
 const styles = StyleSheet.create({
 	titleBlock: {
@@ -139,7 +139,12 @@ export function ReservationTimeTable() {
 		try {
 			const { data } = await getReservation(targetStartDate as string);
 
-			setReservationData(data[0]);
+			if (data.length) {
+				setReservationData(data[0]);
+				return;
+			}
+
+			setReservationData(emptyReservation);
 		} catch (err) {
 			console.log(err.response);
 		}

@@ -73,7 +73,7 @@ export const executeUser = (): Promise<AxiosResponse<UserInfoType>> => {
 export const getReservation = (
 	startDate: string,
 ): Promise<AxiosResponse<IGetReservationData>> => {
-	return baseAxios.get('/user/reservation', {
+	return baseAxios.get<IGetReservationData>('/user/reservation', {
 		params: {
 			startDate,
 		},

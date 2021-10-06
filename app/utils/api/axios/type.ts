@@ -43,8 +43,8 @@ export type IReservationPostingDataByDay = {
 	[value in EDay]?: IReservationPostingData;
 };
 
-export type IGetReservationData = IReservationDefaultData &
-	IReservationGettingDataByDay;
+export type IGetReservationData = (IReservationDefaultData &
+	IReservationGettingDataByDay)[];
 
 export type IPostReservationData = IReservationDefaultData &
 	IReservationPostingDataByDay;
