@@ -22,6 +22,7 @@ import {
 	ValueType,
 	color,
 	postReservation,
+	EDay,
 } from '../../../../utils';
 
 const styles = StyleSheet.create({
@@ -212,7 +213,7 @@ export function ReservationProcess({ route }) {
 	const currentWeek: string = route.params.weekName.label;
 	const startDate: string = route.params.startDate;
 
-	const [day, setDay] = useState<ValueType>('');
+	const [day, setDay] = useState<EDay>();
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
@@ -237,35 +238,10 @@ export function ReservationProcess({ route }) {
 
 	const handleReservation = async () => {
 		try {
-			if (day === 'MON') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					MON: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section[0] as string,
-					},
-				});
-				return;
-			}
-			if (day === 'TUE') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					TUE: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section[0] as string,
-					},
-				});
-
-				return;
-			}
 			await postReservation({
 				startDate,
 				reservationType: 'Personal',
-				WEN: {
+				[EDay[day]]: {
 					startTime: time as number,
 					endTime: (time as number) + 1,
 					session1: section[0] as string,
