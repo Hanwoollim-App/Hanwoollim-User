@@ -14,7 +14,9 @@ import {
 	ParamListBase,
 	useFocusEffect,
 	useNavigation,
+	useIsFocused,
 } from '@react-navigation/native';
+import { useAsyncCallback } from 'react-async-hook';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -24,9 +26,8 @@ import {
 	weekItems,
 	getReservation,
 } from '../../../../utils';
-import { LoadingPage, ScreenWrapper } from '../../../layout';
+import { ScreenWrapper } from '../../../layout';
 import { TimeTable } from './components';
-import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	titleBlock: {
@@ -104,6 +105,7 @@ export function ReservationTimeTable() {
 	const [targetDateValue, setTargetDateValue] = useState<ValueType>(null);
 	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
 	const [reservationData, setReservationData] = useState(null);
+	const isFocused = useIsFocused();
 
 	const findStartDate = () =>
 		startDates.filter((startDate) => startDate.value === targetDateValue)[0]
@@ -137,8 +139,6 @@ export function ReservationTimeTable() {
 		try {
 			const { data } = await getReservation(targetStartDate as string);
 
-			console.log(data);
-
 			setReservationData(data[0]);
 		} catch (err) {
 			console.log(err.response);
@@ -146,14 +146,10 @@ export function ReservationTimeTable() {
 	});
 
 	useEffect(() => {
-		(async () => handleUpdateReservationData())();
-	}, [targetDateValue]);
-
-	useFocusEffect(
-		useCallback(() => {
+		if (isFocused) {
 			(async () => handleUpdateReservationData())();
-		}, []),
-	);
+		}
+	}, [targetDateValue, isFocused]);
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">

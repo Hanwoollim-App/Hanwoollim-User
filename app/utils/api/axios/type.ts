@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { EDay } from '.';
+import { EDay } from './enum';
 
 export type IAnnounceMentType = {
 	id: number;
@@ -43,10 +43,8 @@ export type IReservationPostingDataByDay = {
 	[value in EDay]?: IReservationPostingData;
 };
 
-export type IGetReservationData =
-	| IReservationDefaultData
-	| IReservationGettingDataByDay;
+export type IGetReservationData = IReservationDefaultData &
+	IReservationGettingDataByDay;
 
-export type IPostReservationData =
-	| IReservationDefaultData
-	| IReservationPostingDataByDay;
+export type IPostReservationData = IReservationDefaultData &
+	IReservationPostingDataByDay;
