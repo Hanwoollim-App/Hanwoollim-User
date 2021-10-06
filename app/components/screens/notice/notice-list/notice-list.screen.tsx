@@ -6,6 +6,7 @@ import {
 	widthPercentage,
 	getNotice,
 	NoticeDetailItemInterface,
+	IGetAnnounceMentType,
 } from '../../../../utils';
 import { NoticeItem } from '..';
 import { ScreenWrapper } from '../../../layout';
@@ -71,14 +72,13 @@ const renderSeparator = () => {
 };
 
 export function NoticeScreen() {
-	const [noticeData, setNoticeData] =
-		useState<Array<NoticeDetailItemInterface>>();
+	const [noticeData, setNoticeData] = useState<Array<IGetAnnounceMentType>>();
 
 	useEffect(() => {
 		(async () => {
-			const res = await getNotice();
+			const { data } = await getNotice();
 
-			setNoticeData(res.data);
+			setNoticeData(data);
 		})();
 	}, []);
 
@@ -87,11 +87,7 @@ export function NoticeScreen() {
 			<View style={styles.list}>
 				<FlatList
 					data={noticeData}
-					renderItem={({
-						item: notice,
-					}: {
-						item: NoticeDetailItemInterface;
-					}) => (
+					renderItem={({ item: notice }: { item: IGetAnnounceMentType }) => (
 						<NoticeItem
 							title={notice.title}
 							date={notice.date}
@@ -100,7 +96,7 @@ export function NoticeScreen() {
 							body={notice.body}
 						/>
 					)}
-					keyExtractor={(item) => item.id}
+					keyExtractor={(item) => item.id.toString(10)}
 					ItemSeparatorComponent={renderSeparator}
 					ListEmptyComponent={() => (
 						<Text style={styles.emptyNoticeText}>아직 공지사항이 없습니다</Text>

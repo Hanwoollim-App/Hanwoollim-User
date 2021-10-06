@@ -1,17 +1,13 @@
 import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
-import {
-	NavigationProp,
-	ParamListBase,
-	RouteProp,
-	useNavigation,
-} from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
 	dayItems,
 	PROCESS_TEXT,
-	sectionItems,
+	sessionItems,
 	timeItems,
 	unitItems,
 	times,
@@ -27,7 +23,6 @@ import {
 	customModalValueType,
 } from '../../../../utils';
 import { IReservationNavigatorParamList } from '../../../navigator';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 const styles = StyleSheet.create({
 	root: {
@@ -240,10 +235,10 @@ export function ReservationProcess({
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
 	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
-	const [section, setSection] = useState<ValueType>('');
-	const [sectionOpen, setSectionOpen] = useState<boolean>(false);
-	const [sectionItem, setSectionItems] =
-		useState<Array<ItemType>>(sectionItems);
+	const [session, setSession] = useState<ValueType>('');
+	const [sessionOpen, setSessionOpen] = useState<boolean>(false);
+	const [sessionItem, setSessionItems] =
+		useState<Array<ItemType>>(sessionItems);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
 
@@ -299,7 +294,7 @@ export function ReservationProcess({
 				[EDay[day]]: {
 					startTime: time as number,
 					endTime: (time as number) + 1,
-					session1: section as string,
+					session1: session as string,
 				},
 			});
 			openSuccessModal('예약되었습니다!');
@@ -316,7 +311,7 @@ export function ReservationProcess({
 				openErrorModal('시간을 선택해주세요.');
 				return;
 			}
-			if (section === '') {
+			if (session === '') {
 				openErrorModal('세션을 선택해주세요.');
 			}
 		}
@@ -413,12 +408,12 @@ export function ReservationProcess({
 					</Text>
 					<View style={styles.sectionInfo__form}>
 						<DropDownPicker
-							open={sectionOpen}
-							value={section}
-							items={sectionItem}
-							setOpen={setSectionOpen}
-							setValue={setSection}
-							setItems={setSectionItems}
+							open={sessionOpen}
+							value={session}
+							items={sessionItem}
+							setOpen={setSessionOpen}
+							setValue={setSession}
+							setItems={setSessionItems}
 							style={styles.dropDown2}
 							textStyle={styles.dropDownText}
 							dropDownContainerStyle={styles.dropDownContainer}

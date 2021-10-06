@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { UserInfoType } from './../../context/user-info.context';
 import { ValueType } from '../../types/drop-down.type';
 import {
-	IAnnounceMentType,
+	IGetAnnounceMentType,
 	IGetReservationData,
 	IPostReservationData,
 	ISignInDataType,
@@ -48,8 +48,8 @@ export const getUserInfo = (): Promise<AxiosResponse<UserInfoType>> => {
 	return baseAxios.get<UserInfoType>('/user/info');
 };
 
-export const getNotice = (): Promise<AxiosResponse<IAnnounceMentType>> => {
-	return baseAxios.get<IAnnounceMentType>('/manager/announcement');
+export const getNotice = (): Promise<AxiosResponse<IGetAnnounceMentType[]>> => {
+	return baseAxios.get<IGetAnnounceMentType[]>('/manager/announcement');
 };
 
 export const editUserInfo = (

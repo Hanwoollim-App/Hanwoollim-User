@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { EDay } from './enum';
 
-export type IAnnounceMentType = {
+export type IGetAnnounceMentType = {
 	id: number;
 	title: string;
 	date: string;

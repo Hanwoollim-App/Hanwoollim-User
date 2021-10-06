@@ -1,4 +1,4 @@
-import type { ComponentType, SetStateAction, Dispatch } from 'react';
+import type { SetStateAction, Dispatch } from 'react';
 import type {
 	FlatListProps,
 	LayoutChangeEvent,
@@ -230,43 +230,3 @@ export type DropDownPickerProps = {
 	theme?: ThemeNameType;
 	rtl?: boolean;
 };
-
-type GetSelectedItemOutputType = ItemType | undefined | null;
-type GetSelectedItemsOutputType = ItemType[] | undefined;
-
-interface DropDownPickerInterface {
-	MODE: ModeInterface;
-	LIST_MODE: ListModeInterface;
-	DROPDOWN_DIRECTION: DropDownDirectionType;
-	SCHEMA: SchemaInterface;
-	LANGUAGE: LanguageType;
-	THEMES: ThemeNameType;
-	HELPER: {
-		GET_SELECTED_ITEM: (
-			items: ItemType[],
-			value: string | number | null,
-			key?: string,
-		) => GetSelectedItemOutputType;
-		GET_SELECTED_ITEMS: (
-			items: ItemType[],
-			values: string[] | number[] | null,
-			key?: string,
-		) => GetSelectedItemsOutputType;
-	};
-	setMode: (mode: string) => void;
-	setListMode: (mode: string) => void;
-	setDropDownDirection: (direction: DropDownDirectionType) => void;
-	setTheme: (name: string) => void;
-	addTheme: (name: string, theme: ThemeNameType) => void;
-	setLanguage: (language: string) => void;
-	addTranslation: (language: string, translation: TranslationInterface) => void;
-	modifyTranslation: (
-		language: string,
-		translation: TranslationInterface,
-	) => void;
-}
-
-const DropDownPicker: ComponentType<DropDownPickerProps> &
-	DropDownPickerInterface;
-
-export default DropDownPicker;

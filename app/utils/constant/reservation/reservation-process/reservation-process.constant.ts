@@ -12,9 +12,8 @@ export const dayItems: Array<Item> = [
 
 export const unitItems: Array<Item> = [{ label: '개인', value: '개인' }];
 
-export const sectionItems: Array<Item> = [
-	{ label: '기타1', value: '기타1' },
-	{ label: '기타2', value: '기타2' },
+export const sessionItems: Array<Item> = [
+	{ label: '기타', value: '기타' },
 	{ label: '베이스', value: '베이스' },
 	{ label: '드럼', value: '드럼' },
 	{ label: '건반', value: '건반' },
