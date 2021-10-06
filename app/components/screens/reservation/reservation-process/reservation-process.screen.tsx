@@ -224,7 +224,7 @@ export function ReservationProcess({ route }) {
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
 	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
-	const [section, setSection] = useState<ValueType[]>([]);
+	const [section, setSection] = useState<ValueType>('');
 	const [sectionOpen, setSectionOpen] = useState<boolean>(false);
 	const [sectionItem, setSectionItems] =
 		useState<Array<ItemType>>(sectionItems);
@@ -244,7 +244,7 @@ export function ReservationProcess({ route }) {
 					MON: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
@@ -255,7 +255,7 @@ export function ReservationProcess({ route }) {
 					TUE: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
@@ -266,7 +266,7 @@ export function ReservationProcess({ route }) {
 					WEN: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
@@ -277,7 +277,7 @@ export function ReservationProcess({ route }) {
 					THUR: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
@@ -288,7 +288,7 @@ export function ReservationProcess({ route }) {
 					FRI: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
@@ -299,7 +299,7 @@ export function ReservationProcess({ route }) {
 					SAT: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
@@ -310,20 +310,12 @@ export function ReservationProcess({ route }) {
 					SUN: {
 						startTime: time as number,
 						endTime: (time as number) + 1,
-						session1: section[0] as string,
+						session1: section as string,
 					},
 				});
 			}
-			// await postReservation({
-			// 	startDate,
-			// 	reservationType: 'Personal',
-			// 	WEN: {
-			// 		startTime: time as number,
-			// 		endTime: (time as number) + 1,
-			// 		session1: section[0] as string,
-			// 	},
-			// });
 			changeVisible();
+			console.log(section);
 		} catch (err) {
 			console.log(err.response);
 		}
