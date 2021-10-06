@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { EDay } from '.';
 
-export type AnnounceMentType = {
+export type IAnnounceMentType = {
 	id: number;
 	title: string;
 	date: string;
@@ -9,7 +9,7 @@ export type AnnounceMentType = {
 	body: string;
 };
 
-export type signInDataType = {
+export type ISignInDataType = {
 	accessToken: string;
 	position: string;
 };
