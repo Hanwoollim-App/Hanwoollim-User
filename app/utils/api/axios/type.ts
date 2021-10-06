@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import { EDay } from '.';
+
 export type AnnounceMentType = {
 	id: number;
 	title: string;
@@ -27,26 +30,23 @@ export type IReservationPostingData = {
 	session2?: string;
 };
 
-export type IGetReservationData = {
+type IReservationDefaultData = {
 	startDate: string;
 	reservationType: string;
-	MON: IReservationGivenDataByDay[];
-	TUE: IReservationGivenDataByDay[];
-	WEN: IReservationGivenDataByDay[];
-	THUR: IReservationGivenDataByDay[];
-	FRI: IReservationGivenDataByDay[];
-	SAT: IReservationGivenDataByDay[];
-	SUN: IReservationGivenDataByDay[];
 };
 
-export type IPostReservationData = {
-	startDate: string;
-	reservationType: string;
-	MON?: IReservationPostingData;
-	TUE?: IReservationPostingData;
-	WEN?: IReservationPostingData;
-	THUR?: IReservationPostingData;
-	FRI?: IReservationPostingData;
-	SAT?: IReservationPostingData;
-	SUN?: IReservationPostingData;
+type IReservationGettingDataByDay = {
+	[value in EDay]?: IReservationGivenDataByDay[];
 };
+
+type IReservationPostingDataByDay = {
+	[value in EDay]?: IReservationPostingData;
+};
+
+export type IGetReservationData =
+	| IReservationDefaultData
+	| IReservationGettingDataByDay;
+
+export type IPostReservationData =
+	| IReservationDefaultData
+	| IReservationPostingDataByDay;

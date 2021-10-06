@@ -135,7 +135,7 @@ export function ReservationTimeTable() {
 		const targetStartDate = findStartDate();
 
 		try {
-			const { data } = await getReservation(targetStartDate);
+			const { data } = await getReservation(targetStartDate as string);
 
 			setReservationData(data[0]);
 		} catch (err) {
