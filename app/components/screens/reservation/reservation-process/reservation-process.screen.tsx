@@ -275,6 +275,18 @@ export function ReservationProcess({ route }) {
 			console.log(err.response);
 			if (err.response.status === 400) {
 				openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
+				return;
+			}
+			if (unit === '') {
+				openErrorModal('단위를 선택해주세요.');
+				return;
+			}
+			if (time === '') {
+				openErrorModal('시간을 선택해주세요.');
+				return;
+			}
+			if (section === '') {
+				openErrorModal('세션을 선택해주세요.');
 			}
 		}
 	};
