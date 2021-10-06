@@ -41,6 +41,6 @@ for (let i: number = 1; i <= 5; i++) {
 
 	weekItems.push({
 		label: content,
-		value: `${i}-${prevMonday.getFullYear()}`,
+		value: `${prevMonday.getFullYear()}-${prevMondayMonth}-${prevMondayDate}`,
 	});
 }

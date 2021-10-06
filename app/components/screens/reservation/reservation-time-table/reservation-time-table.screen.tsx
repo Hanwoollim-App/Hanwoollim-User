@@ -105,19 +105,9 @@ export function ReservationTimeTable() {
 	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
 	const [reservationData, setReservationData] = useState(null);
 
-	const convertToRequestFormStartDate = () => {
-		const monthAndDate = startDates
-			.filter((startDate) => startDate.value === targetDateValue)[0]
-			.label.split('~')[0]
-			.replace('.', '-');
-
-		// @ts-ignore
-		const year = targetDateValue.split('-')[1];
-
-		const convertedStartDate = `${year}-${monthAndDate}`;
-
-		return convertedStartDate;
-	};
+	const findStartDate = () =>
+		startDates.filter((startDate) => startDate.value === targetDateValue)[0]
+			.value;
 
 	const reserveBtnListener = () => {
 		if (isNull(targetDateValue)) {
@@ -127,7 +117,7 @@ export function ReservationTimeTable() {
 			(item) => item.value === targetDateValue,
 		)[0];
 
-		const targetStartDate = convertToRequestFormStartDate();
+		const targetStartDate = findStartDate();
 
 		navigation.navigate('ReservationProcess', {
 			weekName,
@@ -142,7 +132,7 @@ export function ReservationTimeTable() {
 		if (isNull(targetDateValue)) {
 			return;
 		}
-		const targetStartDate = convertToRequestFormStartDate();
+		const targetStartDate = findStartDate();
 
 		try {
 			const { data } = await getReservation(targetStartDate);
