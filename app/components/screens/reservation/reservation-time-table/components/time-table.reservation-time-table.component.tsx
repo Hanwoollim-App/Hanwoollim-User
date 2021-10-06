@@ -129,7 +129,7 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 						session1: data.session1,
 					})),
 			  ]
-			: null,
+			: [],
 		!isUndefined(reservationData.WEN)
 			? [
 					...reservationData?.WEN.map((data) => ({

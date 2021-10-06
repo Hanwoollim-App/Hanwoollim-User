@@ -247,7 +247,6 @@ export function ReservationProcess({ route }) {
 						session1: section[0] as string,
 					},
 				});
-				return;
 			}
 			if (day === 'TUE') {
 				await postReservation({
@@ -259,23 +258,75 @@ export function ReservationProcess({ route }) {
 						session1: section[0] as string,
 					},
 				});
-
-				return;
 			}
-			await postReservation({
-				startDate,
-				reservationType: 'Personal',
-				WEN: {
-					startTime: time as number,
-					endTime: (time as number) + 1,
-					session1: section[0] as string,
-				},
-			});
+			if (day === 'WEN') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					WEN: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+			}
+			if (day === 'THUR') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					THUR: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+			}
+			if (day === 'FRI') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					FRI: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+			}
+			if (day === 'SAT') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					SAT: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+			}
+			if (day === 'SUN') {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					SUN: {
+						startTime: time as number,
+						endTime: (time as number) + 1,
+						session1: section[0] as string,
+					},
+				});
+			}
+			// await postReservation({
+			// 	startDate,
+			// 	reservationType: 'Personal',
+			// 	WEN: {
+			// 		startTime: time as number,
+			// 		endTime: (time as number) + 1,
+			// 		session1: section[0] as string,
+			// 	},
+			// });
+			changeVisible();
 		} catch (err) {
 			console.log(err.response);
 		}
-
-		changeVisible();
 	};
 
 	return (
@@ -364,9 +415,6 @@ export function ReservationProcess({ route }) {
 					</Text>
 					<View style={styles.sectionInfo__form}>
 						<DropDownPicker
-							multiple={true}
-							min={0}
-							max={3}
 							open={sectionOpen}
 							value={section}
 							items={sectionItem}
