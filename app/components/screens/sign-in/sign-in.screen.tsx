@@ -19,7 +19,7 @@ import {
 	customModalValueType,
 } from '../../../utils';
 import { SignInForm } from './components';
-import { CustomBtn, CustomStatusBar, CustomModal } from '../../layout';
+import { ICTAButton, StatusBar, Modal } from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
 
@@ -177,9 +177,9 @@ export function SignIn() {
 
 	return (
 		<>
-			<CustomStatusBar />
+			<StatusBar />
 			<View style={styles.root}>
-				<CustomModal
+				<Modal
 					mdVisible={modalValue.isVisible}
 					title={modalValue.text}
 					buttonList={modalBtn}
@@ -205,7 +205,7 @@ export function SignIn() {
 						defaultValue={pw}
 						isSecureInput
 					/>
-					<CustomBtn
+					<ICTAButton
 						title={'로그인'}
 						titleStyle={styles.btnTextStyle}
 						btnStyle={styles.btnStyle}

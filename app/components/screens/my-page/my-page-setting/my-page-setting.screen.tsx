@@ -15,7 +15,7 @@ import {
 	getUserInfo,
 	executeUser,
 } from '../../../../utils';
-import { ScreenWrapper, CustomModal } from '../../../layout';
+import { ScreenWrapper, Modal } from '../../../layout';
 
 const styles = StyleSheet.create({
 	nameBlock: {
@@ -134,7 +134,7 @@ export function MyPage() {
 	);
 	return (
 		<ScreenWrapper headerTitle="개인정보 설정">
-			<CustomModal
+			<Modal
 				mdVisible={modalVisible}
 				title={'정말 탈퇴하시겠습니까?'}
 				subtitle="탈퇴 후 기존 정보 복구는 불가합니다"

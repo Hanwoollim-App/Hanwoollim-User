@@ -13,7 +13,7 @@ import {
 	trimmingText,
 	blockStyles,
 	getNotice,
-	NoticeDetailItemInterface,
+	IGetAnnounceMentType,
 } from '../../../../utils';
 
 const textLength = 35;
@@ -40,16 +40,14 @@ export function Notice() {
 	const titleBtnListener = () => {
 		navigation.navigate('NoticeScreen');
 	};
-	const [noticeData, setNoticeData] = useState<
-		Array<NoticeDetailItemInterface>
-	>([]);
+	const [noticeData, setNoticeData] = useState<Array<IGetAnnounceMentType>>([]);
 
 	useFocusEffect(
 		useCallback(() => {
 			(async () => {
-				const res = await getNotice();
+				const { data } = await getNotice();
 
-				setNoticeData(res.data);
+				setNoticeData(data);
 			})();
 		}, []),
 	);

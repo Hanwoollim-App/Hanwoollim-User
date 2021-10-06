@@ -11,7 +11,7 @@ import {
 	convertOneDigitToTwoDigit,
 	IReservationGettingDataByDay,
 } from '../../../../../utils';
-import { CustomModal, LoadingPage } from '../../../../layout';
+import { Modal, LoadingPage } from '../../../../layout';
 
 const styles = StyleSheet.create({
 	timeTable: {
@@ -180,8 +180,6 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 			: [],
 	];
 
-	console.log(schedule);
-
 	const colorGenerator = (num: number) => {
 		const colorList = [
 			'rgba(246,206,218,1)',
@@ -264,7 +262,7 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 		);
 	return (
 		<View style={styles.timeTable}>
-			<CustomModal
+			<Modal
 				mdVisible={mdVisible}
 				title={mdTitle}
 				subtitle={mdText}

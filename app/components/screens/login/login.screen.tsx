@@ -20,7 +20,7 @@ import {
 	LOGIN_BUTTON_TEXT,
 	color,
 } from '../../../utils';
-import { CustomStatusBar } from '../../layout';
+import { StatusBar } from '../../layout';
 import { textLightLogoImage } from '../../../assets';
 
 const styles = StyleSheet.create({
@@ -114,7 +114,7 @@ export function Login() {
 
 	return (
 		<>
-			<CustomStatusBar />
+			<StatusBar />
 			<SafeAreaView style={styles.root}>
 				<View style={styles.title}>
 					<Image source={textLightLogoImage} style={styles.titleText} />

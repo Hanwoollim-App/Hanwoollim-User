@@ -1,6 +1,12 @@
 import React from 'react';
-import { Text, View, Modal, StyleSheet, Platform } from 'react-native';
-import { CustomBtn } from '..';
+import {
+	Text,
+	View,
+	Modal as RNModal,
+	StyleSheet,
+	Platform,
+} from 'react-native';
+import { ICTAButton } from '..';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -159,25 +165,25 @@ const styles = StyleSheet.create({
 	},
 });
 
-type CustomModalPropType = {
+type ICustomModalPropType = {
 	mdVisible: boolean;
 	title: string;
 	subtitle?: string;
 	buttonList: Array<customBtnType>;
 };
 
-export function CustomModal({
+export function Modal({
 	mdVisible,
 	title,
 	subtitle = '',
 	buttonList,
-}: CustomModalPropType) {
+}: ICustomModalPropType) {
 	const [last, second, ...first]: Array<customBtnType | undefined> = [
 		...buttonList,
 	].reverse();
 
 	return (
-		<Modal animationType="fade" visible={mdVisible} transparent={true}>
+		<RNModal animationType="fade" visible={mdVisible} transparent={true}>
 			<View style={styles.modalView}>
 				{second ? (
 					<View style={styles.content}>
@@ -193,7 +199,7 @@ export function CustomModal({
 				{first.map((result, i) => {
 					return (
 						result! && (
-							<CustomBtn
+							<ICTAButton
 								key={i}
 								title={result.buttonText}
 								onClickListener={result.buttonClickListener}
@@ -204,7 +210,7 @@ export function CustomModal({
 					);
 				})}
 				{second! && (
-					<CustomBtn
+					<ICTAButton
 						title={second.buttonText}
 						onClickListener={second.buttonClickListener}
 						titleStyle={styles.btnListTitle}
@@ -212,7 +218,7 @@ export function CustomModal({
 					/>
 				)}
 				{last! && (
-					<CustomBtn
+					<ICTAButton
 						title={last.buttonText}
 						onClickListener={last.buttonClickListener}
 						titleStyle={styles.blueLastBtnTitle}
@@ -220,6 +226,6 @@ export function CustomModal({
 					/>
 				)}
 			</View>
-		</Modal>
+		</RNModal>
 	);
 }

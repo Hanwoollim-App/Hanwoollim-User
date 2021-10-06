@@ -1,16 +1,13 @@
 import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
-import {
-	NavigationProp,
-	ParamListBase,
-	useNavigation,
-} from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { CustomBtn, CustomModal, ScreenWrapper } from '../../../layout';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
 	dayItems,
 	PROCESS_TEXT,
-	sectionItems,
+	sessionItems,
 	timeItems,
 	unitItems,
 	times,
@@ -23,7 +20,9 @@ import {
 	color,
 	postReservation,
 	EDay,
+	customModalValueType,
 } from '../../../../utils';
+import { IReservationNavigatorParamList } from '../../../navigator';
 
 const styles = StyleSheet.create({
 	root: {
@@ -196,23 +195,34 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function ReservationProcess({ route }) {
-	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [modalVisible, setModalVisible] = useState<boolean>(false);
+type IReservationNavigationProp = StackNavigationProp<
+	IReservationNavigatorParamList,
+	'ReservationProcess'
+>;
 
-	const returnToMain = () => {
-		navigation.navigate('ReservationTimeTable');
-	};
-	const modalBtn: Array<customBtnType> = [
-		{
-			buttonText: '확인',
-			buttonClickListener: returnToMain,
-		},
-	];
+type IReservationProcessRouteProp = RouteProp<
+	IReservationNavigatorParamList,
+	'ReservationProcess'
+>;
 
-	const currentWeek: string = route.params.weekName.label;
-	const startDate: string = route.params.startDate;
+type IReservationProcessProp = {
+	navigation: IReservationNavigationProp;
+	route: IReservationProcessRouteProp;
+};
 
+export function ReservationProcess({
+	navigation,
+	route,
+}: IReservationProcessProp) {
+	const [errModalValue, setErrModalValue] = useState<customModalValueType>({
+		isVisible: false,
+		text: '',
+	});
+	const [successModalValue, setSuccessModalValue] =
+		useState<customModalValueType>({
+			isVisible: false,
+			text: '',
+		});
 	const [day, setDay] = useState<EDay>();
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
@@ -225,16 +235,56 @@ export function ReservationProcess({ route }) {
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
 	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
-	const [section, setSection] = useState<ValueType[]>([]);
-	const [sectionOpen, setSectionOpen] = useState<boolean>(false);
-	const [sectionItem, setSectionItems] =
-		useState<Array<ItemType>>(sectionItems);
+	const [session, setSession] = useState<ValueType>('');
+	const [sessionOpen, setSessionOpen] = useState<boolean>(false);
+	const [sessionItem, setSessionItems] =
+		useState<Array<ItemType>>(sessionItems);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
 
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
+	const handleErrModalBtn = () =>
+		setErrModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
+
+	const handleSuccessModalBtn = () => {
+		setSuccessModalValue({
+			isVisible: false,
+			text: '',
+		});
+		navigation.pop();
 	};
+
+	const openSuccessModal = (successText: string) =>
+		setSuccessModalValue({
+			isVisible: true,
+			text: successText,
+		});
+
+	const openErrorModal = (errText: string) => {
+		setErrModalValue({
+			isVisible: true,
+			text: errText,
+		});
+	};
+
+	const errModalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: handleErrModalBtn,
+		},
+	];
+
+	const successModalBtn: Array<customBtnType> = [
+		{
+			buttonText: '확인',
+			buttonClickListener: handleSuccessModalBtn,
+		},
+	];
+
+	const currentWeek = route.params.weekName.label;
+	const startDate = route.params.startDate;
 
 	const handleReservation = async () => {
 		try {
@@ -244,22 +294,40 @@ export function ReservationProcess({ route }) {
 				[EDay[day]]: {
 					startTime: time as number,
 					endTime: (time as number) + 1,
-					session1: section[0] as string,
+					session1: session as string,
 				},
 			});
+			openSuccessModal('예약되었습니다!');
 		} catch (err) {
-			console.log(err.response);
+			if (err.response.status === 400) {
+				openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
+				return;
+			}
+			if (unit === '') {
+				openErrorModal('단위를 선택해주세요.');
+				return;
+			}
+			if (time === '') {
+				openErrorModal('시간을 선택해주세요.');
+				return;
+			}
+			if (session === '') {
+				openErrorModal('세션을 선택해주세요.');
+			}
 		}
-
-		changeVisible();
 	};
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
-			<CustomModal
-				mdVisible={modalVisible}
-				title={'예약이 완료되었습니다!'}
-				buttonList={modalBtn}
+			<Modal
+				mdVisible={errModalValue.isVisible}
+				title={errModalValue.text}
+				buttonList={errModalBtn}
+			/>
+			<Modal
+				mdVisible={successModalValue.isVisible}
+				title={errModalValue.text}
+				buttonList={successModalBtn}
 			/>
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
@@ -340,15 +408,12 @@ export function ReservationProcess({ route }) {
 					</Text>
 					<View style={styles.sectionInfo__form}>
 						<DropDownPicker
-							multiple={true}
-							min={0}
-							max={3}
-							open={sectionOpen}
-							value={section}
-							items={sectionItem}
-							setOpen={setSectionOpen}
-							setValue={setSection}
-							setItems={setSectionItems}
+							open={sessionOpen}
+							value={session}
+							items={sessionItem}
+							setOpen={setSessionOpen}
+							setValue={setSession}
+							setItems={setSessionItems}
 							style={styles.dropDown2}
 							textStyle={styles.dropDownText}
 							dropDownContainerStyle={styles.dropDownContainer}
@@ -358,7 +423,7 @@ export function ReservationProcess({ route }) {
 						/>
 					</View>
 					<View style={styles.submit}>
-						<CustomBtn
+						<ICTAButton
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}

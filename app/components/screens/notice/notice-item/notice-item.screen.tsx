@@ -10,6 +10,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 	NoticeDetailItemInterface,
+	IGetAnnounceMentType,
 } from '../../../../utils';
 
 const styles = StyleSheet.create({
@@ -38,13 +39,15 @@ const styles = StyleSheet.create({
 	},
 });
 
+type INoticeItemProps = IGetAnnounceMentType;
+
 export function NoticeItem({
 	title,
 	date,
 	id,
 	body,
 	writer,
-}: NoticeDetailItemInterface) {
+}: INoticeItemProps) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const NoticeClickListener = () => {

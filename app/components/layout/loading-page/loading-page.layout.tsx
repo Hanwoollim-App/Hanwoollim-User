@@ -3,9 +3,9 @@ import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { color } from '../../../utils';
 
-type LoadingPageProps = {};
+type ILoadingPageProps = {};
 
-export const LoadingPage: React.FC<LoadingPageProps> = ({}) => {
+export const LoadingPage: React.FC<ILoadingPageProps> = () => {
 	return (
 		<View
 			style={{

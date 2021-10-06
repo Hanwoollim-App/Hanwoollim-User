@@ -1,8 +1,21 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ItemType } from 'react-native-dropdown-picker';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { ReservationTimeTable, ReservationProcess } from '../../screens';
 
-const ReservationStack = createStackNavigator();
+export type IReservationNavigatorParamList = {
+	ReservationTimeTable: {};
+	ReservationProcess: {
+		weekName: ItemType;
+		startDate: string;
+	};
+};
+
+export type IReservationNavigatorNavigationProp =
+	NavigatorScreenParams<IReservationNavigatorParamList>;
+
+const ReservationStack = createStackNavigator<IReservationNavigatorParamList>();
 
 export function ReservationNavigator() {
 	return (

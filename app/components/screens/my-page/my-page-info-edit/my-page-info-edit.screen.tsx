@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import {
 	useNavigation,
@@ -22,7 +22,7 @@ import {
 	UserInfoType,
 	editUserInfo,
 } from '../../../../utils';
-import { ScreenWrapper, CustomBtn, CustomModal } from '../../../layout';
+import { ScreenWrapper, ICTAButton, Modal } from '../../../layout';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -232,7 +232,7 @@ export function InfoEdit() {
 
 	return (
 		<ScreenWrapper>
-			<CustomModal
+			<Modal
 				mdVisible={modalValue.isVisible}
 				title={modalValue.text}
 				buttonList={errModalBtn}
@@ -267,7 +267,7 @@ export function InfoEdit() {
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
-				<CustomBtn
+				<ICTAButton
 					title={'정보 수정하기'}
 					onClickListener={infoEditBtnClickListener}
 					btnStyle={styles.signUp}

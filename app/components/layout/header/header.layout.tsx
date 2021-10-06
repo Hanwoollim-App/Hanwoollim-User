@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-type CustomHeaderPropType = {
+type IHeaderPropType = {
 	title?: string;
 	headerLeft?: boolean;
 	headerRight?: boolean;
@@ -69,7 +69,7 @@ type CustomHeaderPropType = {
 	rightIconClickListener?: Function;
 };
 
-export function CustomHeader({
+export function Header({
 	title,
 	headerLeft = false,
 	headerRight = false,
@@ -77,7 +77,7 @@ export function CustomHeader({
 	rightIcon,
 	leftIconClickListener = () => {},
 	rightIconClickListener = () => {},
-}: CustomHeaderPropType) {
+}: IHeaderPropType) {
 	return (
 		<View style={styles.root}>
 			{headerLeft ? (

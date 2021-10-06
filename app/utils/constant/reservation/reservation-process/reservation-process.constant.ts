@@ -3,8 +3,8 @@ import { Item } from 'react-native-picker-select';
 export const dayItems: Array<Item> = [
 	{ label: '월요일', value: 'MON' },
 	{ label: '화요일', value: 'TUE' },
-	{ label: '수요일', value: 'WED' },
-	{ label: '목요일', value: 'THU' },
+	{ label: '수요일', value: 'WEN' },
+	{ label: '목요일', value: 'THUR' },
 	{ label: '금요일', value: 'FRI' },
 	{ label: '토요일', value: 'SAT' },
 	{ label: '일요일', value: 'SUN' },
@@ -12,9 +12,8 @@ export const dayItems: Array<Item> = [
 
 export const unitItems: Array<Item> = [{ label: '개인', value: '개인' }];
 
-export const sectionItems: Array<Item> = [
-	{ label: '기타1', value: '기타1' },
-	{ label: '기타2', value: '기타2' },
+export const sessionItems: Array<Item> = [
+	{ label: '기타', value: '기타' },
 	{ label: '베이스', value: '베이스' },
 	{ label: '드럼', value: '드럼' },
 	{ label: '건반', value: '건반' },

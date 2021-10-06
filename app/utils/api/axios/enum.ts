@@ -6,4 +6,4 @@ export enum EDay {
 	'FRI' = 'FRI',
 	'SAT' = 'SAT',
 	'SUN' = 'SUN',
-} 
+}
