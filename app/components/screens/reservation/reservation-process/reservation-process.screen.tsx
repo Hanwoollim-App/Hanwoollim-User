@@ -22,6 +22,7 @@ import {
 	ValueType,
 	color,
 	postReservation,
+	customModalValueType,
 } from '../../../../utils';
 
 const styles = StyleSheet.create({
@@ -199,13 +200,32 @@ export function ReservationProcess({ route }) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [modalVisible, setModalVisible] = useState<boolean>(false);
 
+	const [modalValue, setModalValue] = useState<customModalValueType>({
+		isVisible: false,
+		text: '',
+	});
+
 	const returnToMain = () => {
 		navigation.navigate('ReservationTimeTable');
+	};
+
+	const changeVisible = () => {
+		setModalValue((prev) => ({
+			...prev,
+			isVisible: false,
+		}));
+	};
+
+	const openErrorModal = (errText: string) => {
+		setModalValue({
+			isVisible: true,
+			text: errText,
+		});
 	};
 	const modalBtn: Array<customBtnType> = [
 		{
 			buttonText: '확인',
-			buttonClickListener: returnToMain,
+			buttonClickListener: changeVisible,
 		},
 	];
 
@@ -230,10 +250,6 @@ export function ReservationProcess({ route }) {
 		useState<Array<ItemType>>(sectionItems);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
-
-	const changeVisible = () => {
-		setModalVisible(!modalVisible);
-	};
 
 	const handleReservation = async () => {
 		try {
@@ -314,18 +330,20 @@ export function ReservationProcess({ route }) {
 					},
 				});
 			}
-			changeVisible();
-			console.log(section);
+			returnToMain();
 		} catch (err) {
 			console.log(err.response);
+			if (err.response.status === 400) {
+				openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
+			}
 		}
 	};
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
 			<CustomModal
-				mdVisible={modalVisible}
-				title={'예약이 완료되었습니다!'}
+				mdVisible={modalValue.isVisible}
+				title={modalValue.text}
 				buttonList={modalBtn}
 			/>
 			<View style={styles.bodyContainer}>
