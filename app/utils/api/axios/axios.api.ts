@@ -2,10 +2,10 @@ import axios, { AxiosResponse } from 'axios';
 import { UserInfoType } from './../../context/user-info.context';
 import { ValueType } from '../../types/drop-down.type';
 import {
-	AnnounceMentType,
+	IAnnounceMentType,
 	IGetReservationData,
 	IPostReservationData,
-	signInDataType,
+	ISignInDataType,
 } from './type';
 
 export const baseAxios = axios.create({
@@ -17,8 +17,8 @@ baseAxios.defaults.headers.post['Content-Type'] = 'application/json';
 export const userSignIn = (
 	id: string,
 	password: string,
-): Promise<AxiosResponse<signInDataType>> => {
-	return baseAxios.post<signInDataType>('/user/signIn', {
+): Promise<AxiosResponse<ISignInDataType>> => {
+	return baseAxios.post<ISignInDataType>('/user/signIn', {
 		id,
 		password,
 	});
@@ -48,8 +48,8 @@ export const getUserInfo = (): Promise<AxiosResponse<UserInfoType>> => {
 	return baseAxios.get<UserInfoType>('/user/info');
 };
 
-export const getNotice = (): Promise<AxiosResponse<AnnounceMentType>> => {
-	return baseAxios.get<AnnounceMentType>('/manager/announcement');
+export const getNotice = (): Promise<AxiosResponse<IAnnounceMentType>> => {
+	return baseAxios.get<IAnnounceMentType>('/manager/announcement');
 };
 
 export const editUserInfo = (

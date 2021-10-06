@@ -22,7 +22,7 @@ import {
 	ValueType,
 	color,
 	postReservation,
-	customModalValueType,
+	EDay,
 } from '../../../../utils';
 
 const styles = StyleSheet.create({
@@ -232,7 +232,7 @@ export function ReservationProcess({ route }) {
 	const currentWeek: string = route.params.weekName.label;
 	const startDate: string = route.params.startDate;
 
-	const [day, setDay] = useState<ValueType>('');
+	const [day, setDay] = useState<EDay>();
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
@@ -253,84 +253,15 @@ export function ReservationProcess({ route }) {
 
 	const handleReservation = async () => {
 		try {
-			if (day === 'MON') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					MON: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			if (day === 'TUE') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					TUE: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			if (day === 'WEN') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					WEN: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			if (day === 'THUR') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					THUR: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			if (day === 'FRI') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					FRI: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			if (day === 'SAT') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					SAT: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			if (day === 'SUN') {
-				await postReservation({
-					startDate,
-					reservationType: 'Personal',
-					SUN: {
-						startTime: time as number,
-						endTime: (time as number) + 1,
-						session1: section as string,
-					},
-				});
-			}
-			returnToMain();
+			await postReservation({
+				startDate,
+				reservationType: 'Personal',
+				[EDay[day]]: {
+					startTime: time as number,
+					endTime: (time as number) + 1,
+					session1: section[0] as string,
+				},
+			});
 		} catch (err) {
 			console.log(err.response);
 			if (err.response.status === 400) {
