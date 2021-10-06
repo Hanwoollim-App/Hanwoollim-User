@@ -187,6 +187,8 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 			: [],
 	];
 
+	console.log(schedule);
+
 	const colorGenerator = (num: number) => {
 		const colorList = [
 			'rgba(246,206,218,1)',
