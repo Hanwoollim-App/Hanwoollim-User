@@ -9,6 +9,7 @@ import {
 	customBtnType,
 	IReservationGivenDataByDay,
 	convertOneDigitToTwoDigit,
+	IReservationGettingDataByDay,
 } from '../../../../../utils';
 import { CustomModal, LoadingPage } from '../../../../layout';
 
@@ -80,15 +81,7 @@ const styles = StyleSheet.create({
 });
 
 type ITimeTableProps = {
-	reservationData: {
-		MON?: IReservationGivenDataByDay[];
-		TUE?: IReservationGivenDataByDay[];
-		WEN?: IReservationGivenDataByDay[];
-		THUR?: IReservationGivenDataByDay[];
-		FRI?: IReservationGivenDataByDay[];
-		SAT?: IReservationGivenDataByDay[];
-		SUN?: IReservationGivenDataByDay[];
-	};
+	reservationData: IReservationGettingDataByDay;
 	isLoading: boolean;
 };
 

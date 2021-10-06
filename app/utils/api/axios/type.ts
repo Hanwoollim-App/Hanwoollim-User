@@ -30,16 +30,16 @@ export type IReservationPostingData = {
 	session2?: string;
 };
 
-type IReservationDefaultData = {
+export type IReservationDefaultData = {
 	startDate: string;
 	reservationType: string;
 };
 
-type IReservationGettingDataByDay = {
+export type IReservationGettingDataByDay = {
 	[value in EDay]?: IReservationGivenDataByDay[];
 };
 
-type IReservationPostingDataByDay = {
+export type IReservationPostingDataByDay = {
 	[value in EDay]?: IReservationPostingData;
 };
 
