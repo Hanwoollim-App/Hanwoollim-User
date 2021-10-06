@@ -137,6 +137,8 @@ export function ReservationTimeTable() {
 		try {
 			const { data } = await getReservation(targetStartDate as string);
 
+			console.log(data);
+
 			setReservationData(data[0]);
 		} catch (err) {
 			console.log(err.response);
