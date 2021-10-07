@@ -180,6 +180,7 @@ export function SignIn() {
 			<StatusBar />
 			<View style={styles.root}>
 				<Modal
+					isLoading={isSigningIn}
 					mdVisible={modalValue.isVisible}
 					title={modalValue.text}
 					buttonList={modalBtn}

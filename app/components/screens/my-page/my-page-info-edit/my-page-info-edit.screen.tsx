@@ -21,6 +21,7 @@ import {
 	patchUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, ICTAButton, Modal } from '../../../layout';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -175,53 +176,56 @@ export function InfoEdit() {
 		}));
 	};
 
-	const infoEditBtnClickListener = async () => {
-		if (changedStudentID.length !== 10) {
-			openErrorModal('학번은 10자리입니다');
-			return;
-		}
+	const { execute: handleEditingInfo, loading: isEditingInfo } =
+		useAsyncCallback(async () => {
+			if (changedStudentID.length !== 10) {
+				openErrorModal('학번은 10자리입니다');
+				return;
+			}
 
-		try {
-			const { data } = await patchUserInfo(
-				changedName,
-				changedMajor,
-				changedStudentID,
-			);
-			const { userName, major, studentId } = data;
+			try {
+				const { data } = await patchUserInfo(
+					changedName,
+					changedMajor,
+					changedStudentID,
+				);
+				const { userName, major, studentId } = data;
 
-			setUser((prevUser: IUserInfoType) => {
-				const { position } = prevUser;
+				setUser((prevUser: IUserInfoType) => {
+					const { position } = prevUser;
 
-				return {
-					userName,
-					studentId,
-					position,
-					major,
-				};
-			});
-			navigation.pop();
-		} catch (err) {
-			const errorMessage = err.response.data.message;
+					return {
+						userName,
+						studentId,
+						position,
+						major,
+					};
+				});
+				navigation.pop();
+			} catch (err) {
+				const errorMessage = err.response.data.message;
 
-			if (err.response.status === 400) {
-				if (errorMessage.startsWith('Failed! ID is already in use!')) {
-					openErrorModal('아이디가 사용중입니다');
-					return;
+				if (err.response.status === 400) {
+					if (errorMessage.startsWith('Failed! ID is already in use!')) {
+						openErrorModal('아이디가 사용중입니다');
+						return;
+					}
+					if (
+						errorMessage.startsWith('Failed! Student Id is already in use!')
+					) {
+						openErrorModal('학번이 중복됩니다');
+						return;
+					}
+					if (errorMessage.startsWith('bad type of request')) {
+						openErrorModal('잘못된 형식입니다');
+						return;
+					}
 				}
-				if (errorMessage.startsWith('Failed! Student Id is already in use!')) {
-					openErrorModal('학번이 중복됩니다');
-					return;
-				}
-				if (errorMessage.startsWith('bad type of request')) {
-					openErrorModal('잘못된 형식입니다');
-					return;
+				if (err.response.status === 404) {
+					openErrorModal('항목을 입력해주세요');
 				}
 			}
-			if (err.response.status === 404) {
-				openErrorModal('항목을 입력해주세요');
-			}
-		}
-	};
+		});
 
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
@@ -229,6 +233,7 @@ export function InfoEdit() {
 	return (
 		<ScreenWrapper>
 			<Modal
+				isLoading={isEditingInfo}
 				mdVisible={modalValue.isVisible}
 				title={modalValue.text}
 				buttonList={errModalBtn}
@@ -265,7 +270,7 @@ export function InfoEdit() {
 
 				<ICTAButton
 					title={'정보 수정하기'}
-					onClickListener={infoEditBtnClickListener}
+					onClickListener={handleEditingInfo}
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
 				/>

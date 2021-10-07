@@ -21,6 +21,7 @@ import {
 	customModalValueType,
 } from '../../../../utils';
 import { IReservationNavigatorParamList } from '../../../navigator';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	root: {
@@ -284,47 +285,50 @@ export function ReservationProcess({
 	const currentWeek = route.params.weekName.label;
 	const startDate = route.params.startDate;
 
-	const handleReservation = async () => {
-		try {
-			await postReservation({
-				startDate,
-				reservationType: 'Personal',
-				[EDay[day]]: {
-					startTime: parseInt(time, 10),
-					endTime: parseInt(time, 10) + 1,
-					session1: session as string,
-				},
-			});
-			openSuccessModal('예약되었습니다!');
-		} catch (err) {
-			console.log(err.response);
+	const { execute: handleAddingReservation, loading: isAddingReservation } =
+		useAsyncCallback(async () => {
+			try {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					[EDay[day]]: {
+						startTime: parseInt(time, 10),
+						endTime: parseInt(time, 10) + 1,
+						session1: session as string,
+					},
+				});
+				openSuccessModal('예약되었습니다!');
+			} catch (err) {
+				console.log(err.response);
 
-			if (unit === '') {
-				openErrorModal('단위를 선택해주세요.');
-				return;
+				if (unit === '') {
+					openErrorModal('단위를 선택해주세요.');
+					return;
+				}
+				if (time === '') {
+					openErrorModal('시간을 선택해주세요.');
+					return;
+				}
+				if (session === '') {
+					openErrorModal('세션을 선택해주세요.');
+					return;
+				}
+				if (err.response.status === 400) {
+					openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
+				}
 			}
-			if (time === '') {
-				openErrorModal('시간을 선택해주세요.');
-				return;
-			}
-			if (session === '') {
-				openErrorModal('세션을 선택해주세요.');
-				return;
-			}
-			if (err.response.status === 400) {
-				openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
-			}
-		}
-	};
+		});
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
 			<Modal
+				isLoading={isAddingReservation}
 				mdVisible={errModalValue.isVisible}
 				title={errModalValue.text}
 				buttonList={errModalBtn}
 			/>
 			<Modal
+				isLoading={isAddingReservation}
 				mdVisible={successModalValue.isVisible}
 				title={successModalValue.text}
 				buttonList={successModalBtn}
@@ -427,7 +431,7 @@ export function ReservationProcess({
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={handleReservation}
+							onClickListener={handleAddingReservation}
 						/>
 					</View>
 				</View>

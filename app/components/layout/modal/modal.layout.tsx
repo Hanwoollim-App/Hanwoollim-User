@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import RNModal from 'react-native-modal';
+import { ActivityIndicator } from 'react-native-paper';
 import { ICTAButton } from '..';
 import {
 	fontPercentage,
@@ -159,7 +160,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-type ICustomModalPropType = {
+type ICustomModalProp = {
+	isLoading?: boolean;
 	mdVisible: boolean;
 	title: string;
 	subtitle?: string;
@@ -167,63 +169,77 @@ type ICustomModalPropType = {
 };
 
 export function Modal({
+	isLoading = false,
 	mdVisible,
 	title,
 	subtitle = '',
 	buttonList,
-}: ICustomModalPropType) {
+}: ICustomModalProp) {
 	const [last, second, ...first]: Array<customBtnType | undefined> = [
 		...buttonList,
 	].reverse();
+
+	const renderContent = () => (
+		<>
+			{second ? (
+				<View style={styles.content}>
+					<Text style={styles.title}>{title}</Text>
+					<Text style={styles.subtitle}>{subtitle}</Text>
+				</View>
+			) : (
+				<View style={styles.oneBtnContent}>
+					<Text style={styles.title}>{title}</Text>
+					<Text style={styles.subtitle}>{subtitle}</Text>
+				</View>
+			)}
+			{first.map((result, i) => {
+				return (
+					result! && (
+						<ICTAButton
+							key={i}
+							title={result.buttonText}
+							onClickListener={result.buttonClickListener}
+							titleStyle={styles.btnListTitle}
+							btnStyle={styles.btnList}
+						/>
+					)
+				);
+			})}
+			{second! && (
+				<ICTAButton
+					title={second.buttonText}
+					onClickListener={second.buttonClickListener}
+					titleStyle={styles.btnListTitle}
+					btnStyle={styles.whiteLastBtn}
+				/>
+			)}
+			{last! && (
+				<ICTAButton
+					title={last.buttonText}
+					onClickListener={last.buttonClickListener}
+					titleStyle={styles.blueLastBtnTitle}
+					btnStyle={styles.blueLastBtn}
+				/>
+			)}
+		</>
+	);
 
 	return (
 		<RNModal
 			useNativeDriver
 			animationIn="fadeIn"
 			animationOut="fadeOut"
-			isVisible={mdVisible}
+			isVisible={isLoading || mdVisible}
 			statusBarTranslucent>
 			<View style={styles.modalView}>
-				{second ? (
-					<View style={styles.content}>
-						<Text style={styles.title}>{title}</Text>
-						<Text style={styles.subtitle}>{subtitle}</Text>
-					</View>
-				) : (
-					<View style={styles.oneBtnContent}>
-						<Text style={styles.title}>{title}</Text>
-						<Text style={styles.subtitle}>{subtitle}</Text>
-					</View>
-				)}
-				{first.map((result, i) => {
-					return (
-						result! && (
-							<ICTAButton
-								key={i}
-								title={result.buttonText}
-								onClickListener={result.buttonClickListener}
-								titleStyle={styles.btnListTitle}
-								btnStyle={styles.btnList}
-							/>
-						)
-					);
-				})}
-				{second! && (
-					<ICTAButton
-						title={second.buttonText}
-						onClickListener={second.buttonClickListener}
-						titleStyle={styles.btnListTitle}
-						btnStyle={styles.whiteLastBtn}
+				{isLoading && (
+					<ActivityIndicator
+						color={color.mainColor}
+						size="large"
+						animating={true}
 					/>
 				)}
-				{last! && (
-					<ICTAButton
-						title={last.buttonText}
-						onClickListener={last.buttonClickListener}
-						titleStyle={styles.blueLastBtnTitle}
-						btnStyle={styles.blueLastBtn}
-					/>
-				)}
+				{!isLoading && renderContent()}
 			</View>
 		</RNModal>
 	);
