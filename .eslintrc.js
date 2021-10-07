@@ -31,7 +31,10 @@ module.exports = {
 		'no-use-before-define': 'off',
 		'prettier/prettier': 'error',
 		'arrow-parens': ['error', 'always'],
+		'import/prefer-default-export': 'off',
 		// production 환경에서는 on 으로 되어있어야 함.
 		'no-console': 'off',
+		'no-unused-vars': 'off',
+		'@typescript-eslint/no-unused-vars': ['warn']
 	},
 };

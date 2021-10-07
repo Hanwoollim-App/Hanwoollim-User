@@ -22,8 +22,11 @@
         "teypscriptreact"
     ],
     "cSpell.words": [
+        "Editting",
         "Hanwoollim",
-        "kakao"
+        "ICTA",
+        "kakao",
+        "loadsh"
     ],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
