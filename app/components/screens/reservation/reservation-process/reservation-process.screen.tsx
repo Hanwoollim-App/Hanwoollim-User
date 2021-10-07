@@ -1,10 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import DropDownPicker, {
-	ItemType,
-	ValueType,
-} from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {

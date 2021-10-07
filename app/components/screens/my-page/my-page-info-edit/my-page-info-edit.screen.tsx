@@ -5,10 +5,7 @@ import {
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
-import DropDownPicker, {
-	ItemType,
-	ValueType,
-} from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 
 import { InfoEditForm } from './components';
 import {
@@ -151,7 +148,7 @@ export function InfoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 	const [name, setName] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
-	const [major, setMajor] = useState<ValueType>('');
+	const [major, setMajor] = useState<string>('');
 	const { setUser } = useUserInfo();
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,

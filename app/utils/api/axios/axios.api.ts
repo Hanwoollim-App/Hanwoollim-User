@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { ValueType } from 'react-native-dropdown-picker';
 import { UserInfoType } from './../../context/user-info.context';
 import {
 	IGetAnnounceMentType,
@@ -32,7 +31,7 @@ export const userSignUp = (
 	id: string,
 	password: string,
 	userName: string,
-	major: ValueType,
+	major: string,
 	studentId: string,
 ): Promise<AxiosResponse<any>> => {
 	return baseAxios.post('/user/signUp', {
@@ -54,7 +53,7 @@ export const getNotice = (): Promise<AxiosResponse<IGetAnnounceMentType[]>> => {
 
 export const editUserInfo = (
 	userName: string,
-	major: ValueType,
+	major: string,
 	studentId: string,
 ): Promise<AxiosResponse<UserInfoType>> => {
 	return baseAxios.patch('/user/editInfo', {

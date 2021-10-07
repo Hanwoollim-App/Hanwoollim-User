@@ -7,10 +7,7 @@ import {
 	ScrollView,
 	Platform,
 } from 'react-native';
-import DropDownPicker, {
-	ItemType,
-	ValueType,
-} from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import isNull from 'lodash/isNull';
 import {
 	NavigationProp,
@@ -103,7 +100,7 @@ export function ReservationTimeTable() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const [open, setOpen] = useState<boolean>(false);
-	const [targetDateValue, setTargetDateValue] = useState<ValueType>(null);
+	const [targetDateValue, setTargetDateValue] = useState<string | null>(null);
 	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
 	const [reservationData, setReservationData] = useState(null);
 	const isFocused = useIsFocused();

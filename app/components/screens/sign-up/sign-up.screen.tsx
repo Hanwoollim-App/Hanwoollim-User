@@ -1,13 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
 	useNavigation,
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
-import DropDownPicker, {
-	ItemType,
-	ValueType,
-} from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 
 import {
@@ -175,7 +172,7 @@ export function SignUp() {
 	const [pw, setPw] = useState<string>('');
 	const [pwCheck, setPwCheck] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
-	const [major, setMajor] = useState<ValueType>('');
+	const [major, setMajor] = useState<string>('');
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
