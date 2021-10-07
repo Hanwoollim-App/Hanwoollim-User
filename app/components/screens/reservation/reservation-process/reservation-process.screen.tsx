@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
@@ -15,14 +15,13 @@ import {
 	heightPercentage,
 	widthPercentage,
 	customBtnType,
-	ItemType,
-	ValueType,
 	color,
 	postReservation,
 	EDay,
 	customModalValueType,
 } from '../../../../utils';
 import { IReservationNavigatorParamList } from '../../../navigator';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	root: {
@@ -214,121 +213,96 @@ export function ReservationProcess({
 	navigation,
 	route,
 }: IReservationProcessProp) {
-	const [errModalValue, setErrModalValue] = useState<customModalValueType>({
+	const [modalValue, setModalValue] = useState<customModalValueType>({
 		isVisible: false,
 		text: '',
 	});
-	const [successModalValue, setSuccessModalValue] =
-		useState<customModalValueType>({
-			isVisible: false,
-			text: '',
-		});
 	const [day, setDay] = useState<EDay>();
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
-	const [unit, setUnit] = useState<ValueType>('');
+	const [unit, setUnit] = useState<string>('');
 	const [unitOpen, setUnitOpen] = useState<boolean>(false);
 	const [unitItem, setUnitItems] = useState<Array<ItemType>>(unitItems);
 
-	const [time, setTime] = useState<ValueType>('');
+	const [time, setTime] = useState<string>('');
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
 	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
-	const [session, setSession] = useState<ValueType>('');
+	const [session, setSession] = useState<string>('');
 	const [sessionOpen, setSessionOpen] = useState<boolean>(false);
 	const [sessionItem, setSessionItems] =
 		useState<Array<ItemType>>(sessionItems);
+	const [isErrorOccurring, setIsErrorOccurring] = useState(false);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
 
-	const handleErrModalBtn = () =>
-		setErrModalValue((prev) => ({
-			...prev,
-			isVisible: false,
-		}));
-
-	const handleSuccessModalBtn = () => {
-		setSuccessModalValue({
+	const handleModalButton = () => {
+		setModalValue({
 			isVisible: false,
 			text: '',
 		});
-		navigation.pop();
+		if (!isErrorOccurring) {
+			navigation.pop();
+		}
 	};
 
-	const openSuccessModal = (successText: string) =>
-		setSuccessModalValue({
+	const openModal = (successText: string) =>
+		setModalValue({
 			isVisible: true,
 			text: successText,
 		});
 
-	const openErrorModal = (errText: string) => {
-		setErrModalValue({
-			isVisible: true,
-			text: errText,
-		});
-	};
-
-	const errModalBtn: Array<customBtnType> = [
-		{
-			buttonText: '확인',
-			buttonClickListener: handleErrModalBtn,
-		},
-	];
-
 	const successModalBtn: Array<customBtnType> = [
 		{
 			buttonText: '확인',
-			buttonClickListener: handleSuccessModalBtn,
+			buttonClickListener: handleModalButton,
 		},
 	];
 
 	const currentWeek = route.params.weekName.label;
 	const startDate = route.params.startDate;
 
-	const handleReservation = async () => {
-		try {
-			await postReservation({
-				startDate,
-				reservationType: 'Personal',
-				[EDay[day]]: {
-					startTime: time as number,
-					endTime: (time as number) + 1,
-					session1: session as string,
-				},
-			});
-			openSuccessModal('예약되었습니다!');
-		} catch (err) {
-			console.log(err.response);
+	const { execute: handleAddingReservation, loading: isAddingReservation } =
+		useAsyncCallback(async () => {
+			try {
+				await postReservation({
+					startDate,
+					reservationType: 'Personal',
+					[EDay[day]]: {
+						startTime: parseInt(time, 10),
+						endTime: parseInt(time, 10) + 1,
+						session1: session as string,
+					},
+				});
+				openModal('예약되었습니다!');
+			} catch (err) {
+				setIsErrorOccurring(true);
 
-			if (unit === '') {
-				openErrorModal('단위를 선택해주세요.');
-				return;
+				if (unit === '') {
+					openModal('단위를 선택해주세요.');
+					return;
+				}
+				if (time === '') {
+					openModal('시간을 선택해주세요.');
+					return;
+				}
+				if (session === '') {
+					openModal('세션을 선택해주세요.');
+					return;
+				}
+				if (err.response.status === 400) {
+					openModal('예약하려는 시간에 이미 예약이 있습니다.');
+				}
 			}
-			if (time === '') {
-				openErrorModal('시간을 선택해주세요.');
-				return;
-			}
-			if (session === '') {
-				openErrorModal('세션을 선택해주세요.');
-				return;
-			}
-			if (err.response.status === 400) {
-				openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
-			}
-		}
-	};
+		});
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
 			<Modal
-				mdVisible={errModalValue.isVisible}
-				title={errModalValue.text}
-				buttonList={errModalBtn}
-			/>
-			<Modal
-				mdVisible={successModalValue.isVisible}
-				title={successModalValue.text}
+				isLoading={isAddingReservation}
+				mdVisible={modalValue.isVisible}
+				title={modalValue.text}
 				buttonList={successModalBtn}
 			/>
 			<View style={styles.bodyContainer}>
@@ -429,7 +403,7 @@ export function ReservationProcess({
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={handleReservation}
+							onClickListener={handleAddingReservation}
 						/>
 					</View>
 				</View>

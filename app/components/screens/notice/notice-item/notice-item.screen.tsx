@@ -9,7 +9,6 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-	NoticeDetailItemInterface,
 	IGetAnnounceMentType,
 } from '../../../../utils';
 

@@ -7,7 +7,7 @@ import {
 	ScrollView,
 	Platform,
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import isNull from 'lodash/isNull';
 import {
 	NavigationProp,
@@ -20,8 +20,6 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-	ItemType,
-	ValueType,
 	weekItems,
 	getReservation,
 } from '../../../../utils';
@@ -102,7 +100,7 @@ export function ReservationTimeTable() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
 	const [open, setOpen] = useState<boolean>(false);
-	const [targetDateValue, setTargetDateValue] = useState<ValueType>(null);
+	const [targetDateValue, setTargetDateValue] = useState<string | null>(null);
 	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
 	const [reservationData, setReservationData] = useState(null);
 	const isFocused = useIsFocused();
@@ -139,12 +137,13 @@ export function ReservationTimeTable() {
 		try {
 			const { data } = await getReservation(targetStartDate as string);
 
-			if (data.length) {
-				setReservationData(data[0]);
+			const isEmptyReservationData = data.length === 0;
+
+			if (isEmptyReservationData) {
+				setReservationData(emptyReservation);
 				return;
 			}
-
-			setReservationData(emptyReservation);
+			setReservationData(data[0]);
 		} catch (err) {
 			console.log(err.response);
 		}

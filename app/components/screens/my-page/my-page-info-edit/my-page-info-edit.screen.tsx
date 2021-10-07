@@ -5,7 +5,7 @@ import {
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 
 import { InfoEditForm } from './components';
 import {
@@ -15,14 +15,13 @@ import {
 	color,
 	majorItem,
 	SIGN_UP_COMPONENT_TEXT,
-	ItemType,
-	ValueType,
 	customBtnType,
 	useUserInfo,
-	UserInfoType,
-	editUserInfo,
+	IUserInfoType,
+	patchUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, ICTAButton, Modal } from '../../../layout';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -148,9 +147,9 @@ const styles = StyleSheet.create({
 
 export function InfoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [name, setName] = useState<string>('');
-	const [studentID, setStudentID] = useState<string>('');
-	const [major, setMajor] = useState<ValueType>('');
+	const [changedName, setChangedName] = useState<string>('');
+	const [changedStudentID, setChangedStudentID] = useState<string>('');
+	const [changedMajor, setChangedMajor] = useState<string>('');
 	const { setUser } = useUserInfo();
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
@@ -177,20 +176,22 @@ export function InfoEdit() {
 		}));
 	};
 
-	const infoEditBtnClickListener = () => {
-		if (studentID.length !== 10) {
-			openErrorModal('학번은 10자리입니다');
-			return;
-		}
-		editUserInfo(name, major, studentID)
-			.then((res) => {
-				const {
-					userName,
-					studentId,
-					major,
-				}: { userName: string; studentId: number; major: string } = res.data;
+	const { execute: handleEditingInfo, loading: isEditingInfo } =
+		useAsyncCallback(async () => {
+			if (changedStudentID.length !== 10) {
+				openErrorModal('학번은 10자리입니다');
+				return;
+			}
 
-				setUser((prevUser: UserInfoType) => {
+			try {
+				const { data } = await patchUserInfo(
+					changedName,
+					changedMajor,
+					changedStudentID,
+				);
+				const { userName, major, studentId } = data;
+
+				setUser((prevUser: IUserInfoType) => {
 					const { position } = prevUser;
 
 					return {
@@ -200,9 +201,8 @@ export function InfoEdit() {
 						major,
 					};
 				});
-				navigation.navigate('MyPage');
-			})
-			.catch((err) => {
+				navigation.pop();
+			} catch (err) {
 				const errorMessage = err.response.data.message;
 
 				if (err.response.status === 400) {
@@ -224,8 +224,8 @@ export function InfoEdit() {
 				if (err.response.status === 404) {
 					openErrorModal('항목을 입력해주세요');
 				}
-			});
-	};
+			}
+		});
 
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
@@ -233,6 +233,7 @@ export function InfoEdit() {
 	return (
 		<ScreenWrapper>
 			<Modal
+				isLoading={isEditingInfo}
 				mdVisible={modalValue.isVisible}
 				title={modalValue.text}
 				buttonList={errModalBtn}
@@ -244,15 +245,15 @@ export function InfoEdit() {
 				<View style={styles.middleEmpty} />
 				<InfoEditForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-					inputChangeListener={(value: string) => setName(value)}
-					defaultValue={name}
+					inputChangeListener={(value: string) => setChangedName(value)}
+					defaultValue={changedName}
 				/>
 				<DropDownPicker
 					open={open}
-					value={major}
+					value={changedMajor}
 					items={items}
 					setOpen={setOpen}
-					setValue={setMajor}
+					setValue={setChangedMajor}
 					setItems={setItems}
 					style={styles.dropDown}
 					textStyle={styles.dropDownText}
@@ -262,14 +263,14 @@ export function InfoEdit() {
 				/>
 				<InfoEditForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-					inputChangeListener={(value: string) => setStudentID(value)}
-					defaultValue={studentID}
+					inputChangeListener={(value: string) => setChangedStudentID(value)}
+					defaultValue={changedStudentID}
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
 				<ICTAButton
 					title={'정보 수정하기'}
-					onClickListener={infoEditBtnClickListener}
+					onClickListener={handleEditingInfo}
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
 				/>

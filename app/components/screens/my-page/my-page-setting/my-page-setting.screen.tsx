@@ -13,7 +13,7 @@ import {
 	customBtnType,
 	useUserInfo,
 	getUserInfo,
-	executeUser,
+	postUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, Modal } from '../../../layout';
 
@@ -95,7 +95,7 @@ export function MyPage() {
 	};
 
 	const returnToLogin = () => {
-		executeUser().then(() => {
+		postUserInfo().then(() => {
 			navigation.navigate('Login');
 		});
 	};

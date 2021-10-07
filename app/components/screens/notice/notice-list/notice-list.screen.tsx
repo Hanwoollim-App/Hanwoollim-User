@@ -5,7 +5,6 @@ import {
 	heightPercentage,
 	widthPercentage,
 	getNotice,
-	NoticeDetailItemInterface,
 	IGetAnnounceMentType,
 } from '../../../../utils';
 import { NoticeItem } from '..';

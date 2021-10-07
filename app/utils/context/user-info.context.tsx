@@ -6,7 +6,7 @@ import React, {
 	SetStateAction,
 } from 'react';
 
-export type UserInfoType = {
+export type IUserInfoType = {
 	userName: string;
 	major: string;
 	studentId: number;
@@ -14,18 +14,18 @@ export type UserInfoType = {
 };
 
 export type UserInfoContextType = {
-	user: UserInfoType;
-	setUser: (value: SetStateAction<UserInfoType>) => void;
+	user: IUserInfoType;
+	setUser: (value: SetStateAction<IUserInfoType>) => void;
 };
 
-export type UserInfoProviderProps = {
+export type IUserInfoProviderProps = {
 	children: ReactNode;
 };
 
 export const UserInfoContext = createContext<UserInfoContextType>(null);
 
-export const UserInfoProvider = ({ children }: UserInfoProviderProps) => {
-	const [user, setUser] = useState<UserInfoType>();
+export const UserInfoProvider = ({ children }: IUserInfoProviderProps) => {
+	const [user, setUser] = useState<IUserInfoType>();
 
 	return (
 		<UserInfoContext.Provider value={{ user, setUser }}>

@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
 	useNavigation,
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 
 import {
@@ -13,11 +13,9 @@ import {
 	widthPercentage,
 	color,
 	SIGN_UP_COMPONENT_TEXT,
-	ItemType,
-	ValueType,
 	majorItem,
 	customBtnType,
-	userSignUp,
+	postUserSignUp,
 } from '../../../utils';
 import { ScreenWrapper, Modal, ICTAButton } from '../../layout';
 import { SignUpForm } from './components';
@@ -174,12 +172,12 @@ export function SignUp() {
 	const [pw, setPw] = useState<string>('');
 	const [pwCheck, setPwCheck] = useState<string>('');
 	const [studentID, setStudentID] = useState<string>('');
-	const [major, setMajor] = useState<ValueType>('');
+	const [major, setMajor] = useState<string>('');
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	const signUpBtnClickListener = () => {
-		userSignUp(id, pw, name, major, studentID)
+		postUserSignUp(id, pw, name, major, studentID)
 			.then(() => {
 				navigation.navigate('SignIn');
 			})

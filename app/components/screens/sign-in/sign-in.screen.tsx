@@ -12,7 +12,7 @@ import {
 	widthPercentage,
 	color,
 	customBtnType,
-	userSignIn,
+	postUserSignIn,
 	updateAuthToken,
 	getUserInfo,
 	useUserInfo,
@@ -122,7 +122,7 @@ export function SignIn() {
 
 	const { execute: signInBtnClickListener, loading: isSigningIn } =
 		useAsyncCallback(async () => {
-			const isError = await userSignIn(id, pw)
+			const isError = await postUserSignIn(id, pw)
 				.then(({ data: signInData }) => {
 					const { accessToken } = signInData;
 
@@ -168,10 +168,10 @@ export function SignIn() {
 				});
 
 				if (isApprovedAccount(position)) {
-					navigation.navigate('BottomTabNavigator');
+					navigation.replace('BottomTabNavigator');
 					return;
 				}
-				navigation.navigate('NotApproved');
+				navigation.replace('NotApproved');
 			});
 		});
 
@@ -180,6 +180,7 @@ export function SignIn() {
 			<StatusBar />
 			<View style={styles.root}>
 				<Modal
+					isLoading={isSigningIn}
 					mdVisible={modalValue.isVisible}
 					title={modalValue.text}
 					buttonList={modalBtn}

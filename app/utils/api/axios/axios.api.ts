@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
-import { UserInfoType } from './../../context/user-info.context';
-import { ValueType } from '../../types/drop-down.type';
+import { IUserInfoType as IGetUserInfoType } from './../../context/user-info.context';
 import {
 	IGetAnnounceMentType,
 	IGetReservationData,
+	IPatchUserInfo,
 	IPostReservationData,
 	ISignInDataType,
 } from './type';
@@ -14,7 +14,7 @@ export const baseAxios = axios.create({
 
 baseAxios.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const userSignIn = (
+export const postUserSignIn = (
 	id: string,
 	password: string,
 ): Promise<AxiosResponse<ISignInDataType>> => {
@@ -28,11 +28,11 @@ export const updateAuthToken = (accessToken: string): void => {
 	baseAxios.defaults.headers.common['x-access-token'] = accessToken;
 };
 
-export const userSignUp = (
+export const postUserSignUp = (
 	id: string,
 	password: string,
 	userName: string,
-	major: ValueType,
+	major: string,
 	studentId: string,
 ): Promise<AxiosResponse<any>> => {
 	return baseAxios.post('/user/signUp', {
@@ -44,27 +44,27 @@ export const userSignUp = (
 	});
 };
 
-export const getUserInfo = (): Promise<AxiosResponse<UserInfoType>> => {
-	return baseAxios.get<UserInfoType>('/user/info');
+export const getUserInfo = (): Promise<AxiosResponse<IGetUserInfoType>> => {
+	return baseAxios.get<IGetUserInfoType>('/user/info');
 };
 
 export const getNotice = (): Promise<AxiosResponse<IGetAnnounceMentType[]>> => {
 	return baseAxios.get<IGetAnnounceMentType[]>('/manager/announcement');
 };
 
-export const editUserInfo = (
+export const patchUserInfo = (
 	userName: string,
-	major: ValueType,
+	major: string,
 	studentId: string,
-): Promise<AxiosResponse<UserInfoType>> => {
-	return baseAxios.patch('/user/editInfo', {
+): Promise<AxiosResponse<IPatchUserInfo>> => {
+	return baseAxios.patch<IPatchUserInfo>('/user/editInfo', {
 		userName,
 		major,
 		studentId,
 	});
 };
 
-export const executeUser = (): Promise<AxiosResponse<UserInfoType>> => {
+export const postUserInfo = (): Promise<AxiosResponse<IGetUserInfoType>> => {
 	return baseAxios.post('/user/info', {
 		execute: 1,
 	});

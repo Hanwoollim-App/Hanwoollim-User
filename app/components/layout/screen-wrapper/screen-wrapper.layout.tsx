@@ -27,6 +27,12 @@ export function ScreenWrapper({
 }: screenWrapperPropType) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
 
+	const handleGoBack = () => {
+		if (navigation.canGoBack()) {
+			navigation.goBack();
+		}
+	};
+
 	return (
 		<>
 			<StatusBar />
@@ -36,7 +42,7 @@ export function ScreenWrapper({
 						title={headerTitle ?? undefined}
 						headerLeft
 						leftIcon={icon}
-						leftIconClickListener={navigation.goBack}
+						leftIconClickListener={handleGoBack}
 					/>
 				</View>
 				<View style={defaultStyle.contents}>{children}</View>
