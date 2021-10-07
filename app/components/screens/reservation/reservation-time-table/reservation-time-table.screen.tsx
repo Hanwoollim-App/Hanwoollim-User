@@ -7,7 +7,10 @@ import {
 	ScrollView,
 	Platform,
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, {
+	ItemType,
+	ValueType,
+} from 'react-native-dropdown-picker';
 import isNull from 'lodash/isNull';
 import {
 	NavigationProp,
@@ -20,8 +23,6 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-	ItemType,
-	ValueType,
 	weekItems,
 	getReservation,
 } from '../../../../utils';

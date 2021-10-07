@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
+import { ValueType } from 'react-native-dropdown-picker';
 import { UserInfoType } from './../../context/user-info.context';
-import { ValueType } from '../../types/drop-down.type';
 import {
 	IGetAnnounceMentType,
 	IGetReservationData,

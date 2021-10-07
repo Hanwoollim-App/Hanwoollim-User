@@ -1,7 +1,10 @@
 import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, {
+	ItemType,
+	ValueType,
+} from 'react-native-dropdown-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
@@ -15,8 +18,6 @@ import {
 	heightPercentage,
 	widthPercentage,
 	customBtnType,
-	ItemType,
-	ValueType,
 	color,
 	postReservation,
 	EDay,
@@ -227,15 +228,15 @@ export function ReservationProcess({
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
-	const [unit, setUnit] = useState<ValueType>('');
+	const [unit, setUnit] = useState<string>('');
 	const [unitOpen, setUnitOpen] = useState<boolean>(false);
 	const [unitItem, setUnitItems] = useState<Array<ItemType>>(unitItems);
 
-	const [time, setTime] = useState<ValueType>('');
+	const [time, setTime] = useState<string>('');
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
 	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
-	const [session, setSession] = useState<ValueType>('');
+	const [session, setSession] = useState<string>('');
 	const [sessionOpen, setSessionOpen] = useState<boolean>(false);
 	const [sessionItem, setSessionItems] =
 		useState<Array<ItemType>>(sessionItems);
@@ -292,8 +293,8 @@ export function ReservationProcess({
 				startDate,
 				reservationType: 'Personal',
 				[EDay[day]]: {
-					startTime: time as number,
-					endTime: (time as number) + 1,
+					startTime: parseInt(time, 10),
+					endTime: parseInt(time, 10) + 1,
 					session1: session as string,
 				},
 			});

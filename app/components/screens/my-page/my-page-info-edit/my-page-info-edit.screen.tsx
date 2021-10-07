@@ -5,7 +5,10 @@ import {
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, {
+	ItemType,
+	ValueType,
+} from 'react-native-dropdown-picker';
 
 import { InfoEditForm } from './components';
 import {
@@ -15,8 +18,6 @@ import {
 	color,
 	majorItem,
 	SIGN_UP_COMPONENT_TEXT,
-	ItemType,
-	ValueType,
 	customBtnType,
 	useUserInfo,
 	UserInfoType,

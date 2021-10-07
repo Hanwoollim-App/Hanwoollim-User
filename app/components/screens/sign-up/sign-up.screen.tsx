@@ -4,7 +4,10 @@ import {
 	NavigationProp,
 	ParamListBase,
 } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, {
+	ItemType,
+	ValueType,
+} from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 
 import {
@@ -13,8 +16,6 @@ import {
 	widthPercentage,
 	color,
 	SIGN_UP_COMPONENT_TEXT,
-	ItemType,
-	ValueType,
 	majorItem,
 	customBtnType,
 	userSignUp,
