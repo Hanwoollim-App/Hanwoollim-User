@@ -168,10 +168,10 @@ export function SignIn() {
 				});
 
 				if (isApprovedAccount(position)) {
-					navigation.navigate('BottomTabNavigator');
+					navigation.replace('BottomTabNavigator');
 					return;
 				}
-				navigation.navigate('NotApproved');
+				navigation.replace('NotApproved');
 			});
 		});
 
