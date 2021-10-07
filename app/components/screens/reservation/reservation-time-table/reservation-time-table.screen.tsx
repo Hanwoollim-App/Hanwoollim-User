@@ -139,12 +139,13 @@ export function ReservationTimeTable() {
 		try {
 			const { data } = await getReservation(targetStartDate as string);
 
-			if (data.length) {
-				setReservationData(data[0]);
+			const isEmptyReservationData = data.length === 0;
+
+			if (isEmptyReservationData) {
+				setReservationData(emptyReservation);
 				return;
 			}
-
-			setReservationData(emptyReservation);
+			setReservationData(data[0]);
 		} catch (err) {
 			console.log(err.response);
 		}
