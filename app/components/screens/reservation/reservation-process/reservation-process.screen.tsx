@@ -213,15 +213,10 @@ export function ReservationProcess({
 	navigation,
 	route,
 }: IReservationProcessProp) {
-	const [errModalValue, setErrModalValue] = useState<customModalValueType>({
+	const [modalValue, setModalValue] = useState<customModalValueType>({
 		isVisible: false,
 		text: '',
 	});
-	const [successModalValue, setSuccessModalValue] =
-		useState<customModalValueType>({
-			isVisible: false,
-			text: '',
-		});
 	const [day, setDay] = useState<EDay>();
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
@@ -238,47 +233,30 @@ export function ReservationProcess({
 	const [sessionOpen, setSessionOpen] = useState<boolean>(false);
 	const [sessionItem, setSessionItems] =
 		useState<Array<ItemType>>(sessionItems);
+	const [isErrorOccurring, setIsErrorOccurring] = useState(false);
 
 	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
 
-	const handleErrModalBtn = () =>
-		setErrModalValue((prev) => ({
-			...prev,
-			isVisible: false,
-		}));
-
-	const handleSuccessModalBtn = () => {
-		setSuccessModalValue({
+	const handleModalButton = () => {
+		setModalValue({
 			isVisible: false,
 			text: '',
 		});
-		navigation.pop();
+		if (!isErrorOccurring) {
+			navigation.pop();
+		}
 	};
 
-	const openSuccessModal = (successText: string) =>
-		setSuccessModalValue({
+	const openModal = (successText: string) =>
+		setModalValue({
 			isVisible: true,
 			text: successText,
 		});
 
-	const openErrorModal = (errText: string) => {
-		setErrModalValue({
-			isVisible: true,
-			text: errText,
-		});
-	};
-
-	const errModalBtn: Array<customBtnType> = [
-		{
-			buttonText: '확인',
-			buttonClickListener: handleErrModalBtn,
-		},
-	];
-
 	const successModalBtn: Array<customBtnType> = [
 		{
 			buttonText: '확인',
-			buttonClickListener: handleSuccessModalBtn,
+			buttonClickListener: handleModalButton,
 		},
 	];
 
@@ -297,24 +275,24 @@ export function ReservationProcess({
 						session1: session as string,
 					},
 				});
-				openSuccessModal('예약되었습니다!');
+				openModal('예약되었습니다!');
 			} catch (err) {
-				console.log(err.response);
+				setIsErrorOccurring(true);
 
 				if (unit === '') {
-					openErrorModal('단위를 선택해주세요.');
+					openModal('단위를 선택해주세요.');
 					return;
 				}
 				if (time === '') {
-					openErrorModal('시간을 선택해주세요.');
+					openModal('시간을 선택해주세요.');
 					return;
 				}
 				if (session === '') {
-					openErrorModal('세션을 선택해주세요.');
+					openModal('세션을 선택해주세요.');
 					return;
 				}
 				if (err.response.status === 400) {
-					openErrorModal('예약하려는 시간에 이미 예약이 있습니다.');
+					openModal('예약하려는 시간에 이미 예약이 있습니다.');
 				}
 			}
 		});
@@ -323,14 +301,8 @@ export function ReservationProcess({
 		<ScreenWrapper headerTitle="예약하기">
 			<Modal
 				isLoading={isAddingReservation}
-				mdVisible={errModalValue.isVisible}
-				title={errModalValue.text}
-				buttonList={errModalBtn}
-			/>
-			<Modal
-				isLoading={isAddingReservation}
-				mdVisible={successModalValue.isVisible}
-				title={successModalValue.text}
+				mdVisible={modalValue.isVisible}
+				title={modalValue.text}
 				buttonList={successModalBtn}
 			/>
 			<View style={styles.bodyContainer}>

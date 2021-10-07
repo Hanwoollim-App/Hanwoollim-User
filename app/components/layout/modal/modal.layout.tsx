@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		width: widthPercentage(250),
+		paddingVertical: heightPercentage(10),
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderTopLeftRadius: widthPercentage(15),
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
 	},
 	oneBtnContent: {
 		width: widthPercentage(250),
+		paddingVertical: heightPercentage(25),
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: widthPercentage(15),
@@ -61,18 +63,18 @@ const styles = StyleSheet.create({
 		}),
 	},
 	title: {
-		marginTop: heightPercentage(25),
+		width: '70%',
 		fontFamily: 'NotoSansKR-Bold',
-		fontSize: fontPercentage(15),
+		fontSize: fontPercentage(20),
 		letterSpacing: 1,
 		fontStyle: 'normal',
 		textAlign: 'center',
 		color: '#000000',
 	},
 	subtitle: {
-		marginTop: heightPercentage(10),
+		marginTop: heightPercentage(15),
 		fontFamily: 'NotoSansKR-Regular',
-		fontSize: fontPercentage(13),
+		fontSize: fontPercentage(17),
 		fontStyle: 'normal',
 		textAlign: 'center',
 		color: 'gray',
