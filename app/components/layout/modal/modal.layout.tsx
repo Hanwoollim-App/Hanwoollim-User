@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
 		color: '#000000',
 	},
 	subtitle: {
-		marginTop: heightPercentage(15),
+		marginTop: heightPercentage(10),
 		fontFamily: 'NotoSansKR-Regular',
-		fontSize: fontPercentage(10),
+		fontSize: fontPercentage(13),
 		fontStyle: 'normal',
 		textAlign: 'center',
 		color: 'gray',
