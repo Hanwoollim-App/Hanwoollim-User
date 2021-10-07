@@ -326,7 +326,7 @@ export function ReservationProcess({
 			/>
 			<Modal
 				mdVisible={successModalValue.isVisible}
-				title={errModalValue.text}
+				title={successModalValue.text}
 				buttonList={successModalBtn}
 			/>
 			<View style={styles.bodyContainer}>
