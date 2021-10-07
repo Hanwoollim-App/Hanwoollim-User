@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-	Text,
-	View,
-	Modal as RNModal,
-	StyleSheet,
-	Platform,
-} from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
+import RNModal from 'react-native-modal';
 import { ICTAButton } from '..';
 import {
 	fontPercentage,
@@ -20,7 +15,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'rgba(0,0,0,0.5)',
 	},
 	content: {
 		width: widthPercentage(250),
@@ -183,7 +177,12 @@ export function Modal({
 	].reverse();
 
 	return (
-		<RNModal animationType="fade" visible={mdVisible} transparent={true}>
+		<RNModal
+			useNativeDriver
+			animationIn="fadeIn"
+			animationOut="fadeOut"
+			isVisible={mdVisible}
+			statusBarTranslucent>
 			<View style={styles.modalView}>
 				{second ? (
 					<View style={styles.content}>
