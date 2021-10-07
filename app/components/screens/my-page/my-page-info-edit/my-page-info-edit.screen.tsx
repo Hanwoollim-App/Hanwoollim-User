@@ -17,8 +17,8 @@ import {
 	SIGN_UP_COMPONENT_TEXT,
 	customBtnType,
 	useUserInfo,
-	UserInfoType,
-	editUserInfo,
+	IUserInfoType,
+	patchUserInfo,
 } from '../../../../utils';
 import { ScreenWrapper, ICTAButton, Modal } from '../../../layout';
 
@@ -146,9 +146,9 @@ const styles = StyleSheet.create({
 
 export function InfoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [name, setName] = useState<string>('');
-	const [studentID, setStudentID] = useState<string>('');
-	const [major, setMajor] = useState<string>('');
+	const [changedName, setChangedName] = useState<string>('');
+	const [changedStudentID, setChangedStudentID] = useState<string>('');
+	const [changedMajor, setChangedMajor] = useState<string>('');
 	const { setUser } = useUserInfo();
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
@@ -175,54 +175,52 @@ export function InfoEdit() {
 		}));
 	};
 
-	const infoEditBtnClickListener = () => {
-		if (studentID.length !== 10) {
+	const infoEditBtnClickListener = async () => {
+		if (changedStudentID.length !== 10) {
 			openErrorModal('학번은 10자리입니다');
 			return;
 		}
-		editUserInfo(name, major, studentID)
-			.then((res) => {
-				const {
+
+		try {
+			const { data } = await patchUserInfo(
+				changedName,
+				changedMajor,
+				changedStudentID,
+			);
+			const { userName, major, studentId } = data;
+
+			setUser((prevUser: IUserInfoType) => {
+				const { position } = prevUser;
+
+				return {
 					userName,
 					studentId,
+					position,
 					major,
-				}: { userName: string; studentId: number; major: string } = res.data;
-
-				setUser((prevUser: UserInfoType) => {
-					const { position } = prevUser;
-
-					return {
-						userName,
-						studentId,
-						position,
-						major,
-					};
-				});
-				navigation.navigate('MyPage');
-			})
-			.catch((err) => {
-				const errorMessage = err.response.data.message;
-
-				if (err.response.status === 400) {
-					if (errorMessage.startsWith('Failed! ID is already in use!')) {
-						openErrorModal('아이디가 사용중입니다');
-						return;
-					}
-					if (
-						errorMessage.startsWith('Failed! Student Id is already in use!')
-					) {
-						openErrorModal('학번이 중복됩니다');
-						return;
-					}
-					if (errorMessage.startsWith('bad type of request')) {
-						openErrorModal('잘못된 형식입니다');
-						return;
-					}
-				}
-				if (err.response.status === 404) {
-					openErrorModal('항목을 입력해주세요');
-				}
+				};
 			});
+			navigation.pop();
+		} catch (err) {
+			const errorMessage = err.response.data.message;
+
+			if (err.response.status === 400) {
+				if (errorMessage.startsWith('Failed! ID is already in use!')) {
+					openErrorModal('아이디가 사용중입니다');
+					return;
+				}
+				if (errorMessage.startsWith('Failed! Student Id is already in use!')) {
+					openErrorModal('학번이 중복됩니다');
+					return;
+				}
+				if (errorMessage.startsWith('bad type of request')) {
+					openErrorModal('잘못된 형식입니다');
+					return;
+				}
+			}
+			if (err.response.status === 404) {
+				openErrorModal('항목을 입력해주세요');
+			}
+		}
 	};
 
 	const [open, setOpen] = useState<boolean>(false);
@@ -242,15 +240,15 @@ export function InfoEdit() {
 				<View style={styles.middleEmpty} />
 				<InfoEditForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-					inputChangeListener={(value: string) => setName(value)}
-					defaultValue={name}
+					inputChangeListener={(value: string) => setChangedName(value)}
+					defaultValue={changedName}
 				/>
 				<DropDownPicker
 					open={open}
-					value={major}
+					value={changedMajor}
 					items={items}
 					setOpen={setOpen}
-					setValue={setMajor}
+					setValue={setChangedMajor}
 					setItems={setItems}
 					style={styles.dropDown}
 					textStyle={styles.dropDownText}
@@ -260,8 +258,8 @@ export function InfoEdit() {
 				/>
 				<InfoEditForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-					inputChangeListener={(value: string) => setStudentID(value)}
-					defaultValue={studentID}
+					inputChangeListener={(value: string) => setChangedStudentID(value)}
+					defaultValue={changedStudentID}
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 

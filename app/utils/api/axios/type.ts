@@ -48,3 +48,9 @@ export type IGetReservationData = (IReservationDefaultData &
 
 export type IPostReservationData = IReservationDefaultData &
 	IReservationPostingDataByDay;
+
+export type IPatchUserInfo = {
+	userName: string;
+	major: string;
+	studentId: number;
+};
