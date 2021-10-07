@@ -12,7 +12,7 @@ import {
 	widthPercentage,
 	color,
 	customBtnType,
-	userSignIn,
+	postUserSignIn,
 	updateAuthToken,
 	getUserInfo,
 	useUserInfo,
@@ -122,7 +122,7 @@ export function SignIn() {
 
 	const { execute: signInBtnClickListener, loading: isSigningIn } =
 		useAsyncCallback(async () => {
-			const isError = await userSignIn(id, pw)
+			const isError = await postUserSignIn(id, pw)
 				.then(({ data: signInData }) => {
 					const { accessToken } = signInData;
 

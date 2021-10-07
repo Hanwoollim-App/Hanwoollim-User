@@ -14,7 +14,7 @@ export const baseAxios = axios.create({
 
 baseAxios.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const userSignIn = (
+export const postUserSignIn = (
 	id: string,
 	password: string,
 ): Promise<AxiosResponse<ISignInDataType>> => {
@@ -28,7 +28,7 @@ export const updateAuthToken = (accessToken: string): void => {
 	baseAxios.defaults.headers.common['x-access-token'] = accessToken;
 };
 
-export const userSignUp = (
+export const postUserSignUp = (
 	id: string,
 	password: string,
 	userName: string,
@@ -64,7 +64,7 @@ export const patchUserInfo = (
 	});
 };
 
-export const executeUser = (): Promise<AxiosResponse<IGetUserInfoType>> => {
+export const postUserInfo = (): Promise<AxiosResponse<IGetUserInfoType>> => {
 	return baseAxios.post('/user/info', {
 		execute: 1,
 	});

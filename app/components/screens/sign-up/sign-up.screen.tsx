@@ -15,7 +15,7 @@ import {
 	SIGN_UP_COMPONENT_TEXT,
 	majorItem,
 	customBtnType,
-	userSignUp,
+	postUserSignUp,
 } from '../../../utils';
 import { ScreenWrapper, Modal, ICTAButton } from '../../layout';
 import { SignUpForm } from './components';
@@ -177,7 +177,7 @@ export function SignUp() {
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
 	const signUpBtnClickListener = () => {
-		userSignUp(id, pw, name, major, studentID)
+		postUserSignUp(id, pw, name, major, studentID)
 			.then(() => {
 				navigation.navigate('SignIn');
 			})
