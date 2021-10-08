@@ -1,25 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
 	NavigationProp,
 	ParamListBase,
-	useFocusEffect,
 	useNavigation,
 } from '@react-navigation/native';
 import {
 	fontPercentage,
 	trimmingText,
 	blockStyles,
-	IGetReservationData,
-	getReservation,
-	weekItems,
 	EDay,
 	IReservationGivenDataByDay,
 } from '../../../../utils';
 import isUndefined from 'lodash/isUndefined';
-import { ItemType } from 'react-native-dropdown-picker';
+import { LoadingPage } from '../../../layout';
+import { convertNumTimeToStringTime } from '../../reservation/reservation-time-table/components/time-table.data';
 
 const styles = StyleSheet.create({
 	reservation: {
@@ -48,51 +45,55 @@ const styles = StyleSheet.create({
 	},
 });
 
-const dayMappingEMap = {
-	0: EDay.SUN,
-	1: EDay.MON,
-	2: EDay.TUE,
-	3: EDay.WEN,
-	4: EDay.THUR,
-	5: EDay.FRI,
-	6: EDay.SAT,
+const convertReservationDataToDescription = (
+	data: IReservationGivenDataByDay,
+) => {
+	const startTime = convertNumTimeToStringTime(data.startTime);
+	const endTime = convertNumTimeToStringTime(data.endTime);
+
+	return `${startTime}-${endTime} ${data.name} (${data.session1})`;
 };
 
-const convertCurrentDayReservationData = (data: IGetReservationData) => {
-	const currentDay = dayMappingEMap[new Date().getDay()];
-	const currentDayData = data[0]?.[currentDay];
-
-	return currentDayData;
+type ITodayReservation = {
+	todayReservationData: IReservationGivenDataByDay[];
+	isLoading: boolean;
 };
 
-export function TodayReservation() {
+export function TodayReservation({
+	todayReservationData,
+	isLoading,
+}: ITodayReservation) {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const currentWeekDate = weekItems[0].value as string;
-	const [todayReservationData, setTodayReservationData] = useState<
-		IReservationGivenDataByDay[]
-	>([]);
 
-	const tempReservation: Array<string> = [
-		'03:00-04:00 안재훈 팀 합주',
-		'13:00-14:00 한인권 개인 연습 (드럼) , 이원기 개인 연습(보컬), 조성현 개인 연습(기타)',
-		'15:00-16:00 이호직 개인 연습 (보컬)',
-	];
-
-	useFocusEffect(
-		useCallback(() => {
-			(async () => {
-				const { data } = await getReservation(currentWeekDate);
-
-				setTodayReservationData(convertCurrentDayReservationData(data));
-			})();
-		}, [setTodayReservationData]),
-	);
 	const isEmpty: boolean =
 		isUndefined(todayReservationData) || todayReservationData.length === 0;
 
 	const titleBtnListener: () => void = () => {
 		navigation.navigate('ReservingTimeTable');
 	};
+
+	const renderContent = () => (
+		<View style={blockStyles.contents}>
+			{isEmpty ? (
+				<Text style={styles.noReservation}>오늘 예약된 시간이 없습니다</Text>
+			) : (
+				<>
+					{todayReservationData.map((value) => (
+						<View style={styles.reservation} key={value.startTime}>
+							<Text style={styles.reservationText}>
+								{trimmingText(convertReservationDataToDescription(value), 35)}
+							</Text>
+						</View>
+					))}
+					{todayReservationData.length > 3 && (
+						<Text style={styles.reservationText}>
+							{`외 ${todayReservationData.length - 3}개의 예약이 있습니다.`}
+						</Text>
+					)}
+				</>
+			)}
+		</View>
+	);
 
 	return (
 		<View style={blockStyles.root}>
@@ -110,26 +111,7 @@ export function TodayReservation() {
 					/>
 				</TouchableOpacity>
 			</View>
-			<View style={blockStyles.contents}>
-				{isEmpty ? (
-					<Text style={styles.noReservation}>오늘 예약된 시간이 없습니다</Text>
-				) : (
-					<>
-						{tempReservation.map((value) => (
-							<View style={styles.reservation} key={value}>
-								<Text style={styles.reservationText}>
-									{trimmingText(value, 35)}
-								</Text>
-							</View>
-						))}
-						{todayReservationData.length > 3 && (
-							<Text style={styles.reservationText}>
-								{`외 ${todayReservationData.length - 3}개의 예약이 있습니다.`}
-							</Text>
-						)}
-					</>
-				)}
-			</View>
+			{isLoading ? <LoadingPage /> : renderContent()}
 		</View>
 	);
 }

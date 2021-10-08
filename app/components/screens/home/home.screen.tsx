@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import {
 	StyleSheet,
 	BackHandler,
@@ -9,19 +9,23 @@ import {
 import {
 	NavigationProp,
 	ParamListBase,
+	useFocusEffect,
 	useNavigation,
 } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useAndroidBackHandler } from 'react-navigation-backhandler';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { useAsyncCallback } from 'react-async-hook';
 import {
 	fontPercentage,
+	getReservation,
 	heightPercentage,
+	IReservationGivenDataByDay,
 	UserInfoContext,
-	widthPercentage,
 } from '../../../utils';
-import { LoadingPage, ScreenWrapper } from '../../layout';
+import { ScreenWrapper } from '../../layout';
 import { Notice, TodayReservation, MyReservation } from './components';
+import { currentWeekDate, convertCurrentDayReservationData } from './home.data';
 
 const styles = StyleSheet.create({
 	title: {
@@ -59,8 +63,11 @@ const settingIcon = (
 	/>
 );
 
-type IHome = { isLoading: boolean };
-export function Home({ isLoading }: IHome) {
+export function Home() {
+	const [todayReservationData, setTodayReservationData] = useState<
+		IReservationGivenDataByDay[]
+	>([]);
+
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
 		return true;
@@ -72,13 +79,21 @@ export function Home({ isLoading }: IHome) {
 	};
 	const { user } = useContext(UserInfoContext);
 
-	if (isLoading)
-		return (
-			<View
-				style={{ width: widthPercentage(340), height: heightPercentage(600) }}>
-				<LoadingPage />
-			</View>
-		);
+	const {
+		execute: handleGettingTodayReservation,
+		loading: isGettingTodayReservation,
+	} = useAsyncCallback(async () => {
+		const { data } = await getReservation(currentWeekDate);
+
+		setTodayReservationData(convertCurrentDayReservationData(data));
+	});
+
+	useFocusEffect(
+		useCallback(() => {
+			(async () => handleGettingTodayReservation())();
+		}, [setTodayReservationData]),
+	);
+
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
@@ -90,7 +105,10 @@ export function Home({ isLoading }: IHome) {
 				</TouchableOpacity>
 			</View>
 			<Notice />
-			<TodayReservation />
+			<TodayReservation
+				todayReservationData={todayReservationData}
+				isLoading={isGettingTodayReservation}
+			/>
 			<MyReservation />
 		</ScreenWrapper>
 	);
