@@ -15,6 +15,7 @@ import {
 	IGetReservationData,
 	getReservation,
 	weekItems,
+	EDay,
 } from '../../../../utils';
 import { ItemType } from 'react-native-dropdown-picker';
 
@@ -55,11 +56,7 @@ export function TodayReservation() {
 	const todayWeek = today.getDay();
 
 	console.log(todayWeek);
-	const weekValue = startDates[1].value;
-	// const findStartDate = () =>
-	// 	startDates.filter((startDate) => startDate.value === targetDateValue)[0]
-	// 		.value;
-	// const targetStartDate = findStartDate();
+	const weekValue = startDates[0].value;
 
 	const tempReservation: Array<string> = [
 		'03:00-04:00 안재훈 팀 합주',
@@ -77,7 +74,6 @@ export function TodayReservation() {
 		}, []),
 	);
 	console.log(reservationData);
-
 	const isEmpty: boolean = tempReservation.length === 0;
 
 	const titleBtnListener: () => void = () => {
