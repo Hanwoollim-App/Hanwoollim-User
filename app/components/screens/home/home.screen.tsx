@@ -18,8 +18,9 @@ import {
 	fontPercentage,
 	heightPercentage,
 	UserInfoContext,
+	widthPercentage,
 } from '../../../utils';
-import { ScreenWrapper } from '../../layout';
+import { LoadingPage, ScreenWrapper } from '../../layout';
 import { Notice, TodayReservation, MyReservation } from './components';
 
 const styles = StyleSheet.create({
@@ -58,7 +59,8 @@ const settingIcon = (
 	/>
 );
 
-export function Home() {
+type IHome = { isLoading: boolean };
+export function Home({ isLoading }: IHome) {
 	useAndroidBackHandler(() => {
 		BackHandler.exitApp();
 		return true;
@@ -70,6 +72,13 @@ export function Home() {
 	};
 	const { user } = useContext(UserInfoContext);
 
+	if (isLoading)
+		return (
+			<View
+				style={{ width: widthPercentage(340), height: heightPercentage(600) }}>
+				<LoadingPage />
+			</View>
+		);
 	return (
 		<ScreenWrapper>
 			<View style={styles.title}>
