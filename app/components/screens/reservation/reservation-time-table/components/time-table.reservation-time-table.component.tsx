@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 });
 
 type ITimeTableProps = {
-	startDate?: string;
+	startDate: string;
 	reservationData: IReservationGettingDataByDay;
 	isLoading: boolean;
 };
@@ -208,7 +208,10 @@ export function TimeTable({
 
 		const deleteButton: ICTAButton = {
 			buttonText: '예약 삭제',
-			buttonClickListener: async () => handleDeleteReservation(),
+			buttonClickListener: async () => {
+				await handleDeleteReservation();
+				handleModalInVisible();
+			},
 		};
 
 		if (modalValue.isMine) {
