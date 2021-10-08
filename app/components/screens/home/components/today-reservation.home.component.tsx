@@ -16,7 +16,9 @@ import {
 	getReservation,
 	weekItems,
 	EDay,
+	IReservationGivenDataByDay,
 } from '../../../../utils';
+import isUndefined from 'lodash/isUndefined';
 import { ItemType } from 'react-native-dropdown-picker';
 
 const styles = StyleSheet.create({
@@ -46,17 +48,29 @@ const styles = StyleSheet.create({
 	},
 });
 
+const dayMappingEMap = {
+	0: EDay.SUN,
+	1: EDay.MON,
+	2: EDay.TUE,
+	3: EDay.WEN,
+	4: EDay.THUR,
+	5: EDay.FRI,
+	6: EDay.SAT,
+};
+
+const convertCurrentDayReservationData = (data: IGetReservationData) => {
+	const currentDay = dayMappingEMap[new Date().getDay()];
+	const currentDayData = data[0]?.[currentDay];
+
+	return currentDayData;
+};
+
 export function TodayReservation() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
-	// const [targetDateValue, setTargetDateValue] = useState<string | null>(null);
-	const [reservationData, setReservationData] = useState(null);
-
-	const today = new Date();
-	const todayWeek = today.getDay();
-
-	console.log(todayWeek);
-	const weekValue = startDates[0].value;
+	const currentWeekDate = weekItems[0].value as string;
+	const [todayReservationData, setTodayReservationData] = useState<
+		IReservationGivenDataByDay[]
+	>([]);
 
 	const tempReservation: Array<string> = [
 		'03:00-04:00 안재훈 팀 합주',
@@ -67,14 +81,14 @@ export function TodayReservation() {
 	useFocusEffect(
 		useCallback(() => {
 			(async () => {
-				const { data } = await getReservation(weekValue as string);
+				const { data } = await getReservation(currentWeekDate);
 
-				setReservationData(data);
+				setTodayReservationData(convertCurrentDayReservationData(data));
 			})();
-		}, []),
+		}, [setTodayReservationData]),
 	);
-	console.log(reservationData);
-	const isEmpty: boolean = tempReservation.length === 0;
+	const isEmpty: boolean =
+		isUndefined(todayReservationData) || todayReservationData.length === 0;
 
 	const titleBtnListener: () => void = () => {
 		navigation.navigate('ReservingTimeTable');
@@ -97,17 +111,24 @@ export function TodayReservation() {
 				</TouchableOpacity>
 			</View>
 			<View style={blockStyles.contents}>
-				{(isEmpty && (
+				{isEmpty ? (
 					<Text style={styles.noReservation}>오늘 예약된 시간이 없습니다</Text>
-				)) ||
-					tempReservation.map((value) => (
-						<View style={styles.reservation} key={value}>
+				) : (
+					<>
+						{tempReservation.map((value) => (
+							<View style={styles.reservation} key={value}>
+								<Text style={styles.reservationText}>
+									{trimmingText(value, 35)}
+								</Text>
+							</View>
+						))}
+						{todayReservationData.length > 3 && (
 							<Text style={styles.reservationText}>
-								{trimmingText(value, 35)}
+								{`외 ${todayReservationData.length - 3}개의 예약이 있습니다.`}
 							</Text>
-						</View>
-					))}
-				<Text style={styles.reservationText}>외 3개의 예약이 있습니다.</Text>
+						)}
+					</>
+				)}
 			</View>
 		</View>
 	);
