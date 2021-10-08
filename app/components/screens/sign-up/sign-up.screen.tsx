@@ -19,6 +19,7 @@ import {
 } from '../../../utils';
 import { ScreenWrapper, Modal, CTAButton } from '../../layout';
 import { SignUpForm } from './components';
+import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -176,59 +177,61 @@ export function SignUp() {
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 
-	const signUpBtnClickListener = () => {
-		postUserSignUp(id, pw, name, major, studentID)
-			.then(() => {
-				navigation.navigate('SignIn');
-			})
-			.catch((err) => {
-				const errorMessage = err.response.data.message;
+	const { execute: signUpBtnClickListener, loading: isSigningUp } =
+		useAsyncCallback(async () => {
+			postUserSignUp(id, pw, name, major, studentID)
+				.then(() => {
+					navigation.navigate('SignIn');
+				})
+				.catch((err) => {
+					const errorMessage = err.response.data.message;
 
-				if (err.response.status === 400) {
-					if (errorMessage.startsWith('Failed! ID is already in use!')) {
-						openErrorModal('아이디가 중복됩니다');
-						return;
+					if (err.response.status === 400) {
+						if (errorMessage.startsWith('Failed! ID is already in use!')) {
+							openErrorModal('아이디가 중복됩니다');
+							return;
+						}
+						if (
+							errorMessage.startsWith('Failed! Student Id is already in use!')
+						) {
+							openErrorModal('학번이 중복됩니다');
+							return;
+						}
+						if (errorMessage.startsWith('아이디 입력하세요')) {
+							openErrorModal('아이디를 입력하세요');
+							return;
+						}
+						if (errorMessage.startsWith('이름을 입력하세요')) {
+							openErrorModal('이름을 입력하세요');
+							return;
+						}
+						if (errorMessage.startsWith('전공을 입력하세요')) {
+							openErrorModal('전공을 입력하세요');
+							return;
+						}
+						if (errorMessage.startsWith('비밀번호를 입력하세요')) {
+							openErrorModal('비밀번호를 입력하세요');
+							return;
+						}
+						if (errorMessage.startsWith('학번를 입력하세요')) {
+							openErrorModal('학번을 입력하세요');
+							return;
+						}
+						if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
+							openErrorModal('학번은 10자리입니다.');
+							return;
+						}
 					}
-					if (
-						errorMessage.startsWith('Failed! Student Id is already in use!')
-					) {
-						openErrorModal('학번이 중복됩니다');
-						return;
+					if (pwCheck !== pw) {
+						openErrorModal('비밀번호가 다릅니다');
 					}
-					if (errorMessage.startsWith('아이디 입력하세요')) {
-						openErrorModal('아이디를 입력하세요');
-						return;
-					}
-					if (errorMessage.startsWith('이름을 입력하세요')) {
-						openErrorModal('이름을 입력하세요');
-						return;
-					}
-					if (errorMessage.startsWith('전공을 입력하세요')) {
-						openErrorModal('전공을 입력하세요');
-						return;
-					}
-					if (errorMessage.startsWith('비밀번호를 입력하세요')) {
-						openErrorModal('비밀번호를 입력하세요');
-						return;
-					}
-					if (errorMessage.startsWith('학번를 입력하세요')) {
-						openErrorModal('학번을 입력하세요');
-						return;
-					}
-					if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
-						openErrorModal('학번은 10자리입니다.');
-						return;
-					}
-				}
-				if (pwCheck !== pw) {
-					openErrorModal('비밀번호가 다릅니다');
-				}
-			});
-	};
+				});
+		});
 
 	return (
 		<ScreenWrapper>
 			<Modal
+				isLoading={isSigningUp}
 				mdVisible={modalValue.isVisible}
 				title={modalValue.text}
 				buttonList={modalBtn}
