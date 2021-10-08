@@ -10,7 +10,7 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-	customBtnType,
+	ICTAButton,
 	useUserInfo,
 	getUserInfo,
 	postUserInfo,
@@ -103,7 +103,7 @@ export function MyPage() {
 		navigation.navigate('infoEdit');
 	};
 
-	const modalBtn: Array<customBtnType> = [
+	const modalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '네',
 			buttonClickListener: returnToLogin,

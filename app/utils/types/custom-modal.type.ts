@@ -1,9 +1,9 @@
-export type customBtnType = {
+export type ICTAButton = {
 	buttonText: string;
 	buttonClickListener: Function;
 };
 
-export type customModalValueType = {
+export type IModalValue = {
 	isVisible: boolean;
 	text: string;
 };

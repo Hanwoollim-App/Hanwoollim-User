@@ -15,7 +15,7 @@ import {
 	color,
 	majorItem,
 	SIGN_UP_COMPONENT_TEXT,
-	customBtnType,
+	ICTAButton,
 	useUserInfo,
 	IUserInfoType,
 	patchUserInfo,
@@ -161,7 +161,7 @@ export function InfoEdit() {
 			isVisible: false,
 		}));
 	};
-	const errModalBtn: Array<customBtnType> = [
+	const errModalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: errorModal,

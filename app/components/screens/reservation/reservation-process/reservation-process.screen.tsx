@@ -14,11 +14,11 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-	customBtnType,
+	ICTAButton,
 	color,
 	postReservation,
 	EDay,
-	customModalValueType,
+	IModalValue,
 } from '../../../../utils';
 import { IReservationNavigatorParamList } from '../../../navigator';
 import { useAsyncCallback } from 'react-async-hook';
@@ -213,7 +213,7 @@ export function ReservationProcess({
 	navigation,
 	route,
 }: IReservationProcessProp) {
-	const [modalValue, setModalValue] = useState<customModalValueType>({
+	const [modalValue, setModalValue] = useState<IModalValue>({
 		isVisible: false,
 		text: '',
 	});
@@ -253,7 +253,7 @@ export function ReservationProcess({
 			text: successText,
 		});
 
-	const successModalBtn: Array<customBtnType> = [
+	const successModalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: handleModalButton,

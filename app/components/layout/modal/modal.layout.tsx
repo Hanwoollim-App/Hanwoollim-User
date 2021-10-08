@@ -8,7 +8,7 @@ import {
 	heightPercentage,
 	widthPercentage,
 	color,
-	customBtnType,
+	ICTAButton,
 } from '../../../utils';
 
 const styles = StyleSheet.create({
@@ -168,7 +168,7 @@ type ICustomModalProp = {
 	mdVisible: boolean;
 	title: string;
 	subtitle?: string;
-	buttonList: Array<customBtnType>;
+	buttonList: Array<ICTAButton>;
 };
 
 export function Modal({
@@ -178,7 +178,7 @@ export function Modal({
 	subtitle = '',
 	buttonList,
 }: ICustomModalProp) {
-	const [last, second, ...first]: Array<customBtnType | undefined> = [
+	const [last, second, ...first]: Array<ICTAButton | undefined> = [
 		...buttonList,
 	].reverse();
 

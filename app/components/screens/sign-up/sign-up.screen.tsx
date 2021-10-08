@@ -14,7 +14,7 @@ import {
 	color,
 	SIGN_UP_COMPONENT_TEXT,
 	majorItem,
-	customBtnType,
+	ICTAButton,
 	postUserSignUp,
 } from '../../../utils';
 import { ScreenWrapper, Modal, ICTAButton } from '../../layout';
@@ -152,7 +152,7 @@ export function SignUp() {
 			isVisible: false,
 		}));
 	};
-	const modalBtn: Array<customBtnType> = [
+	const modalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: returnToSignUp,

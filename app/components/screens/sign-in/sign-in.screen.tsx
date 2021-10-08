@@ -11,12 +11,12 @@ import {
 	heightPercentage,
 	widthPercentage,
 	color,
-	customBtnType,
+	ICTAButton,
 	postUserSignIn,
 	updateAuthToken,
 	getUserInfo,
 	useUserInfo,
-	customModalValueType,
+	IModalValue,
 } from '../../../utils';
 import { SignInForm } from './components';
 import { ICTAButton, StatusBar, Modal } from '../../layout';
@@ -94,7 +94,7 @@ export function SignIn() {
 	const [pw, setPw] = useState<string>('');
 	const { setUser } = useUserInfo();
 
-	const [modalValue, setModalValue] = useState<customModalValueType>({
+	const [modalValue, setModalValue] = useState<IModalValue>({
 		isVisible: false,
 		text: '',
 	});
@@ -113,7 +113,7 @@ export function SignIn() {
 		});
 	};
 
-	const modalBtn: Array<customBtnType> = [
+	const modalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: returnToSignIn,
