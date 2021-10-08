@@ -17,7 +17,7 @@ import {
 	ICTAButton,
 	postUserSignUp,
 } from '../../../utils';
-import { ScreenWrapper, Modal, ICTAButton } from '../../layout';
+import { ScreenWrapper, Modal, CTAButton } from '../../layout';
 import { SignUpForm } from './components';
 
 const styles = StyleSheet.create({
@@ -278,7 +278,7 @@ export function SignUp() {
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
-				<ICTAButton
+				<CTAButton
 					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
 					onClickListener={signUpBtnClickListener}
 					btnStyle={styles.signUp}

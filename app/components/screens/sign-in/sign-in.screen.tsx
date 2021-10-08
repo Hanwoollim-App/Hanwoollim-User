@@ -19,7 +19,7 @@ import {
 	IModalValue,
 } from '../../../utils';
 import { SignInForm } from './components';
-import { ICTAButton, StatusBar, Modal } from '../../layout';
+import { CTAButton, StatusBar, Modal } from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
 
@@ -206,7 +206,7 @@ export function SignIn() {
 						defaultValue={pw}
 						isSecureInput
 					/>
-					<ICTAButton
+					<CTAButton
 						title={'로그인'}
 						titleStyle={styles.btnTextStyle}
 						btnStyle={styles.btnStyle}

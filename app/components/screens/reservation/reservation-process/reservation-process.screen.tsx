@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
+import { CTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
 	dayItems,
 	PROCESS_TEXT,
@@ -399,7 +399,7 @@ export function ReservationProcess({
 						/>
 					</View>
 					<View style={styles.submit}>
-						<ICTAButton
+						<CTAButton
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}

@@ -7,10 +7,8 @@ import {
 	fontPercentage,
 	color,
 	ICTAButton,
-	convertOneDigitToTwoDigit,
 	IReservationGettingDataByDay,
 	IModalValue,
-	IReservationGivenDataByDay,
 } from '../../../../../utils';
 import { Modal, LoadingPage } from '../../../../layout';
 import {
@@ -20,7 +18,6 @@ import {
 	xPosGenerator,
 	times,
 	week,
-	convertNumTimeToStringTime,
 	convertReservationDataFormat,
 } from './time-table.data';
 
@@ -97,13 +94,14 @@ type ITimeTableProps = {
 };
 
 export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
-	const [modalValue, setModalValue] = useState<IModalValue & { title: string }>(
-		{
-			isVisible: false,
-			title: '',
-			text: '',
-		},
-	);
+	const [modalValue, setModalValue] = useState<
+		IModalValue & { title: string; isMine: boolean }
+	>({
+		isVisible: false,
+		isMine: false,
+		title: '',
+		text: '',
+	});
 
 	const schedule = [
 		!isUndefined(reservationData.MON)
@@ -157,11 +155,12 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 			: [],
 	];
 
-	const handleModalVisible = (title: string, text: string) =>
+	const handleModalVisible = (title: string, text: string, isMine: boolean) =>
 		setModalValue({
 			isVisible: true,
 			text,
 			title,
+			isMine,
 		});
 
 	const handleModalInVisible = () => {
@@ -170,12 +169,23 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 			isVisible: false,
 		}));
 	};
-	const mdBtn: Array<ICTAButton> = [
-		{
+
+	const renderModalButtons = (): Array<ICTAButton> => {
+		const confirmButton: ICTAButton = {
 			buttonText: '확인',
 			buttonClickListener: handleModalInVisible,
-		},
-	];
+		};
+
+		const deleteButton: ICTAButton = {
+			buttonText: '삭제',
+			buttonClickListener: () => console.log('삭제하자!'),
+		};
+
+		if (modalValue.isMine) {
+			return [confirmButton, deleteButton];
+		}
+		return [confirmButton];
+	};
 
 	if (isLoading)
 		return (
@@ -190,7 +200,7 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 				mdVisible={modalValue.isVisible}
 				title={modalValue.title}
 				subtitle={modalValue.text}
-				buttonList={mdBtn}
+				buttonList={renderModalButtons()}
 			/>
 			<View style={styles.dayColumns}>
 				<View style={styles.cornerBox} />
@@ -214,7 +224,9 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 				day.map((reserve, k) => (
 					<TouchableOpacity
 						key={reserve.startTime}
-						onPress={() => handleModalVisible(reserve.name, reserve.session1)}
+						onPress={() =>
+							handleModalVisible(reserve.name, reserve.session1, reserve.isMine)
+						}
 						style={[
 							styles.reserveBox,
 							{
