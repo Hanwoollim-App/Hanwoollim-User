@@ -1,5 +1,6 @@
 import isUndefined from 'lodash/isUndefined';
 import React, { useState } from 'react';
+import { useAsyncCallback } from 'react-async-hook';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {
 	heightPercentage,
@@ -9,6 +10,9 @@ import {
 	ICTAButton,
 	IReservationGettingDataByDay,
 	IModalValue,
+	deleteReservation,
+	IReservationType,
+	EDay,
 } from '../../../../../utils';
 import { Modal, LoadingPage } from '../../../../layout';
 import {
@@ -89,11 +93,16 @@ const styles = StyleSheet.create({
 });
 
 type ITimeTableProps = {
+	startDate: string;
 	reservationData: IReservationGettingDataByDay;
 	isLoading: boolean;
 };
 
-export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
+export function TimeTable({
+	startDate,
+	isLoading,
+	reservationData,
+}: ITimeTableProps) {
 	const [modalValue, setModalValue] = useState<
 		IModalValue & { title: string; isMine: boolean }
 	>({
@@ -102,54 +111,61 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 		title: '',
 		text: '',
 	});
+	const [selectedReservation, setSelectedReservation] = useState<{
+		day: EDay;
+		startTime: string;
+	}>({
+		day: undefined,
+		startTime: '',
+	});
 
 	const schedule = [
 		!isUndefined(reservationData.MON)
 			? [
 					...reservationData.MON.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.MON),
 					),
 			  ]
 			: [],
 		!isUndefined(reservationData.TUE)
 			? [
 					...reservationData.TUE.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.TUE),
 					),
 			  ]
 			: [],
 		!isUndefined(reservationData.WEN)
 			? [
 					...reservationData?.WEN.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.WEN),
 					),
 			  ]
 			: [],
 		!isUndefined(reservationData.THUR)
 			? [
 					...reservationData.THUR.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.THUR),
 					),
 			  ]
 			: [],
 		!isUndefined(reservationData.FRI)
 			? [
 					...reservationData.FRI.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.FRI),
 					),
 			  ]
 			: [],
 		!isUndefined(reservationData.SAT)
 			? [
 					...reservationData.SAT.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.SAT),
 					),
 			  ]
 			: [],
 		!isUndefined(reservationData.SUN)
 			? [
 					...reservationData.SUN.map((data) =>
-						convertReservationDataFormat(data),
+						convertReservationDataFormat(data, EDay.SUN),
 					),
 			  ]
 			: [],
@@ -170,6 +186,20 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 		}));
 	};
 
+	const { execute: handleDeleteReservation, loading: isDeletingReservation } =
+		useAsyncCallback(async () => {
+			try {
+				await deleteReservation(
+					startDate,
+					'Personal',
+					selectedReservation.day,
+					selectedReservation.startTime,
+				);
+			} catch (err) {
+				console.log(err.response);
+			}
+		});
+
 	const renderModalButtons = (): Array<ICTAButton> => {
 		const confirmButton: ICTAButton = {
 			buttonText: '확인',
@@ -177,8 +207,11 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 		};
 
 		const deleteButton: ICTAButton = {
-			buttonText: '삭제',
-			buttonClickListener: () => console.log('삭제하자!'),
+			buttonText: '예약 삭제',
+			buttonClickListener: async () => {
+				await handleDeleteReservation();
+				handleModalInVisible();
+			},
 		};
 
 		if (modalValue.isMine) {
@@ -197,6 +230,7 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 	return (
 		<View style={styles.timeTable}>
 			<Modal
+				isLoading={isDeletingReservation}
 				mdVisible={modalValue.isVisible}
 				title={modalValue.title}
 				subtitle={modalValue.text}
@@ -224,9 +258,17 @@ export function TimeTable({ isLoading, reservationData }: ITimeTableProps) {
 				day.map((reserve, k) => (
 					<TouchableOpacity
 						key={reserve.startTime}
-						onPress={() =>
-							handleModalVisible(reserve.name, reserve.session1, reserve.isMine)
-						}
+						onPress={() => {
+							handleModalVisible(
+								reserve.name,
+								reserve.session1,
+								reserve.isMine,
+							);
+							setSelectedReservation({
+								day: reserve.day,
+								startTime: reserve.startTime,
+							});
+						}}
 						style={[
 							styles.reserveBox,
 							{
