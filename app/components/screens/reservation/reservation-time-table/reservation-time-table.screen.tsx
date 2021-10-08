@@ -107,7 +107,9 @@ export function ReservationTimeTable() {
 
 	const findStartDate = () =>
 		startDates.filter((startDate) => startDate.value === targetDateValue)[0]
-			.value;
+			.value as string;
+
+	const targetStartDate = findStartDate();
 
 	const reserveBtnListener = () => {
 		if (isNull(targetDateValue)) {
@@ -116,8 +118,6 @@ export function ReservationTimeTable() {
 		const weekName = weekItems.filter(
 			(item) => item.value === targetDateValue,
 		)[0];
-
-		const targetStartDate = findStartDate();
 
 		navigation.navigate('ReservationProcess', {
 			weekName,
@@ -132,7 +132,6 @@ export function ReservationTimeTable() {
 		if (isNull(targetDateValue)) {
 			return;
 		}
-		const targetStartDate = findStartDate();
 
 		try {
 			const { data } = await getReservation(targetStartDate as string);
@@ -181,6 +180,7 @@ export function ReservationTimeTable() {
 			<ScrollView>
 				{targetDateValue && reservationData && (
 					<TimeTable
+						startDate={targetStartDate}
 						isLoading={isUpdatingReservationData}
 						reservationData={reservationData}
 					/>

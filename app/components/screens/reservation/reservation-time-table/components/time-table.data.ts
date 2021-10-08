@@ -3,6 +3,7 @@ import {
 	heightPercentage,
 	convertOneDigitToTwoDigit,
 	IReservationGivenDataByDay,
+	EDay,
 } from '../../../../../utils';
 
 export const generateTimes = (startTime: number, endTime: number) => {
@@ -83,10 +84,12 @@ export const convertNumTimeToStringTime = (numTime: number) =>
 
 export const convertReservationDataFormat = (
 	givenData: IReservationGivenDataByDay,
+	day: EDay,
 ) => ({
 	isMine: givenData.isMine,
 	name: givenData.name,
 	startTime: convertNumTimeToStringTime(givenData.startTime),
 	endTime: convertNumTimeToStringTime(givenData.endTime),
 	session1: givenData.session1,
+	day,
 });
