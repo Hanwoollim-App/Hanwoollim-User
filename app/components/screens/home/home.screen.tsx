@@ -22,6 +22,7 @@ import {
 	heightPercentage,
 	IReservationGivenDataByDay,
 	UserInfoContext,
+	widthPercentage,
 } from '../../../utils';
 import { ScreenWrapper } from '../../layout';
 import { Notice, TodayReservation, MyReservation } from './components';
@@ -30,6 +31,7 @@ import { currentWeekDate, convertCurrentDayReservationData } from './home.data';
 const styles = StyleSheet.create({
 	title: {
 		height: heightPercentage(65),
+		paddingHorizontal: widthPercentage(10),
 		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -50,6 +52,10 @@ const styles = StyleSheet.create({
 		height: heightPercentage(35),
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	contents: {
+		width: '100%',
+		paddingHorizontal: widthPercentage(10),
 	},
 });
 
@@ -104,15 +110,17 @@ export function Home() {
 					{settingIcon}
 				</TouchableOpacity>
 			</View>
-			<Notice />
-			<TodayReservation
-				todayReservationData={todayReservationData}
-				isLoading={isGettingTodayReservation}
-			/>
-			<MyReservation
-				todayReservationData={todayReservationData}
-				isLoading={isGettingTodayReservation}
-			/>
+			<View style={styles.contents}>
+				<Notice />
+				<TodayReservation
+					todayReservationData={todayReservationData}
+					isLoading={isGettingTodayReservation}
+				/>
+				<MyReservation
+					todayReservationData={todayReservationData}
+					isLoading={isGettingTodayReservation}
+				/>
+			</View>
 		</ScreenWrapper>
 	);
 }

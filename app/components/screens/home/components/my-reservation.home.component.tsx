@@ -20,9 +20,6 @@ import { LoadingPage } from '../../../layout';
 import { convertReservationDataToDescription } from '../home.data';
 
 const styles = StyleSheet.create({
-	root: {
-		height: heightPercentage(88),
-	},
 	contents: {
 		flex: 2,
 	},
@@ -98,7 +95,7 @@ export function MyReservation({
 	);
 
 	return (
-		<View style={[blockStyles.root, styles.root]}>
+		<View style={blockStyles.root}>
 			<View style={blockStyles.title}>
 				<Text style={blockStyles.titleText}>나의 연습실 예약 현황</Text>
 				<TouchableOpacity
