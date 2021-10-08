@@ -8,7 +8,7 @@ import {
 	IGetAnnounceMentType,
 } from '../../../../utils';
 import { NoticeItem } from '..';
-import { ScreenWrapper } from '../../../layout';
+import { LoadingPage, ScreenWrapper } from '../../../layout';
 
 const styles = StyleSheet.create({
 	root: {
@@ -70,7 +70,9 @@ const renderSeparator = () => {
 	return <View style={styles.itemSeparator} />;
 };
 
-export function NoticeScreen() {
+type INotice = { isLoading: boolean };
+
+export function NoticeScreen({ isLoading }: INotice) {
 	const [noticeData, setNoticeData] = useState<Array<IGetAnnounceMentType>>();
 
 	useEffect(() => {
@@ -80,7 +82,13 @@ export function NoticeScreen() {
 			setNoticeData(data);
 		})();
 	}, []);
-
+	if (isLoading)
+		return (
+			<View
+				style={{ width: widthPercentage(340), height: heightPercentage(600) }}>
+				<LoadingPage />
+			</View>
+		);
 	return (
 		<ScreenWrapper headerTitle="공지사항">
 			<View style={styles.list}>
