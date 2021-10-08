@@ -92,9 +92,9 @@ export const deleteReservation = (
 	startDate: string,
 	reservationType: IReservationType,
 	day: EDay,
-	startTime: string,
+	startTime: number,
 ) => {
 	return baseAxios.delete(
-		`/user/reservation/${startDate}/${reservationType}/${day}/${startTime}`,
+		`/user/reservation/delete/${startDate}/${reservationType}/${day}/${startTime}`,
 	);
 };

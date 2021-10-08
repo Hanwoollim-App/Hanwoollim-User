@@ -23,6 +23,7 @@ import {
 	times,
 	week,
 	convertReservationDataFormat,
+	convertStringTimeToNumTime,
 } from './time-table.data';
 
 const styles = StyleSheet.create({
@@ -96,12 +97,14 @@ type ITimeTableProps = {
 	startDate: string;
 	reservationData: IReservationGettingDataByDay;
 	isLoading: boolean;
+	onUpdateTimeTable: () => Promise<void>;
 };
 
 export function TimeTable({
 	startDate,
 	isLoading,
 	reservationData,
+	onUpdateTimeTable,
 }: ITimeTableProps) {
 	const [modalValue, setModalValue] = useState<
 		IModalValue & { title: string; isMine: boolean }
@@ -193,7 +196,7 @@ export function TimeTable({
 					startDate,
 					'Personal',
 					selectedReservation.day,
-					selectedReservation.startTime,
+					convertStringTimeToNumTime(selectedReservation.startTime),
 				);
 			} catch (err) {
 				console.log(err.response);
@@ -210,6 +213,7 @@ export function TimeTable({
 			buttonText: '예약 삭제',
 			buttonClickListener: async () => {
 				await handleDeleteReservation();
+				await onUpdateTimeTable();
 				handleModalInVisible();
 			},
 		};

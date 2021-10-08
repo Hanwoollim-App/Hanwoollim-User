@@ -183,6 +183,7 @@ export function ReservationTimeTable() {
 						startDate={findStartDate() ?? ''}
 						isLoading={isUpdatingReservationData}
 						reservationData={reservationData}
+						onUpdateTimeTable={handleUpdateReservationData}
 					/>
 				)}
 			</ScrollView>

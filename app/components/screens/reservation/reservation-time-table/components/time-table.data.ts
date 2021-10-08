@@ -82,6 +82,9 @@ export const colorGenerator = (num: number) => {
 export const convertNumTimeToStringTime = (numTime: number) =>
 	`${convertOneDigitToTwoDigit(numTime.toString(10))}:00`;
 
+export const convertStringTimeToNumTime = (stringTime: string): number =>
+	parseInt(stringTime.split(':')[0], 10);
+
 export const convertReservationDataFormat = (
 	givenData: IReservationGivenDataByDay,
 	day: EDay,
