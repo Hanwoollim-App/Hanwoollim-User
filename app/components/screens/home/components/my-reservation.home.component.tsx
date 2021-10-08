@@ -11,7 +11,6 @@ import isUndefined from 'lodash/isUndefined';
 import { Divider } from 'react-native-paper';
 import {
 	fontPercentage,
-	heightPercentage,
 	trimmingText,
 	blockStyles,
 	IReservationGivenDataByDay,
