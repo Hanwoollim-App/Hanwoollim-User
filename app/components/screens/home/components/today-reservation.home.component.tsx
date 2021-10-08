@@ -78,7 +78,7 @@ export function TodayReservation({
 				<Text style={styles.noReservation}>오늘 예약된 시간이 없습니다</Text>
 			) : (
 				<>
-					{todayReservationData.map((value) => (
+					{todayReservationData.slice(0, 3).map((value) => (
 						<View style={styles.reservation} key={value.startTime}>
 							<Text style={styles.reservationText}>
 								{trimmingText(convertReservationDataToDescription(value), 35)}

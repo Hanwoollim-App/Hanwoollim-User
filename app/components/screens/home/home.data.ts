@@ -1,4 +1,10 @@
-import { EDay, IGetReservationData, weekItems } from '../../../utils';
+import {
+	EDay,
+	IGetReservationData,
+	IReservationGivenDataByDay,
+	weekItems,
+} from '../../../utils';
+import { convertNumTimeToStringTime } from '../reservation/reservation-time-table/components/time-table.data';
 
 export const dayMappingEMap = {
 	0: EDay.SUN,
@@ -15,6 +21,15 @@ export const convertCurrentDayReservationData = (data: IGetReservationData) => {
 	const currentDayData = data[0]?.[currentDay];
 
 	return currentDayData;
+};
+
+export const convertReservationDataToDescription = (
+	data: IReservationGivenDataByDay,
+) => {
+	const startTime = convertNumTimeToStringTime(data.startTime);
+	const endTime = convertNumTimeToStringTime(data.endTime);
+
+	return `${startTime}-${endTime} ${data.name} (${data.session1})`;
 };
 
 export const currentWeekDate = weekItems[0].value as string;

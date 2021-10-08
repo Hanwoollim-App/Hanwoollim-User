@@ -109,7 +109,10 @@ export function Home() {
 				todayReservationData={todayReservationData}
 				isLoading={isGettingTodayReservation}
 			/>
-			<MyReservation />
+			<MyReservation
+				todayReservationData={todayReservationData}
+				isLoading={isGettingTodayReservation}
+			/>
 		</ScreenWrapper>
 	);
 }
