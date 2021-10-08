@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
 	NavigationProp,
 	ParamListBase,
+	useFocusEffect,
 	useNavigation,
 } from '@react-navigation/native';
-import { fontPercentage, trimmingText, blockStyles } from '../../../../utils';
-
-const tempReservation: Array<string> = [
-	'03:00-04:00 안재훈 팀 합주',
-	'13:00-14:00 한인권 개인 연습 (드럼) , 이원기 개인 연습(보컬), 조성현 개인 연습(기타)',
-	'15:00-16:00 이호직 개인 연습 (보컬)',
-];
+import {
+	fontPercentage,
+	trimmingText,
+	blockStyles,
+	IGetReservationData,
+	getReservation,
+	weekItems,
+} from '../../../../utils';
+import { ItemType } from 'react-native-dropdown-picker';
 
 const styles = StyleSheet.create({
 	reservation: {
@@ -44,6 +47,37 @@ const styles = StyleSheet.create({
 
 export function TodayReservation() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+	const [startDates, setStartDates] = useState<Array<ItemType>>(weekItems);
+	// const [targetDateValue, setTargetDateValue] = useState<string | null>(null);
+	const [reservationData, setReservationData] = useState(null);
+
+	const today = new Date();
+	const todayWeek = today.getDay();
+
+	console.log(todayWeek);
+	const weekValue = startDates[1].value;
+	// const findStartDate = () =>
+	// 	startDates.filter((startDate) => startDate.value === targetDateValue)[0]
+	// 		.value;
+	// const targetStartDate = findStartDate();
+
+	const tempReservation: Array<string> = [
+		'03:00-04:00 안재훈 팀 합주',
+		'13:00-14:00 한인권 개인 연습 (드럼) , 이원기 개인 연습(보컬), 조성현 개인 연습(기타)',
+		'15:00-16:00 이호직 개인 연습 (보컬)',
+	];
+
+	useFocusEffect(
+		useCallback(() => {
+			(async () => {
+				const { data } = await getReservation(weekValue as string);
+
+				setReservationData(data);
+			})();
+		}, []),
+	);
+	console.log(reservationData);
+
 	const isEmpty: boolean = tempReservation.length === 0;
 
 	const titleBtnListener: () => void = () => {
