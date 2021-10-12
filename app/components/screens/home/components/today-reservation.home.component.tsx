@@ -96,12 +96,10 @@ export function TodayReservation({
 	);
 
 	return (
-		<View style={blockStyles.root}>
+		<TouchableOpacity style={blockStyles.root} onPress={titleBtnListener}>
 			<View style={blockStyles.title}>
 				<Text style={blockStyles.titleText}>오늘의 연습실 예약 현황</Text>
-				<TouchableOpacity
-					onPress={titleBtnListener}
-					style={blockStyles.titleBtn}>
+				<View style={blockStyles.titleBtn}>
 					<FontAwesomeIcon
 						size={fontPercentage(20)}
 						style={{
@@ -109,9 +107,9 @@ export function TodayReservation({
 						}}
 						icon={faChevronRight}
 					/>
-				</TouchableOpacity>
+				</View>
 			</View>
 			{isLoading ? <LoadingPage /> : renderContent()}
-		</View>
+		</TouchableOpacity>
 	);
 }

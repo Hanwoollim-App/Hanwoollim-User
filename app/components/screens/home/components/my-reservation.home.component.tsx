@@ -94,12 +94,10 @@ export function MyReservation({
 	);
 
 	return (
-		<View style={blockStyles.root}>
+		<TouchableOpacity style={blockStyles.root} onPress={titleBtnListener}>
 			<View style={blockStyles.title}>
 				<Text style={blockStyles.titleText}>나의 연습실 예약 현황</Text>
-				<TouchableOpacity
-					onPress={titleBtnListener}
-					style={blockStyles.titleBtn}>
+				<View style={blockStyles.titleBtn}>
 					<FontAwesomeIcon
 						size={fontPercentage(20)}
 						style={{
@@ -107,9 +105,9 @@ export function MyReservation({
 						}}
 						icon={faChevronRight}
 					/>
-				</TouchableOpacity>
+				</View>
 			</View>
 			{isLoading ? <LoadingPage /> : renderContent()}
-		</View>
+		</TouchableOpacity>
 	);
 }
