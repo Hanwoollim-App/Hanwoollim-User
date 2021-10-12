@@ -278,7 +278,7 @@ export function ReservationProcess({
 				openModal('예약되었습니다!');
 			} catch (err) {
 				setIsErrorOccurring(true);
-				if (day === '') {
+				if (typeof day === 'undefined' || day === '') {
 					openModal('요일을 선택해주세요.');
 					return;
 				}
