@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
 		flex: 2,
 	},
 	reservation: {
-		flex: 1,
 		width: '100%',
 	},
 	reservationText: {

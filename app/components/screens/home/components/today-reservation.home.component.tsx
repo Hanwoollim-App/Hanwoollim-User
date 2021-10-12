@@ -17,10 +17,10 @@ import {
 import isUndefined from 'lodash/isUndefined';
 import { LoadingPage } from '../../../layout';
 import { convertNumTimeToStringTime } from '../../reservation/reservation-time-table/components/time-table.data';
+import { Divider } from 'react-native-paper';
 
 const styles = StyleSheet.create({
 	reservation: {
-		flex: 1,
 		width: '100%',
 	},
 	reservationText: {
@@ -79,11 +79,14 @@ export function TodayReservation({
 			) : (
 				<>
 					{todayReservationData.slice(0, 3).map((value) => (
-						<View style={styles.reservation} key={value.startTime}>
-							<Text style={styles.reservationText}>
-								{trimmingText(convertReservationDataToDescription(value), 35)}
-							</Text>
-						</View>
+						<>
+							<View style={styles.reservation} key={value.startTime}>
+								<Text style={styles.reservationText}>
+									{trimmingText(convertReservationDataToDescription(value), 35)}
+								</Text>
+							</View>
+							<Divider />
+						</>
 					))}
 					{todayReservationData.length > 3 && (
 						<Text style={styles.reservationText}>
