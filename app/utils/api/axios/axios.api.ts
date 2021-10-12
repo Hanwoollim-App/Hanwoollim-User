@@ -85,6 +85,7 @@ export const getReservation = (
 export const postReservation = (
 	data: IPostReservationData,
 ): Promise<AxiosResponse> => {
+	console.log(data);
 	return baseAxios.post('/user/reservation', data);
 };
 
