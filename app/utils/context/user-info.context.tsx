@@ -10,7 +10,6 @@ export type IUserInfoType = {
 	userName: string;
 	major: string;
 	studentId: number;
-	position: string;
 };
 
 export type UserInfoContextType = {
