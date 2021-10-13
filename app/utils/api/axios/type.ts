@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { EDay } from './enum';
 
+export type IReservationType = 'Personal';
+
 export type IGetAnnounceMentType = {
 	id: number;
 	title: string;
@@ -32,7 +34,7 @@ export type IReservationPostingData = {
 
 export type IReservationDefaultData = {
 	startDate: string;
-	reservationType: string;
+	reservationType: IReservationType;
 };
 
 export type IReservationGettingDataByDay = {

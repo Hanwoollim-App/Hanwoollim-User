@@ -8,7 +8,7 @@ type ICTAButtonPropType = {
 	btnStyle: Object;
 };
 
-export function ICTAButton({
+export function CTAButton({
 	title,
 	onClickListener,
 	titleStyle,

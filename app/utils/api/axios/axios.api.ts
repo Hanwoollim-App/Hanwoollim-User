@@ -1,10 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
+import { EDay } from '.';
 import { IUserInfoType as IGetUserInfoType } from './../../context/user-info.context';
 import {
 	IGetAnnounceMentType,
 	IGetReservationData,
 	IPatchUserInfo,
 	IPostReservationData,
+	IReservationType,
 	ISignInDataType,
 } from './type';
 
@@ -83,5 +85,17 @@ export const getReservation = (
 export const postReservation = (
 	data: IPostReservationData,
 ): Promise<AxiosResponse> => {
+	console.log(data);
 	return baseAxios.post('/user/reservation', data);
+};
+
+export const deleteReservation = (
+	startDate: string,
+	reservationType: IReservationType,
+	day: EDay,
+	startTime: number,
+) => {
+	return baseAxios.delete(
+		`/user/reservation/delete/${startDate}/${reservationType}/${day}/${startTime}`,
+	);
 };

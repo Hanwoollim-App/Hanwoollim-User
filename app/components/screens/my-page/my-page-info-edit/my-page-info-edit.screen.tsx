@@ -15,12 +15,12 @@ import {
 	color,
 	majorItem,
 	SIGN_UP_COMPONENT_TEXT,
-	customBtnType,
+	ICTAButton,
 	useUserInfo,
 	IUserInfoType,
 	patchUserInfo,
 } from '../../../../utils';
-import { ScreenWrapper, ICTAButton, Modal } from '../../../layout';
+import { ScreenWrapper, CTAButton, Modal } from '../../../layout';
 import { useAsyncCallback } from 'react-async-hook';
 
 const styles = StyleSheet.create({
@@ -161,7 +161,7 @@ export function InfoEdit() {
 			isVisible: false,
 		}));
 	};
-	const errModalBtn: Array<customBtnType> = [
+	const errModalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: errorModal,
@@ -268,7 +268,7 @@ export function InfoEdit() {
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
-				<ICTAButton
+				<CTAButton
 					title={'정보 수정하기'}
 					onClickListener={handleEditingInfo}
 					btnStyle={styles.signUp}

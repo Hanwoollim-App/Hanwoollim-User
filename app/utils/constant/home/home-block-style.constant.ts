@@ -4,7 +4,6 @@ import { fontPercentage, widthPercentage, heightPercentage } from '../../api';
 export const blockStyles = StyleSheet.create({
 	root: {
 		height: heightPercentage(150),
-		width: '100%',
 		paddingHorizontal: '3.6%',
 		paddingVertical: heightPercentage(13),
 		marginBottom: heightPercentage(17),
@@ -40,6 +39,5 @@ export const blockStyles = StyleSheet.create({
 		paddingTop: heightPercentage(5),
 		flex: 4,
 		width: '100%',
-		justifyContent: 'center',
 	},
 });

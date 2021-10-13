@@ -11,15 +11,15 @@ import {
 	heightPercentage,
 	widthPercentage,
 	color,
-	customBtnType,
+	ICTAButton,
 	postUserSignIn,
 	updateAuthToken,
 	getUserInfo,
 	useUserInfo,
-	customModalValueType,
+	IModalValue,
 } from '../../../utils';
 import { SignInForm } from './components';
-import { ICTAButton, StatusBar, Modal } from '../../layout';
+import { CTAButton, StatusBar, Modal } from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
 
@@ -94,7 +94,7 @@ export function SignIn() {
 	const [pw, setPw] = useState<string>('');
 	const { setUser } = useUserInfo();
 
-	const [modalValue, setModalValue] = useState<customModalValueType>({
+	const [modalValue, setModalValue] = useState<IModalValue>({
 		isVisible: false,
 		text: '',
 	});
@@ -113,7 +113,7 @@ export function SignIn() {
 		});
 	};
 
-	const modalBtn: Array<customBtnType> = [
+	const modalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: returnToSignIn,
@@ -206,7 +206,7 @@ export function SignIn() {
 						defaultValue={pw}
 						isSecureInput
 					/>
-					<ICTAButton
+					<CTAButton
 						title={'로그인'}
 						titleStyle={styles.btnTextStyle}
 						btnStyle={styles.btnStyle}

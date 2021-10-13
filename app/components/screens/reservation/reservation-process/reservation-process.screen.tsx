@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ICTAButton, Modal, ScreenWrapper } from '../../../layout';
+import { CTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
 	dayItems,
 	PROCESS_TEXT,
@@ -14,14 +14,15 @@ import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
-	customBtnType,
+	ICTAButton,
 	color,
 	postReservation,
 	EDay,
-	customModalValueType,
+	IModalValue,
 } from '../../../../utils';
 import { IReservationNavigatorParamList } from '../../../navigator';
 import { useAsyncCallback } from 'react-async-hook';
+import { isEmpty } from 'lodash';
 
 const styles = StyleSheet.create({
 	root: {
@@ -213,11 +214,11 @@ export function ReservationProcess({
 	navigation,
 	route,
 }: IReservationProcessProp) {
-	const [modalValue, setModalValue] = useState<customModalValueType>({
+	const [modalValue, setModalValue] = useState<IModalValue>({
 		isVisible: false,
 		text: '',
 	});
-	const [day, setDay] = useState<EDay>();
+	const [day, setDay] = useState<string>('');
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
@@ -235,8 +236,6 @@ export function ReservationProcess({
 		useState<Array<ItemType>>(sessionItems);
 	const [isErrorOccurring, setIsErrorOccurring] = useState(false);
 
-	const [scrollTime, setscrollTime] = useState<Array<ItemType>>(times);
-
 	const handleModalButton = () => {
 		setModalValue({
 			isVisible: false,
@@ -253,7 +252,7 @@ export function ReservationProcess({
 			text: successText,
 		});
 
-	const successModalBtn: Array<customBtnType> = [
+	const successModalBtn: Array<ICTAButton> = [
 		{
 			buttonText: '확인',
 			buttonClickListener: handleModalButton,
@@ -270,6 +269,7 @@ export function ReservationProcess({
 					startDate,
 					reservationType: 'Personal',
 					[EDay[day]]: {
+						day,
 						startTime: parseInt(time, 10),
 						endTime: parseInt(time, 10) + 1,
 						session1: session as string,
@@ -278,7 +278,10 @@ export function ReservationProcess({
 				openModal('예약되었습니다!');
 			} catch (err) {
 				setIsErrorOccurring(true);
-
+				if (typeof day === 'undefined' || day === '') {
+					openModal('요일을 선택해주세요.');
+					return;
+				}
 				if (unit === '') {
 					openModal('단위를 선택해주세요.');
 					return;
@@ -327,7 +330,7 @@ export function ReservationProcess({
 				</View>
 
 				<View style={styles.contentContainer}>
-					<View style={styles.timeBox}>
+					{/* <View style={styles.timeBox}>
 						<ScrollView horizontal={true}>
 							<View style={styles.alignCenter}>
 								{scrollTime.map((item) => {
@@ -346,7 +349,7 @@ export function ReservationProcess({
 								})}
 							</View>
 						</ScrollView>
-					</View>
+					</View> */}
 					<View style={styles.UnitPicker}>
 						<DropDownPicker
 							open={unitOpen}
@@ -399,7 +402,7 @@ export function ReservationProcess({
 						/>
 					</View>
 					<View style={styles.submit}>
-						<ICTAButton
+						<CTAButton
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}

@@ -2,13 +2,13 @@ import React from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import RNModal from 'react-native-modal';
 import { ActivityIndicator } from 'react-native-paper';
-import { ICTAButton } from '..';
+import { CTAButton } from '../cta-button';
 import {
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
 	color,
-	customBtnType,
+	ICTAButton,
 } from '../../../utils';
 
 const styles = StyleSheet.create({
@@ -168,7 +168,7 @@ type ICustomModalProp = {
 	mdVisible: boolean;
 	title: string;
 	subtitle?: string;
-	buttonList: Array<customBtnType>;
+	buttonList: Array<ICTAButton>;
 };
 
 export function Modal({
@@ -178,7 +178,7 @@ export function Modal({
 	subtitle = '',
 	buttonList,
 }: ICustomModalProp) {
-	const [last, second, ...first]: Array<customBtnType | undefined> = [
+	const [last, second, ...first]: Array<ICTAButton | undefined> = [
 		...buttonList,
 	].reverse();
 
@@ -198,7 +198,7 @@ export function Modal({
 			{first.map((result, i) => {
 				return (
 					result! && (
-						<ICTAButton
+						<CTAButton
 							key={i}
 							title={result.buttonText}
 							onClickListener={result.buttonClickListener}
@@ -209,7 +209,7 @@ export function Modal({
 				);
 			})}
 			{second! && (
-				<ICTAButton
+				<CTAButton
 					title={second.buttonText}
 					onClickListener={second.buttonClickListener}
 					titleStyle={styles.btnListTitle}
@@ -217,7 +217,7 @@ export function Modal({
 				/>
 			)}
 			{last! && (
-				<ICTAButton
+				<CTAButton
 					title={last.buttonText}
 					onClickListener={last.buttonClickListener}
 					titleStyle={styles.blueLastBtnTitle}
