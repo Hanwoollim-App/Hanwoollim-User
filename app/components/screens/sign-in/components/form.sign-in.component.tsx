@@ -9,7 +9,7 @@ import {
 interface signUpFormProps {
 	placeholder: string;
 	inputChangeListener: Function;
-	defaultValue: string;
+	value: string;
 	isSecureInput?: boolean;
 }
 const styles = StyleSheet.create({
@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
 export function SignInForm({
 	placeholder,
 	inputChangeListener,
-	defaultValue,
+	value,
 	isSecureInput = false,
 }: signUpFormProps) {
 	return (
 		<TextInput
 			style={styles.input}
 			onChangeText={(newValue: string) => inputChangeListener(newValue)}
-			value={defaultValue}
+			value={value}
 			placeholder={placeholder}
 			placeholderTextColor="#a2a2a2"
 			secureTextEntry={isSecureInput}

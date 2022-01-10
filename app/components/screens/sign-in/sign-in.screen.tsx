@@ -6,6 +6,8 @@ import {
 	useNavigation,
 } from '@react-navigation/native';
 import { useAsyncCallback } from 'react-async-hook';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -22,6 +24,8 @@ import { SignInForm } from './components';
 import { CTAButton, StatusBar, Modal } from '../../layout';
 
 import { textLightLogoImage } from '../../../assets';
+import { defaultValues, SIGN_IN_SCHEMA } from './sign-in.data';
+import { ISignInFormData } from './sign-in.type';
 
 const styles = StyleSheet.create({
 	root: {
@@ -90,8 +94,14 @@ const isApprovedAccount = (position: string): boolean => {
 
 export function SignIn() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [id, setId] = useState<string>('');
-	const [pw, setPw] = useState<string>('');
+
+	const { formState, control, handleSubmit } = useForm({
+		mode: 'all',
+		defaultValues,
+		resolver: yupResolver(SIGN_IN_SCHEMA),
+	});
+	const { isSubmitSuccessful, isSubmitting, isValid } = formState;
+
 	const { setUser } = useUserInfo();
 
 	const [modalValue, setModalValue] = useState<IModalValue>({
@@ -120,8 +130,8 @@ export function SignIn() {
 		},
 	];
 
-	const { execute: signInBtnClickListener, loading: isSigningIn } =
-		useAsyncCallback(async () => {
+	const { execute: handleSignIn, loading: isSigningIn } = useAsyncCallback(
+		async (id, pw) => {
 			const isError = await postUserSignIn(id, pw)
 				.then(async ({ data: signInData }) => {
 					console.log(signInData);
@@ -136,7 +146,6 @@ export function SignIn() {
 							major,
 							studentId,
 						});
-						console.log(userInfoData);
 
 						if (isApprovedAccount(position)) {
 							navigation.replace('BottomTabNavigator');
@@ -147,6 +156,7 @@ export function SignIn() {
 					return false;
 				})
 				.catch((err) => {
+					console.log(err);
 					if (id === '') {
 						openErrorModal('아이디를 입력해주세요');
 						return true;
@@ -169,10 +179,15 @@ export function SignIn() {
 					}
 					return true;
 				});
+		},
+	);
 
-			if (isError) {
-			}
-		});
+	const handlePressLoginBtn = async (data: ISignInFormData) => {
+		if (isSubmitting || isSubmitSuccessful) {
+			return;
+		}
+		await handleSignIn(data.id, data.pw);
+	};
 
 	return (
 		<>
@@ -194,22 +209,38 @@ export function SignIn() {
 				</Text>
 				<View style={styles.middleGap}></View>
 				<View style={styles.content}>
-					<SignInForm
-						placeholder={'아이디'}
-						inputChangeListener={(value: string) => setId(value)}
-						defaultValue={id}
+					<Controller
+						control={control}
+						name="id"
+						render={({ field: { onChange, value: currentId } }) => {
+							return (
+								<SignInForm
+									placeholder={'아이디'}
+									inputChangeListener={onChange}
+									value={currentId}
+								/>
+							);
+						}}
 					/>
-					<SignInForm
-						placeholder={'비밀번호'}
-						inputChangeListener={(value: string) => setPw(value)}
-						defaultValue={pw}
-						isSecureInput
+					<Controller
+						control={control}
+						name="pw"
+						render={({ field: { onChange, value: currentPW } }) => {
+							return (
+								<SignInForm
+									placeholder={'비밀번호'}
+									inputChangeListener={onChange}
+									value={currentPW}
+								/>
+							);
+						}}
 					/>
 					<CTAButton
 						title={'로그인'}
 						titleStyle={styles.btnTextStyle}
 						btnStyle={styles.btnStyle}
-						onClickListener={signInBtnClickListener}
+						onClickListener={handleSubmit(handlePressLoginBtn)}
+						disabled={!isValid}
 					/>
 				</View>
 			</View>

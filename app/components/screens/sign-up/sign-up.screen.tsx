@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import {
 	useNavigation,
 	NavigationProp,
@@ -6,7 +8,8 @@ import {
 } from '@react-navigation/native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-
+import { useAsyncCallback } from 'react-async-hook';
+import { useForm } from 'react-hook-form';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -19,7 +22,7 @@ import {
 } from '../../../utils';
 import { ScreenWrapper, Modal, CTAButton } from '../../layout';
 import { SignUpForm } from './components';
-import { useAsyncCallback } from 'react-async-hook';
+import { defaultValues, SIGN_UP_SCHEMA } from './sign-up.data';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -142,6 +145,13 @@ const styles = StyleSheet.create({
 
 export function SignUp() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+	const { formState, control, handleSubmit } = useForm({
+		mode: 'all',
+		defaultValues,
+		resolver: yupResolver(SIGN_UP_SCHEMA),
+	});
+	const { isDirty, isSubmitSuccessful, isSubmitting } = formState;
 
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
