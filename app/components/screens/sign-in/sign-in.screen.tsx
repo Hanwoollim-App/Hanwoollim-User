@@ -123,10 +123,27 @@ export function SignIn() {
 	const { execute: signInBtnClickListener, loading: isSigningIn } =
 		useAsyncCallback(async () => {
 			const isError = await postUserSignIn(id, pw)
-				.then(({ data: signInData }) => {
-					const { accessToken } = signInData;
+				.then(async ({ data: signInData }) => {
+					console.log(signInData);
+					const { accessToken, position } = signInData;
 
 					updateAuthToken(accessToken);
+					await getUserInfo().then(({ data: userInfoData }) => {
+						const { userName, major, studentId } = userInfoData;
+
+						setUser({
+							userName,
+							major,
+							studentId,
+						});
+						console.log(userInfoData);
+
+						if (isApprovedAccount(position)) {
+							navigation.replace('BottomTabNavigator');
+							return;
+						}
+						navigation.replace('NotApproved');
+					});
 					return false;
 				})
 				.catch((err) => {
@@ -154,25 +171,7 @@ export function SignIn() {
 				});
 
 			if (isError) {
-				return;
 			}
-
-			await getUserInfo().then(({ data: userInfoData }) => {
-				const { userName, major, studentId, position } = userInfoData;
-
-				setUser({
-					userName,
-					major,
-					studentId,
-					position,
-				});
-
-				if (isApprovedAccount(position)) {
-					navigation.replace('BottomTabNavigator');
-					return;
-				}
-				navigation.replace('NotApproved');
-			});
 		});
 
 	return (
