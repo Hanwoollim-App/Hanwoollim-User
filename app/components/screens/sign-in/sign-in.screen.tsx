@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import {
 	NavigationProp,
@@ -102,6 +102,11 @@ export function SignIn() {
 	});
 	const { isSubmitSuccessful, isSubmitting, isValid } = formState;
 
+	// useEffect(() => {
+	// 	if (formState.isSubmitSuccessful) {
+	// 	}
+	// }, [formState]);
+
 	const { setUser } = useUserInfo();
 
 	const [modalValue, setModalValue] = useState<IModalValue>({
@@ -157,14 +162,6 @@ export function SignIn() {
 				})
 				.catch((err) => {
 					console.log(err);
-					if (id === '') {
-						openErrorModal('아이디를 입력해주세요');
-						return true;
-					}
-					if (pw === '') {
-						openErrorModal('비밀번호를 입력해주세요');
-						return true;
-					}
 					if (err.response.status === 404) {
 						openErrorModal('아이디가 존재하지 않습니다.');
 						return true;
@@ -183,9 +180,9 @@ export function SignIn() {
 	);
 
 	const handlePressLoginBtn = async (data: ISignInFormData) => {
-		if (isSubmitting || isSubmitSuccessful) {
-			return;
-		}
+		// if (isSubmitting || isSubmitSuccessful) {
+		// 	return;
+		// }
 		await handleSignIn(data.id, data.pw);
 	};
 
