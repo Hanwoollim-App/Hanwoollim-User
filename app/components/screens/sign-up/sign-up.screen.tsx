@@ -179,14 +179,16 @@ export function SignUp() {
 		}));
 	};
 
-	const [pwCheck, setPwCheck] = useState<string>('');
-	// const [major, setMajor] = useState<string>('');
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
 	const [open, setOpen] = useState<boolean>(false);
 
 	const { execute: handleSignUp, loading: isSigningUp } = useAsyncCallback(
-		async (id, pw, name, major, studentID) => {
-			postUserSignUp(id, pw, name, major, studentID)
+		async (id, pw, pwCheck, name, major, studentID) => {
+			if (pwCheck !== pw) {
+				openErrorModal('비밀번호가 다릅니다');
+				return;
+			}
+			await postUserSignUp(id, pw, name, major, studentID)
 				.then((data) => {
 					console.log('aqf23');
 					console.log(data);
@@ -208,11 +210,7 @@ export function SignUp() {
 						}
 						if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
 							openErrorModal('학번은 10자리입니다.');
-							return;
 						}
-					}
-					if (pwCheck !== pw) {
-						openErrorModal('비밀번호가 다릅니다');
 					}
 				});
 		},
@@ -221,7 +219,14 @@ export function SignUp() {
 		// if (isSubmitting || isSubmitSuccessful) {
 		// 	return;
 		// }
-		await handleSignUp(data.id, data.pw, data.name, data.major, data.studentID);
+		await handleSignUp(
+			data.id,
+			data.pw,
+			data.pwCheck,
+			data.name,
+			data.major,
+			data.studentID,
+		);
 	};
 
 	return (
@@ -262,11 +267,19 @@ export function SignUp() {
 						);
 					}}
 				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
-					inputChangeListener={(value: string) => setPwCheck(value)}
-					defaultValue={pwCheck}
-					isSecureInput
+				<Controller
+					control={control}
+					name="pwCheck"
+					render={({ field: { onChange, value: currentPwCheck } }) => {
+						return (
+							<SignUpForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
+								inputChangeListener={onChange}
+								defaultValue={currentPwCheck}
+								isSecureInput
+							/>
+						);
+					}}
 				/>
 				<Controller
 					control={control}
