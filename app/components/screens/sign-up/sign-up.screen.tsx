@@ -9,7 +9,7 @@ import {
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { useAsyncCallback } from 'react-async-hook';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -23,6 +23,7 @@ import {
 import { ScreenWrapper, Modal, CTAButton } from '../../layout';
 import { SignUpForm } from './components';
 import { defaultValues, SIGN_UP_SCHEMA } from './sign-up.data';
+import { ISignUpFormData } from './sign-up.type';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -151,7 +152,7 @@ export function SignUp() {
 		defaultValues,
 		resolver: yupResolver(SIGN_UP_SCHEMA),
 	});
-	const { isDirty, isSubmitSuccessful, isSubmitting } = formState;
+	const { isDirty, isSubmitSuccessful, isSubmitting, isValid } = formState;
 
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
@@ -178,19 +179,17 @@ export function SignUp() {
 		}));
 	};
 
-	const [name, setName] = useState<string>('');
-	const [id, setId] = useState<string>('');
-	const [pw, setPw] = useState<string>('');
 	const [pwCheck, setPwCheck] = useState<string>('');
-	const [studentID, setStudentID] = useState<string>('');
-	const [major, setMajor] = useState<string>('');
-	const [open, setOpen] = useState<boolean>(false);
+	// const [major, setMajor] = useState<string>('');
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
+	const [open, setOpen] = useState<boolean>(false);
 
-	const { execute: signUpBtnClickListener, loading: isSigningUp } =
-		useAsyncCallback(async () => {
+	const { execute: handleSignUp, loading: isSigningUp } = useAsyncCallback(
+		async (id, pw, name, major, studentID) => {
 			postUserSignUp(id, pw, name, major, studentID)
-				.then(() => {
+				.then((data) => {
+					console.log('aqf23');
+					console.log(data);
 					navigation.navigate('SignIn');
 				})
 				.catch((err) => {
@@ -207,26 +206,6 @@ export function SignUp() {
 							openErrorModal('학번이 중복됩니다');
 							return;
 						}
-						if (errorMessage.startsWith('아이디 입력하세요')) {
-							openErrorModal('아이디를 입력하세요');
-							return;
-						}
-						if (errorMessage.startsWith('이름을 입력하세요')) {
-							openErrorModal('이름을 입력하세요');
-							return;
-						}
-						if (errorMessage.startsWith('전공을 입력하세요')) {
-							openErrorModal('전공을 입력하세요');
-							return;
-						}
-						if (errorMessage.startsWith('비밀번호를 입력하세요')) {
-							openErrorModal('비밀번호를 입력하세요');
-							return;
-						}
-						if (errorMessage.startsWith('학번를 입력하세요')) {
-							openErrorModal('학번을 입력하세요');
-							return;
-						}
 						if (errorMessage.startsWith('학번은 10자리만 입력가능합니다.')) {
 							openErrorModal('학번은 10자리입니다.');
 							return;
@@ -236,7 +215,14 @@ export function SignUp() {
 						openErrorModal('비밀번호가 다릅니다');
 					}
 				});
-		});
+		},
+	);
+	const handlePressSignUpBtn = async (data: ISignUpFormData) => {
+		// if (isSubmitting || isSubmitSuccessful) {
+		// 	return;
+		// }
+		await handleSignUp(data.id, data.pw, data.name, data.major, data.studentID);
+	};
 
 	return (
 		<ScreenWrapper>
@@ -249,16 +235,32 @@ export function SignUp() {
 			<View style={styles.scrollView}>
 				<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
 				<View style={styles.middleEmpty} />
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.id}
-					inputChangeListener={(value: string) => setId(value)}
-					defaultValue={id}
+				<Controller
+					control={control}
+					name="id"
+					render={({ field: { onChange, value: currentId } }) => {
+						return (
+							<SignUpForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.id}
+								inputChangeListener={onChange}
+								defaultValue={currentId}
+							/>
+						);
+					}}
 				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pw}
-					inputChangeListener={(value: string) => setPw(value)}
-					defaultValue={pw}
-					isSecureInput
+				<Controller
+					control={control}
+					name="pw"
+					render={({ field: { onChange, value: currentPw } }) => {
+						return (
+							<SignUpForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pw}
+								inputChangeListener={onChange}
+								defaultValue={currentPw}
+								isSecureInput
+							/>
+						);
+					}}
 				/>
 				<SignUpForm
 					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.pwCheck}
@@ -266,36 +268,61 @@ export function SignUp() {
 					defaultValue={pwCheck}
 					isSecureInput
 				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-					inputChangeListener={(value: string) => setName(value)}
-					defaultValue={name}
+				<Controller
+					control={control}
+					name="name"
+					render={({ field: { onChange, value: currentName } }) => {
+						return (
+							<SignUpForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+								inputChangeListener={onChange}
+								defaultValue={currentName}
+							/>
+						);
+					}}
 				/>
-				<DropDownPicker
-					open={open}
-					value={major}
-					items={items}
-					setOpen={setOpen}
-					setValue={setMajor}
-					setItems={setItems}
-					style={styles.dropDown}
-					textStyle={styles.dropDownText}
-					dropDownContainerStyle={styles.dropDownContainer}
-					placeholderStyle={styles.dropDownPlaceHolder}
-					placeholder="전공"
+				<Controller
+					control={control}
+					name="major"
+					render={({ field: { onChange, value: currentMajor } }) => {
+						return (
+							<DropDownPicker
+								open={open}
+								value={currentMajor}
+								items={items}
+								setOpen={setOpen}
+								setValue={onChange}
+								setItems={setItems}
+								style={styles.dropDown}
+								textStyle={styles.dropDownText}
+								dropDownContainerStyle={styles.dropDownContainer}
+								placeholderStyle={styles.dropDownPlaceHolder}
+								placeholder="전공"
+							/>
+						);
+					}}
 				/>
-				<SignUpForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-					inputChangeListener={(value: string) => setStudentID(value)}
-					defaultValue={studentID}
+				<Controller
+					control={control}
+					name="studentID"
+					render={({ field: { onChange, value: currentStudentID } }) => {
+						return (
+							<SignUpForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+								inputChangeListener={onChange}
+								defaultValue={currentStudentID}
+							/>
+						);
+					}}
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
 				<CTAButton
 					title={SIGN_UP_COMPONENT_TEXT.signUpBtn}
-					onClickListener={signUpBtnClickListener}
+					onClickListener={handleSubmit(handlePressSignUpBtn)}
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
+					disabled={!isValid}
 				/>
 			</View>
 		</ScreenWrapper>
