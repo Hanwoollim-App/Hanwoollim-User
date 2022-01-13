@@ -17,6 +17,6 @@ export const SIGN_UP_SCHEMA: yup.SchemaOf<ISignUpFormData> = yup
 		pw: yup.string().required(),
 		pwCheck: yup.string().required(),
 		name: yup.string().required(),
-		studentID: yup.string().required(),
+		studentID: yup.string().required().min(10).max(10),
 		major: yup.string().required(),
 	});

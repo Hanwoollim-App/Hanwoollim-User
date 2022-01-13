@@ -306,6 +306,7 @@ export function SignUp() {
 								setOpen={setOpen}
 								setValue={onChange}
 								setItems={setItems}
+								onChangeValue={onChange}
 								style={styles.dropDown}
 								textStyle={styles.dropDownText}
 								dropDownContainerStyle={styles.dropDownContainer}
