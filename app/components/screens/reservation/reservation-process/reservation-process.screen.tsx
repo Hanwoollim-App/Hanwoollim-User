@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { View, StyleSheet, Text, Platform, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
+import { useAsyncCallback } from 'react-async-hook';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CTAButton, Modal, ScreenWrapper } from '../../../layout';
 import {
@@ -10,7 +11,6 @@ import {
 	sessionItems,
 	timeItems,
 	unitItems,
-	times,
 	fontPercentage,
 	heightPercentage,
 	widthPercentage,
@@ -21,8 +21,10 @@ import {
 	IModalValue,
 } from '../../../../utils';
 import { IReservationNavigatorParamList } from '../../../navigator';
-import { useAsyncCallback } from 'react-async-hook';
-import { isEmpty } from 'lodash';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { defaultValues, RESERVATION_SCHEMA } from './reservation-process.data';
+import { IReservationFormData } from './reservation-process.type';
 
 const styles = StyleSheet.create({
 	root: {
@@ -218,19 +220,24 @@ export function ReservationProcess({
 		isVisible: false,
 		text: '',
 	});
-	const [day, setDay] = useState<string>('');
+
+	const { formState, control, handleSubmit } = useForm({
+		mode: 'all',
+		defaultValues,
+		resolver: yupResolver(RESERVATION_SCHEMA),
+	});
+
+	const { isDirty, isSubmitSuccessful, isSubmitting, isValid } = formState;
+
 	const [dayOpen, setDayOpen] = useState<boolean>(false);
 	const [dayItem, setDayItems] = useState<Array<ItemType>>(dayItems);
 
-	const [unit, setUnit] = useState<string>('');
 	const [unitOpen, setUnitOpen] = useState<boolean>(false);
 	const [unitItem, setUnitItems] = useState<Array<ItemType>>(unitItems);
 
-	const [time, setTime] = useState<string>('');
 	const [timeOpen, setTimeOpen] = useState<boolean>(false);
 	const [timeItem, setTimeItems] = useState<Array<ItemType>>(timeItems);
 
-	const [session, setSession] = useState<string>('');
 	const [sessionOpen, setSessionOpen] = useState<boolean>(false);
 	const [sessionItem, setSessionItems] =
 		useState<Array<ItemType>>(sessionItems);
@@ -263,7 +270,7 @@ export function ReservationProcess({
 	const startDate = route.params.startDate;
 
 	const { execute: handleAddingReservation, loading: isAddingReservation } =
-		useAsyncCallback(async () => {
+		useAsyncCallback(async (day, unit, time, session) => {
 			try {
 				await postReservation({
 					startDate,
@@ -278,27 +285,18 @@ export function ReservationProcess({
 				openModal('예약되었습니다!');
 			} catch (err) {
 				setIsErrorOccurring(true);
-				if (typeof day === 'undefined' || day === '') {
-					openModal('요일을 선택해주세요.');
-					return;
-				}
-				if (unit === '') {
-					openModal('단위를 선택해주세요.');
-					return;
-				}
-				if (time === '') {
-					openModal('시간을 선택해주세요.');
-					return;
-				}
-				if (session === '') {
-					openModal('세션을 선택해주세요.');
-					return;
-				}
 				if (err.response.status === 400) {
 					openModal('예약하려는 시간에 이미 예약이 있습니다.');
 				}
 			}
 		});
+
+	const handlePressAddingReservation = async (data: IReservationFormData) => {
+		// if (isSubmitting || isSubmitSuccessful) {
+		// 	return;
+		// }
+		await handleAddingReservation(data.day, data.unit, data.time, data.session);
+	};
 
 	return (
 		<ScreenWrapper headerTitle="예약하기">
@@ -311,19 +309,28 @@ export function ReservationProcess({
 			<View style={styles.bodyContainer}>
 				<View style={styles.row}>
 					<View>
-						<DropDownPicker
-							open={dayOpen}
-							value={day}
-							items={dayItem}
-							setOpen={setDayOpen}
-							setValue={setDay}
-							setItems={setDayItems}
-							style={styles.dropDown}
-							textStyle={styles.dropDownText}
-							dropDownContainerStyle={styles.dropDownContainer}
-							placeholderStyle={styles.dropDownPlaceHolder}
-							placeholder="요일"
-							zIndex={10000}
+						<Controller
+							control={control}
+							name="day"
+							render={({ field: { onChange, value: currentDay } }) => {
+								return (
+									<DropDownPicker
+										open={dayOpen}
+										value={currentDay}
+										items={dayItem}
+										setOpen={setDayOpen}
+										setValue={onChange}
+										setItems={setDayItems}
+										onChangeValue={onChange}
+										style={styles.dropDown}
+										textStyle={styles.dropDownText}
+										dropDownContainerStyle={styles.dropDownContainer}
+										placeholderStyle={styles.dropDownPlaceHolder}
+										placeholder="요일"
+										zIndex={10000}
+									/>
+								);
+							}}
 						/>
 					</View>
 					<Text style={styles.date}>{`${currentWeek}`}</Text>
@@ -351,54 +358,81 @@ export function ReservationProcess({
 						</ScrollView>
 					</View> */}
 					<View style={styles.UnitPicker}>
-						<DropDownPicker
-							open={unitOpen}
-							value={unit}
-							items={unitItem}
-							setOpen={setUnitOpen}
-							setValue={setUnit}
-							setItems={setUnitItems}
-							style={styles.dropDown2}
-							textStyle={styles.dropDownText}
-							dropDownContainerStyle={styles.dropDownContainer}
-							placeholderStyle={styles.dropDownPlaceHolder}
-							placeholder={PROCESS_TEXT.UNIT}
-							zIndex={9000}
+						<Controller
+							control={control}
+							name="unit"
+							render={({ field: { onChange, value: currentUnit } }) => {
+								return (
+									<DropDownPicker
+										open={unitOpen}
+										value={currentUnit}
+										items={unitItem}
+										setOpen={setUnitOpen}
+										setValue={onChange}
+										onChangeValue={onChange}
+										setItems={setUnitItems}
+										style={styles.dropDown2}
+										textStyle={styles.dropDownText}
+										dropDownContainerStyle={styles.dropDownContainer}
+										placeholderStyle={styles.dropDownPlaceHolder}
+										placeholder={PROCESS_TEXT.UNIT}
+										zIndex={9000}
+									/>
+								);
+							}}
 						/>
 					</View>
 					<View style={styles.reservationTimePicker}>
-						<DropDownPicker
-							open={timeOpen}
-							value={time}
-							items={timeItem}
-							setOpen={setTimeOpen}
-							setValue={setTime}
-							setItems={setTimeItems}
-							style={styles.dropDown2}
-							textStyle={styles.dropDownText}
-							dropDownContainerStyle={styles.dropDownContainer}
-							placeholderStyle={styles.dropDownPlaceHolder}
-							placeholder={PROCESS_TEXT.TIME}
-							zIndex={8000}
+						<Controller
+							control={control}
+							name="time"
+							render={({ field: { onChange, value: currentTime } }) => {
+								return (
+									<DropDownPicker
+										open={timeOpen}
+										value={currentTime}
+										items={timeItem}
+										setOpen={setTimeOpen}
+										setValue={onChange}
+										setItems={setTimeItems}
+										onChangeValue={onChange}
+										style={styles.dropDown2}
+										textStyle={styles.dropDownText}
+										dropDownContainerStyle={styles.dropDownContainer}
+										placeholderStyle={styles.dropDownPlaceHolder}
+										placeholder={PROCESS_TEXT.TIME}
+										zIndex={8000}
+									/>
+								);
+							}}
 						/>
 					</View>
 					<Text style={styles.sectionInfo__alert__text}>
 						{PROCESS_TEXT.ALERT}
 					</Text>
 					<View style={styles.sectionInfo__form}>
-						<DropDownPicker
-							open={sessionOpen}
-							value={session}
-							items={sessionItem}
-							setOpen={setSessionOpen}
-							setValue={setSession}
-							setItems={setSessionItems}
-							style={styles.dropDown2}
-							textStyle={styles.dropDownText}
-							dropDownContainerStyle={styles.dropDownContainer}
-							placeholderStyle={styles.dropDownPlaceHolder}
-							placeholder={PROCESS_TEXT.SECTION}
-							zIndex={7000}
+						<Controller
+							control={control}
+							name="session"
+							render={({ field: { onChange, value: currentSession } }) => {
+								return (
+									<DropDownPicker
+										open={sessionOpen}
+										value={currentSession}
+										items={sessionItem}
+										setOpen={setSessionOpen}
+										setValue={onChange}
+										setItems={setSessionItems}
+										onChangeValue={onChange}
+										style={styles.dropDown2}
+										textStyle={styles.dropDownText}
+										dropDownContainerStyle={styles.dropDownContainer}
+										placeholderStyle={styles.dropDownPlaceHolder}
+										placeholder={PROCESS_TEXT.SECTION}
+										zIndex={7000}
+									/>
+								);
+							}}
 						/>
 					</View>
 					<View style={styles.submit}>
@@ -406,7 +440,8 @@ export function ReservationProcess({
 							title={PROCESS_TEXT.SUBMIT}
 							btnStyle={styles.submit__btn}
 							titleStyle={styles.submit__text}
-							onClickListener={handleAddingReservation}
+							onClickListener={handleSubmit(handlePressAddingReservation)}
+							disabled={!isValid}
 						/>
 					</View>
 				</View>
