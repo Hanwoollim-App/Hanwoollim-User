@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Platform } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Image,
+	Platform,
+	TouchableWithoutFeedback,
+	Keyboard,
+	KeyboardAvoidingView,
+} from 'react-native';
 import {
 	NavigationProp,
 	ParamListBase,
@@ -189,58 +198,64 @@ export function SignIn() {
 	return (
 		<>
 			<StatusBar />
-			<View style={styles.root}>
-				<Modal
-					isLoading={isSigningIn}
-					mdVisible={modalValue.isVisible}
-					title={modalValue.text}
-					buttonList={modalBtn}
-				/>
-				<View style={styles.header}>
-					<View>
-						<Image source={textLightLogoImage} style={styles.headerImg} />
+			<TouchableWithoutFeedback
+				onPress={() => {
+					Keyboard.dismiss();
+				}}
+				accessible={false}>
+				<View style={styles.root}>
+					<Modal
+						isLoading={isSigningIn}
+						mdVisible={modalValue.isVisible}
+						title={modalValue.text}
+						buttonList={modalBtn}
+					/>
+					<View style={styles.header}>
+						<View>
+							<Image source={textLightLogoImage} style={styles.headerImg} />
+						</View>
+					</View>
+					<Text style={styles.titleText}>
+						어서오세요 당신을 기다리고 있었어요!!
+					</Text>
+					<View style={styles.middleGap}></View>
+					<View style={styles.content}>
+						<Controller
+							control={control}
+							name="id"
+							render={({ field: { onChange, value: currentId } }) => {
+								return (
+									<SignInForm
+										placeholder={'아이디'}
+										inputChangeListener={onChange}
+										value={currentId}
+									/>
+								);
+							}}
+						/>
+						<Controller
+							control={control}
+							name="pw"
+							render={({ field: { onChange, value: currentPW } }) => {
+								return (
+									<SignInForm
+										placeholder={'비밀번호'}
+										inputChangeListener={onChange}
+										value={currentPW}
+									/>
+								);
+							}}
+						/>
+						<CTAButton
+							title={'로그인'}
+							titleStyle={styles.btnTextStyle}
+							btnStyle={styles.btnStyle}
+							onClickListener={handleSubmit(handlePressLoginBtn)}
+							disabled={!isValid}
+						/>
 					</View>
 				</View>
-				<Text style={styles.titleText}>
-					어서오세요 당신을 기다리고 있었어요!!
-				</Text>
-				<View style={styles.middleGap}></View>
-				<View style={styles.content}>
-					<Controller
-						control={control}
-						name="id"
-						render={({ field: { onChange, value: currentId } }) => {
-							return (
-								<SignInForm
-									placeholder={'아이디'}
-									inputChangeListener={onChange}
-									value={currentId}
-								/>
-							);
-						}}
-					/>
-					<Controller
-						control={control}
-						name="pw"
-						render={({ field: { onChange, value: currentPW } }) => {
-							return (
-								<SignInForm
-									placeholder={'비밀번호'}
-									inputChangeListener={onChange}
-									value={currentPW}
-								/>
-							);
-						}}
-					/>
-					<CTAButton
-						title={'로그인'}
-						titleStyle={styles.btnTextStyle}
-						btnStyle={styles.btnStyle}
-						onClickListener={handleSubmit(handlePressLoginBtn)}
-						disabled={!isValid}
-					/>
-				</View>
-			</View>
+			</TouchableWithoutFeedback>
 		</>
 	);
 }

@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Platform,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from 'react-native';
 import {
 	useNavigation,
 	NavigationProp,
@@ -209,10 +216,6 @@ export function InfoEdit() {
 				const errorMessage = err.response.data.message;
 
 				if (err.response.status === 400) {
-					if (errorMessage.startsWith('Failed! ID is already in use!')) {
-						openErrorModal('아이디가 사용중입니다');
-						return;
-					}
 					if (
 						errorMessage.startsWith('Failed! Student Id is already in use!')
 					) {
@@ -251,69 +254,77 @@ export function InfoEdit() {
 				title={modalValue.text}
 				buttonList={errModalBtn}
 			/>
-			<View style={styles.scrollView}>
-				<Text style={styles.introText}>
-					{'뭔가가 바뀌었나요?\n바뀐 내용을 적어주세요!!'}
-				</Text>
-				<View style={styles.middleEmpty} />
-				<Controller
-					control={control}
-					name="changedName"
-					render={({ field: { onChange, value: CurrentChangedName } }) => {
-						return (
-							<InfoEditForm
-								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-								inputChangeListener={onChange}
-								defaultValue={CurrentChangedName}
-							/>
-						);
-					}}
-				/>
-				<Controller
-					control={control}
-					name="changedMajor"
-					render={({ field: { onChange, value: CurrentChangedMajor } }) => {
-						return (
-							<DropDownPicker
-								open={open}
-								value={CurrentChangedMajor}
-								items={items}
-								setOpen={setOpen}
-								setValue={onChange}
-								setItems={setItems}
-								onChangeValue={onChange}
-								style={styles.dropDown}
-								textStyle={styles.dropDownText}
-								dropDownContainerStyle={styles.dropDownContainer}
-								placeholderStyle={styles.dropDownPlaceHolder}
-								placeholder="전공"
-							/>
-						);
-					}}
-				/>
-				<Controller
-					control={control}
-					name="changedStudentID"
-					render={({ field: { onChange, value: CurrentChangedStudentID } }) => {
-						return (
-							<InfoEditForm
-								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-								inputChangeListener={onChange}
-								defaultValue={CurrentChangedStudentID}
-							/>
-						);
-					}}
-				/>
-				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
+			<TouchableWithoutFeedback
+				onPress={() => {
+					Keyboard.dismiss();
+				}}
+				accessible={false}>
+				<View style={styles.scrollView}>
+					<Text style={styles.introText}>
+						{'뭔가가 바뀌었나요?\n바뀐 내용을 적어주세요!!'}
+					</Text>
+					<View style={styles.middleEmpty} />
+					<Controller
+						control={control}
+						name="changedName"
+						render={({ field: { onChange, value: CurrentChangedName } }) => {
+							return (
+								<InfoEditForm
+									placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+									inputChangeListener={onChange}
+									defaultValue={CurrentChangedName}
+								/>
+							);
+						}}
+					/>
+					<Controller
+						control={control}
+						name="changedMajor"
+						render={({ field: { onChange, value: CurrentChangedMajor } }) => {
+							return (
+								<DropDownPicker
+									open={open}
+									value={CurrentChangedMajor}
+									items={items}
+									setOpen={setOpen}
+									setValue={onChange}
+									setItems={setItems}
+									onChangeValue={onChange}
+									style={styles.dropDown}
+									textStyle={styles.dropDownText}
+									dropDownContainerStyle={styles.dropDownContainer}
+									placeholderStyle={styles.dropDownPlaceHolder}
+									placeholder="전공"
+								/>
+							);
+						}}
+					/>
+					<Controller
+						control={control}
+						name="changedStudentID"
+						render={({
+							field: { onChange, value: CurrentChangedStudentID },
+						}) => {
+							return (
+								<InfoEditForm
+									placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+									inputChangeListener={onChange}
+									defaultValue={CurrentChangedStudentID}
+								/>
+							);
+						}}
+					/>
+					<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
-				<CTAButton
-					title={'정보 수정하기'}
-					onClickListener={handleSubmit(handlePressEditingInfo)}
-					btnStyle={styles.signUp}
-					titleStyle={styles.signUpTitle}
-					disabled={!isValid}
-				/>
-			</View>
+					<CTAButton
+						title={'정보 수정하기'}
+						onClickListener={handleSubmit(handlePressEditingInfo)}
+						btnStyle={styles.signUp}
+						titleStyle={styles.signUpTitle}
+						disabled={!isValid}
+					/>
+				</View>
+			</TouchableWithoutFeedback>
 		</ScreenWrapper>
 	);
 }

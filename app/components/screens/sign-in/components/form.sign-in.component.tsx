@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	StyleSheet,
-	TextInput,
-	Keyboard,
-	TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 import {
 	fontPercentage,
 	heightPercentage,
@@ -44,15 +39,13 @@ export function SignInForm({
 	isSecureInput = false,
 }: signUpFormProps) {
 	return (
-		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			<TextInput
-				style={styles.input}
-				onChangeText={(newValue: string) => inputChangeListener(newValue)}
-				value={value}
-				placeholder={placeholder}
-				placeholderTextColor="#a2a2a2"
-				secureTextEntry={isSecureInput}
-			/>
-		</TouchableWithoutFeedback>
+		<TextInput
+			style={styles.input}
+			onChangeText={(newValue: string) => inputChangeListener(newValue)}
+			value={value}
+			placeholder={placeholder}
+			placeholderTextColor="#a2a2a2"
+			secureTextEntry={isSecureInput}
+		/>
 	);
 }
