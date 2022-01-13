@@ -6,7 +6,10 @@ import {
 	ParamListBase,
 } from '@react-navigation/native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
 
+import { useAsyncCallback } from 'react-async-hook';
 import { InfoEditForm } from './components';
 import {
 	fontPercentage,
@@ -19,9 +22,14 @@ import {
 	useUserInfo,
 	IUserInfoType,
 	patchUserInfo,
+	IModalValue,
 } from '../../../../utils';
 import { ScreenWrapper, CTAButton, Modal } from '../../../layout';
-import { useAsyncCallback } from 'react-async-hook';
+import {
+	defaultValues,
+	MY_PAGE_INFO_EDIT_SCHEMA,
+} from './my-page-info-edit.data';
+import { IMyPageInfoEditData } from './my-page-info-edit.type';
 
 const styles = StyleSheet.create({
 	barStyle: {
@@ -147,9 +155,14 @@ const styles = StyleSheet.create({
 
 export function InfoEdit() {
 	const navigation: NavigationProp<ParamListBase> = useNavigation();
-	const [changedName, setChangedName] = useState<string>('');
-	const [changedStudentID, setChangedStudentID] = useState<string>('');
-	const [changedMajor, setChangedMajor] = useState<string>('');
+
+	const { formState, control, handleSubmit } = useForm({
+		mode: 'all',
+		defaultValues,
+		resolver: yupResolver(MY_PAGE_INFO_EDIT_SCHEMA),
+	});
+	const { isValid } = formState;
+
 	const { setUser } = useUserInfo();
 	const [modalValue, setModalValue] = useState({
 		isVisible: false,
@@ -177,22 +190,12 @@ export function InfoEdit() {
 	};
 
 	const { execute: handleEditingInfo, loading: isEditingInfo } =
-		useAsyncCallback(async () => {
-			if (changedStudentID.length !== 10) {
-				openErrorModal('학번은 10자리입니다');
-				return;
-			}
-
+		useAsyncCallback(async (changedName, changedMajor, changedStudentID) => {
 			try {
-				const { data } = await patchUserInfo(
-					changedName,
-					changedMajor,
-					changedStudentID,
-				);
-				const { userName, major, studentId } = data;
+				await patchUserInfo(changedMajor, changedName, changedStudentID);
 
 				setUser((prevUser: IUserInfoType) => {
-					const { position } = prevUser;
+					const { position, userName, major, studentId } = prevUser;
 
 					return {
 						userName,
@@ -218,17 +221,27 @@ export function InfoEdit() {
 					}
 					if (errorMessage.startsWith('bad type of request')) {
 						openErrorModal('잘못된 형식입니다');
-						return;
 					}
-				}
-				if (err.response.status === 404) {
-					openErrorModal('항목을 입력해주세요');
 				}
 			}
 		});
 
+	const handlePressEditingInfo = async (data: IMyPageInfoEditData) => {
+		await handleEditingInfo(
+			data.changedMajor,
+			data.changedName,
+			data.changedStudentID,
+		);
+	};
+
+	// interface infoEditFormProps {
+	// 	inputChangeListener: Function;
+	// }
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
+	// const setValue = ({ inputChangeListener }: infoEditFormProps) => {
+	// 	(newValue: string) => inputChangeListener(newValue);
+	// };
 
 	return (
 		<ScreenWrapper>
@@ -243,36 +256,62 @@ export function InfoEdit() {
 					{'뭔가가 바뀌었나요?\n바뀐 내용을 적어주세요!!'}
 				</Text>
 				<View style={styles.middleEmpty} />
-				<InfoEditForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
-					inputChangeListener={(value: string) => setChangedName(value)}
-					defaultValue={changedName}
+				<Controller
+					control={control}
+					name="changedName"
+					render={({ field: { onChange, value: CurrentChangedName } }) => {
+						return (
+							<InfoEditForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.name}
+								inputChangeListener={onChange}
+								defaultValue={CurrentChangedName}
+							/>
+						);
+					}}
 				/>
-				<DropDownPicker
-					open={open}
-					value={changedMajor}
-					items={items}
-					setOpen={setOpen}
-					setValue={setChangedMajor}
-					setItems={setItems}
-					style={styles.dropDown}
-					textStyle={styles.dropDownText}
-					dropDownContainerStyle={styles.dropDownContainer}
-					placeholderStyle={styles.dropDownPlaceHolder}
-					placeholder="전공"
+				<Controller
+					control={control}
+					name="changedMajor"
+					render={({ field: { onChange, value: CurrentChangedMajor } }) => {
+						return (
+							<DropDownPicker
+								open={open}
+								value={CurrentChangedMajor}
+								items={items}
+								setOpen={setOpen}
+								setValue={onChange}
+								setItems={setItems}
+								onChangeValue={onChange}
+								style={styles.dropDown}
+								textStyle={styles.dropDownText}
+								dropDownContainerStyle={styles.dropDownContainer}
+								placeholderStyle={styles.dropDownPlaceHolder}
+								placeholder="전공"
+							/>
+						);
+					}}
 				/>
-				<InfoEditForm
-					placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
-					inputChangeListener={(value: string) => setChangedStudentID(value)}
-					defaultValue={changedStudentID}
+				<Controller
+					control={control}
+					name="changedStudentID"
+					render={({ field: { onChange, value: CurrentChangedStudentID } }) => {
+						return (
+							<InfoEditForm
+								placeholder={SIGN_UP_COMPONENT_TEXT.inputTitle.studentID}
+								inputChangeListener={onChange}
+								defaultValue={CurrentChangedStudentID}
+							/>
+						);
+					}}
 				/>
 				<Text style={styles.alertText}>{SIGN_UP_COMPONENT_TEXT.alert}</Text>
 
 				<CTAButton
 					title={'정보 수정하기'}
-					onClickListener={handleEditingInfo}
+					onClickListener={handleSubmit(handlePressEditingInfo)}
 					btnStyle={styles.signUp}
 					titleStyle={styles.signUpTitle}
+					disabled={!isValid}
 				/>
 			</View>
 		</ScreenWrapper>
