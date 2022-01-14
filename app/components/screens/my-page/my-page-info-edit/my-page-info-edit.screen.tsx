@@ -237,14 +237,8 @@ export function InfoEdit() {
 		);
 	};
 
-	// interface infoEditFormProps {
-	// 	inputChangeListener: Function;
-	// }
 	const [open, setOpen] = useState<boolean>(false);
 	const [items, setItems] = useState<Array<ItemType>>(majorItem);
-	// const setValue = ({ inputChangeListener }: infoEditFormProps) => {
-	// 	(newValue: string) => inputChangeListener(newValue);
-	// };
 
 	return (
 		<ScreenWrapper>
@@ -254,11 +248,7 @@ export function InfoEdit() {
 				title={modalValue.text}
 				buttonList={errModalBtn}
 			/>
-			<TouchableWithoutFeedback
-				onPress={() => {
-					Keyboard.dismiss();
-				}}
-				accessible={false}>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 				<View style={styles.scrollView}>
 					<Text style={styles.introText}>
 						{'뭔가가 바뀌었나요?\n바뀐 내용을 적어주세요!!'}

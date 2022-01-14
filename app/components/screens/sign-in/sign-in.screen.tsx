@@ -198,11 +198,7 @@ export function SignIn() {
 	return (
 		<>
 			<StatusBar />
-			<TouchableWithoutFeedback
-				onPress={() => {
-					Keyboard.dismiss();
-				}}
-				accessible={false}>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 				<View style={styles.root}>
 					<Modal
 						isLoading={isSigningIn}

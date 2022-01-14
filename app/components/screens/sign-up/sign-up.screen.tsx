@@ -246,11 +246,7 @@ export function SignUp() {
 				title={modalValue.text}
 				buttonList={modalBtn}
 			/>
-			<TouchableWithoutFeedback
-				onPress={() => {
-					Keyboard.dismiss();
-				}}
-				accessible={false}>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 				<KeyboardAwareScrollView style={styles.keyboardAware}>
 					<View style={styles.scrollView}>
 						<Text style={styles.introText}>{SIGN_UP_COMPONENT_TEXT.intro}</Text>
