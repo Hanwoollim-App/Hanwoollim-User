@@ -111,11 +111,6 @@ export function SignIn() {
 	});
 	const { isSubmitSuccessful, isSubmitting, isValid } = formState;
 
-	// useEffect(() => {
-	// 	if (formState.isSubmitSuccessful) {
-	// 	}
-	// }, [formState]);
-
 	const { setUser } = useUserInfo();
 
 	const [modalValue, setModalValue] = useState<IModalValue>({
@@ -189,9 +184,6 @@ export function SignIn() {
 	);
 
 	const handlePressLoginBtn = async (data: ISignInFormData) => {
-		// if (isSubmitting || isSubmitSuccessful) {
-		// 	return;
-		// }
 		await handleSignIn(data.id, data.pw);
 	};
 

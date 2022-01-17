@@ -292,9 +292,6 @@ export function ReservationProcess({
 		});
 
 	const handlePressAddingReservation = async (data: IReservationFormData) => {
-		// if (isSubmitting || isSubmitSuccessful) {
-		// 	return;
-		// }
 		await handleAddingReservation(data.day, data.unit, data.time, data.session);
 	};
 

@@ -198,9 +198,7 @@ export function SignUp() {
 				return;
 			}
 			await postUserSignUp(id, pw, name, major, studentID)
-				.then((data) => {
-					console.log('aqf23');
-					console.log(data);
+				.then(() => {
 					navigation.navigate('SignIn');
 				})
 				.catch((err) => {
