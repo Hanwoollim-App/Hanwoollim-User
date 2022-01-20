@@ -9,7 +9,7 @@ import React, {
 export type IUserInfoType = {
 	userName: string;
 	major: string;
-	studentId: number;
+	studentId: string;
 };
 
 export type UserInfoContextType = {

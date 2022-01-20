@@ -6,6 +6,7 @@ type ICTAButtonPropType = {
 	onClickListener: Function;
 	titleStyle: Object;
 	btnStyle: Object;
+	disabled?: boolean;
 };
 
 export function CTAButton({
@@ -13,9 +14,13 @@ export function CTAButton({
 	onClickListener,
 	titleStyle,
 	btnStyle,
+	disabled = false,
 }: ICTAButtonPropType) {
 	return (
-		<TouchableOpacity onPress={() => onClickListener()} style={btnStyle}>
+		<TouchableOpacity
+			onPress={() => onClickListener()}
+			style={[btnStyle, disabled && { opacity: 0.6 }]}
+			disabled={disabled}>
 			<Text style={titleStyle}>{title}</Text>
 		</TouchableOpacity>
 	);
